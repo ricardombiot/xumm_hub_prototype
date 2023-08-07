@@ -5,6 +5,7 @@ from flask.json import jsonify
 from edgedb_conn import get_conn
 from queries.jobs_select_async_edgeql import jobs_select
 from queries.job_insert_async_edgeql import job_insert
+from queries.job_select_one_async_edgeql import job_select_one
 
 api_jobs = Blueprint('api_jobs', __name__)
 
@@ -16,6 +17,12 @@ async def jobs(rest=None):
     
     return jsonify({"result": result})
 
+@api_jobs.get('/api/job/<job_id>')
+async def get_job(job_id):
+    conn = get_conn()
+    result = await job_select_one(conn, job_id=job_id)
+    
+    return jsonify({"result": result})
 
 @api_jobs.post('/api/job')
 async def register_job():

@@ -119,9 +119,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api_jobs */ "./src/api/api_jobs.ts");
+/* harmony import */ var _JobRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobRow */ "./src/JobRow.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 var JobPage = /*#__PURE__*/function (_Component) {
   _inheritsLoose(JobPage, _Component);
@@ -130,13 +134,34 @@ var JobPage = /*#__PURE__*/function (_Component) {
     _this = _Component.call(this, props) || this;
     var params = props.match.params;
     _this.state = {
+      job: "NOT_LOADED",
       job_id: params.job_id
     };
     return _this;
   }
   var _proto = JobPage.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+    (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_1__.get_job)(this.state.job_id).then(function (job) {
+      console.log(job);
+      _this2.setState({
+        job: job
+      });
+    });
+  };
+  _proto._render_job = function _render_job() {
+    if (this.state.job == "NOT_LOADED") {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border text-primary", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "sr-only", "Loading...", 16), 2, {
+        "role": "status"
+      });
+    } else {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        "data": this.state.job
+      });
+    }
+  };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job Page: "), this.state.job_id], 0), 2);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job Page: "), this.state.job_id], 0), this._render_job()], 0);
   };
   return JobPage;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -240,7 +265,7 @@ var JobsList = /*#__PURE__*/function (_Component) {
   };
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "m-5", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Jobs list", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      "to": "/new_job",
+      "to": "/job/new",
       "class": "btn btn-outline-primary",
       children: "New Job"
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this._render_jobs(), 0, {
@@ -410,9 +435,6 @@ var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, in
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": "/job",
       "component": JobRouter
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
-      "path": "/new_job",
-      "component": _JobForm__WEBPACK_IMPORTED_MODULE_5__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": "/users",
       "component": Users
@@ -5220,11 +5242,18 @@ function pathToRegexp (path, keys, options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "get_job": () => (/* binding */ get_job),
 /* harmony export */   "get_list_jobs": () => (/* binding */ get_list_jobs),
 /* harmony export */   "register_new_job": () => (/* binding */ register_new_job)
 /* harmony export */ });
 async function get_list_jobs() {
     let url = "/api/jobs";
+    let response = await fetch(url);
+    let data = await response.json();
+    return data.result;
+}
+async function get_job(job_id) {
+    let url = `/api/job/${job_id}`;
     let response = await fetch(url);
     let data = await response.json();
     return data.result;
@@ -5411,7 +5440,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("47041fb3f86e044e44c7")
+/******/ 		__webpack_require__.h = () => ("7bdf28d87cf610a33719")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
