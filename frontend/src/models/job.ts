@@ -6,9 +6,13 @@ class InmmutableModel<T> {
     protected clone_data() : T {
       return JSON.parse(JSON.stringify(this.data));
     }
+
+    raw() : T {
+      return this.data;
+    }
 }
 
-interface IJob {
+export interface IJob {
     title : string,
     budget : string,
     description : string

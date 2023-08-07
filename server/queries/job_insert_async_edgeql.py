@@ -25,19 +25,19 @@ class JobInsertResult(NoPydanticValidation):
 async def job_insert(
     executor: edgedb.AsyncIOExecutor,
     *,
-    user_id: uuid.UUID,
+    payer_id: uuid.UUID,
     job_title: str,
     job_description: str,
 ) -> JobInsertResult:
     return await executor.query_single(
         """\
         INSERT Job {
-            payer := (SELECT User FILTER .id = <std::uuid> $user_id),
+            payer := (SELECT User FILTER .id = <std::uuid> $payer_id),
             title := <std::str> $job_title,
             description := <std::str> $job_description,
         }\
         """,
-        user_id=user_id,
+        payer_id=payer_id,
         job_title=job_title,
         job_description=job_description,
     )

@@ -8,6 +8,7 @@ import MyApp from './MyApp';
 import VersionComponent from './VersionComponent.js';
 import MyHome from './MyHome';
 import JobForm from './JobForm';
+import JobPage from './JobPage';
 
 const browserHistory = createBrowserHistory();
 
@@ -38,6 +39,15 @@ function Users({match}) {
     );
 }
 
+function JobRouter({match}) {
+    return (
+        <div id="job_router">
+            <Route path={match.url + '/new'} component={JobForm}/>
+            <Route path={match.url + '/:job_id'} component={JobPage}/>
+        </div>
+    );
+}
+
 function User({match}) {
     return <h1>{JSON.stringify(match.params)}</h1>;
 }
@@ -48,7 +58,8 @@ const routes = (
             <h1>Application</h1>
             <Switch>
                 <Route exact path="/" component={MyHome}/>
-                <Route path="/new_job" component={JobForm}/>
+                <Route path="/job" component={JobRouter}/>
+
                 <Route path="/users" component={Users}/>
                 <Route path="/my-app" component={MyApp}/>
                 <Route path="*" component={NoMatch}/>

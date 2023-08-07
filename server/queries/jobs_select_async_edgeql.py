@@ -20,8 +20,14 @@ class NoPydanticValidation:
 @dataclasses.dataclass
 class JobsSelectResult(NoPydanticValidation):
     id: uuid.UUID
+    payer: JobsSelectResultPayer
     title: str
     description: str
+
+
+@dataclasses.dataclass
+class JobsSelectResultPayer(NoPydanticValidation):
+    id: uuid.UUID
 
 
 async def jobs_select(
@@ -31,6 +37,9 @@ async def jobs_select(
         """\
         select default::Job {
           id,
+          payer : {
+            id
+          },
           title,
           description
         }\

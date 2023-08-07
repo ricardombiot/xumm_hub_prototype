@@ -1,4 +1,6 @@
 import { Component } from 'inferno';
+import { Link } from 'inferno-router';
+
 import { get_list_jobs } from './api/api_jobs';
 import JobRow from './JobRow';
 
@@ -37,6 +39,7 @@ export default class JobsList extends Component {
     render() {
       return <div class="m-5">
             <h1>Jobs list</h1>
+            <Link to="/job/new" class="btn btn-outline-primary">New Job</Link>
             <div id="list">
             {this._render_jobs()}
             </div>

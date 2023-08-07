@@ -10,6 +10,8 @@ frontend-build:
 
 edgedb-ui:
 	edgedb ui -I xapp_freelancers
+edgedb-start:
+	edgedb instance start -I xapp_freelancers
 
 edgedb-gen:
 	cd server/queries && edgedb-py --dsn edgedb://edgedb:1234@localhost:10701 --tls-security insecure

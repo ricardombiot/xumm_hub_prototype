@@ -1,4 +1,5 @@
 import { Component } from "inferno";
+import { Link } from "inferno-router";
 
 
 export default class JobRow extends Component {
@@ -8,7 +9,8 @@ export default class JobRow extends Component {
 
     render(){
         const { data } = this.props; // Recibimos el objeto Job como prop
-      
+        const url_job = "/job/" + data.id;
+
         return (
             <div className="card text-center">
                 <div className="card-header custom-background">
@@ -18,7 +20,7 @@ export default class JobRow extends Component {
                     <p className="card-text">{data.description}</p> 
                 </div>
                 <div className="card-footer text-muted custom-background">
-                    2 days ago
+                    2 days ago <Link to={url_job}> See more </Link>
                 </div>
             </div>
         );

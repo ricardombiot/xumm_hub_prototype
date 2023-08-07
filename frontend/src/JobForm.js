@@ -1,6 +1,6 @@
 import { linkEvent, Component } from "inferno";
 import { Job } from "./models/job";
-
+import { register_new_job } from "./api/api_jobs";
 
 
 export default class JobForm extends Component {
@@ -12,7 +12,6 @@ export default class JobForm extends Component {
           job: Job.default()
         }
 
-        console.log(this.state);
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeBudget = this.handleChangeBudget.bind(this);
@@ -42,9 +41,11 @@ export default class JobForm extends Component {
 
     handleSubmit(event) {
       this.setState({was_send: true});
-      console.log(this.state.data);
 
-
+      register_new_job(this.state.job.raw()).then((result) => {
+        let new_job_id = result.id
+        window.location.href = "/job/" + new_job_id;
+      })
 
       event.preventDefault();
     }
