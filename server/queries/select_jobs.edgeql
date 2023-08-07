@@ -1,0 +1,3 @@
+select default::Job {
+  id
+}
