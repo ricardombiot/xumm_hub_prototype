@@ -1,37 +1,6 @@
 import { linkEvent, Component } from "inferno";
+import { Job } from "./models/job";
 
-class InmmutableModel {
-  clone() {
-    JSON.parse(JSON.stringify(this));
-  }
-
-  update(prop, value) {
-    const copy = this.clone();
-    copy[prop] = value;
-    return copy;
-  }
-}
-
-class Job extends InmmutableModel {
-  constructor(){
-    this.title = "";
-    this.budget = "";
-    this.description = "";
-  }
-
-  setTitle(title){
-    this.title = title;
-  }
-
-  setBudget(budget){
-    this.budget = budget
-  }
-
-  setDescription(description){
-    this.description = description
-  }
-
-}
 
 
 export default class JobForm extends Component {
@@ -40,7 +9,7 @@ export default class JobForm extends Component {
 
         this.state = {
           was_send: false,
-          job: new Job()
+          job: Job.default()
         }
 
         console.log(this.state);
@@ -53,24 +22,21 @@ export default class JobForm extends Component {
 
     }
     
-    handleChangeTitle(event) {
-      console.log(event);
-      console.log(event.target.value);
-      console.log(this.state);
-      
+    handleChangeTitle(event) {      
       let new_job = this.state.job.clone();
-      new_job.setTitle(event.target.value);
-
+      new_job.setTitle(event.target.value)
       this.setState({job: new_job});
     }
 
     handleChangeBudget(event) {
-      let new_data = this.state.data.budget = event.target.value;
+      let new_job = this.state.job.clone();
+      new_job.setBudget(event.target.value)
       this.setState({job: new_job});
     }
 
     handleChangeDescription(event) {
-      let new_data = this.state.data.description = event.target.description;
+      let new_job = this.state.job.clone();
+      new_job.setDescription(event.target.value)
       this.setState({job: new_job});
     }
 

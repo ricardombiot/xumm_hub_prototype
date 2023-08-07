@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",         // El nivel de JavaScript al que se debe compilar
+        "module": "ESNext",         // El sistema de módulos a utilizar
+        "outDir": "./dist",         // Carpeta donde se guardarán los archivos compilados
+        "strict": true,             // Habilita el modo estricto
+        "esModuleInterop": true     // Habilita la interoperabilidad de módulos ES6
+    },
+    "include": [
+        "./src/**/*.ts",            // Patrón para incluir archivos TypeScript en la compilación
+        "./src/**/*.tsx"            // Patrón para incluir archivos TypeScript con JSX
+    ]
+}

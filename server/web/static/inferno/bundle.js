@@ -1,98 +1,5 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./node_modules/history/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/history/index.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Action\": () => (/* binding */ Action),\n/* harmony export */   \"createBrowserHistory\": () => (/* binding */ createBrowserHistory),\n/* harmony export */   \"createHashHistory\": () => (/* binding */ createHashHistory),\n/* harmony export */   \"createMemoryHistory\": () => (/* binding */ createMemoryHistory),\n/* harmony export */   \"createPath\": () => (/* binding */ createPath),\n/* harmony export */   \"parsePath\": () => (/* binding */ parsePath)\n/* harmony export */ });\n/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ \"./node_modules/@babel/runtime/helpers/esm/extends.js\");\n\n\n/**\r\n * Actions represent the type of change to a location value.\r\n *\r\n * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#action\r\n */\nvar Action;\n(function (Action) {\n  /**\r\n   * A POP indicates a change to an arbitrary index in the history stack, such\r\n   * as a back or forward navigation. It does not describe the direction of the\r\n   * navigation, only that the current index changed.\r\n   *\r\n   * Note: This is the default action for newly created history objects.\r\n   */\n  Action[\"Pop\"] = \"POP\";\n  /**\r\n   * A PUSH indicates a new entry being added to the history stack, such as when\r\n   * a link is clicked and a new page loads. When this happens, all subsequent\r\n   * entries in the stack are lost.\r\n   */\n\n  Action[\"Push\"] = \"PUSH\";\n  /**\r\n   * A REPLACE indicates the entry at the current index in the history stack\r\n   * being replaced by a new one.\r\n   */\n\n  Action[\"Replace\"] = \"REPLACE\";\n})(Action || (Action = {}));\nvar readOnly =  true ? function (obj) {\n  return Object.freeze(obj);\n} : 0;\nfunction warning(cond, message) {\n  if (!cond) {\n    // eslint-disable-next-line no-console\n    if (typeof console !== 'undefined') console.warn(message);\n    try {\n      // Welcome to debugging history!\n      //\n      // This error is thrown as a convenience so you can more easily\n      // find the source for a warning that appears in the console by\n      // enabling \"pause on exceptions\" in your JavaScript debugger.\n      throw new Error(message); // eslint-disable-next-line no-empty\n    } catch (e) {}\n  }\n}\nvar BeforeUnloadEventType = 'beforeunload';\nvar HashChangeEventType = 'hashchange';\nvar PopStateEventType = 'popstate';\n/**\r\n * Browser history stores the location in regular URLs. This is the standard for\r\n * most web apps, but it requires some configuration on the server to ensure you\r\n * serve the same app at multiple URLs.\r\n *\r\n * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#createbrowserhistory\r\n */\n\nfunction createBrowserHistory(options) {\n  if (options === void 0) {\n    options = {};\n  }\n  var _options = options,\n    _options$window = _options.window,\n    window = _options$window === void 0 ? document.defaultView : _options$window;\n  var globalHistory = window.history;\n  function getIndexAndLocation() {\n    var _window$location = window.location,\n      pathname = _window$location.pathname,\n      search = _window$location.search,\n      hash = _window$location.hash;\n    var state = globalHistory.state || {};\n    return [state.idx, readOnly({\n      pathname: pathname,\n      search: search,\n      hash: hash,\n      state: state.usr || null,\n      key: state.key || 'default'\n    })];\n  }\n  var blockedPopTx = null;\n  function handlePop() {\n    if (blockedPopTx) {\n      blockers.call(blockedPopTx);\n      blockedPopTx = null;\n    } else {\n      var nextAction = Action.Pop;\n      var _getIndexAndLocation = getIndexAndLocation(),\n        nextIndex = _getIndexAndLocation[0],\n        nextLocation = _getIndexAndLocation[1];\n      if (blockers.length) {\n        if (nextIndex != null) {\n          var delta = index - nextIndex;\n          if (delta) {\n            // Revert the POP\n            blockedPopTx = {\n              action: nextAction,\n              location: nextLocation,\n              retry: function retry() {\n                go(delta * -1);\n              }\n            };\n            go(delta);\n          }\n        } else {\n          // Trying to POP to a location with no index. We did not create\n          // this location, so we can't effectively block the navigation.\n           true ? warning(false,\n          // TODO: Write up a doc that explains our blocking strategy in\n          // detail and link to it here so people can understand better what\n          // is going on and how to avoid it.\n          \"You are trying to block a POP navigation to a location that was not \" + \"created by the history library. The block will fail silently in \" + \"production, but in general you should do all navigation with the \" + \"history library (instead of using window.history.pushState directly) \" + \"to avoid this situation.\") : 0;\n        }\n      } else {\n        applyTx(nextAction);\n      }\n    }\n  }\n  window.addEventListener(PopStateEventType, handlePop);\n  var action = Action.Pop;\n  var _getIndexAndLocation2 = getIndexAndLocation(),\n    index = _getIndexAndLocation2[0],\n    location = _getIndexAndLocation2[1];\n  var listeners = createEvents();\n  var blockers = createEvents();\n  if (index == null) {\n    index = 0;\n    globalHistory.replaceState((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({}, globalHistory.state, {\n      idx: index\n    }), '');\n  }\n  function createHref(to) {\n    return typeof to === 'string' ? to : createPath(to);\n  } // state defaults to `null` because `window.history.state` does\n\n  function getNextLocation(to, state) {\n    if (state === void 0) {\n      state = null;\n    }\n    return readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      pathname: location.pathname,\n      hash: '',\n      search: ''\n    }, typeof to === 'string' ? parsePath(to) : to, {\n      state: state,\n      key: createKey()\n    }));\n  }\n  function getHistoryStateAndUrl(nextLocation, index) {\n    return [{\n      usr: nextLocation.state,\n      key: nextLocation.key,\n      idx: index\n    }, createHref(nextLocation)];\n  }\n  function allowTx(action, location, retry) {\n    return !blockers.length || (blockers.call({\n      action: action,\n      location: location,\n      retry: retry\n    }), false);\n  }\n  function applyTx(nextAction) {\n    action = nextAction;\n    var _getIndexAndLocation3 = getIndexAndLocation();\n    index = _getIndexAndLocation3[0];\n    location = _getIndexAndLocation3[1];\n    listeners.call({\n      action: action,\n      location: location\n    });\n  }\n  function push(to, state) {\n    var nextAction = Action.Push;\n    var nextLocation = getNextLocation(to, state);\n    function retry() {\n      push(to, state);\n    }\n    if (allowTx(nextAction, nextLocation, retry)) {\n      var _getHistoryStateAndUr = getHistoryStateAndUrl(nextLocation, index + 1),\n        historyState = _getHistoryStateAndUr[0],\n        url = _getHistoryStateAndUr[1]; // TODO: Support forced reloading\n      // try...catch because iOS limits us to 100 pushState calls :/\n\n      try {\n        globalHistory.pushState(historyState, '', url);\n      } catch (error) {\n        // They are going to lose state here, but there is no real\n        // way to warn them about it since the page will refresh...\n        window.location.assign(url);\n      }\n      applyTx(nextAction);\n    }\n  }\n  function replace(to, state) {\n    var nextAction = Action.Replace;\n    var nextLocation = getNextLocation(to, state);\n    function retry() {\n      replace(to, state);\n    }\n    if (allowTx(nextAction, nextLocation, retry)) {\n      var _getHistoryStateAndUr2 = getHistoryStateAndUrl(nextLocation, index),\n        historyState = _getHistoryStateAndUr2[0],\n        url = _getHistoryStateAndUr2[1]; // TODO: Support forced reloading\n\n      globalHistory.replaceState(historyState, '', url);\n      applyTx(nextAction);\n    }\n  }\n  function go(delta) {\n    globalHistory.go(delta);\n  }\n  var history = {\n    get action() {\n      return action;\n    },\n    get location() {\n      return location;\n    },\n    createHref: createHref,\n    push: push,\n    replace: replace,\n    go: go,\n    back: function back() {\n      go(-1);\n    },\n    forward: function forward() {\n      go(1);\n    },\n    listen: function listen(listener) {\n      return listeners.push(listener);\n    },\n    block: function block(blocker) {\n      var unblock = blockers.push(blocker);\n      if (blockers.length === 1) {\n        window.addEventListener(BeforeUnloadEventType, promptBeforeUnload);\n      }\n      return function () {\n        unblock(); // Remove the beforeunload listener so the document may\n        // still be salvageable in the pagehide event.\n        // See https://html.spec.whatwg.org/#unloading-documents\n\n        if (!blockers.length) {\n          window.removeEventListener(BeforeUnloadEventType, promptBeforeUnload);\n        }\n      };\n    }\n  };\n  return history;\n}\n/**\r\n * Hash history stores the location in window.location.hash. This makes it ideal\r\n * for situations where you don't want to send the location to the server for\r\n * some reason, either because you do cannot configure it or the URL space is\r\n * reserved for something else.\r\n *\r\n * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#createhashhistory\r\n */\n\nfunction createHashHistory(options) {\n  if (options === void 0) {\n    options = {};\n  }\n  var _options2 = options,\n    _options2$window = _options2.window,\n    window = _options2$window === void 0 ? document.defaultView : _options2$window;\n  var globalHistory = window.history;\n  function getIndexAndLocation() {\n    var _parsePath = parsePath(window.location.hash.substr(1)),\n      _parsePath$pathname = _parsePath.pathname,\n      pathname = _parsePath$pathname === void 0 ? '/' : _parsePath$pathname,\n      _parsePath$search = _parsePath.search,\n      search = _parsePath$search === void 0 ? '' : _parsePath$search,\n      _parsePath$hash = _parsePath.hash,\n      hash = _parsePath$hash === void 0 ? '' : _parsePath$hash;\n    var state = globalHistory.state || {};\n    return [state.idx, readOnly({\n      pathname: pathname,\n      search: search,\n      hash: hash,\n      state: state.usr || null,\n      key: state.key || 'default'\n    })];\n  }\n  var blockedPopTx = null;\n  function handlePop() {\n    if (blockedPopTx) {\n      blockers.call(blockedPopTx);\n      blockedPopTx = null;\n    } else {\n      var nextAction = Action.Pop;\n      var _getIndexAndLocation4 = getIndexAndLocation(),\n        nextIndex = _getIndexAndLocation4[0],\n        nextLocation = _getIndexAndLocation4[1];\n      if (blockers.length) {\n        if (nextIndex != null) {\n          var delta = index - nextIndex;\n          if (delta) {\n            // Revert the POP\n            blockedPopTx = {\n              action: nextAction,\n              location: nextLocation,\n              retry: function retry() {\n                go(delta * -1);\n              }\n            };\n            go(delta);\n          }\n        } else {\n          // Trying to POP to a location with no index. We did not create\n          // this location, so we can't effectively block the navigation.\n           true ? warning(false,\n          // TODO: Write up a doc that explains our blocking strategy in\n          // detail and link to it here so people can understand better\n          // what is going on and how to avoid it.\n          \"You are trying to block a POP navigation to a location that was not \" + \"created by the history library. The block will fail silently in \" + \"production, but in general you should do all navigation with the \" + \"history library (instead of using window.history.pushState directly) \" + \"to avoid this situation.\") : 0;\n        }\n      } else {\n        applyTx(nextAction);\n      }\n    }\n  }\n  window.addEventListener(PopStateEventType, handlePop); // popstate does not fire on hashchange in IE 11 and old (trident) Edge\n  // https://developer.mozilla.org/de/docs/Web/API/Window/popstate_event\n\n  window.addEventListener(HashChangeEventType, function () {\n    var _getIndexAndLocation5 = getIndexAndLocation(),\n      nextLocation = _getIndexAndLocation5[1]; // Ignore extraneous hashchange events.\n\n    if (createPath(nextLocation) !== createPath(location)) {\n      handlePop();\n    }\n  });\n  var action = Action.Pop;\n  var _getIndexAndLocation6 = getIndexAndLocation(),\n    index = _getIndexAndLocation6[0],\n    location = _getIndexAndLocation6[1];\n  var listeners = createEvents();\n  var blockers = createEvents();\n  if (index == null) {\n    index = 0;\n    globalHistory.replaceState((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({}, globalHistory.state, {\n      idx: index\n    }), '');\n  }\n  function getBaseHref() {\n    var base = document.querySelector('base');\n    var href = '';\n    if (base && base.getAttribute('href')) {\n      var url = window.location.href;\n      var hashIndex = url.indexOf('#');\n      href = hashIndex === -1 ? url : url.slice(0, hashIndex);\n    }\n    return href;\n  }\n  function createHref(to) {\n    return getBaseHref() + '#' + (typeof to === 'string' ? to : createPath(to));\n  }\n  function getNextLocation(to, state) {\n    if (state === void 0) {\n      state = null;\n    }\n    return readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      pathname: location.pathname,\n      hash: '',\n      search: ''\n    }, typeof to === 'string' ? parsePath(to) : to, {\n      state: state,\n      key: createKey()\n    }));\n  }\n  function getHistoryStateAndUrl(nextLocation, index) {\n    return [{\n      usr: nextLocation.state,\n      key: nextLocation.key,\n      idx: index\n    }, createHref(nextLocation)];\n  }\n  function allowTx(action, location, retry) {\n    return !blockers.length || (blockers.call({\n      action: action,\n      location: location,\n      retry: retry\n    }), false);\n  }\n  function applyTx(nextAction) {\n    action = nextAction;\n    var _getIndexAndLocation7 = getIndexAndLocation();\n    index = _getIndexAndLocation7[0];\n    location = _getIndexAndLocation7[1];\n    listeners.call({\n      action: action,\n      location: location\n    });\n  }\n  function push(to, state) {\n    var nextAction = Action.Push;\n    var nextLocation = getNextLocation(to, state);\n    function retry() {\n      push(to, state);\n    }\n     true ? warning(nextLocation.pathname.charAt(0) === '/', \"Relative pathnames are not supported in hash history.push(\" + JSON.stringify(to) + \")\") : 0;\n    if (allowTx(nextAction, nextLocation, retry)) {\n      var _getHistoryStateAndUr3 = getHistoryStateAndUrl(nextLocation, index + 1),\n        historyState = _getHistoryStateAndUr3[0],\n        url = _getHistoryStateAndUr3[1]; // TODO: Support forced reloading\n      // try...catch because iOS limits us to 100 pushState calls :/\n\n      try {\n        globalHistory.pushState(historyState, '', url);\n      } catch (error) {\n        // They are going to lose state here, but there is no real\n        // way to warn them about it since the page will refresh...\n        window.location.assign(url);\n      }\n      applyTx(nextAction);\n    }\n  }\n  function replace(to, state) {\n    var nextAction = Action.Replace;\n    var nextLocation = getNextLocation(to, state);\n    function retry() {\n      replace(to, state);\n    }\n     true ? warning(nextLocation.pathname.charAt(0) === '/', \"Relative pathnames are not supported in hash history.replace(\" + JSON.stringify(to) + \")\") : 0;\n    if (allowTx(nextAction, nextLocation, retry)) {\n      var _getHistoryStateAndUr4 = getHistoryStateAndUrl(nextLocation, index),\n        historyState = _getHistoryStateAndUr4[0],\n        url = _getHistoryStateAndUr4[1]; // TODO: Support forced reloading\n\n      globalHistory.replaceState(historyState, '', url);\n      applyTx(nextAction);\n    }\n  }\n  function go(delta) {\n    globalHistory.go(delta);\n  }\n  var history = {\n    get action() {\n      return action;\n    },\n    get location() {\n      return location;\n    },\n    createHref: createHref,\n    push: push,\n    replace: replace,\n    go: go,\n    back: function back() {\n      go(-1);\n    },\n    forward: function forward() {\n      go(1);\n    },\n    listen: function listen(listener) {\n      return listeners.push(listener);\n    },\n    block: function block(blocker) {\n      var unblock = blockers.push(blocker);\n      if (blockers.length === 1) {\n        window.addEventListener(BeforeUnloadEventType, promptBeforeUnload);\n      }\n      return function () {\n        unblock(); // Remove the beforeunload listener so the document may\n        // still be salvageable in the pagehide event.\n        // See https://html.spec.whatwg.org/#unloading-documents\n\n        if (!blockers.length) {\n          window.removeEventListener(BeforeUnloadEventType, promptBeforeUnload);\n        }\n      };\n    }\n  };\n  return history;\n}\n/**\r\n * Memory history stores the current location in memory. It is designed for use\r\n * in stateful non-browser environments like tests and React Native.\r\n *\r\n * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#creatememoryhistory\r\n */\n\nfunction createMemoryHistory(options) {\n  if (options === void 0) {\n    options = {};\n  }\n  var _options3 = options,\n    _options3$initialEntr = _options3.initialEntries,\n    initialEntries = _options3$initialEntr === void 0 ? ['/'] : _options3$initialEntr,\n    initialIndex = _options3.initialIndex;\n  var entries = initialEntries.map(function (entry) {\n    var location = readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      pathname: '/',\n      search: '',\n      hash: '',\n      state: null,\n      key: createKey()\n    }, typeof entry === 'string' ? parsePath(entry) : entry));\n     true ? warning(location.pathname.charAt(0) === '/', \"Relative pathnames are not supported in createMemoryHistory({ initialEntries }) (invalid entry: \" + JSON.stringify(entry) + \")\") : 0;\n    return location;\n  });\n  var index = clamp(initialIndex == null ? entries.length - 1 : initialIndex, 0, entries.length - 1);\n  var action = Action.Pop;\n  var location = entries[index];\n  var listeners = createEvents();\n  var blockers = createEvents();\n  function createHref(to) {\n    return typeof to === 'string' ? to : createPath(to);\n  }\n  function getNextLocation(to, state) {\n    if (state === void 0) {\n      state = null;\n    }\n    return readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      pathname: location.pathname,\n      search: '',\n      hash: ''\n    }, typeof to === 'string' ? parsePath(to) : to, {\n      state: state,\n      key: createKey()\n    }));\n  }\n  function allowTx(action, location, retry) {\n    return !blockers.length || (blockers.call({\n      action: action,\n      location: location,\n      retry: retry\n    }), false);\n  }\n  function applyTx(nextAction, nextLocation) {\n    action = nextAction;\n    location = nextLocation;\n    listeners.call({\n      action: action,\n      location: location\n    });\n  }\n  function push(to, state) {\n    var nextAction = Action.Push;\n    var nextLocation = getNextLocation(to, state);\n    function retry() {\n      push(to, state);\n    }\n     true ? warning(location.pathname.charAt(0) === '/', \"Relative pathnames are not supported in memory history.push(\" + JSON.stringify(to) + \")\") : 0;\n    if (allowTx(nextAction, nextLocation, retry)) {\n      index += 1;\n      entries.splice(index, entries.length, nextLocation);\n      applyTx(nextAction, nextLocation);\n    }\n  }\n  function replace(to, state) {\n    var nextAction = Action.Replace;\n    var nextLocation = getNextLocation(to, state);\n    function retry() {\n      replace(to, state);\n    }\n     true ? warning(location.pathname.charAt(0) === '/', \"Relative pathnames are not supported in memory history.replace(\" + JSON.stringify(to) + \")\") : 0;\n    if (allowTx(nextAction, nextLocation, retry)) {\n      entries[index] = nextLocation;\n      applyTx(nextAction, nextLocation);\n    }\n  }\n  function go(delta) {\n    var nextIndex = clamp(index + delta, 0, entries.length - 1);\n    var nextAction = Action.Pop;\n    var nextLocation = entries[nextIndex];\n    function retry() {\n      go(delta);\n    }\n    if (allowTx(nextAction, nextLocation, retry)) {\n      index = nextIndex;\n      applyTx(nextAction, nextLocation);\n    }\n  }\n  var history = {\n    get index() {\n      return index;\n    },\n    get action() {\n      return action;\n    },\n    get location() {\n      return location;\n    },\n    createHref: createHref,\n    push: push,\n    replace: replace,\n    go: go,\n    back: function back() {\n      go(-1);\n    },\n    forward: function forward() {\n      go(1);\n    },\n    listen: function listen(listener) {\n      return listeners.push(listener);\n    },\n    block: function block(blocker) {\n      return blockers.push(blocker);\n    }\n  };\n  return history;\n} ////////////////////////////////////////////////////////////////////////////////\n// UTILS\n////////////////////////////////////////////////////////////////////////////////\n\nfunction clamp(n, lowerBound, upperBound) {\n  return Math.min(Math.max(n, lowerBound), upperBound);\n}\nfunction promptBeforeUnload(event) {\n  // Cancel the event.\n  event.preventDefault(); // Chrome (and legacy IE) requires returnValue to be set.\n\n  event.returnValue = '';\n}\nfunction createEvents() {\n  var handlers = [];\n  return {\n    get length() {\n      return handlers.length;\n    },\n    push: function push(fn) {\n      handlers.push(fn);\n      return function () {\n        handlers = handlers.filter(function (handler) {\n          return handler !== fn;\n        });\n      };\n    },\n    call: function call(arg) {\n      handlers.forEach(function (fn) {\n        return fn && fn(arg);\n      });\n    }\n  };\n}\nfunction createKey() {\n  return Math.random().toString(36).substr(2, 8);\n}\n/**\r\n * Creates a string URL path from the given pathname, search, and hash components.\r\n *\r\n * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#createpath\r\n */\n\nfunction createPath(_ref) {\n  var _ref$pathname = _ref.pathname,\n    pathname = _ref$pathname === void 0 ? '/' : _ref$pathname,\n    _ref$search = _ref.search,\n    search = _ref$search === void 0 ? '' : _ref$search,\n    _ref$hash = _ref.hash,\n    hash = _ref$hash === void 0 ? '' : _ref$hash;\n  if (search && search !== '?') pathname += search.charAt(0) === '?' ? search : '?' + search;\n  if (hash && hash !== '#') pathname += hash.charAt(0) === '#' ? hash : '#' + hash;\n  return pathname;\n}\n/**\r\n * Parses a string URL path into its separate pathname, search, and hash components.\r\n *\r\n * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#parsepath\r\n */\n\nfunction parsePath(path) {\n  var parsedPath = {};\n  if (path) {\n    var hashIndex = path.indexOf('#');\n    if (hashIndex >= 0) {\n      parsedPath.hash = path.substr(hashIndex);\n      path = path.substr(0, hashIndex);\n    }\n    var searchIndex = path.indexOf('?');\n    if (searchIndex >= 0) {\n      parsedPath.search = path.substr(searchIndex);\n      path = path.substr(0, searchIndex);\n    }\n    if (path) {\n      parsedPath.pathname = path;\n    }\n  }\n  return parsedPath;\n}\n\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/history/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/hoist-non-inferno-statics/index.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/hoist-non-inferno-statics/index.js ***!
-  \*********************************************************/
-/***/ ((module) => {
-
-"use strict";
-eval("\n\nvar INFERNO_STATICS = {\n  childContextTypes: true,\n  contextTypes: true,\n  defaultProps: true,\n  displayName: true,\n  getDefaultProps: true,\n  propTypes: true,\n  type: true\n};\nvar KNOWN_STATICS = {\n  name: true,\n  length: true,\n  prototype: true,\n  caller: true,\n  arguments: true,\n  arity: true\n};\nvar isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';\nfunction hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {\n  if (typeof sourceComponent !== 'string') {\n    // don't hoist over string (html) components\n    var keys = Object.getOwnPropertyNames(sourceComponent);\n\n    /* istanbul ignore else */\n    if (isGetOwnPropertySymbolsAvailable) {\n      keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));\n    }\n    for (var i = 0; i < keys.length; ++i) {\n      if (!INFERNO_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {\n        try {\n          targetComponent[keys[i]] = sourceComponent[keys[i]];\n        } catch (error) {}\n      }\n    }\n  }\n  return targetComponent;\n}\n;\nmodule.exports = hoistNonReactStatics;\nmodule.exports[\"default\"] = module.exports;\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/hoist-non-inferno-statics/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/inferno-router/dist/index.esm.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/inferno-router/dist/index.esm.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"BrowserRouter\": () => (/* binding */ BrowserRouter),\n/* harmony export */   \"HashRouter\": () => (/* binding */ HashRouter),\n/* harmony export */   \"Link\": () => (/* binding */ Link),\n/* harmony export */   \"MemoryRouter\": () => (/* binding */ MemoryRouter),\n/* harmony export */   \"NavLink\": () => (/* binding */ NavLink),\n/* harmony export */   \"Prompt\": () => (/* binding */ Prompt),\n/* harmony export */   \"Redirect\": () => (/* binding */ Redirect),\n/* harmony export */   \"Route\": () => (/* binding */ Route),\n/* harmony export */   \"Router\": () => (/* binding */ Router),\n/* harmony export */   \"StaticRouter\": () => (/* binding */ StaticRouter),\n/* harmony export */   \"Switch\": () => (/* binding */ Switch),\n/* harmony export */   \"createClientSideURL\": () => (/* binding */ createClientSideURL),\n/* harmony export */   \"matchPath\": () => (/* binding */ matchPath),\n/* harmony export */   \"resolveLoaders\": () => (/* binding */ resolveLoaders),\n/* harmony export */   \"traverseLoaders\": () => (/* binding */ traverseLoaders),\n/* harmony export */   \"useLoaderData\": () => (/* binding */ useLoaderData),\n/* harmony export */   \"useLoaderError\": () => (/* binding */ useLoaderError),\n/* harmony export */   \"withRouter\": () => (/* binding */ withRouter)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! history */ \"./node_modules/history/index.js\");\n/* harmony import */ var path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! path-to-regexp-es6 */ \"./node_modules/path-to-regexp-es6/index.js\");\n/* harmony import */ var path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hoist-non-inferno-statics */ \"./node_modules/hoist-non-inferno-statics/index.js\");\n/* harmony import */ var hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\nvar isArray = Array.isArray;\nfunction isNullOrUndef(o) {\n  return o === void 0 || o === null;\n}\nfunction isInvalid(o) {\n  return o === null || o === false || o === true || o === void 0;\n}\nfunction isString(o) {\n  return typeof o === 'string';\n}\nfunction isUndefined(o) {\n  return o === void 0;\n}\nfunction combineFrom(first, second) {\n  var out = {};\n  if (first) {\n    for (var key in first) {\n      out[key] = first[key];\n    }\n  }\n  if (second) {\n    for (var _key in second) {\n      out[_key] = second[_key];\n    }\n  }\n  return out;\n}\nfunction combinePath(_ref) {\n  var _ref$pathname = _ref.pathname,\n    pathname = _ref$pathname === void 0 ? '/' : _ref$pathname,\n    _ref$search = _ref.search,\n    search = _ref$search === void 0 ? '' : _ref$search,\n    _ref$hash = _ref.hash,\n    hash = _ref$hash === void 0 ? '' : _ref$hash;\n  return pathname + search + hash;\n}\nfunction invariant(condition, format, a, b, c, d, e, f) {\n  if (!condition) {\n    var error;\n    if (format === undefined) {\n      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');\n    } else {\n      var args = [a, b, c, d, e, f];\n      var argIndex = 0;\n      error = new Error(format.replace(/%s/g, function () {\n        return args[argIndex++];\n      }));\n      error.name = 'Invariant Violation';\n    }\n    error.framesToPop = 1; // we don't care about invariant's own frame\n    throw error;\n  }\n}\nvar patternCache = {};\nvar cacheLimit = 10000;\nvar cacheCount = 0;\nvar compilePath = function compilePath(pattern, options) {\n  var cacheKey = \"\" + options.end + options.strict + options.sensitive;\n  var cache = patternCache[cacheKey] || (patternCache[cacheKey] = {});\n  if (cache[pattern]) {\n    return cache[pattern];\n  }\n  var keys = [];\n  var re = path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1___default()(pattern, keys, options);\n  var compiledPattern = {\n    re: re,\n    keys: keys\n  };\n  if (cacheCount < cacheLimit) {\n    cache[pattern] = compiledPattern;\n    cacheCount++;\n  }\n  return compiledPattern;\n};\n/**\n * Public API for matching a URL pathname to a path pattern.\n */\nfunction matchPath(pathname, options) {\n  if (typeof options === 'string') {\n    options = {\n      path: options\n    };\n  }\n  var _options = options,\n    _options$path = _options.path,\n    path = _options$path === void 0 ? '/' : _options$path,\n    _options$exact = _options.exact,\n    exact = _options$exact === void 0 ? false : _options$exact,\n    _options$strict = _options.strict,\n    strict = _options$strict === void 0 ? false : _options$strict,\n    _options$sensitive = _options.sensitive,\n    sensitive = _options$sensitive === void 0 ? false : _options$sensitive,\n    loader = _options.loader,\n    _options$initialData = _options.initialData,\n    initialData = _options$initialData === void 0 ? {} : _options$initialData;\n  var _compilePath = compilePath(path, {\n      end: exact,\n      strict: strict,\n      sensitive: sensitive\n    }),\n    re = _compilePath.re,\n    keys = _compilePath.keys;\n  var match = re.exec(pathname);\n  if (!match) {\n    return null;\n  }\n  var loaderData = initialData[path];\n  var url = match[0],\n    values = match.slice(1);\n  var isExact = pathname === url;\n  if (exact && !isExact) {\n    return null;\n  }\n  return {\n    isExact: isExact,\n    loader: loader,\n    loaderData: loaderData,\n    params: keys.reduce(function (memo, key, index) {\n      memo[key.name] = values[index];\n      return memo;\n    }, {}),\n    path: path,\n    url: path === '/' && url === '' ? '/' : url // the matched portion of the URL\n  };\n}\n\nfunction _inheritsLoose$8(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$8(subClass, superClass);\n}\nfunction _setPrototypeOf$8(o, p) {\n  _setPrototypeOf$8 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$8(o, p);\n}\nfunction getMatch(pathname, _ref, router) {\n  var _path;\n  var path = _ref.path,\n    exact = _ref.exact,\n    strict = _ref.strict,\n    sensitive = _ref.sensitive,\n    loader = _ref.loader,\n    from = _ref.from;\n  (_path = path) != null ? _path : path = from;\n  var initialData = router.initialData,\n    route = router.route; // This is the parent route\n  return path ? matchPath(pathname, {\n    path: path,\n    exact: exact,\n    strict: strict,\n    sensitive: sensitive,\n    loader: loader,\n    initialData: initialData\n  }) : route.match;\n}\nfunction extractFirstMatchFromChildren(pathname, children, router) {\n  if (isArray(children)) {\n    for (var i = 0; i < children.length; ++i) {\n      var nestedMatch = extractFirstMatchFromChildren(pathname, children[i], router);\n      if (nestedMatch.match) return nestedMatch;\n    }\n    return {};\n  }\n  return {\n    _child: children,\n    match: getMatch(pathname, children.props, router)\n  };\n}\nvar Switch = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$8(Switch, _Component);\n  function Switch(props, context) {\n    var _this;\n    _this = _Component.call(this, props, context) || this;\n    var router = context.router;\n    var location = props.location,\n      children = props.children;\n    var pathname = (location || router.route.location).pathname;\n    var _extractFirstMatchFro = extractFirstMatchFromChildren(pathname, children, router),\n      match = _extractFirstMatchFro.match,\n      _child = _extractFirstMatchFro._child;\n    _this.state = {\n      _child: _child,\n      match: match\n    };\n    return _this;\n  }\n  var _proto = Switch.prototype;\n  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {\n    var router = nextContext.router;\n    var location = nextProps.location,\n      children = nextProps.children;\n    var pathname = (location || router.route.location).pathname;\n    var _extractFirstMatchFro2 = extractFirstMatchFromChildren(pathname, children, router),\n      match = _extractFirstMatchFro2.match,\n      _child = _extractFirstMatchFro2._child;\n    this.setState({\n      match: match,\n      _child: _child\n    });\n  };\n  _proto.render = function render(_ref2, _ref3, context) {\n    var children = _ref2.children,\n      location = _ref2.location;\n    var match = _ref3.match,\n      _child = _ref3._child;\n    if (isInvalid(children)) {\n      return null;\n    }\n    if (match) {\n      var _location;\n      (_location = location) != null ? _location : location = context.router.route.location;\n      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(_child.flags, _child.type, combineFrom(_child.props, {\n        location: location,\n        computedMatch: match\n      }));\n    }\n    return null;\n  };\n  return Switch;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nfunction resolveLoaders(loaderEntries) {\n  var promises = loaderEntries.map(function (_ref) {\n    var path = _ref.path,\n      params = _ref.params,\n      request = _ref.request,\n      loader = _ref.loader;\n    return resolveEntry(path, params, request, loader);\n  });\n  return Promise.all(promises).then(function (result) {\n    return Object.fromEntries(result);\n  });\n}\nfunction traverseLoaders(location, tree, base) {\n  return _traverseLoaders(location, tree, base, false);\n}\n// Optionally pass base param during SSR to get fully qualified request URI passed to loader in request param\nfunction _traverseLoaders(location, tree, base, parentIsSwitch) {\n  var _tree$props4, _tree$type;\n  if (parentIsSwitch === void 0) {\n    parentIsSwitch = false;\n  }\n  // Make sure tree isn't null\n  if (isNullOrUndef(tree)) return [];\n  if (Array.isArray(tree)) {\n    var hasMatch = false;\n    var entriesOfArr = tree.reduce(function (res, node) {\n      var _node$type;\n      if (parentIsSwitch && hasMatch) return res;\n      var outpArr = _traverseLoaders(location, node, base, (node == null ? void 0 : (_node$type = node.type) == null ? void 0 : _node$type.prototype) instanceof Switch);\n      if (parentIsSwitch && outpArr.length > 0) {\n        hasMatch = true;\n      }\n      return [].concat(res, outpArr);\n    }, []);\n    return entriesOfArr;\n  }\n  var outp = [];\n  var isRouteButNotMatch = false;\n  if (tree.props) {\n    var _tree$props2, _tree$props3;\n    // TODO: If we traverse a switch, only the first match should be returned\n    // TODO: Should we check if we are in Router? It is defensive and could save a bit of time, but is it worth it?\n    var _tree$props = tree.props,\n      path = _tree$props.path,\n      _tree$props$exact = _tree$props.exact,\n      exact = _tree$props$exact === void 0 ? false : _tree$props$exact,\n      _tree$props$strict = _tree$props.strict,\n      strict = _tree$props$strict === void 0 ? false : _tree$props$strict,\n      _tree$props$sensitive = _tree$props.sensitive,\n      sensitive = _tree$props$sensitive === void 0 ? false : _tree$props$sensitive;\n    var match = matchPath(location, {\n      exact: exact,\n      path: path,\n      sensitive: sensitive,\n      strict: strict\n    });\n    // So we can bail out of recursion it this was a Route which didn't match\n    isRouteButNotMatch = !match;\n    // Add any loader on this node (but only on the VNode)\n    if (match && !tree.context && (_tree$props2 = tree.props) != null && _tree$props2.loader && (_tree$props3 = tree.props) != null && _tree$props3.path) {\n      var params = match.params;\n      var controller = new AbortController();\n      var request = createClientSideRequest(location, controller.signal, base);\n      outp.push({\n        controller: controller,\n        loader: tree.props.loader,\n        params: params,\n        path: path,\n        request: request\n      });\n    }\n  }\n  // Traverse ends here\n  if (isRouteButNotMatch) return outp;\n  // Traverse children\n  var entries = _traverseLoaders(location, tree.children || ((_tree$props4 = tree.props) == null ? void 0 : _tree$props4.children), base, ((_tree$type = tree.type) == null ? void 0 : _tree$type.prototype) instanceof Switch);\n  return [].concat(outp, entries);\n}\nfunction resolveEntry(path, params, request, loader) {\n  return loader({\n    params: params,\n    request: request\n  }).then(function (res) {\n    // This implementation is based on:\n    // https://github.com/remix-run/react-router/blob/4f3ad7b96e6e0228cc952cd7eafe2c265c7393c7/packages/router/router.ts#L2787-L2879\n    // Check if regular data object (from tests or initialData)\n    if (typeof res.json !== 'function') {\n      return [path, {\n        res: res\n      }];\n    }\n    var contentType = res.headers.get('Content-Type');\n    var dataPromise;\n    // Check between word boundaries instead of startsWith() due to the last\n    // paragraph of https://httpwg.org/specs/rfc9110.html#field.content-type\n    if (contentType && /\\bapplication\\/json\\b/.test(contentType)) {\n      dataPromise = res.json();\n    } else {\n      dataPromise = res.text();\n    }\n    return dataPromise.then(function (body) {\n      // We got a JSON error\n      if (!res.ok) {\n        return [path, {\n          err: body\n        }];\n      }\n      // We got JSON response\n      return [path, {\n        res: body\n      }];\n    })\n    // Could not parse JSON\n    [\"catch\"](function (err) {\n      return [path, {\n        err: err\n      }];\n    });\n  })\n  // Could not fetch data\n  [\"catch\"](function (err) {\n    return [path, {\n      err: err\n    }];\n  });\n}\nvar inBrowser = typeof window === 'undefined';\nfunction createClientSideRequest(location, signal,\n// submission?: Submission\nbase) {\n  var url = inBrowser || !isUndefined(base) ? createClientSideURL(location, base) : location.toString();\n  var init = {\n    signal: signal\n  };\n  // Content-Type is inferred (https://fetch.spec.whatwg.org/#dom-request)\n  return new Request(url, init);\n}\n/**\n * Parses a string URL path into its separate pathname, search, and hash components.\n */\nfunction createClientSideURL(location, base) {\n  if (base === undefined && typeof window !== 'undefined') {\n    var _window, _window$location;\n    // window.location.origin is \"null\" (the literal string value) in Firefox\n    // under certain conditions, notably when serving from a local HTML file\n    // See https://bugzilla.mozilla.org/show_bug.cgi?id=878297\n    base = ((_window = window) == null ? void 0 : (_window$location = _window.location) == null ? void 0 : _window$location.origin) !== 'null' ? window.location.origin : window.location.href;\n  }\n  var url = new URL(location.toString(), base);\n  url.hash = '';\n  return url;\n}\n// TODO: react-router supports submitting forms with loaders, this is related to that\n// function isMutationMethod(method?: string): method is MutationFormMethod {\n//   return validMutationMethods.has(method as MutationFormMethod);\n// }\n// function convertFormDataToSearchParams(formData: FormData): URLSearchParams {\n//   let searchParams = new URLSearchParams();\n//   for (let [key, value] of formData.entries()) {\n//     // invariant(\n//     //   typeof value === \"string\",\n//     //   'File inputs are not supported with encType \"application/x-www-form-urlencoded\", ' +\n//     //     'please use \"multipart/form-data\" instead.'\n//     // );\n//     if (typeof value === \"string\") {\n//       searchParams.append(key, value);\n//     }\n//   }\n//   return searchParams;\n// }\n\nfunction _createForOfIteratorHelperLoose(o, allowArrayLike) {\n  var it = typeof Symbol !== \"undefined\" && o[Symbol.iterator] || o[\"@@iterator\"];\n  if (it) return (it = it.call(o)).next.bind(it);\n  if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \"number\") {\n    if (it) o = it;\n    var i = 0;\n    return function () {\n      if (i >= o.length) return {\n        done: true\n      };\n      return {\n        done: false,\n        value: o[i++]\n      };\n    };\n  }\n  throw new TypeError(\"Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\");\n}\nfunction _unsupportedIterableToArray(o, minLen) {\n  if (!o) return;\n  if (typeof o === \"string\") return _arrayLikeToArray(o, minLen);\n  var n = Object.prototype.toString.call(o).slice(8, -1);\n  if (n === \"Object\" && o.constructor) n = o.constructor.name;\n  if (n === \"Map\" || n === \"Set\") return Array.from(o);\n  if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);\n}\nfunction _arrayLikeToArray(arr, len) {\n  if (len == null || len > arr.length) len = arr.length;\n  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];\n  return arr2;\n}\nfunction _inheritsLoose$7(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$7(subClass, superClass);\n}\nfunction _setPrototypeOf$7(o, p) {\n  _setPrototypeOf$7 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$7(o, p);\n}\n/**\n * The public API for putting history on context.\n */\nvar Router = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$7(Router, _Component);\n  function Router(props, context) {\n    var _this;\n    _this = _Component.call(this, props, context) || this;\n    _this.unlisten = void 0;\n    _this._loaderFetchControllers = [];\n    _this._loaderIteration = 0;\n    var match = _this.computeMatch(props.history.location.pathname);\n    _this.state = {\n      initialData: _this.props.initialData,\n      match: match\n    };\n    return _this;\n  }\n  var _proto = Router.prototype;\n  _proto.getChildContext = function getChildContext() {\n    var _this$state, _this$state2;\n    var parentRouter = this.context.router;\n    var router = combineFrom(parentRouter, null);\n    router.history = this.props.history;\n    router.route = {\n      location: router.history.location,\n      match: (_this$state = this.state) == null ? void 0 : _this$state.match // Why are we sending this? it appears useless.\n    };\n\n    router.initialData = (_this$state2 = this.state) == null ? void 0 : _this$state2.initialData; // this is a dictionary of all data available\n    return {\n      router: router\n    };\n  };\n  _proto.computeMatch = function computeMatch(pathname) {\n    return {\n      isExact: pathname === '/',\n      loader: undefined,\n      params: {},\n      path: '/',\n      url: '/'\n    };\n  };\n  _proto.componentWillMount = function componentWillMount() {\n    var _this2 = this;\n    var history = this.props.history;\n    // Do this here so we can setState when a <Redirect> changes the\n    // location in componentWillMount. This happens e.g. when doing\n    // server rendering using a <StaticRouter>.\n    this.unlisten = history.listen(function () {\n      var match = _this2.computeMatch(history.location.pathname);\n      _this2._matchAndResolveLoaders(match);\n    });\n    // First execution of loaders\n    if (isUndefined(this.props.initialData)) {\n      var _this$state3;\n      this._matchAndResolveLoaders((_this$state3 = this.state) == null ? void 0 : _this$state3.match);\n    }\n  };\n  _proto._matchAndResolveLoaders = function _matchAndResolveLoaders(match) {\n    var _this3 = this;\n    // Keep track of invokation order\n    // Bumping the counter needs to be done first because calling abort\n    // triggers promise to resolve with \"aborted\"\n    this._loaderIteration = (this._loaderIteration + 1) % 10000;\n    var currentIteration = this._loaderIteration;\n    for (var _iterator = _createForOfIteratorHelperLoose(this._loaderFetchControllers), _step; !(_step = _iterator()).done;) {\n      var controller = _step.value;\n      controller.abort();\n    }\n    this._loaderFetchControllers = [];\n    var _this$props = this.props,\n      history = _this$props.history,\n      children = _this$props.children;\n    var loaderEntries = traverseLoaders(history.location.pathname, children);\n    if (loaderEntries.length === 0) {\n      this.setState({\n        match: match\n      });\n      return;\n    }\n    // Store AbortController instances for each matched loader\n    this._loaderFetchControllers = loaderEntries.map(function (e) {\n      return e.controller;\n    });\n    resolveLoaders(loaderEntries).then(function (initialData) {\n      // On multiple pending navigations, only update interface with last\n      // in case they resolve out of order\n      if (currentIteration === _this3._loaderIteration) {\n        _this3.setState({\n          initialData: initialData,\n          match: match\n        });\n      }\n    });\n  };\n  _proto.componentWillUnmount = function componentWillUnmount() {\n    this.unlisten();\n  };\n  _proto.render = function render(props) {\n    return props.children;\n  };\n  return Router;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nvar _excluded$5 = [\"basename\", \"context\", \"location\"];\nfunction _objectWithoutPropertiesLoose$5(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n  return target;\n}\nfunction _inheritsLoose$6(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$6(subClass, superClass);\n}\nfunction _setPrototypeOf$6(o, p) {\n  _setPrototypeOf$6 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$6(o, p);\n}\nfunction addLeadingSlash(path) {\n  return path.charAt(0) === '/' ? path : '/' + path;\n}\n// tslint:disable-next-line:no-empty\nvar noop = function noop() {};\nvar StaticRouter = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$6(StaticRouter, _Component);\n  function StaticRouter() {\n    var _this;\n    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {\n      args[_key] = arguments[_key];\n    }\n    _this = _Component.call.apply(_Component, [this].concat(args)) || this;\n    _this.createHref = function (path) {\n      return addLeadingSlash((_this.props.basename || '') + createURL(path));\n    };\n    _this.handlePush = function (location) {\n      var _this$props = _this.props,\n        basename = _this$props.basename,\n        context = _this$props.context;\n      context.action = 'PUSH';\n      context.location = addBasename(basename, isString(location) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(location) : location);\n      context.url = createURL(context.location);\n    };\n    _this.handleReplace = function (location) {\n      var _this$props2 = _this.props,\n        basename = _this$props2.basename,\n        context = _this$props2.context;\n      context.action = 'REPLACE';\n      context.location = addBasename(basename, isString(location) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(location) : location);\n      context.url = createURL(context.location);\n    };\n    // tslint:disable-next-line:no-empty\n    _this.handleListen = function () {\n      return noop;\n    };\n    // tslint:disable-next-line:no-empty\n    _this.handleBlock = function () {\n      return noop;\n    };\n    return _this;\n  }\n  var _proto = StaticRouter.prototype;\n  _proto.getChildContext = function getChildContext() {\n    return {\n      router: {\n        initialData: this.props.initialData,\n        staticContext: this.props.context\n      }\n    };\n  };\n  _proto.render = function render(_ref) {\n    var basename = _ref.basename;\n    _ref.context;\n    var location = _ref.location,\n      props = _objectWithoutPropertiesLoose$5(_ref, _excluded$5);\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, combineFrom(props, {\n      history: {\n        action: 'POP',\n        block: this.handleBlock,\n        createHref: this.createHref,\n        go: staticHandler('go'),\n        goBack: staticHandler('goBack'),\n        goForward: staticHandler('goForward'),\n        listen: this.handleListen,\n        location: stripBasename(basename, createLocation(location)),\n        push: this.handlePush,\n        replace: this.handleReplace\n      }\n    }));\n  };\n  return StaticRouter;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nStaticRouter.defaultProps = {\n  basename: '',\n  location: '/'\n};\nfunction normalizeLocation(_ref2) {\n  var _ref2$pathname = _ref2.pathname,\n    pathname = _ref2$pathname === void 0 ? '/' : _ref2$pathname,\n    search = _ref2.search,\n    hash = _ref2.hash;\n  return {\n    hash: (hash || '') === '#' ? '' : hash,\n    pathname: pathname,\n    search: (search || '') === '?' ? '' : search\n  };\n}\nfunction addBasename(basename, location) {\n  if (!basename) {\n    return location;\n  }\n  return combineFrom(location, {\n    pathname: addLeadingSlash(basename) + location.pathname\n  });\n}\nfunction stripBasename(basename, location) {\n  if (!basename) {\n    return location;\n  }\n  var base = addLeadingSlash(basename);\n  if (location.pathname.indexOf(base) !== 0) {\n    return location;\n  }\n  return combineFrom(location, {\n    pathname: location.pathname.substring(base.length)\n  });\n}\nfunction createLocation(location) {\n  return typeof location === 'string' ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(location) : normalizeLocation(location);\n}\nfunction createURL(location) {\n  return typeof location === 'string' ? location : combinePath(location);\n}\nfunction staticHandler(methodName) {\n  return function () {\n    invariant(false, 'You cannot %s with <StaticRouter>', methodName);\n  };\n}\nfunction _inheritsLoose$5(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$5(subClass, superClass);\n}\nfunction _setPrototypeOf$5(o, p) {\n  _setPrototypeOf$5 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$5(o, p);\n}\nvar BrowserRouter = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$5(BrowserRouter, _Component);\n  function BrowserRouter(props, context) {\n    var _this;\n    _this = _Component.call(this, props, context) || this;\n    _this.history = void 0;\n    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_3__.createBrowserHistory)();\n    return _this;\n  }\n  var _proto = BrowserRouter.prototype;\n  _proto.render = function render() {\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, {\n      children: this.props.children,\n      history: this.history,\n      initialData: this.props.initialData\n    });\n  };\n  return BrowserRouter;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nfunction _inheritsLoose$4(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$4(subClass, superClass);\n}\nfunction _setPrototypeOf$4(o, p) {\n  _setPrototypeOf$4 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$4(o, p);\n}\nvar HashRouter = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$4(HashRouter, _Component);\n  function HashRouter(props, context) {\n    var _this;\n    _this = _Component.call(this, props, context) || this;\n    _this.history = void 0;\n    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_3__.createHashHistory)();\n    return _this;\n  }\n  var _proto = HashRouter.prototype;\n  _proto.render = function render() {\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, {\n      children: this.props.children,\n      history: this.history\n    });\n  };\n  return HashRouter;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nfunction _inheritsLoose$3(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$3(subClass, superClass);\n}\nfunction _setPrototypeOf$3(o, p) {\n  _setPrototypeOf$3 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$3(o, p);\n}\nvar MemoryRouter = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$3(MemoryRouter, _Component);\n  function MemoryRouter(props, context) {\n    var _this;\n    _this = _Component.call(this, props, context) || this;\n    _this.history = void 0;\n    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_3__.createMemoryHistory)(props);\n    return _this;\n  }\n  var _proto = MemoryRouter.prototype;\n  _proto.render = function render() {\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, {\n      children: this.props.children,\n      history: this.history,\n      initialData: this.props.initialData\n    });\n  };\n  return MemoryRouter;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nvar _excluded$4 = [\"computedMatch\"];\nfunction _objectWithoutPropertiesLoose$4(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n  return target;\n}\nfunction _inheritsLoose$2(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$2(subClass, superClass);\n}\nfunction _setPrototypeOf$2(o, p) {\n  _setPrototypeOf$2 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$2(o, p);\n}\nvar Route = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$2(Route, _Component);\n  function Route(props, context) {\n    var _this;\n    _this = _Component.call(this, props, context) || this;\n    var match = _this.computeMatch(props, context.router);\n    _this.state = {\n      __loaderData__: match == null ? void 0 : match.loaderData,\n      match: match\n    };\n    return _this;\n  }\n  var _proto = Route.prototype;\n  _proto.getChildContext = function getChildContext() {\n    var parentRouter = this.context.router;\n    var router = combineFrom(parentRouter, null);\n    router.route = {\n      location: this.props.location || parentRouter.route.location,\n      match: this.state.match\n    };\n    return {\n      router: router\n    };\n  };\n  _proto.computeMatch = function computeMatch(_ref, router) {\n    var computedMatch = _ref.computedMatch,\n      props = _objectWithoutPropertiesLoose$4(_ref, _excluded$4);\n    if (!isNullOrUndef(computedMatch)) {\n      // <Switch> already computed the match for us\n      return computedMatch;\n    }\n    var path = props.path,\n      strict = props.strict,\n      exact = props.exact,\n      sensitive = props.sensitive,\n      loader = props.loader;\n    var route = router.route,\n      initialData = router.initialData; // This is the parent route\n    var pathname = (props.location || route.location).pathname;\n    return path ? matchPath(pathname, {\n      path: path,\n      strict: strict,\n      exact: exact,\n      sensitive: sensitive,\n      loader: loader,\n      initialData: initialData\n    }) : route.match;\n  };\n  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {\n    var match = this.computeMatch(nextProps, nextContext.router);\n    this.setState({\n      __loaderData__: match == null ? void 0 : match.loaderData,\n      match: match\n    });\n  };\n  _proto.render = function render(props, state, context) {\n    var match = state.match,\n      __loaderData__ = state.__loaderData__;\n    var children = props.children,\n      component = props.component,\n      render = props.render,\n      loader = props.loader;\n    var _context$router = context.router,\n      history = _context$router.history,\n      route = _context$router.route,\n      staticContext = _context$router.staticContext;\n    var location = props.location || route.location;\n    var renderProps = {\n      match: match,\n      location: location,\n      history: history,\n      staticContext: staticContext,\n      component: component,\n      render: render,\n      loader: loader,\n      __loaderData__: __loaderData__\n    };\n    // If we have a loader we don't render until it has been resolved\n    if (!isUndefined(loader) && isUndefined(__loaderData__)) {\n      return null;\n    }\n    if (component) {\n      return match ? (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2 /* VNodeFlags.ComponentUnknown */, component, renderProps) : null;\n    }\n    if (render) {\n      // @ts-ignore\n      return match ? render(renderProps, this.context) : null;\n    }\n    if (typeof children === 'function') {\n      return children(renderProps);\n    }\n    return children;\n  };\n  return Route;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nvar _excluded$3 = [\"key\", \"state\"];\nfunction _objectWithoutPropertiesLoose$3(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n  return target;\n}\nvar normalizeToLocation = function normalizeToLocation(to) {\n  return isString(to) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(to) : to;\n};\nvar splitLocation = function splitLocation(location) {\n  location.key;\n  var state = location.state,\n    to = _objectWithoutPropertiesLoose$3(location, _excluded$3);\n  return {\n    to: to,\n    state: state\n  };\n};\nvar _excluded$2 = [\"replace\", \"children\", \"className\", \"to\", \"innerRef\"];\nfunction _objectWithoutPropertiesLoose$2(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n  return target;\n}\nvar isModifiedEvent = function isModifiedEvent(event) {\n  return Boolean(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);\n};\nfunction handleClick(_ref, event) {\n  var props = _ref.props,\n    context = _ref.context;\n  if (props.onClick) {\n    props.onClick(event);\n  }\n  if (!event.defaultPrevented &&\n  // onClick prevented default\n  event.button === 0 &&\n  // ignore everything but left clicks\n  !props.target &&\n  // let browser handle \"target=_blank\" etc.\n  !isModifiedEvent(event) // ignore clicks with modifier keys\n  ) {\n    event.preventDefault();\n    var history = context.router.history;\n    var _props$replace = props.replace,\n      replace = _props$replace === void 0 ? false : _props$replace,\n      toPropIn = props.to;\n    var _splitLocation = splitLocation(normalizeToLocation(toPropIn)),\n      to = _splitLocation.to,\n      state = _splitLocation.state;\n    if (replace) {\n      history.replace(to, state);\n    } else {\n      history.push(to, state);\n    }\n  }\n}\n/**\n * The public API for rendering a history-aware <a>.\n */\nfunction Link(props, context) {\n  props.replace;\n  var children = props.children,\n    className = props.className,\n    _props$to = props.to,\n    to = _props$to === void 0 ? '' : _props$to,\n    innerRef = props.innerRef,\n    rest = _objectWithoutPropertiesLoose$2(props, _excluded$2);\n  invariant(context.router, 'You should not use <Link> outside a <Router>');\n  var href = context.router.history.createHref(isString(to) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(to) : to);\n  var newProps = combineFrom(rest, null);\n  newProps.href = href;\n  newProps.onClick = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.linkEvent)({\n    context: context,\n    props: props\n  }, handleClick);\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1 /* VNodeFlags.HtmlElement */, 'a', className, children, 0 /* ChildFlags.UnknownChildren */, newProps, null, innerRef);\n}\nvar _excluded$1 = [\"to\", \"exact\", \"strict\", \"onClick\", \"location\", \"activeClassName\", \"className\", \"activeStyle\", \"style\", \"isActive\", \"ariaCurrent\"];\nfunction _objectWithoutPropertiesLoose$1(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n  return target;\n}\nfunction filter(i) {\n  return i;\n}\n/**\n * A <Link> wrapper that knows if it's \"active\" or not.\n */\nfunction NavLink(_ref) {\n  var to = _ref.to,\n    exact = _ref.exact,\n    strict = _ref.strict,\n    onClick = _ref.onClick,\n    linkLocation = _ref.location,\n    _ref$activeClassName = _ref.activeClassName,\n    activeClassName = _ref$activeClassName === void 0 ? 'active' : _ref$activeClassName,\n    classNameProp = _ref.className,\n    activeStyle = _ref.activeStyle,\n    styleProp = _ref.style,\n    getIsActive = _ref.isActive,\n    _ref$ariaCurrent = _ref.ariaCurrent,\n    ariaCurrent = _ref$ariaCurrent === void 0 ? 'true' : _ref$ariaCurrent,\n    rest = _objectWithoutPropertiesLoose$1(_ref, _excluded$1);\n  function linkComponent(_ref2) {\n    var location = _ref2.location,\n      match = _ref2.match;\n    var isActive = Boolean(getIsActive ? getIsActive(match, location) : match);\n    var className = typeof classNameProp === 'function' ? classNameProp(isActive) : classNameProp;\n    var style = typeof styleProp === 'function' ? styleProp(isActive) : styleProp;\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(8 /* VNodeFlags.ComponentFunction */, Link, combineFrom({\n      'aria-current': isActive && ariaCurrent || null,\n      className: isActive ? [className, activeClassName].filter(filter).join(' ') : className,\n      onClick: onClick,\n      style: isActive ? combineFrom(style, activeStyle) : style,\n      to: to\n    }, rest));\n  }\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Route, {\n    children: linkComponent,\n    exact: exact,\n    location: linkLocation,\n    path: typeof to === 'object' ? to.pathname : to,\n    strict: strict\n  });\n}\nfunction _inheritsLoose$1(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf$1(subClass, superClass);\n}\nfunction _setPrototypeOf$1(o, p) {\n  _setPrototypeOf$1 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf$1(o, p);\n}\n/**\n * The public API for matching a single path and rendering.\n */\nvar Prompt = /*#__PURE__*/function (_Component) {\n  _inheritsLoose$1(Prompt, _Component);\n  function Prompt() {\n    var _this;\n    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {\n      args[_key] = arguments[_key];\n    }\n    _this = _Component.call.apply(_Component, [this].concat(args)) || this;\n    _this.unblock = void 0;\n    return _this;\n  }\n  var _proto = Prompt.prototype;\n  _proto.enable = function enable(message) {\n    var _this2 = this;\n    if (this.unblock) {\n      this.unblock();\n    }\n    this.unblock = this.context.router.history.block(function (tx) {\n      if (message && window.confirm(message)) {\n        _this2.unblock();\n        tx.retry();\n      }\n    });\n  };\n  _proto.disable = function disable() {\n    if (this.unblock) {\n      this.unblock();\n      this.unblock = null;\n    }\n  };\n  _proto.componentWillMount = function componentWillMount() {\n    invariant(this.context.router, 'You should not use <Prompt> outside a <Router>');\n    if (this.props.when) {\n      this.enable(this.props.message);\n    }\n  };\n  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {\n    if (nextProps.when) {\n      if (!this.props.when || this.props.message !== nextProps.message) {\n        this.enable(nextProps.message);\n      }\n    } else {\n      this.disable();\n    }\n  };\n  _proto.componentWillUnmount = function componentWillUnmount() {\n    this.disable();\n  };\n  _proto.render = function render() {\n    return null;\n  };\n  return Prompt;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nfunction _inheritsLoose(subClass, superClass) {\n  subClass.prototype = Object.create(superClass.prototype);\n  subClass.prototype.constructor = subClass;\n  _setPrototypeOf(subClass, superClass);\n}\nfunction _setPrototypeOf(o, p) {\n  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {\n    o.__proto__ = p;\n    return o;\n  };\n  return _setPrototypeOf(o, p);\n}\nfunction getLocationTarget(to) {\n  if (!isString(to)) {\n    to = combinePath(to);\n  }\n  return (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(to);\n}\nvar Redirect = /*#__PURE__*/function (_Component) {\n  _inheritsLoose(Redirect, _Component);\n  function Redirect() {\n    return _Component.apply(this, arguments) || this;\n  }\n  var _proto = Redirect.prototype;\n  _proto.isStatic = function isStatic() {\n    return this.context.router && this.context.router.staticContext;\n  };\n  _proto.componentWillMount = function componentWillMount() {\n    invariant(this.context.router, 'You should not use <Redirect> outside a <Router>');\n    if (this.isStatic()) {\n      this.perform();\n    }\n  };\n  _proto.componentDidMount = function componentDidMount() {\n    if (!this.isStatic()) {\n      this.perform();\n    }\n  };\n  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {\n    var prevTo = getLocationTarget(prevProps.to);\n    var nextTo = getLocationTarget(this.props.to);\n    if (prevTo.pathname === nextTo.pathname && prevTo.search === nextTo.search) {\n      // tslint:disable-next-line:no-console\n      console.error(\"You tried to redirect to the same route you're currently on: \\\"\" + nextTo.pathname + nextTo.search + \"\\\"\");\n      return;\n    }\n    this.perform();\n  };\n  _proto.perform = function perform() {\n    var history = this.context.router.history;\n    var _this$props = this.props,\n      _this$props$push = _this$props.push,\n      push = _this$props$push === void 0 ? false : _this$props$push,\n      to = _this$props.to;\n    if (push) {\n      history.push(to);\n    } else {\n      history.replace(to);\n    }\n  };\n  _proto.render = function render() {\n    return null;\n  };\n  return Redirect;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\nvar _excluded = [\"wrappedComponentRef\"];\nfunction _objectWithoutPropertiesLoose(source, excluded) {\n  if (source == null) return {};\n  var target = {};\n  var sourceKeys = Object.keys(source);\n  var key, i;\n  for (i = 0; i < sourceKeys.length; i++) {\n    key = sourceKeys[i];\n    if (excluded.indexOf(key) >= 0) continue;\n    target[key] = source[key];\n  }\n  return target;\n}\n/**\n * A public higher-order component to access the imperative API\n */\nfunction withRouter(Com) {\n  var C = function C(props) {\n    var wrappedComponentRef = props.wrappedComponentRef,\n      remainingProps = _objectWithoutPropertiesLoose(props, _excluded);\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Route, {\n      render: function render(routeComponentProps) {\n        return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2 /* VNodeFlags.ComponentUnknown */, Com, combineFrom(remainingProps, routeComponentProps), null, wrappedComponentRef);\n      }\n    });\n  };\n  C.displayName = \"withRouter(\" + (Com.displayName || Com.name) + \")\";\n  C.WrappedComponent = Com;\n  return hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2___default()(C, Com);\n}\nfunction useLoaderData(props) {\n  var _props$__loaderData__;\n  return (_props$__loaderData__ = props.__loaderData__) == null ? void 0 : _props$__loaderData__.res;\n}\nfunction useLoaderError(props) {\n  var _props$__loaderData__2;\n  return (_props$__loaderData__2 = props.__loaderData__) == null ? void 0 : _props$__loaderData__2.err;\n}\n\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/inferno-router/dist/index.esm.js?");
-
-/***/ }),
-
-/***/ "./node_modules/inferno/dist/index.esm.js":
-/*!************************************************!*\
-  !*** ./node_modules/inferno/dist/index.esm.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"AnimationQueues\": () => (/* binding */ AnimationQueues),\n/* harmony export */   \"Component\": () => (/* binding */ Component),\n/* harmony export */   \"EMPTY_OBJ\": () => (/* binding */ EMPTY_OBJ),\n/* harmony export */   \"Fragment\": () => (/* binding */ Fragment),\n/* harmony export */   \"_CI\": () => (/* binding */ createClassComponentInstance),\n/* harmony export */   \"_HI\": () => (/* binding */ normalizeRoot),\n/* harmony export */   \"_M\": () => (/* binding */ mount),\n/* harmony export */   \"_MCCC\": () => (/* binding */ mountClassComponentCallbacks),\n/* harmony export */   \"_ME\": () => (/* binding */ mountElement),\n/* harmony export */   \"_MFCC\": () => (/* binding */ mountFunctionalComponentCallbacks),\n/* harmony export */   \"_MP\": () => (/* binding */ mountProps),\n/* harmony export */   \"_MR\": () => (/* binding */ mountRef),\n/* harmony export */   \"_RFC\": () => (/* binding */ renderFunctionalComponent),\n/* harmony export */   \"__render\": () => (/* binding */ __render),\n/* harmony export */   \"createComponentVNode\": () => (/* binding */ createComponentVNode),\n/* harmony export */   \"createFragment\": () => (/* binding */ createFragment),\n/* harmony export */   \"createPortal\": () => (/* binding */ createPortal),\n/* harmony export */   \"createRef\": () => (/* binding */ createRef),\n/* harmony export */   \"createRenderer\": () => (/* binding */ createRenderer),\n/* harmony export */   \"createTextVNode\": () => (/* binding */ createTextVNode),\n/* harmony export */   \"createVNode\": () => (/* binding */ createVNode),\n/* harmony export */   \"directClone\": () => (/* binding */ directClone),\n/* harmony export */   \"findDOMFromVNode\": () => (/* binding */ findDOMFromVNode),\n/* harmony export */   \"forwardRef\": () => (/* binding */ forwardRef),\n/* harmony export */   \"getFlagsForElementVnode\": () => (/* binding */ getFlagsForElementVnode),\n/* harmony export */   \"linkEvent\": () => (/* binding */ linkEvent),\n/* harmony export */   \"normalizeProps\": () => (/* binding */ normalizeProps),\n/* harmony export */   \"options\": () => (/* binding */ options),\n/* harmony export */   \"render\": () => (/* binding */ render),\n/* harmony export */   \"rerender\": () => (/* binding */ rerender),\n/* harmony export */   \"version\": () => (/* binding */ version)\n/* harmony export */ });\nvar isArray = Array.isArray;\nfunction isStringOrNumber(o) {\n  var type = typeof o;\n  return type === 'string' || type === 'number';\n}\nfunction isNullOrUndef(o) {\n  return o === void 0 || o === null;\n}\nfunction isInvalid(o) {\n  return o === null || o === false || o === true || o === void 0;\n}\nfunction isFunction(o) {\n  return typeof o === 'function';\n}\nfunction isString(o) {\n  return typeof o === 'string';\n}\nfunction isNumber(o) {\n  return typeof o === 'number';\n}\nfunction isNull(o) {\n  return o === null;\n}\nfunction isUndefined(o) {\n  return o === void 0;\n}\nfunction combineFrom(first, second) {\n  var out = {};\n  if (first) {\n    for (var key in first) {\n      out[key] = first[key];\n    }\n  }\n  if (second) {\n    for (var _key in second) {\n      out[_key] = second[_key];\n    }\n  }\n  return out;\n}\n\n/**\n * Links given data to event as first parameter\n * @param {*} data data to be linked, it will be available in function as first parameter\n * @param {Function} event Function to be called when event occurs\n * @returns {{data: *, event: Function}}\n */\nfunction linkEvent(data, event) {\n  if (isFunction(event)) {\n    return {\n      data: data,\n      event: event\n    };\n  }\n  return null; // Return null when event is invalid, to avoid creating unnecessary event handlers\n}\n// object.event should always be function, otherwise its badly created object.\nfunction isLinkEventObject(o) {\n  return !isNull(o) && typeof o === 'object';\n}\n\n// We need EMPTY_OBJ defined in one place.\n// It's used for comparison, so we can't inline it into shared\nvar EMPTY_OBJ = {};\n// @ts-ignore\nvar Fragment = '$F';\nvar AnimationQueues = function AnimationQueues() {\n  this.componentDidAppear = [];\n  this.componentWillDisappear = [];\n  this.componentWillMove = [];\n};\nfunction normalizeEventName(name) {\n  return name.substring(2).toLowerCase();\n}\nfunction appendChild(parentDOM, dom) {\n  parentDOM.appendChild(dom);\n}\nfunction insertOrAppend(parentDOM, newNode, nextNode) {\n  if (isNull(nextNode)) {\n    appendChild(parentDOM, newNode);\n  } else {\n    parentDOM.insertBefore(newNode, nextNode);\n  }\n}\nfunction documentCreateElement(tag, isSVG) {\n  if (isSVG) {\n    return document.createElementNS('http://www.w3.org/2000/svg', tag);\n  }\n  return document.createElement(tag);\n}\nfunction replaceChild(parentDOM, newDom, lastDom) {\n  parentDOM.replaceChild(newDom, lastDom);\n}\nfunction removeChild(parentDOM, childNode) {\n  parentDOM.removeChild(childNode);\n}\nfunction callAll(arrayFn) {\n  for (var i = 0; i < arrayFn.length; i++) {\n    arrayFn[i]();\n  }\n}\nfunction findChildVNode(vNode, startEdge, flags) {\n  var children = vNode.children;\n  if (flags & 4 /* VNodeFlags.ComponentClass */) {\n    return children.$LI;\n  }\n  if (flags & 8192 /* VNodeFlags.Fragment */) {\n    return vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */ ? children : children[startEdge ? 0 : children.length - 1];\n  }\n  return children;\n}\nfunction findDOMFromVNode(vNode, startEdge) {\n  var flags;\n  while (vNode) {\n    flags = vNode.flags;\n    if (flags & 1521 /* VNodeFlags.DOMRef */) {\n      return vNode.dom;\n    }\n    vNode = findChildVNode(vNode, startEdge, flags);\n  }\n  return null;\n}\nfunction callAllAnimationHooks(animationQueue, callback) {\n  var animationsLeft = animationQueue.length;\n  // Picking from the top because it is faster, invocation order should be irrelevant\n  // since all animations are to be run and we can't predict the order in which they complete.\n  var fn;\n  while ((fn = animationQueue.pop()) !== undefined) {\n    fn(function () {\n      if (--animationsLeft <= 0 && isFunction(callback)) {\n        callback();\n      }\n    });\n  }\n}\nfunction callAllMoveAnimationHooks(animationQueue) {\n  // Start the animations.\n  for (var i = 0; i < animationQueue.length; i++) {\n    animationQueue[i].fn();\n  }\n  // Perform the actual DOM moves when all measurements of initial\n  // position have been performed. The rest of the animations are done\n  // async.\n  for (var _i = 0; _i < animationQueue.length; _i++) {\n    var tmp = animationQueue[_i];\n    insertOrAppend(tmp.parent, tmp.dom, tmp.next);\n  }\n  animationQueue.splice(0, animationQueue.length);\n}\nfunction clearVNodeDOM(vNode, parentDOM, deferredRemoval) {\n  do {\n    var flags = vNode.flags;\n    if (flags & 1521 /* VNodeFlags.DOMRef */) {\n      // On deferred removals the node might disappear because of later operations\n      if (!deferredRemoval || vNode.dom.parentNode === parentDOM) {\n        removeChild(parentDOM, vNode.dom);\n      }\n      return;\n    }\n    var children = vNode.children;\n    if (flags & 4 /* VNodeFlags.ComponentClass */) {\n      vNode = children.$LI;\n    }\n    if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n      vNode = children;\n    }\n    if (flags & 8192 /* VNodeFlags.Fragment */) {\n      if (vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n        vNode = children;\n      } else {\n        for (var i = 0, len = children.length; i < len; ++i) {\n          clearVNodeDOM(children[i], parentDOM, false);\n        }\n        return;\n      }\n    }\n  } while (vNode);\n}\nfunction createDeferComponentClassRemovalCallback(vNode, parentDOM) {\n  return function () {\n    // Mark removal as deferred to trigger check that node still exists\n    clearVNodeDOM(vNode, parentDOM, true);\n  };\n}\nfunction removeVNodeDOM(vNode, parentDOM, animations) {\n  if (animations.componentWillDisappear.length > 0) {\n    // Wait until animations are finished before removing actual dom nodes\n    callAllAnimationHooks(animations.componentWillDisappear, createDeferComponentClassRemovalCallback(vNode, parentDOM));\n  } else {\n    clearVNodeDOM(vNode, parentDOM, false);\n  }\n}\nfunction addMoveAnimationHook(animations, parentVNode, refOrInstance, dom, parentDOM, nextNode, flags, props) {\n  animations.componentWillMove.push({\n    dom: dom,\n    fn: function fn() {\n      if (flags & 4 /* VNodeFlags.ComponentClass */) {\n        refOrInstance.componentWillMove(parentVNode, parentDOM, dom);\n      } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n        refOrInstance.onComponentWillMove(parentVNode, parentDOM, dom, props);\n      }\n    },\n    next: nextNode,\n    parent: parentDOM\n  });\n}\nfunction moveVNodeDOM(parentVNode, vNode, parentDOM, nextNode, animations) {\n  var refOrInstance;\n  var instanceProps;\n  var instanceFlags = vNode.flags;\n  do {\n    var flags = vNode.flags;\n    if (flags & 1521 /* VNodeFlags.DOMRef */) {\n      if (!isNullOrUndef(refOrInstance) && (isFunction(refOrInstance.componentWillMove) || isFunction(refOrInstance.onComponentWillMove))) {\n        addMoveAnimationHook(animations, parentVNode, refOrInstance, vNode.dom, parentDOM, nextNode, instanceFlags, instanceProps);\n      } else {\n        // TODO: Should we delay this too to support mixing animated moves with regular?\n        insertOrAppend(parentDOM, vNode.dom, nextNode);\n      }\n      return;\n    }\n    var children = vNode.children;\n    if (flags & 4 /* VNodeFlags.ComponentClass */) {\n      refOrInstance = vNode.children;\n      // TODO: We should probably deprecate this in V9 since it is inconsitent with other class component hooks\n      instanceProps = vNode.props;\n      vNode = children.$LI;\n    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n      refOrInstance = vNode.ref;\n      instanceProps = vNode.props;\n      vNode = children;\n    } else if (flags & 8192 /* VNodeFlags.Fragment */) {\n      if (vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n        vNode = children;\n      } else {\n        for (var i = 0, len = children.length; i < len; ++i) {\n          moveVNodeDOM(parentVNode, children[i], parentDOM, nextNode, animations);\n        }\n        return;\n      }\n    }\n  } while (vNode);\n}\nfunction createDerivedState(instance, nextProps, state) {\n  if (instance.constructor.getDerivedStateFromProps) {\n    return combineFrom(state, instance.constructor.getDerivedStateFromProps(nextProps, state));\n  }\n  return state;\n}\nvar renderCheck = {\n  v: false\n};\nvar options = {\n  componentComparator: null,\n  createVNode: null,\n  renderComplete: null\n};\nfunction setTextContent(dom, children) {\n  dom.textContent = children;\n}\n// Calling this function assumes, nextValue is linkEvent\nfunction isLastValueSameLinkEvent(lastValue, nextValue) {\n  return isLinkEventObject(lastValue) && lastValue.event === nextValue.event && lastValue.data === nextValue.data;\n}\nfunction mergeUnsetProperties(to, from) {\n  for (var propName in from) {\n    if (isUndefined(to[propName])) {\n      to[propName] = from[propName];\n    }\n  }\n  return to;\n}\nfunction safeCall1(method, arg1) {\n  return !!isFunction(method) && (method(arg1), true);\n}\nvar keyPrefix = '$';\nfunction V(childFlags, children, className, flags, key, props, ref, type) {\n  this.childFlags = childFlags;\n  this.children = children;\n  this.className = className;\n  this.dom = null;\n  this.flags = flags;\n  this.key = key === void 0 ? null : key;\n  this.props = props === void 0 ? null : props;\n  this.ref = ref === void 0 ? null : ref;\n  this.type = type;\n}\nfunction createVNode(flags, type, className, children, childFlags, props, key, ref) {\n  var childFlag = childFlags === void 0 ? 1 /* ChildFlags.HasInvalidChildren */ : childFlags;\n  var vNode = new V(childFlag, children, className, flags, key, props, ref, type);\n  if (options.createVNode) {\n    options.createVNode(vNode);\n  }\n  if (childFlag === 0 /* ChildFlags.UnknownChildren */) {\n    normalizeChildren(vNode, vNode.children);\n  }\n  return vNode;\n}\nfunction mergeDefaultHooks(flags, type, ref) {\n  if (flags & 4 /* VNodeFlags.ComponentClass */) {\n    return ref;\n  }\n  var defaultHooks = (flags & 32768 /* VNodeFlags.ForwardRef */ ? type.render : type).defaultHooks;\n  if (isNullOrUndef(defaultHooks)) {\n    return ref;\n  }\n  if (isNullOrUndef(ref)) {\n    return defaultHooks;\n  }\n  return mergeUnsetProperties(ref, defaultHooks);\n}\nfunction mergeDefaultProps(flags, type, props) {\n  // set default props\n  var defaultProps = (flags & 32768 /* VNodeFlags.ForwardRef */ ? type.render : type).defaultProps;\n  if (isNullOrUndef(defaultProps)) {\n    return props;\n  }\n  if (isNullOrUndef(props)) {\n    return combineFrom(defaultProps, null);\n  }\n  return mergeUnsetProperties(props, defaultProps);\n}\nfunction resolveComponentFlags(flags, type) {\n  if (flags & 12 /* VNodeFlags.ComponentKnown */) {\n    return flags;\n  }\n  if (type.prototype && type.prototype.render) {\n    return 4 /* VNodeFlags.ComponentClass */;\n  }\n\n  if (type.render) {\n    return 32776 /* VNodeFlags.ForwardRefComponent */;\n  }\n\n  return 8 /* VNodeFlags.ComponentFunction */;\n}\n\nfunction createComponentVNode(flags, type, props, key, ref) {\n  flags = resolveComponentFlags(flags, type);\n  var vNode = new V(1 /* ChildFlags.HasInvalidChildren */, null, null, flags, key, mergeDefaultProps(flags, type, props), mergeDefaultHooks(flags, type, ref), type);\n  if (options.createVNode) {\n    options.createVNode(vNode);\n  }\n  return vNode;\n}\nfunction createTextVNode(text, key) {\n  return new V(1 /* ChildFlags.HasInvalidChildren */, isNullOrUndef(text) || text === true || text === false ? '' : text, null, 16 /* VNodeFlags.Text */, key, null, null, null);\n}\nfunction createFragment(children, childFlags, key) {\n  var fragment = createVNode(8192 /* VNodeFlags.Fragment */, 8192 /* VNodeFlags.Fragment */, null, children, childFlags, null, key, null);\n  switch (fragment.childFlags) {\n    case 1 /* ChildFlags.HasInvalidChildren */:\n      fragment.children = createVoidVNode();\n      fragment.childFlags = 2 /* ChildFlags.HasVNodeChildren */;\n      break;\n    case 16 /* ChildFlags.HasTextChildren */:\n      fragment.children = [createTextVNode(children)];\n      fragment.childFlags = 4 /* ChildFlags.HasNonKeyedChildren */;\n      break;\n  }\n  return fragment;\n}\nfunction normalizeProps(vNode) {\n  var props = vNode.props;\n  if (props) {\n    var flags = vNode.flags;\n    if (flags & 481 /* VNodeFlags.Element */) {\n      if (props.children !== void 0 && isNullOrUndef(vNode.children)) {\n        normalizeChildren(vNode, props.children);\n      }\n      if (props.className !== void 0) {\n        if (isNullOrUndef(vNode.className)) {\n          vNode.className = props.className || null;\n        }\n        props.className = undefined;\n      }\n    }\n    if (props.key !== void 0) {\n      vNode.key = props.key;\n      props.key = undefined;\n    }\n    if (props.ref !== void 0) {\n      if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n        vNode.ref = combineFrom(vNode.ref, props.ref);\n      } else {\n        vNode.ref = props.ref;\n      }\n      props.ref = undefined;\n    }\n  }\n  return vNode;\n}\n/*\n * Fragment is different from normal vNode,\n * because when it needs to be cloned we need to clone its children too\n * But not normalize, because otherwise those possibly get KEY and re-mount\n */\nfunction cloneFragment(vNodeToClone) {\n  var oldChildren = vNodeToClone.children;\n  var childFlags = vNodeToClone.childFlags;\n  return createFragment(childFlags === 2 /* ChildFlags.HasVNodeChildren */ ? directClone(oldChildren) : oldChildren.map(directClone), childFlags, vNodeToClone.key);\n}\nfunction directClone(vNodeToClone) {\n  var flags = vNodeToClone.flags & -16385 /* VNodeFlags.ClearInUse */;\n  var props = vNodeToClone.props;\n  if (flags & 14 /* VNodeFlags.Component */) {\n    if (!isNull(props)) {\n      var propsToClone = props;\n      props = {};\n      for (var key in propsToClone) {\n        props[key] = propsToClone[key];\n      }\n    }\n  }\n  if ((flags & 8192 /* VNodeFlags.Fragment */) === 0) {\n    return new V(vNodeToClone.childFlags, vNodeToClone.children, vNodeToClone.className, flags, vNodeToClone.key, props, vNodeToClone.ref, vNodeToClone.type);\n  }\n  return cloneFragment(vNodeToClone);\n}\nfunction createVoidVNode() {\n  return createTextVNode('', null);\n}\nfunction createPortal(children, container) {\n  var normalizedRoot = normalizeRoot(children);\n  return createVNode(1024 /* VNodeFlags.Portal */, 1024 /* VNodeFlags.Portal */, null, normalizedRoot, 0 /* ChildFlags.UnknownChildren */, null, normalizedRoot.key, container);\n}\nfunction _normalizeVNodes(nodes, result, index, currentKey) {\n  for (var len = nodes.length; index < len; index++) {\n    var n = nodes[index];\n    if (!isInvalid(n)) {\n      var newKey = currentKey + keyPrefix + index;\n      if (isArray(n)) {\n        _normalizeVNodes(n, result, 0, newKey);\n      } else {\n        if (isStringOrNumber(n)) {\n          n = createTextVNode(n, newKey);\n        } else {\n          var oldKey = n.key;\n          var isPrefixedKey = isString(oldKey) && oldKey[0] === keyPrefix;\n          if (n.flags & 81920 /* VNodeFlags.InUseOrNormalized */ || isPrefixedKey) {\n            n = directClone(n);\n          }\n          n.flags |= 65536 /* VNodeFlags.Normalized */;\n          if (!isPrefixedKey) {\n            if (isNull(oldKey)) {\n              n.key = newKey;\n            } else {\n              n.key = currentKey + oldKey;\n            }\n          } else if (oldKey.substring(0, currentKey.length) !== currentKey) {\n            n.key = currentKey + oldKey;\n          }\n        }\n        result.push(n);\n      }\n    }\n  }\n}\nfunction getFlagsForElementVnode(type) {\n  switch (type) {\n    case 'svg':\n      return 32 /* VNodeFlags.SvgElement */;\n    case 'input':\n      return 64 /* VNodeFlags.InputElement */;\n    case 'select':\n      return 256 /* VNodeFlags.SelectElement */;\n    case 'textarea':\n      return 128 /* VNodeFlags.TextareaElement */;\n    // @ts-ignore\n    case Fragment:\n      return 8192 /* VNodeFlags.Fragment */;\n    default:\n      return 1 /* VNodeFlags.HtmlElement */;\n  }\n}\n\nfunction normalizeChildren(vNode, children) {\n  var newChildren;\n  var newChildFlags = 1 /* ChildFlags.HasInvalidChildren */;\n  // Don't change children to match strict equal (===) true in patching\n  if (isInvalid(children)) {\n    newChildren = children;\n  } else if (isStringOrNumber(children)) {\n    newChildFlags = 16 /* ChildFlags.HasTextChildren */;\n    newChildren = children;\n  } else if (isArray(children)) {\n    var len = children.length;\n    for (var i = 0; i < len; ++i) {\n      var n = children[i];\n      if (isInvalid(n) || isArray(n)) {\n        newChildren = newChildren || children.slice(0, i);\n        _normalizeVNodes(children, newChildren, i, '');\n        break;\n      } else if (isStringOrNumber(n)) {\n        newChildren = newChildren || children.slice(0, i);\n        newChildren.push(createTextVNode(n, keyPrefix + i));\n      } else {\n        var key = n.key;\n        var needsCloning = (n.flags & 81920 /* VNodeFlags.InUseOrNormalized */) > 0;\n        var isNullKey = isNull(key);\n        var isPrefixed = isString(key) && key[0] === keyPrefix;\n        if (needsCloning || isNullKey || isPrefixed) {\n          newChildren = newChildren || children.slice(0, i);\n          if (needsCloning || isPrefixed) {\n            n = directClone(n);\n          }\n          if (isNullKey || isPrefixed) {\n            n.key = keyPrefix + i;\n          }\n          newChildren.push(n);\n        } else if (newChildren) {\n          newChildren.push(n);\n        }\n        n.flags |= 65536 /* VNodeFlags.Normalized */;\n      }\n    }\n\n    newChildren = newChildren || children;\n    if (newChildren.length === 0) {\n      newChildFlags = 1 /* ChildFlags.HasInvalidChildren */;\n    } else {\n      newChildFlags = 8 /* ChildFlags.HasKeyedChildren */;\n    }\n  } else {\n    newChildren = children;\n    newChildren.flags |= 65536 /* VNodeFlags.Normalized */;\n    if (children.flags & 81920 /* VNodeFlags.InUseOrNormalized */) {\n      newChildren = directClone(children);\n    }\n    newChildFlags = 2 /* ChildFlags.HasVNodeChildren */;\n  }\n\n  vNode.children = newChildren;\n  vNode.childFlags = newChildFlags;\n  return vNode;\n}\nfunction normalizeRoot(input) {\n  if (isInvalid(input) || isStringOrNumber(input)) {\n    return createTextVNode(input, null);\n  }\n  if (isArray(input)) {\n    return createFragment(input, 0 /* ChildFlags.UnknownChildren */, null);\n  }\n  return input.flags & 16384 /* VNodeFlags.InUse */ ? directClone(input) : input;\n}\nvar xlinkNS = 'http://www.w3.org/1999/xlink';\nvar xmlNS = 'http://www.w3.org/XML/1998/namespace';\nvar namespaces = {\n  'xlink:actuate': xlinkNS,\n  'xlink:arcrole': xlinkNS,\n  'xlink:href': xlinkNS,\n  'xlink:role': xlinkNS,\n  'xlink:show': xlinkNS,\n  'xlink:title': xlinkNS,\n  'xlink:type': xlinkNS,\n  'xml:base': xmlNS,\n  'xml:lang': xmlNS,\n  'xml:space': xmlNS\n};\nfunction getDelegatedEventObject(v) {\n  return {\n    onClick: v,\n    onDblClick: v,\n    onFocusIn: v,\n    onFocusOut: v,\n    onKeyDown: v,\n    onKeyPress: v,\n    onKeyUp: v,\n    onMouseDown: v,\n    onMouseMove: v,\n    onMouseUp: v,\n    onTouchEnd: v,\n    onTouchMove: v,\n    onTouchStart: v\n  };\n}\nvar attachedEventCounts = getDelegatedEventObject(0);\nvar attachedEvents = getDelegatedEventObject(null);\nvar syntheticEvents = getDelegatedEventObject(true);\nfunction updateOrAddSyntheticEvent(name, dom) {\n  var eventsObject = dom.$EV;\n  if (!eventsObject) {\n    eventsObject = dom.$EV = getDelegatedEventObject(null);\n  }\n  if (!eventsObject[name]) {\n    if (++attachedEventCounts[name] === 1) {\n      attachedEvents[name] = attachEventToDocument(name);\n    }\n  }\n  return eventsObject;\n}\nfunction unmountSyntheticEvent(name, dom) {\n  var eventsObject = dom.$EV;\n  if (eventsObject && eventsObject[name]) {\n    if (--attachedEventCounts[name] === 0) {\n      document.removeEventListener(normalizeEventName(name), attachedEvents[name]);\n      attachedEvents[name] = null;\n    }\n    eventsObject[name] = null;\n  }\n}\nfunction handleSyntheticEvent(name, lastEvent, nextEvent, dom) {\n  if (isFunction(nextEvent)) {\n    updateOrAddSyntheticEvent(name, dom)[name] = nextEvent;\n  } else if (isLinkEventObject(nextEvent)) {\n    if (isLastValueSameLinkEvent(lastEvent, nextEvent)) {\n      return;\n    }\n    updateOrAddSyntheticEvent(name, dom)[name] = nextEvent;\n  } else {\n    unmountSyntheticEvent(name, dom);\n  }\n}\n// When browsers fully support event.composedPath we could loop it through instead of using parentNode property\nfunction getTargetNode(event) {\n  return isFunction(event.composedPath) ? event.composedPath()[0] : event.target;\n}\nfunction dispatchEvents(event, isClick, name, eventData) {\n  var dom = getTargetNode(event);\n  do {\n    // Html Nodes can be nested fe: span inside button in that scenario browser does not handle disabled attribute on parent,\n    // because the event listener is on document.body\n    // Don't process clicks on disabled elements\n    if (isClick && dom.disabled) {\n      return;\n    }\n    var eventsObject = dom.$EV;\n    if (eventsObject) {\n      var currentEvent = eventsObject[name];\n      if (currentEvent) {\n        // linkEvent object\n        eventData.dom = dom;\n        currentEvent.event ? currentEvent.event(currentEvent.data, event) : currentEvent(event);\n        if (event.cancelBubble) {\n          return;\n        }\n      }\n    }\n    dom = dom.parentNode;\n  } while (!isNull(dom));\n}\nfunction stopPropagation() {\n  this.cancelBubble = true;\n  if (!this.immediatePropagationStopped) {\n    this.stopImmediatePropagation();\n  }\n}\nfunction isDefaultPrevented() {\n  return this.defaultPrevented;\n}\nfunction isPropagationStopped() {\n  return this.cancelBubble;\n}\nfunction extendEventProperties(event) {\n  // Event data needs to be object to save reference to currentTarget getter\n  var eventData = {\n    dom: document\n  };\n  event.isDefaultPrevented = isDefaultPrevented;\n  event.isPropagationStopped = isPropagationStopped;\n  event.stopPropagation = stopPropagation;\n  Object.defineProperty(event, 'currentTarget', {\n    configurable: true,\n    get: function get() {\n      return eventData.dom;\n    }\n  });\n  return eventData;\n}\nfunction rootClickEvent(name) {\n  return function (event) {\n    if (event.button !== 0) {\n      // Firefox incorrectly triggers click event for mid/right mouse buttons.\n      // This bug has been active for 17 years.\n      // https://bugzilla.mozilla.org/show_bug.cgi?id=184051\n      event.stopPropagation();\n      return;\n    }\n    dispatchEvents(event, true, name, extendEventProperties(event));\n  };\n}\nfunction rootEvent(name) {\n  return function (event) {\n    dispatchEvents(event, false, name, extendEventProperties(event));\n  };\n}\nfunction attachEventToDocument(name) {\n  var attachedEvent = name === 'onClick' || name === 'onDblClick' ? rootClickEvent(name) : rootEvent(name);\n  document.addEventListener(normalizeEventName(name), attachedEvent);\n  return attachedEvent;\n}\nfunction isSameInnerHTML(dom, innerHTML) {\n  var tempdom = document.createElement('i');\n  tempdom.innerHTML = innerHTML;\n  return tempdom.innerHTML === dom.innerHTML;\n}\nfunction triggerEventListener(props, methodName, e) {\n  if (props[methodName]) {\n    var listener = props[methodName];\n    if (listener.event) {\n      listener.event(listener.data, e);\n    } else {\n      listener(e);\n    }\n  } else {\n    var nativeListenerName = methodName.toLowerCase();\n    if (props[nativeListenerName]) {\n      props[nativeListenerName](e);\n    }\n  }\n}\nfunction createWrappedFunction(methodName, applyValue) {\n  var fnMethod = function fnMethod(e) {\n    var vNode = this.$V;\n    // If vNode is gone by the time event fires, no-op\n    if (!vNode) {\n      return;\n    }\n    var props = vNode.props || EMPTY_OBJ;\n    var dom = vNode.dom;\n    if (isString(methodName)) {\n      triggerEventListener(props, methodName, e);\n    } else {\n      for (var i = 0; i < methodName.length; ++i) {\n        triggerEventListener(props, methodName[i], e);\n      }\n    }\n    if (isFunction(applyValue)) {\n      var newVNode = this.$V;\n      var newProps = newVNode.props || EMPTY_OBJ;\n      applyValue(newProps, dom, false, newVNode);\n    }\n  };\n  Object.defineProperty(fnMethod, 'wrapped', {\n    configurable: false,\n    enumerable: false,\n    value: true,\n    writable: false\n  });\n  return fnMethod;\n}\nfunction attachEvent(dom, eventName, handler) {\n  var previousKey = \"$\" + eventName;\n  var previousArgs = dom[previousKey];\n  if (previousArgs) {\n    if (previousArgs[1].wrapped) {\n      return;\n    }\n    dom.removeEventListener(previousArgs[0], previousArgs[1]);\n    dom[previousKey] = null;\n  }\n  if (isFunction(handler)) {\n    dom.addEventListener(eventName, handler);\n    dom[previousKey] = [eventName, handler];\n  }\n}\nfunction isCheckedType(type) {\n  return type === 'checkbox' || type === 'radio';\n}\nvar onTextInputChange = createWrappedFunction('onInput', applyValueInput);\nvar wrappedOnChange$1 = createWrappedFunction(['onClick', 'onChange'], applyValueInput);\n/* tslint:disable-next-line:no-empty */\nfunction emptywrapper(event) {\n  event.stopPropagation();\n}\nemptywrapper.wrapped = true;\nfunction inputEvents(dom, nextPropsOrEmpty) {\n  if (isCheckedType(nextPropsOrEmpty.type)) {\n    attachEvent(dom, 'change', wrappedOnChange$1);\n    attachEvent(dom, 'click', emptywrapper);\n  } else {\n    attachEvent(dom, 'input', onTextInputChange);\n  }\n}\nfunction applyValueInput(nextPropsOrEmpty, dom) {\n  var type = nextPropsOrEmpty.type;\n  var value = nextPropsOrEmpty.value;\n  var checked = nextPropsOrEmpty.checked;\n  var multiple = nextPropsOrEmpty.multiple;\n  var defaultValue = nextPropsOrEmpty.defaultValue;\n  var hasValue = !isNullOrUndef(value);\n  if (type && type !== dom.type) {\n    dom.setAttribute('type', type);\n  }\n  if (!isNullOrUndef(multiple) && multiple !== dom.multiple) {\n    dom.multiple = multiple;\n  }\n  if (!isNullOrUndef(defaultValue) && !hasValue) {\n    dom.defaultValue = defaultValue + '';\n  }\n  if (isCheckedType(type)) {\n    if (hasValue) {\n      dom.value = value;\n    }\n    if (!isNullOrUndef(checked)) {\n      dom.checked = checked;\n    }\n  } else {\n    if (hasValue && dom.value !== value) {\n      dom.defaultValue = value;\n      dom.value = value;\n    } else if (!isNullOrUndef(checked)) {\n      dom.checked = checked;\n    }\n  }\n}\nfunction updateChildOptions(vNode, value) {\n  if (vNode.type === 'option') {\n    updateChildOption(vNode, value);\n  } else {\n    var children = vNode.children;\n    var flags = vNode.flags;\n    if (flags & 4 /* VNodeFlags.ComponentClass */) {\n      updateChildOptions(children.$LI, value);\n    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n      updateChildOptions(children, value);\n    } else if (vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n      updateChildOptions(children, value);\n    } else if (vNode.childFlags & 12 /* ChildFlags.MultipleChildren */) {\n      for (var i = 0, len = children.length; i < len; ++i) {\n        updateChildOptions(children[i], value);\n      }\n    }\n  }\n}\nfunction updateChildOption(vNode, value) {\n  var props = vNode.props || EMPTY_OBJ;\n  var dom = vNode.dom;\n  // we do this as multiple may have changed\n  dom.value = props.value;\n  if (props.value === value || isArray(value) && value.indexOf(props.value) !== -1) {\n    dom.selected = true;\n  } else if (!isNullOrUndef(value) || !isNullOrUndef(props.selected)) {\n    dom.selected = props.selected || false;\n  }\n}\nvar onSelectChange = createWrappedFunction('onChange', applyValueSelect);\nfunction selectEvents(dom) {\n  attachEvent(dom, 'change', onSelectChange);\n}\nfunction applyValueSelect(nextPropsOrEmpty, dom, mounting, vNode) {\n  var multiplePropInBoolean = Boolean(nextPropsOrEmpty.multiple);\n  if (!isNullOrUndef(nextPropsOrEmpty.multiple) && multiplePropInBoolean !== dom.multiple) {\n    dom.multiple = multiplePropInBoolean;\n  }\n  var index = nextPropsOrEmpty.selectedIndex;\n  if (index === -1) {\n    dom.selectedIndex = -1;\n  }\n  var childFlags = vNode.childFlags;\n  if (childFlags !== 1 /* ChildFlags.HasInvalidChildren */) {\n    var value = nextPropsOrEmpty.value;\n    if (isNumber(index) && index > -1 && dom.options[index]) {\n      value = dom.options[index].value;\n    }\n    if (mounting && isNullOrUndef(value)) {\n      value = nextPropsOrEmpty.defaultValue;\n    }\n    updateChildOptions(vNode, value);\n  }\n}\nvar onTextareaInputChange = createWrappedFunction('onInput', applyValueTextArea);\nvar wrappedOnChange = createWrappedFunction('onChange');\nfunction textAreaEvents(dom, nextPropsOrEmpty) {\n  attachEvent(dom, 'input', onTextareaInputChange);\n  if (nextPropsOrEmpty.onChange) {\n    attachEvent(dom, 'change', wrappedOnChange);\n  }\n}\nfunction applyValueTextArea(nextPropsOrEmpty, dom, mounting) {\n  var value = nextPropsOrEmpty.value;\n  var domValue = dom.value;\n  if (isNullOrUndef(value)) {\n    if (mounting) {\n      var defaultValue = nextPropsOrEmpty.defaultValue;\n      if (!isNullOrUndef(defaultValue) && defaultValue !== domValue) {\n        dom.defaultValue = defaultValue;\n        dom.value = defaultValue;\n      }\n    }\n  } else if (domValue !== value) {\n    /* There is value so keep it controlled */\n    dom.defaultValue = value;\n    dom.value = value;\n  }\n}\nfunction processElement(flags, vNode, dom, nextPropsOrEmpty, mounting, isControlled) {\n  if (flags & 64 /* VNodeFlags.InputElement */) {\n    applyValueInput(nextPropsOrEmpty, dom);\n  } else if (flags & 256 /* VNodeFlags.SelectElement */) {\n    applyValueSelect(nextPropsOrEmpty, dom, mounting, vNode);\n  } else if (flags & 128 /* VNodeFlags.TextareaElement */) {\n    applyValueTextArea(nextPropsOrEmpty, dom, mounting);\n  }\n  if (isControlled) {\n    dom.$V = vNode;\n  }\n}\nfunction addFormElementEventHandlers(flags, dom, nextPropsOrEmpty) {\n  if (flags & 64 /* VNodeFlags.InputElement */) {\n    inputEvents(dom, nextPropsOrEmpty);\n  } else if (flags & 256 /* VNodeFlags.SelectElement */) {\n    selectEvents(dom);\n  } else if (flags & 128 /* VNodeFlags.TextareaElement */) {\n    textAreaEvents(dom, nextPropsOrEmpty);\n  }\n}\nfunction isControlledFormElement(nextPropsOrEmpty) {\n  return nextPropsOrEmpty.type && isCheckedType(nextPropsOrEmpty.type) ? !isNullOrUndef(nextPropsOrEmpty.checked) : !isNullOrUndef(nextPropsOrEmpty.value);\n}\nfunction createRef() {\n  return {\n    current: null\n  };\n}\n// TODO: Make this return value typed\nfunction forwardRef(render) {\n  var ref = {\n    render: render\n  };\n  // @ts-ignore\n  return ref;\n}\nfunction unmountRef(ref) {\n  if (ref) {\n    if (!safeCall1(ref, null) && ref.current) {\n      ref.current = null;\n    }\n  }\n}\nfunction mountRef(ref, value, lifecycle) {\n  if (ref && (isFunction(ref) || ref.current !== void 0)) {\n    lifecycle.push(function () {\n      if (!safeCall1(ref, value) && ref.current !== void 0) {\n        ref.current = value;\n      }\n    });\n  }\n}\nfunction remove(vNode, parentDOM, animations) {\n  unmount(vNode, animations);\n  removeVNodeDOM(vNode, parentDOM, animations);\n}\nfunction unmount(vNode, animations) {\n  var flags = vNode.flags;\n  var children = vNode.children;\n  var ref;\n  if (flags & 481 /* VNodeFlags.Element */) {\n    ref = vNode.ref;\n    var props = vNode.props;\n    unmountRef(ref);\n    var childFlags = vNode.childFlags;\n    if (!isNull(props)) {\n      var keys = Object.keys(props);\n      for (var i = 0, len = keys.length; i < len; i++) {\n        var key = keys[i];\n        if (syntheticEvents[key]) {\n          unmountSyntheticEvent(key, vNode.dom);\n        }\n      }\n    }\n    if (childFlags & 12 /* ChildFlags.MultipleChildren */) {\n      unmountAllChildren(children, animations);\n    } else if (childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n      unmount(children, animations);\n    }\n  } else if (children) {\n    if (flags & 4 /* VNodeFlags.ComponentClass */) {\n      if (isFunction(children.componentWillUnmount)) {\n        // TODO: Possible entrypoint\n        children.componentWillUnmount();\n      }\n      // If we have a componentWillDisappear on this component, block children from animating\n      var childAnimations = animations;\n      if (isFunction(children.componentWillDisappear)) {\n        childAnimations = new AnimationQueues();\n        addDisappearAnimationHook(animations, children, children.$LI.dom, flags, undefined);\n      }\n      unmountRef(vNode.ref);\n      children.$UN = true;\n      unmount(children.$LI, childAnimations);\n    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n      // If we have a onComponentWillDisappear on this component, block children from animating\n      var _childAnimations = animations;\n      ref = vNode.ref;\n      if (!isNullOrUndef(ref)) {\n        var domEl = null;\n        if (isFunction(ref.onComponentWillUnmount)) {\n          domEl = findDOMFromVNode(vNode, true);\n          ref.onComponentWillUnmount(domEl, vNode.props || EMPTY_OBJ);\n        }\n        if (isFunction(ref.onComponentWillDisappear)) {\n          _childAnimations = new AnimationQueues();\n          domEl = domEl || findDOMFromVNode(vNode, true);\n          addDisappearAnimationHook(animations, ref, domEl, flags, vNode.props);\n        }\n      }\n      unmount(children, _childAnimations);\n    } else if (flags & 1024 /* VNodeFlags.Portal */) {\n      remove(children, vNode.ref, animations);\n    } else if (flags & 8192 /* VNodeFlags.Fragment */) {\n      if (vNode.childFlags & 12 /* ChildFlags.MultipleChildren */) {\n        unmountAllChildren(children, animations);\n      }\n    }\n  }\n}\nfunction unmountAllChildren(children, animations) {\n  for (var i = 0, len = children.length; i < len; ++i) {\n    unmount(children[i], animations);\n  }\n}\nfunction createClearAllCallback(children, parentDOM) {\n  return function () {\n    // We need to remove children one by one because elements can be added during animation\n    if (parentDOM) {\n      for (var i = 0; i < children.length; i++) {\n        var vNode = children[i];\n        clearVNodeDOM(vNode, parentDOM, false);\n      }\n    }\n  };\n}\nfunction clearDOM(parentDOM, children, animations) {\n  if (animations.componentWillDisappear.length > 0) {\n    // Wait until animations are finished before removing actual dom nodes\n    // Be aware that the element could be removed by a later operation\n    callAllAnimationHooks(animations.componentWillDisappear, createClearAllCallback(children, parentDOM));\n  } else {\n    // Optimization for clearing dom\n    parentDOM.textContent = '';\n  }\n}\nfunction removeAllChildren(dom, vNode, children, animations) {\n  unmountAllChildren(children, animations);\n  if (vNode.flags & 8192 /* VNodeFlags.Fragment */) {\n    removeVNodeDOM(vNode, dom, animations);\n  } else {\n    clearDOM(dom, children, animations);\n  }\n}\n// Only add animations to queue in browser\nfunction addDisappearAnimationHook(animations, instanceOrRef, dom, flags, props) {\n  animations.componentWillDisappear.push(function (callback) {\n    if (flags & 4 /* VNodeFlags.ComponentClass */) {\n      instanceOrRef.componentWillDisappear(dom, callback);\n    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n      instanceOrRef.onComponentWillDisappear(dom, props, callback);\n    }\n  });\n}\nfunction wrapLinkEvent(nextValue) {\n  // This variable makes sure there is no \"this\" context in callback\n  var ev = nextValue.event;\n  return function (e) {\n    ev(nextValue.data, e);\n  };\n}\nfunction patchEvent(name, lastValue, nextValue, dom) {\n  if (isLinkEventObject(nextValue)) {\n    if (isLastValueSameLinkEvent(lastValue, nextValue)) {\n      return;\n    }\n    nextValue = wrapLinkEvent(nextValue);\n  }\n  attachEvent(dom, normalizeEventName(name), nextValue);\n}\n// We are assuming here that we come from patchProp routine\n// -nextAttrValue cannot be null or undefined\nfunction patchStyle(lastAttrValue, nextAttrValue, dom) {\n  if (isNullOrUndef(nextAttrValue)) {\n    dom.removeAttribute('style');\n    return;\n  }\n  var domStyle = dom.style;\n  var style;\n  var value;\n  if (isString(nextAttrValue)) {\n    domStyle.cssText = nextAttrValue;\n    return;\n  }\n  if (!isNullOrUndef(lastAttrValue) && !isString(lastAttrValue)) {\n    for (style in nextAttrValue) {\n      // do not add a hasOwnProperty check here, it affects performance\n      value = nextAttrValue[style];\n      if (value !== lastAttrValue[style]) {\n        domStyle.setProperty(style, value);\n      }\n    }\n    for (style in lastAttrValue) {\n      if (isNullOrUndef(nextAttrValue[style])) {\n        domStyle.removeProperty(style);\n      }\n    }\n  } else {\n    for (style in nextAttrValue) {\n      value = nextAttrValue[style];\n      domStyle.setProperty(style, value);\n    }\n  }\n}\nfunction patchDangerInnerHTML(lastValue, nextValue, lastVNode, dom, animations) {\n  var lastHtml = lastValue && lastValue.__html || '';\n  var nextHtml = nextValue && nextValue.__html || '';\n  if (lastHtml !== nextHtml) {\n    if (!isNullOrUndef(nextHtml) && !isSameInnerHTML(dom, nextHtml)) {\n      if (!isNull(lastVNode)) {\n        if (lastVNode.childFlags & 12 /* ChildFlags.MultipleChildren */) {\n          unmountAllChildren(lastVNode.children, animations);\n        } else if (lastVNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n          unmount(lastVNode.children, animations);\n        }\n        lastVNode.children = null;\n        lastVNode.childFlags = 1 /* ChildFlags.HasInvalidChildren */;\n      }\n\n      dom.innerHTML = nextHtml;\n    }\n  }\n}\nfunction patchProp(prop, lastValue, nextValue, dom, isSVG, hasControlledValue, lastVNode, animations) {\n  switch (prop) {\n    case 'children':\n    case 'childrenType':\n    case 'className':\n    case 'defaultValue':\n    case 'key':\n    case 'multiple':\n    case 'ref':\n    case 'selectedIndex':\n      break;\n    case 'autoFocus':\n      dom.autofocus = !!nextValue;\n      break;\n    case 'allowfullscreen':\n    case 'autoplay':\n    case 'capture':\n    case 'checked':\n    case 'controls':\n    case 'default':\n    case 'disabled':\n    case 'hidden':\n    case 'indeterminate':\n    case 'loop':\n    case 'muted':\n    case 'novalidate':\n    case 'open':\n    case 'readOnly':\n    case 'required':\n    case 'reversed':\n    case 'scoped':\n    case 'seamless':\n    case 'selected':\n      dom[prop] = !!nextValue;\n      break;\n    case 'defaultChecked':\n    case 'value':\n    case 'volume':\n      if (hasControlledValue && prop === 'value') {\n        break;\n      }\n      var value = isNullOrUndef(nextValue) ? '' : nextValue;\n      if (dom[prop] !== value) {\n        dom[prop] = value;\n      }\n      break;\n    case 'style':\n      patchStyle(lastValue, nextValue, dom);\n      break;\n    case 'dangerouslySetInnerHTML':\n      patchDangerInnerHTML(lastValue, nextValue, lastVNode, dom, animations);\n      break;\n    default:\n      if (syntheticEvents[prop]) {\n        handleSyntheticEvent(prop, lastValue, nextValue, dom);\n      } else if (prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110) {\n        patchEvent(prop, lastValue, nextValue, dom);\n      } else if (isNullOrUndef(nextValue)) {\n        dom.removeAttribute(prop);\n      } else if (isSVG && namespaces[prop]) {\n        // We optimize for isSVG being false\n        // If we end up in this path we can read property again\n        dom.setAttributeNS(namespaces[prop], prop, nextValue);\n      } else {\n        dom.setAttribute(prop, nextValue);\n      }\n      break;\n  }\n}\nfunction mountProps(vNode, flags, props, dom, isSVG, animations) {\n  var hasControlledValue = false;\n  var isFormElement = (flags & 448 /* VNodeFlags.FormElement */) > 0;\n  if (isFormElement) {\n    hasControlledValue = isControlledFormElement(props);\n    if (hasControlledValue) {\n      addFormElementEventHandlers(flags, dom, props);\n    }\n  }\n  for (var prop in props) {\n    // do not add a hasOwnProperty check here, it affects performance\n    patchProp(prop, null, props[prop], dom, isSVG, hasControlledValue, null, animations);\n  }\n  if (isFormElement) {\n    processElement(flags, vNode, dom, props, true, hasControlledValue);\n  }\n}\nfunction renderNewInput(instance, props, context) {\n  var nextInput = normalizeRoot(instance.render(props, instance.state, context));\n  var childContext = context;\n  if (isFunction(instance.getChildContext)) {\n    childContext = combineFrom(context, instance.getChildContext());\n  }\n  instance.$CX = childContext;\n  return nextInput;\n}\nfunction createClassComponentInstance(vNode, Component, props, context, isSVG, lifecycle) {\n  var instance = new Component(props, context);\n  var usesNewAPI = instance.$N = Boolean(Component.getDerivedStateFromProps || instance.getSnapshotBeforeUpdate);\n  instance.$SVG = isSVG;\n  instance.$L = lifecycle;\n  vNode.children = instance;\n  instance.$BS = false;\n  instance.context = context;\n  if (instance.props === EMPTY_OBJ) {\n    instance.props = props;\n  }\n  if (!usesNewAPI) {\n    if (isFunction(instance.componentWillMount)) {\n      instance.$BR = true;\n      instance.componentWillMount();\n      var pending = instance.$PS;\n      if (!isNull(pending)) {\n        var state = instance.state;\n        if (isNull(state)) {\n          instance.state = pending;\n        } else {\n          for (var key in pending) {\n            state[key] = pending[key];\n          }\n        }\n        instance.$PS = null;\n      }\n      instance.$BR = false;\n    }\n  } else {\n    instance.state = createDerivedState(instance, props, instance.state);\n  }\n  instance.$LI = renderNewInput(instance, props, context);\n  return instance;\n}\nfunction renderFunctionalComponent(vNode, context) {\n  var props = vNode.props || EMPTY_OBJ;\n  return vNode.flags & 32768 /* VNodeFlags.ForwardRef */ ? vNode.type.render(props, vNode.ref, context) : vNode.type(props, context);\n}\nfunction mount(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var flags = vNode.flags |= 16384 /* VNodeFlags.InUse */;\n  if (flags & 481 /* VNodeFlags.Element */) {\n    mountElement(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  } else if (flags & 4 /* VNodeFlags.ComponentClass */) {\n    mountClassComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n    mountFunctionalComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  } else if (flags & 16 /* VNodeFlags.Text */) {\n    mountText(vNode, parentDOM, nextNode);\n  } else if (flags & 8192 /* VNodeFlags.Fragment */) {\n    mountFragment(vNode, context, parentDOM, isSVG, nextNode, lifecycle, animations);\n  } else if (flags & 1024 /* VNodeFlags.Portal */) {\n    mountPortal(vNode, context, parentDOM, nextNode, lifecycle, animations);\n  } else ;\n}\nfunction mountPortal(vNode, context, parentDOM, nextNode, lifecycle, animations) {\n  mount(vNode.children, vNode.ref, context, false, null, lifecycle, animations);\n  var placeHolderVNode = createVoidVNode();\n  mountText(placeHolderVNode, parentDOM, nextNode);\n  vNode.dom = placeHolderVNode.dom;\n}\nfunction mountFragment(vNode, context, parentDOM, isSVG, nextNode, lifecycle, animations) {\n  var children = vNode.children;\n  var childFlags = vNode.childFlags;\n  // When fragment is optimized for multiple children, check if there is no children and change flag to invalid\n  // This is the only normalization always done, to keep optimization flags API same for fragments and regular elements\n  if (childFlags & 12 /* ChildFlags.MultipleChildren */ && children.length === 0) {\n    childFlags = vNode.childFlags = 2 /* ChildFlags.HasVNodeChildren */;\n    children = vNode.children = createVoidVNode();\n  }\n  if (childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n    mount(children, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  } else {\n    mountArrayChildren(children, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  }\n}\nfunction mountText(vNode, parentDOM, nextNode) {\n  var dom = vNode.dom = document.createTextNode(vNode.children);\n  if (!isNull(parentDOM)) {\n    insertOrAppend(parentDOM, dom, nextNode);\n  }\n}\nfunction mountElement(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var flags = vNode.flags;\n  var props = vNode.props;\n  var className = vNode.className;\n  var childFlags = vNode.childFlags;\n  var dom = vNode.dom = documentCreateElement(vNode.type, isSVG = isSVG || (flags & 32 /* VNodeFlags.SvgElement */) > 0);\n  var children = vNode.children;\n  if (!isNullOrUndef(className) && className !== '') {\n    if (isSVG) {\n      dom.setAttribute('class', className);\n    } else {\n      dom.className = className;\n    }\n  }\n  if (childFlags === 16 /* ChildFlags.HasTextChildren */) {\n    setTextContent(dom, children);\n  } else if (childFlags !== 1 /* ChildFlags.HasInvalidChildren */) {\n    var childrenIsSVG = isSVG && vNode.type !== 'foreignObject';\n    if (childFlags === 2 /* ChildFlags.HasVNodeChildren */) {\n      if (children.flags & 16384 /* VNodeFlags.InUse */) {\n        vNode.children = children = directClone(children);\n      }\n      mount(children, dom, context, childrenIsSVG, null, lifecycle, animations);\n    } else if (childFlags === 8 /* ChildFlags.HasKeyedChildren */ || childFlags === 4 /* ChildFlags.HasNonKeyedChildren */) {\n      mountArrayChildren(children, dom, context, childrenIsSVG, null, lifecycle, animations);\n    }\n  }\n  if (!isNull(parentDOM)) {\n    insertOrAppend(parentDOM, dom, nextNode);\n  }\n  if (!isNull(props)) {\n    mountProps(vNode, flags, props, dom, isSVG, animations);\n  }\n  mountRef(vNode.ref, dom, lifecycle);\n}\nfunction mountArrayChildren(children, dom, context, isSVG, nextNode, lifecycle, animations) {\n  for (var i = 0; i < children.length; ++i) {\n    var child = children[i];\n    if (child.flags & 16384 /* VNodeFlags.InUse */) {\n      children[i] = child = directClone(child);\n    }\n    mount(child, dom, context, isSVG, nextNode, lifecycle, animations);\n  }\n}\nfunction mountClassComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var instance = createClassComponentInstance(vNode, vNode.type, vNode.props || EMPTY_OBJ, context, isSVG, lifecycle);\n  // If we have a componentDidAppear on this component, we shouldn't allow children to animate so we're passing an dummy animations queue\n  var childAnimations = animations;\n  if (isFunction(instance.componentDidAppear)) {\n    childAnimations = new AnimationQueues();\n  }\n  mount(instance.$LI, parentDOM, instance.$CX, isSVG, nextNode, lifecycle, childAnimations);\n  mountClassComponentCallbacks(vNode.ref, instance, lifecycle, animations);\n}\nfunction mountFunctionalComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var ref = vNode.ref;\n  // If we have a componentDidAppear on this component, we shouldn't allow children to animate so we're passing an dummy animations queue\n  var childAnimations = animations;\n  if (!isNullOrUndef(ref) && isFunction(ref.onComponentDidAppear)) {\n    childAnimations = new AnimationQueues();\n  }\n  mount(vNode.children = normalizeRoot(renderFunctionalComponent(vNode, context)), parentDOM, context, isSVG, nextNode, lifecycle, childAnimations);\n  mountFunctionalComponentCallbacks(vNode, lifecycle, animations);\n}\nfunction createClassMountCallback(instance) {\n  return function () {\n    instance.componentDidMount();\n  };\n}\nfunction addAppearAnimationHook(animations, instanceOrRef, dom, flags, props) {\n  animations.componentDidAppear.push(function () {\n    if (flags & 4 /* VNodeFlags.ComponentClass */) {\n      instanceOrRef.componentDidAppear(dom);\n    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {\n      instanceOrRef.onComponentDidAppear(dom, props);\n    }\n  });\n}\nfunction mountClassComponentCallbacks(ref, instance, lifecycle, animations) {\n  mountRef(ref, instance, lifecycle);\n  if (isFunction(instance.componentDidMount)) {\n    lifecycle.push(createClassMountCallback(instance));\n  }\n  if (isFunction(instance.componentDidAppear)) {\n    addAppearAnimationHook(animations, instance, instance.$LI.dom, 4 /* VNodeFlags.ComponentClass */, undefined);\n  }\n}\nfunction createOnMountCallback(ref, vNode) {\n  return function () {\n    ref.onComponentDidMount(findDOMFromVNode(vNode, true), vNode.props || EMPTY_OBJ);\n  };\n}\nfunction mountFunctionalComponentCallbacks(vNode, lifecycle, animations) {\n  var ref = vNode.ref;\n  if (!isNullOrUndef(ref)) {\n    safeCall1(ref.onComponentWillMount, vNode.props || EMPTY_OBJ);\n    if (isFunction(ref.onComponentDidMount)) {\n      lifecycle.push(createOnMountCallback(ref, vNode));\n    }\n    if (isFunction(ref.onComponentDidAppear)) {\n      addAppearAnimationHook(animations, ref, findDOMFromVNode(vNode, true), 8 /* VNodeFlags.ComponentFunction */, vNode.props);\n    }\n  }\n}\nfunction replaceWithNewNode(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations) {\n  unmount(lastVNode, animations);\n  if ((nextVNode.flags & lastVNode.flags & 1521 /* VNodeFlags.DOMRef */) !== 0) {\n    mount(nextVNode, null, context, isSVG, null, lifecycle, animations);\n    // Single DOM operation, when we have dom references available\n    replaceChild(parentDOM, nextVNode.dom, lastVNode.dom);\n  } else {\n    mount(nextVNode, parentDOM, context, isSVG, findDOMFromVNode(lastVNode, true), lifecycle, animations);\n    removeVNodeDOM(lastVNode, parentDOM, animations);\n  }\n}\nfunction patch(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var nextFlags = nextVNode.flags |= 16384 /* VNodeFlags.InUse */;\n  if (lastVNode.flags !== nextFlags || lastVNode.type !== nextVNode.type || lastVNode.key !== nextVNode.key || nextFlags & 2048 /* VNodeFlags.ReCreate */) {\n    if (lastVNode.flags & 16384 /* VNodeFlags.InUse */) {\n      replaceWithNewNode(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations);\n    } else {\n      // Last vNode is not in use, it has crashed at application level. Just mount nextVNode and ignore last one\n      mount(nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n    }\n  } else if (nextFlags & 481 /* VNodeFlags.Element */) {\n    patchElement(lastVNode, nextVNode, context, isSVG, nextFlags, lifecycle, animations);\n  } else if (nextFlags & 4 /* VNodeFlags.ComponentClass */) {\n    patchClassComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  } else if (nextFlags & 8 /* VNodeFlags.ComponentFunction */) {\n    patchFunctionalComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n  } else if (nextFlags & 16 /* VNodeFlags.Text */) {\n    patchText(lastVNode, nextVNode);\n  } else if (nextFlags & 8192 /* VNodeFlags.Fragment */) {\n    patchFragment(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations);\n  } else {\n    patchPortal(lastVNode, nextVNode, context, lifecycle, animations);\n  }\n}\nfunction patchSingleTextChild(lastChildren, nextChildren, parentDOM) {\n  if (lastChildren !== nextChildren) {\n    if (lastChildren !== '') {\n      parentDOM.firstChild.nodeValue = nextChildren;\n    } else {\n      setTextContent(parentDOM, nextChildren);\n    }\n  }\n}\nfunction patchContentEditableChildren(dom, nextChildren) {\n  if (dom.textContent !== nextChildren) {\n    dom.textContent = nextChildren;\n  }\n}\nfunction patchFragment(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations) {\n  var lastChildren = lastVNode.children;\n  var nextChildren = nextVNode.children;\n  var lastChildFlags = lastVNode.childFlags;\n  var nextChildFlags = nextVNode.childFlags;\n  var nextNode = null;\n  // When fragment is optimized for multiple children, check if there is no children and change flag to invalid\n  // This is the only normalization always done, to keep optimization flags API same for fragments and regular elements\n  if (nextChildFlags & 12 /* ChildFlags.MultipleChildren */ && nextChildren.length === 0) {\n    nextChildFlags = nextVNode.childFlags = 2 /* ChildFlags.HasVNodeChildren */;\n    nextChildren = nextVNode.children = createVoidVNode();\n  }\n  var nextIsSingle = (nextChildFlags & 2 /* ChildFlags.HasVNodeChildren */) !== 0;\n  if (lastChildFlags & 12 /* ChildFlags.MultipleChildren */) {\n    var lastLen = lastChildren.length;\n    // We need to know Fragment's edge node when\n    if (\n    // It uses keyed algorithm\n    lastChildFlags & 8 /* ChildFlags.HasKeyedChildren */ && nextChildFlags & 8 /* ChildFlags.HasKeyedChildren */ ||\n    // It transforms from many to single\n    nextIsSingle ||\n    // It will append more nodes\n    !nextIsSingle && nextChildren.length > lastLen) {\n      // When fragment has multiple children there is always at least one vNode\n      nextNode = findDOMFromVNode(lastChildren[lastLen - 1], false).nextSibling;\n    }\n  }\n  patchChildren(lastChildFlags, nextChildFlags, lastChildren, nextChildren, parentDOM, context, isSVG, nextNode, lastVNode, lifecycle, animations);\n}\nfunction patchPortal(lastVNode, nextVNode, context, lifecycle, animations) {\n  var lastContainer = lastVNode.ref;\n  var nextContainer = nextVNode.ref;\n  var nextChildren = nextVNode.children;\n  patchChildren(lastVNode.childFlags, nextVNode.childFlags, lastVNode.children, nextChildren, lastContainer, context, false, null, lastVNode, lifecycle, animations);\n  nextVNode.dom = lastVNode.dom;\n  if (lastContainer !== nextContainer && !isInvalid(nextChildren)) {\n    var node = nextChildren.dom;\n    removeChild(lastContainer, node);\n    appendChild(nextContainer, node);\n  }\n}\nfunction patchElement(lastVNode, nextVNode, context, isSVG, nextFlags, lifecycle, animations) {\n  var dom = nextVNode.dom = lastVNode.dom;\n  var lastProps = lastVNode.props;\n  var nextProps = nextVNode.props;\n  var isFormElement = false;\n  var hasControlledValue = false;\n  var nextPropsOrEmpty;\n  isSVG = isSVG || (nextFlags & 32 /* VNodeFlags.SvgElement */) > 0;\n  // inlined patchProps  -- starts --\n  if (lastProps !== nextProps) {\n    var lastPropsOrEmpty = lastProps || EMPTY_OBJ;\n    nextPropsOrEmpty = nextProps || EMPTY_OBJ;\n    if (nextPropsOrEmpty !== EMPTY_OBJ) {\n      isFormElement = (nextFlags & 448 /* VNodeFlags.FormElement */) > 0;\n      if (isFormElement) {\n        hasControlledValue = isControlledFormElement(nextPropsOrEmpty);\n      }\n      for (var prop in nextPropsOrEmpty) {\n        var lastValue = lastPropsOrEmpty[prop];\n        var nextValue = nextPropsOrEmpty[prop];\n        if (lastValue !== nextValue) {\n          patchProp(prop, lastValue, nextValue, dom, isSVG, hasControlledValue, lastVNode, animations);\n        }\n      }\n    }\n    if (lastPropsOrEmpty !== EMPTY_OBJ) {\n      for (var _prop in lastPropsOrEmpty) {\n        if (isNullOrUndef(nextPropsOrEmpty[_prop]) && !isNullOrUndef(lastPropsOrEmpty[_prop])) {\n          patchProp(_prop, lastPropsOrEmpty[_prop], null, dom, isSVG, hasControlledValue, lastVNode, animations);\n        }\n      }\n    }\n  }\n  var nextChildren = nextVNode.children;\n  var nextClassName = nextVNode.className;\n  // inlined patchProps  -- ends --\n  if (lastVNode.className !== nextClassName) {\n    if (isNullOrUndef(nextClassName)) {\n      dom.removeAttribute('class');\n    } else if (isSVG) {\n      dom.setAttribute('class', nextClassName);\n    } else {\n      dom.className = nextClassName;\n    }\n  }\n  if (nextFlags & 4096 /* VNodeFlags.ContentEditable */) {\n    patchContentEditableChildren(dom, nextChildren);\n  } else {\n    patchChildren(lastVNode.childFlags, nextVNode.childFlags, lastVNode.children, nextChildren, dom, context, isSVG && nextVNode.type !== 'foreignObject', null, lastVNode, lifecycle, animations);\n  }\n  if (isFormElement) {\n    processElement(nextFlags, nextVNode, dom, nextPropsOrEmpty, false, hasControlledValue);\n  }\n  var nextRef = nextVNode.ref;\n  var lastRef = lastVNode.ref;\n  if (lastRef !== nextRef) {\n    unmountRef(lastRef);\n    mountRef(nextRef, dom, lifecycle);\n  }\n}\nfunction replaceOneVNodeWithMultipleVNodes(lastChildren, nextChildren, parentDOM, context, isSVG, lifecycle, animations) {\n  unmount(lastChildren, animations);\n  mountArrayChildren(nextChildren, parentDOM, context, isSVG, findDOMFromVNode(lastChildren, true), lifecycle, animations);\n  removeVNodeDOM(lastChildren, parentDOM, animations);\n}\nfunction patchChildren(lastChildFlags, nextChildFlags, lastChildren, nextChildren, parentDOM, context, isSVG, nextNode, parentVNode, lifecycle, animations) {\n  switch (lastChildFlags) {\n    case 2 /* ChildFlags.HasVNodeChildren */:\n      switch (nextChildFlags) {\n        case 2 /* ChildFlags.HasVNodeChildren */:\n          patch(lastChildren, nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n          break;\n        case 1 /* ChildFlags.HasInvalidChildren */:\n          remove(lastChildren, parentDOM, animations);\n          break;\n        case 16 /* ChildFlags.HasTextChildren */:\n          unmount(lastChildren, animations);\n          setTextContent(parentDOM, nextChildren);\n          break;\n        default:\n          replaceOneVNodeWithMultipleVNodes(lastChildren, nextChildren, parentDOM, context, isSVG, lifecycle, animations);\n          break;\n      }\n      break;\n    case 1 /* ChildFlags.HasInvalidChildren */:\n      switch (nextChildFlags) {\n        case 2 /* ChildFlags.HasVNodeChildren */:\n          mount(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n          break;\n        case 1 /* ChildFlags.HasInvalidChildren */:\n          break;\n        case 16 /* ChildFlags.HasTextChildren */:\n          setTextContent(parentDOM, nextChildren);\n          break;\n        default:\n          mountArrayChildren(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n          break;\n      }\n      break;\n    case 16 /* ChildFlags.HasTextChildren */:\n      switch (nextChildFlags) {\n        case 16 /* ChildFlags.HasTextChildren */:\n          patchSingleTextChild(lastChildren, nextChildren, parentDOM);\n          break;\n        case 2 /* ChildFlags.HasVNodeChildren */:\n          clearDOM(parentDOM, lastChildren, animations);\n          mount(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n          break;\n        case 1 /* ChildFlags.HasInvalidChildren */:\n          clearDOM(parentDOM, lastChildren, animations);\n          break;\n        default:\n          clearDOM(parentDOM, lastChildren, animations);\n          mountArrayChildren(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n          break;\n      }\n      break;\n    default:\n      switch (nextChildFlags) {\n        case 16 /* ChildFlags.HasTextChildren */:\n          unmountAllChildren(lastChildren, animations);\n          setTextContent(parentDOM, nextChildren);\n          break;\n        case 2 /* ChildFlags.HasVNodeChildren */:\n          removeAllChildren(parentDOM, parentVNode, lastChildren, animations);\n          mount(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n          break;\n        case 1 /* ChildFlags.HasInvalidChildren */:\n          removeAllChildren(parentDOM, parentVNode, lastChildren, animations);\n          break;\n        default:\n          var lastLength = lastChildren.length | 0;\n          var nextLength = nextChildren.length | 0;\n          // Fast path's for both algorithms\n          if (lastLength === 0) {\n            if (nextLength > 0) {\n              mountArrayChildren(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n            }\n          } else if (nextLength === 0) {\n            removeAllChildren(parentDOM, parentVNode, lastChildren, animations);\n          } else if (nextChildFlags === 8 /* ChildFlags.HasKeyedChildren */ && lastChildFlags === 8 /* ChildFlags.HasKeyedChildren */) {\n            patchKeyedChildren(lastChildren, nextChildren, parentDOM, context, isSVG, lastLength, nextLength, nextNode, parentVNode, lifecycle, animations);\n          } else {\n            patchNonKeyedChildren(lastChildren, nextChildren, parentDOM, context, isSVG, lastLength, nextLength, nextNode, lifecycle, animations);\n          }\n          break;\n      }\n      break;\n  }\n}\nfunction createDidUpdate(instance, lastProps, lastState, snapshot, lifecycle) {\n  lifecycle.push(function () {\n    instance.componentDidUpdate(lastProps, lastState, snapshot);\n  });\n}\nfunction updateClassComponent(instance, nextState, nextProps, parentDOM, context, isSVG, force, nextNode, lifecycle, animations) {\n  var lastState = instance.state;\n  var lastProps = instance.props;\n  var usesNewAPI = Boolean(instance.$N);\n  var hasSCU = isFunction(instance.shouldComponentUpdate);\n  if (usesNewAPI) {\n    nextState = createDerivedState(instance, nextProps, nextState !== lastState ? combineFrom(lastState, nextState) : nextState);\n  }\n  if (force || !hasSCU || hasSCU && instance.shouldComponentUpdate(nextProps, nextState, context)) {\n    if (!usesNewAPI && isFunction(instance.componentWillUpdate)) {\n      instance.componentWillUpdate(nextProps, nextState, context);\n    }\n    instance.props = nextProps;\n    instance.state = nextState;\n    instance.context = context;\n    var snapshot = null;\n    var nextInput = renderNewInput(instance, nextProps, context);\n    if (usesNewAPI && isFunction(instance.getSnapshotBeforeUpdate)) {\n      snapshot = instance.getSnapshotBeforeUpdate(lastProps, lastState);\n    }\n    patch(instance.$LI, nextInput, parentDOM, instance.$CX, isSVG, nextNode, lifecycle, animations);\n    // Don't update Last input, until patch has been successfully executed\n    instance.$LI = nextInput;\n    if (isFunction(instance.componentDidUpdate)) {\n      createDidUpdate(instance, lastProps, lastState, snapshot, lifecycle);\n    }\n  } else {\n    instance.props = nextProps;\n    instance.state = nextState;\n    instance.context = context;\n  }\n}\nfunction patchClassComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var instance = nextVNode.children = lastVNode.children;\n  // If Component has crashed, ignore it to stay functional\n  if (isNull(instance)) {\n    return;\n  }\n  instance.$L = lifecycle;\n  var nextProps = nextVNode.props || EMPTY_OBJ;\n  var nextRef = nextVNode.ref;\n  var lastRef = lastVNode.ref;\n  var nextState = instance.state;\n  if (!instance.$N) {\n    if (isFunction(instance.componentWillReceiveProps)) {\n      instance.$BR = true;\n      instance.componentWillReceiveProps(nextProps, context);\n      // If instance component was removed during its own update do nothing.\n      if (instance.$UN) {\n        return;\n      }\n      instance.$BR = false;\n    }\n    if (!isNull(instance.$PS)) {\n      nextState = combineFrom(nextState, instance.$PS);\n      instance.$PS = null;\n    }\n  }\n  updateClassComponent(instance, nextState, nextProps, parentDOM, context, isSVG, false, nextNode, lifecycle, animations);\n  if (lastRef !== nextRef) {\n    unmountRef(lastRef);\n    mountRef(nextRef, instance, lifecycle);\n  }\n}\nfunction patchFunctionalComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {\n  var shouldUpdate = true;\n  var nextProps = nextVNode.props || EMPTY_OBJ;\n  var nextRef = nextVNode.ref;\n  var lastProps = lastVNode.props;\n  var nextHooksDefined = !isNullOrUndef(nextRef);\n  var lastInput = lastVNode.children;\n  if (nextHooksDefined && isFunction(nextRef.onComponentShouldUpdate)) {\n    shouldUpdate = nextRef.onComponentShouldUpdate(lastProps, nextProps);\n  }\n  if (shouldUpdate !== false) {\n    if (nextHooksDefined && isFunction(nextRef.onComponentWillUpdate)) {\n      nextRef.onComponentWillUpdate(lastProps, nextProps);\n    }\n    var nextInput = normalizeRoot(renderFunctionalComponent(nextVNode, context));\n    patch(lastInput, nextInput, parentDOM, context, isSVG, nextNode, lifecycle, animations);\n    nextVNode.children = nextInput;\n    if (nextHooksDefined && isFunction(nextRef.onComponentDidUpdate)) {\n      nextRef.onComponentDidUpdate(lastProps, nextProps);\n    }\n  } else {\n    nextVNode.children = lastInput;\n  }\n}\nfunction patchText(lastVNode, nextVNode) {\n  var nextText = nextVNode.children;\n  var dom = nextVNode.dom = lastVNode.dom;\n  if (nextText !== lastVNode.children) {\n    dom.nodeValue = nextText;\n  }\n}\nfunction patchNonKeyedChildren(lastChildren, nextChildren, dom, context, isSVG, lastChildrenLength, nextChildrenLength, nextNode, lifecycle, animations) {\n  var commonLength = lastChildrenLength > nextChildrenLength ? nextChildrenLength : lastChildrenLength;\n  var i = 0;\n  var nextChild;\n  var lastChild;\n  for (; i < commonLength; ++i) {\n    nextChild = nextChildren[i];\n    lastChild = lastChildren[i];\n    if (nextChild.flags & 16384 /* VNodeFlags.InUse */) {\n      nextChild = nextChildren[i] = directClone(nextChild);\n    }\n    patch(lastChild, nextChild, dom, context, isSVG, nextNode, lifecycle, animations);\n    lastChildren[i] = nextChild;\n  }\n  if (lastChildrenLength < nextChildrenLength) {\n    for (i = commonLength; i < nextChildrenLength; ++i) {\n      nextChild = nextChildren[i];\n      if (nextChild.flags & 16384 /* VNodeFlags.InUse */) {\n        nextChild = nextChildren[i] = directClone(nextChild);\n      }\n      mount(nextChild, dom, context, isSVG, nextNode, lifecycle, animations);\n    }\n  } else if (lastChildrenLength > nextChildrenLength) {\n    for (i = commonLength; i < lastChildrenLength; ++i) {\n      remove(lastChildren[i], dom, animations);\n    }\n  }\n}\nfunction patchKeyedChildren(a, b, dom, context, isSVG, aLength, bLength, outerEdge, parentVNode, lifecycle, animations) {\n  var aEnd = aLength - 1;\n  var bEnd = bLength - 1;\n  var j = 0;\n  var aNode = a[j];\n  var bNode = b[j];\n  var nextPos;\n  var nextNode;\n  // Step 1\n  // tslint:disable-next-line\n  outer: {\n    // Sync nodes with the same key at the beginning.\n    while (aNode.key === bNode.key) {\n      if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n        b[j] = bNode = directClone(bNode);\n      }\n      patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);\n      a[j] = bNode;\n      ++j;\n      if (j > aEnd || j > bEnd) {\n        break outer;\n      }\n      aNode = a[j];\n      bNode = b[j];\n    }\n    aNode = a[aEnd];\n    bNode = b[bEnd];\n    // Sync nodes with the same key at the end.\n    while (aNode.key === bNode.key) {\n      if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n        b[bEnd] = bNode = directClone(bNode);\n      }\n      patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);\n      a[aEnd] = bNode;\n      aEnd--;\n      bEnd--;\n      if (j > aEnd || j > bEnd) {\n        break outer;\n      }\n      aNode = a[aEnd];\n      bNode = b[bEnd];\n    }\n  }\n  if (j > aEnd) {\n    if (j <= bEnd) {\n      nextPos = bEnd + 1;\n      nextNode = nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge;\n      while (j <= bEnd) {\n        bNode = b[j];\n        if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n          b[j] = bNode = directClone(bNode);\n        }\n        ++j;\n        mount(bNode, dom, context, isSVG, nextNode, lifecycle, animations);\n      }\n    }\n  } else if (j > bEnd) {\n    while (j <= aEnd) {\n      remove(a[j++], dom, animations);\n    }\n  } else {\n    patchKeyedChildrenComplex(a, b, context, aLength, bLength, aEnd, bEnd, j, dom, isSVG, outerEdge, parentVNode, lifecycle, animations);\n  }\n}\nfunction patchKeyedChildrenComplex(a, b, context, aLength, bLength, aEnd, bEnd, j, dom, isSVG, outerEdge, parentVNode, lifecycle, animations) {\n  var aNode;\n  var bNode;\n  var nextPos = 0;\n  var i = 0;\n  var aStart = j;\n  var bStart = j;\n  var aLeft = aEnd - j + 1;\n  var bLeft = bEnd - j + 1;\n  var sources = new Int32Array(bLeft + 1);\n  // Keep track if its possible to remove whole DOM using textContent = '';\n  var canRemoveWholeContent = aLeft === aLength;\n  var moved = false;\n  var pos = 0;\n  var patched = 0;\n  // When sizes are small, just loop them through\n  if (bLength < 4 || (aLeft | bLeft) < 32) {\n    for (i = aStart; i <= aEnd; ++i) {\n      aNode = a[i];\n      if (patched < bLeft) {\n        for (j = bStart; j <= bEnd; j++) {\n          bNode = b[j];\n          if (aNode.key === bNode.key) {\n            sources[j - bStart] = i + 1;\n            if (canRemoveWholeContent) {\n              canRemoveWholeContent = false;\n              while (aStart < i) {\n                remove(a[aStart++], dom, animations);\n              }\n            }\n            if (pos > j) {\n              moved = true;\n            } else {\n              pos = j;\n            }\n            if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n              b[j] = bNode = directClone(bNode);\n            }\n            patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);\n            ++patched;\n            break;\n          }\n        }\n        if (!canRemoveWholeContent && j > bEnd) {\n          remove(aNode, dom, animations);\n        }\n      } else if (!canRemoveWholeContent) {\n        remove(aNode, dom, animations);\n      }\n    }\n  } else {\n    var keyIndex = {};\n    // Map keys by their index\n    for (i = bStart; i <= bEnd; ++i) {\n      keyIndex[b[i].key] = i;\n    }\n    // Try to patch same keys\n    for (i = aStart; i <= aEnd; ++i) {\n      aNode = a[i];\n      if (patched < bLeft) {\n        j = keyIndex[aNode.key];\n        if (j !== void 0) {\n          if (canRemoveWholeContent) {\n            canRemoveWholeContent = false;\n            while (i > aStart) {\n              remove(a[aStart++], dom, animations);\n            }\n          }\n          sources[j - bStart] = i + 1;\n          if (pos > j) {\n            moved = true;\n          } else {\n            pos = j;\n          }\n          bNode = b[j];\n          if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n            b[j] = bNode = directClone(bNode);\n          }\n          patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);\n          ++patched;\n        } else if (!canRemoveWholeContent) {\n          remove(aNode, dom, animations);\n        }\n      } else if (!canRemoveWholeContent) {\n        remove(aNode, dom, animations);\n      }\n    }\n  }\n  // fast-path: if nothing patched remove all old and add all new\n  if (canRemoveWholeContent) {\n    removeAllChildren(dom, parentVNode, a, animations);\n    mountArrayChildren(b, dom, context, isSVG, outerEdge, lifecycle, animations);\n  } else if (moved) {\n    var seq = lis_algorithm(sources);\n    j = seq.length - 1;\n    for (i = bLeft - 1; i >= 0; i--) {\n      if (sources[i] === 0) {\n        pos = i + bStart;\n        bNode = b[pos];\n        if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n          b[pos] = bNode = directClone(bNode);\n        }\n        nextPos = pos + 1;\n        mount(bNode, dom, context, isSVG, nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge, lifecycle, animations);\n      } else if (j < 0 || i !== seq[j]) {\n        pos = i + bStart;\n        bNode = b[pos];\n        nextPos = pos + 1;\n        // --- the DOM-node is moved by a call to insertAppend\n        moveVNodeDOM(parentVNode, bNode, dom, nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge, animations);\n      } else {\n        j--;\n      }\n    }\n    // Invoke move animations when all moves have been calculated\n    if (animations.componentWillMove.length > 0) {\n      callAllMoveAnimationHooks(animations.componentWillMove);\n    }\n  } else if (patched !== bLeft) {\n    // when patched count doesn't match b length we need to insert those new ones\n    // loop backwards so we can use insertBefore\n    for (i = bLeft - 1; i >= 0; i--) {\n      if (sources[i] === 0) {\n        pos = i + bStart;\n        bNode = b[pos];\n        if (bNode.flags & 16384 /* VNodeFlags.InUse */) {\n          b[pos] = bNode = directClone(bNode);\n        }\n        nextPos = pos + 1;\n        mount(bNode, dom, context, isSVG, nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge, lifecycle, animations);\n      }\n    }\n  }\n}\nvar result;\nvar p;\nvar maxLen = 0;\n// https://en.wikipedia.org/wiki/Longest_increasing_subsequence\nfunction lis_algorithm(arr) {\n  var arrI = 0;\n  var i = 0;\n  var j = 0;\n  var k = 0;\n  var u = 0;\n  var v = 0;\n  var c = 0;\n  var len = arr.length;\n  if (len > maxLen) {\n    maxLen = len;\n    result = new Int32Array(len);\n    p = new Int32Array(len);\n  }\n  for (; i < len; ++i) {\n    arrI = arr[i];\n    if (arrI !== 0) {\n      j = result[k];\n      if (arr[j] < arrI) {\n        p[i] = j;\n        result[++k] = i;\n        continue;\n      }\n      u = 0;\n      v = k;\n      while (u < v) {\n        c = u + v >> 1;\n        if (arr[result[c]] < arrI) {\n          u = c + 1;\n        } else {\n          v = c;\n        }\n      }\n      if (arrI < arr[result[u]]) {\n        if (u > 0) {\n          p[i] = result[u - 1];\n        }\n        result[u] = i;\n      }\n    }\n  }\n  u = k + 1;\n  var seq = new Int32Array(u);\n  v = result[u - 1];\n  while (u-- > 0) {\n    seq[u] = v;\n    v = p[v];\n    result[u] = 0;\n  }\n  return seq;\n}\nvar hasDocumentAvailable = typeof document !== 'undefined';\nif (hasDocumentAvailable) {\n  /*\n   * Defining $EV and $V properties on Node.prototype\n   * fixes v8 \"wrong map\" de-optimization\n   */\n  if (window.Node) {\n    Node.prototype.$EV = null;\n    Node.prototype.$V = null;\n  }\n}\nfunction __render(input, parentDOM, callback, context) {\n  var lifecycle = [];\n  var animations = new AnimationQueues();\n  var rootInput = parentDOM.$V;\n  renderCheck.v = true;\n  if (isNullOrUndef(rootInput)) {\n    if (!isNullOrUndef(input)) {\n      if (input.flags & 16384 /* VNodeFlags.InUse */) {\n        input = directClone(input);\n      }\n      mount(input, parentDOM, context, false, null, lifecycle, animations);\n      parentDOM.$V = input;\n      rootInput = input;\n    }\n  } else {\n    if (isNullOrUndef(input)) {\n      remove(rootInput, parentDOM, animations);\n      parentDOM.$V = null;\n    } else {\n      if (input.flags & 16384 /* VNodeFlags.InUse */) {\n        input = directClone(input);\n      }\n      patch(rootInput, input, parentDOM, context, false, null, lifecycle, animations);\n      rootInput = parentDOM.$V = input;\n    }\n  }\n  callAll(lifecycle);\n  callAllAnimationHooks(animations.componentDidAppear);\n  renderCheck.v = false;\n  if (isFunction(callback)) {\n    callback();\n  }\n  if (isFunction(options.renderComplete)) {\n    options.renderComplete(rootInput, parentDOM);\n  }\n}\nfunction render(input, parentDOM, callback, context) {\n  if (callback === void 0) {\n    callback = null;\n  }\n  if (context === void 0) {\n    context = EMPTY_OBJ;\n  }\n  __render(input, parentDOM, callback, context);\n}\nfunction createRenderer(parentDOM) {\n  return function renderer(lastInput, nextInput, callback, context) {\n    if (!parentDOM) {\n      parentDOM = lastInput;\n    }\n    render(nextInput, parentDOM, callback, context);\n  };\n}\nvar COMPONENTS_QUEUE = [];\nvar nextTick = typeof Promise !== 'undefined' ? Promise.resolve().then.bind(Promise.resolve()) : function (a) {\n  window.setTimeout(a, 0);\n};\nvar microTaskPending = false;\nfunction queueStateChanges(component, newState, callback, force) {\n  var pending = component.$PS;\n  if (isFunction(newState)) {\n    newState = newState(pending ? combineFrom(component.state, pending) : component.state, component.props, component.context);\n  }\n  if (isNullOrUndef(pending)) {\n    component.$PS = newState;\n  } else {\n    for (var stateKey in newState) {\n      pending[stateKey] = newState[stateKey];\n    }\n  }\n  if (!component.$BR) {\n    if (!renderCheck.v) {\n      if (COMPONENTS_QUEUE.length === 0) {\n        applyState(component, force);\n        if (isFunction(callback)) {\n          callback.call(component);\n        }\n        return;\n      }\n    }\n    if (COMPONENTS_QUEUE.indexOf(component) === -1) {\n      COMPONENTS_QUEUE.push(component);\n    }\n    if (force) {\n      component.$F = true;\n    }\n    if (!microTaskPending) {\n      microTaskPending = true;\n      nextTick(rerender);\n    }\n    if (isFunction(callback)) {\n      var QU = component.$QU;\n      if (!QU) {\n        QU = component.$QU = [];\n      }\n      QU.push(callback);\n    }\n  } else if (isFunction(callback)) {\n    component.$L.push(callback.bind(component));\n  }\n}\nfunction callSetStateCallbacks(component) {\n  var queue = component.$QU;\n  for (var i = 0; i < queue.length; ++i) {\n    queue[i].call(component);\n  }\n  component.$QU = null;\n}\nfunction rerender() {\n  var component;\n  microTaskPending = false;\n  while (component = COMPONENTS_QUEUE.shift()) {\n    if (!component.$UN) {\n      var force = component.$F;\n      component.$F = false;\n      applyState(component, force);\n      if (component.$QU) {\n        callSetStateCallbacks(component);\n      }\n    }\n  }\n}\nfunction applyState(component, force) {\n  if (force || !component.$BR) {\n    var pendingState = component.$PS;\n    component.$PS = null;\n    var lifecycle = [];\n    var animations = new AnimationQueues();\n    renderCheck.v = true;\n    updateClassComponent(component, combineFrom(component.state, pendingState), component.props, findDOMFromVNode(component.$LI, true).parentNode, component.context, component.$SVG, force, null, lifecycle, animations);\n    callAll(lifecycle);\n    callAllAnimationHooks(animations.componentDidAppear);\n    renderCheck.v = false;\n  } else {\n    component.state = component.$PS;\n    component.$PS = null;\n  }\n}\nvar Component = /*#__PURE__*/function () {\n  // Force update flag\n  function Component(props, context) {\n    // Public\n    this.state = null;\n    this.props = void 0;\n    this.context = void 0;\n    this.displayName = void 0;\n    // Internal properties\n    this.$BR = false;\n    // BLOCK RENDER\n    this.$BS = true;\n    // BLOCK STATE\n    this.$PS = null;\n    // PENDING STATE (PARTIAL or FULL)\n    this.$LI = null;\n    // LAST INPUT\n    this.$UN = false;\n    // UNMOUNTED\n    this.$CX = null;\n    // CHILDCONTEXT\n    this.$QU = null;\n    // QUEUE\n    this.$N = false;\n    // Uses new lifecycle API Flag\n    this.$SSR = void 0;\n    // Server side rendering flag, true when rendering on server, non existent on client\n    this.$L = null;\n    // Current lifecycle of this component\n    this.$SVG = false;\n    // Flag to keep track if component is inside SVG tree\n    this.$F = false;\n    this.props = props || EMPTY_OBJ;\n    this.context = context || EMPTY_OBJ; // context should not be mutable\n  }\n\n  var _proto = Component.prototype;\n  _proto.forceUpdate = function forceUpdate(callback) {\n    if (this.$UN) {\n      return;\n    }\n    // Do not allow double render during force update\n    queueStateChanges(this, {}, callback, true);\n  };\n  _proto.setState = function setState(newState, callback) {\n    if (this.$UN) {\n      return;\n    }\n    if (!this.$BS) {\n      queueStateChanges(this, newState, callback, false);\n    }\n  };\n  // @ts-expect-error TS6133\n  _proto.render = function render(props, state, context) {\n    return null;\n  };\n  return Component;\n}();\nComponent.defaultProps = null;\nvar version = \"8.2.2\";\n\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/inferno/dist/index.esm.js?");
-
-/***/ }),
-
-/***/ "./node_modules/inferno/index.esm.js":
-/*!*******************************************!*\
-  !*** ./node_modules/inferno/index.esm.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"AnimationQueues\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.AnimationQueues),\n/* harmony export */   \"Component\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.Component),\n/* harmony export */   \"EMPTY_OBJ\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.EMPTY_OBJ),\n/* harmony export */   \"Fragment\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.Fragment),\n/* harmony export */   \"_CI\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._CI),\n/* harmony export */   \"_HI\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._HI),\n/* harmony export */   \"_M\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._M),\n/* harmony export */   \"_MCCC\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MCCC),\n/* harmony export */   \"_ME\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._ME),\n/* harmony export */   \"_MFCC\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MFCC),\n/* harmony export */   \"_MP\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MP),\n/* harmony export */   \"_MR\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MR),\n/* harmony export */   \"_RFC\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._RFC),\n/* harmony export */   \"__render\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.__render),\n/* harmony export */   \"createComponentVNode\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode),\n/* harmony export */   \"createFragment\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createFragment),\n/* harmony export */   \"createPortal\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createPortal),\n/* harmony export */   \"createRef\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createRef),\n/* harmony export */   \"createRenderer\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createRenderer),\n/* harmony export */   \"createTextVNode\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createTextVNode),\n/* harmony export */   \"createVNode\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createVNode),\n/* harmony export */   \"directClone\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.directClone),\n/* harmony export */   \"findDOMFromVNode\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.findDOMFromVNode),\n/* harmony export */   \"forwardRef\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.forwardRef),\n/* harmony export */   \"getFlagsForElementVnode\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.getFlagsForElementVnode),\n/* harmony export */   \"linkEvent\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.linkEvent),\n/* harmony export */   \"normalizeProps\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.normalizeProps),\n/* harmony export */   \"options\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.options),\n/* harmony export */   \"render\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.render),\n/* harmony export */   \"rerender\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.rerender),\n/* harmony export */   \"version\": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.version)\n/* harmony export */ });\n/* harmony import */ var _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dist/index.esm.js */ \"./node_modules/inferno/dist/index.esm.js\");\n\nif (true) {\n  console.warn('You are running production build of Inferno in development mode. Use dev:module entry point.');\n}\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/inferno/index.esm.js?");
-
-/***/ }),
-
-/***/ "./node_modules/isarray/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/isarray/index.js ***!
-  \***************************************/
-/***/ ((module) => {
-
-eval("module.exports = Array.isArray || function (arr) {\n  return Object.prototype.toString.call(arr) == '[object Array]';\n};\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/isarray/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/path-to-regexp-es6/index.js":
-/*!**************************************************!*\
-  !*** ./node_modules/path-to-regexp-es6/index.js ***!
-  \**************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("var pathToRegExp = __webpack_require__(/*! path-to-regexp */ \"./node_modules/path-to-regexp/index.js\");\n\n/**\r\n * Expose `pathToRegexp` as ES6 module\r\n */\nmodule.exports = pathToRegExp;\nmodule.exports.parse = pathToRegExp.parse;\nmodule.exports.compile = pathToRegExp.compile;\nmodule.exports.tokensToFunction = pathToRegExp.tokensToFunction;\nmodule.exports.tokensToRegExp = pathToRegExp.tokensToRegExp;\nmodule.exports[\"default\"] = module.exports;\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/path-to-regexp-es6/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/path-to-regexp/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/path-to-regexp/index.js ***!
-  \**********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("var isarray = __webpack_require__(/*! isarray */ \"./node_modules/isarray/index.js\");\n\n/**\n * Expose `pathToRegexp`.\n */\nmodule.exports = pathToRegexp;\nmodule.exports.parse = parse;\nmodule.exports.compile = compile;\nmodule.exports.tokensToFunction = tokensToFunction;\nmodule.exports.tokensToRegExp = tokensToRegExp;\n\n/**\n * The main path matching regexp utility.\n *\n * @type {RegExp}\n */\nvar PATH_REGEXP = new RegExp([\n// Match escaped characters that would otherwise appear in future matches.\n// This allows the user to escape special characters that won't transform.\n'(\\\\\\\\.)',\n// Match Express-style parameters and un-named parameters with a prefix\n// and optional suffixes. Matches appear as:\n//\n// \"/:test(\\\\d+)?\" => [\"/\", \"test\", \"\\d+\", undefined, \"?\", undefined]\n// \"/route(\\\\d+)\"  => [undefined, undefined, undefined, \"\\d+\", undefined, undefined]\n// \"/*\"            => [\"/\", undefined, undefined, undefined, undefined, \"*\"]\n'([\\\\/.])?(?:(?:\\\\:(\\\\w+)(?:\\\\(((?:\\\\\\\\.|[^\\\\\\\\()])+)\\\\))?|\\\\(((?:\\\\\\\\.|[^\\\\\\\\()])+)\\\\))([+*?])?|(\\\\*))'].join('|'), 'g');\n\n/**\n * Parse a string for the raw tokens.\n *\n * @param  {string}  str\n * @param  {Object=} options\n * @return {!Array}\n */\nfunction parse(str, options) {\n  var tokens = [];\n  var key = 0;\n  var index = 0;\n  var path = '';\n  var defaultDelimiter = options && options.delimiter || '/';\n  var res;\n  while ((res = PATH_REGEXP.exec(str)) != null) {\n    var m = res[0];\n    var escaped = res[1];\n    var offset = res.index;\n    path += str.slice(index, offset);\n    index = offset + m.length;\n\n    // Ignore already escaped sequences.\n    if (escaped) {\n      path += escaped[1];\n      continue;\n    }\n    var next = str[index];\n    var prefix = res[2];\n    var name = res[3];\n    var capture = res[4];\n    var group = res[5];\n    var modifier = res[6];\n    var asterisk = res[7];\n\n    // Push the current path onto the tokens.\n    if (path) {\n      tokens.push(path);\n      path = '';\n    }\n    var partial = prefix != null && next != null && next !== prefix;\n    var repeat = modifier === '+' || modifier === '*';\n    var optional = modifier === '?' || modifier === '*';\n    var delimiter = res[2] || defaultDelimiter;\n    var pattern = capture || group;\n    tokens.push({\n      name: name || key++,\n      prefix: prefix || '',\n      delimiter: delimiter,\n      optional: optional,\n      repeat: repeat,\n      partial: partial,\n      asterisk: !!asterisk,\n      pattern: pattern ? escapeGroup(pattern) : asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?'\n    });\n  }\n\n  // Match any characters still remaining.\n  if (index < str.length) {\n    path += str.substr(index);\n  }\n\n  // If the path exists, push it onto the end.\n  if (path) {\n    tokens.push(path);\n  }\n  return tokens;\n}\n\n/**\n * Compile a string to a template function for the path.\n *\n * @param  {string}             str\n * @param  {Object=}            options\n * @return {!function(Object=, Object=)}\n */\nfunction compile(str, options) {\n  return tokensToFunction(parse(str, options));\n}\n\n/**\n * Prettier encoding of URI path segments.\n *\n * @param  {string}\n * @return {string}\n */\nfunction encodeURIComponentPretty(str) {\n  return encodeURI(str).replace(/[\\/?#]/g, function (c) {\n    return '%' + c.charCodeAt(0).toString(16).toUpperCase();\n  });\n}\n\n/**\n * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.\n *\n * @param  {string}\n * @return {string}\n */\nfunction encodeAsterisk(str) {\n  return encodeURI(str).replace(/[?#]/g, function (c) {\n    return '%' + c.charCodeAt(0).toString(16).toUpperCase();\n  });\n}\n\n/**\n * Expose a method for transforming tokens into the path function.\n */\nfunction tokensToFunction(tokens) {\n  // Compile all the tokens into regexps.\n  var matches = new Array(tokens.length);\n\n  // Compile all the patterns before compilation.\n  for (var i = 0; i < tokens.length; i++) {\n    if (typeof tokens[i] === 'object') {\n      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');\n    }\n  }\n  return function (obj, opts) {\n    var path = '';\n    var data = obj || {};\n    var options = opts || {};\n    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent;\n    for (var i = 0; i < tokens.length; i++) {\n      var token = tokens[i];\n      if (typeof token === 'string') {\n        path += token;\n        continue;\n      }\n      var value = data[token.name];\n      var segment;\n      if (value == null) {\n        if (token.optional) {\n          // Prepend partial segment prefixes.\n          if (token.partial) {\n            path += token.prefix;\n          }\n          continue;\n        } else {\n          throw new TypeError('Expected \"' + token.name + '\" to be defined');\n        }\n      }\n      if (isarray(value)) {\n        if (!token.repeat) {\n          throw new TypeError('Expected \"' + token.name + '\" to not repeat, but received `' + JSON.stringify(value) + '`');\n        }\n        if (value.length === 0) {\n          if (token.optional) {\n            continue;\n          } else {\n            throw new TypeError('Expected \"' + token.name + '\" to not be empty');\n          }\n        }\n        for (var j = 0; j < value.length; j++) {\n          segment = encode(value[j]);\n          if (!matches[i].test(segment)) {\n            throw new TypeError('Expected all \"' + token.name + '\" to match \"' + token.pattern + '\", but received `' + JSON.stringify(segment) + '`');\n          }\n          path += (j === 0 ? token.prefix : token.delimiter) + segment;\n        }\n        continue;\n      }\n      segment = token.asterisk ? encodeAsterisk(value) : encode(value);\n      if (!matches[i].test(segment)) {\n        throw new TypeError('Expected \"' + token.name + '\" to match \"' + token.pattern + '\", but received \"' + segment + '\"');\n      }\n      path += token.prefix + segment;\n    }\n    return path;\n  };\n}\n\n/**\n * Escape a regular expression string.\n *\n * @param  {string} str\n * @return {string}\n */\nfunction escapeString(str) {\n  return str.replace(/([.+*?=^!:${}()[\\]|\\/\\\\])/g, '\\\\$1');\n}\n\n/**\n * Escape the capturing group by escaping special characters and meaning.\n *\n * @param  {string} group\n * @return {string}\n */\nfunction escapeGroup(group) {\n  return group.replace(/([=!:$\\/()])/g, '\\\\$1');\n}\n\n/**\n * Attach the keys as a property of the regexp.\n *\n * @param  {!RegExp} re\n * @param  {Array}   keys\n * @return {!RegExp}\n */\nfunction attachKeys(re, keys) {\n  re.keys = keys;\n  return re;\n}\n\n/**\n * Get the flags for a regexp from the options.\n *\n * @param  {Object} options\n * @return {string}\n */\nfunction flags(options) {\n  return options.sensitive ? '' : 'i';\n}\n\n/**\n * Pull out keys from a regexp.\n *\n * @param  {!RegExp} path\n * @param  {!Array}  keys\n * @return {!RegExp}\n */\nfunction regexpToRegexp(path, keys) {\n  // Use a negative lookahead to match only capturing groups.\n  var groups = path.source.match(/\\((?!\\?)/g);\n  if (groups) {\n    for (var i = 0; i < groups.length; i++) {\n      keys.push({\n        name: i,\n        prefix: null,\n        delimiter: null,\n        optional: false,\n        repeat: false,\n        partial: false,\n        asterisk: false,\n        pattern: null\n      });\n    }\n  }\n  return attachKeys(path, keys);\n}\n\n/**\n * Transform an array into a regexp.\n *\n * @param  {!Array}  path\n * @param  {Array}   keys\n * @param  {!Object} options\n * @return {!RegExp}\n */\nfunction arrayToRegexp(path, keys, options) {\n  var parts = [];\n  for (var i = 0; i < path.length; i++) {\n    parts.push(pathToRegexp(path[i], keys, options).source);\n  }\n  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));\n  return attachKeys(regexp, keys);\n}\n\n/**\n * Create a path regexp from string input.\n *\n * @param  {string}  path\n * @param  {!Array}  keys\n * @param  {!Object} options\n * @return {!RegExp}\n */\nfunction stringToRegexp(path, keys, options) {\n  return tokensToRegExp(parse(path, options), keys, options);\n}\n\n/**\n * Expose a function for taking tokens and returning a RegExp.\n *\n * @param  {!Array}          tokens\n * @param  {(Array|Object)=} keys\n * @param  {Object=}         options\n * @return {!RegExp}\n */\nfunction tokensToRegExp(tokens, keys, options) {\n  if (!isarray(keys)) {\n    options = /** @type {!Object} */keys || options;\n    keys = [];\n  }\n  options = options || {};\n  var strict = options.strict;\n  var end = options.end !== false;\n  var route = '';\n\n  // Iterate over the tokens and create our regexp string.\n  for (var i = 0; i < tokens.length; i++) {\n    var token = tokens[i];\n    if (typeof token === 'string') {\n      route += escapeString(token);\n    } else {\n      var prefix = escapeString(token.prefix);\n      var capture = '(?:' + token.pattern + ')';\n      keys.push(token);\n      if (token.repeat) {\n        capture += '(?:' + prefix + capture + ')*';\n      }\n      if (token.optional) {\n        if (!token.partial) {\n          capture = '(?:' + prefix + '(' + capture + '))?';\n        } else {\n          capture = prefix + '(' + capture + ')?';\n        }\n      } else {\n        capture = prefix + '(' + capture + ')';\n      }\n      route += capture;\n    }\n  }\n  var delimiter = escapeString(options.delimiter || '/');\n  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter;\n\n  // In non-strict mode we allow a slash at the end of match. If the path to\n  // match already ends with a slash, we remove it for consistency. The slash\n  // is valid at the end of a path match, not in the middle. This is important\n  // in non-ending mode, where \"/test/\" shouldn't match \"/test//route\".\n  if (!strict) {\n    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?';\n  }\n  if (end) {\n    route += '$';\n  } else {\n    // In non-ending mode, we need the capturing groups to match as much as\n    // possible by using a positive lookahead to the end or next path segment.\n    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';\n  }\n  return attachKeys(new RegExp('^' + route, flags(options)), keys);\n}\n\n/**\n * Normalize the given path string, returning a regular expression.\n *\n * An empty array can be passed in for the keys, which will hold the\n * placeholder key descriptions. For example, using `/user/:id`, `keys` will\n * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.\n *\n * @param  {(string|RegExp|Array)} path\n * @param  {(Array|Object)=}       keys\n * @param  {Object=}               options\n * @return {!RegExp}\n */\nfunction pathToRegexp(path, keys, options) {\n  if (!isarray(keys)) {\n    options = /** @type {!Object} */keys || options;\n    keys = [];\n  }\n  options = options || {};\n  if (path instanceof RegExp) {\n    return regexpToRegexp(path, /** @type {!Array} */keys);\n  }\n  if (isarray(path)) {\n    return arrayToRegexp( /** @type {!Array} */path, /** @type {!Array} */keys, options);\n  }\n  return stringToRegexp( /** @type {string} */path, /** @type {!Array} */keys, options);\n}\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/path-to-regexp/index.js?");
-
-/***/ }),
 
 /***/ "./src/JobForm.js":
 /*!************************!*\
@@ -101,7 +8,98 @@ eval("var isarray = __webpack_require__(/*! isarray */ \"./node_modules/isarray/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ JobForm)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\nfunction _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\nvar InmmutableModel = /*#__PURE__*/function () {\n  function InmmutableModel() {}\n  var _proto = InmmutableModel.prototype;\n  _proto.clone = function clone() {\n    JSON.parse(JSON.stringify(this));\n  };\n  _proto.update = function update(prop, value) {\n    var copy = this.clone();\n    copy[prop] = value;\n    return copy;\n  };\n  return InmmutableModel;\n}();\nvar Job = /*#__PURE__*/function (_InmmutableModel) {\n  _inheritsLoose(Job, _InmmutableModel);\n  function Job() {\n    var _this;\n    _this.title = \"\";\n    _this.budget = \"\";\n    _this.description = \"\";\n    return _assertThisInitialized(_this);\n  }\n  var _proto2 = Job.prototype;\n  _proto2.setTitle = function setTitle(title) {\n    this.title = title;\n  };\n  _proto2.setBudget = function setBudget(budget) {\n    this.budget = budget;\n  };\n  _proto2.setDescription = function setDescription(description) {\n    this.description = description;\n  };\n  return Job;\n}(InmmutableModel);\nvar JobForm = /*#__PURE__*/function (_Component) {\n  _inheritsLoose(JobForm, _Component);\n  function JobForm(props) {\n    var _this2;\n    _this2 = _Component.call(this, props) || this;\n    _this2.state = {\n      was_send: false,\n      job: new Job()\n    };\n    console.log(_this2.state);\n    _this2.handleChangeTitle = _this2.handleChangeTitle.bind(_assertThisInitialized(_this2));\n    _this2.handleChangeBudget = _this2.handleChangeBudget.bind(_assertThisInitialized(_this2));\n    _this2.handleChangeDescription = _this2.handleChangeDescription.bind(_assertThisInitialized(_this2));\n    _this2.handleSubmit = _this2.handleSubmit.bind(_assertThisInitialized(_this2));\n    return _this2;\n  }\n  var _proto3 = JobForm.prototype;\n  _proto3.handleChangeTitle = function handleChangeTitle(event) {\n    console.log(event);\n    console.log(event.target.value);\n    console.log(this.state);\n    var new_job = this.state.job.clone();\n    new_job.setTitle(event.target.value);\n    this.setState({\n      job: new_job\n    });\n  };\n  _proto3.handleChangeBudget = function handleChangeBudget(event) {\n    var new_data = this.state.data.budget = event.target.value;\n    this.setState({\n      job: new_job\n    });\n  };\n  _proto3.handleChangeDescription = function handleChangeDescription(event) {\n    var new_data = this.state.data.description = event.target.description;\n    this.setState({\n      job: new_job\n    });\n  };\n  _proto3.handleSubmit = function handleSubmit(event) {\n    this.setState({\n      was_send: true\n    });\n    console.log(this.state.data);\n    event.preventDefault();\n  };\n  _proto3.render = function render() {\n    if (this.state.was_send) {\n      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"spinner-border text-primary\", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"span\", \"sr-only\", \"Loading...\", 16), 2, {\n        \"role\": \"status\"\n      });\n    } else {\n      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"form\", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"m-5\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h1\", null, \"New Job\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"form-group\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"label\", null, \"Title\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, \"input\", \"form-control\", null, 1, {\n        \"type\": \"text\",\n        \"id\": \"job_title\",\n        \"placeholder\": \"\",\n        \"value\": this.state.job.title,\n        \"onInput\": this.handleChangeTitle\n      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"form-group\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"label\", null, \"Budget\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, \"select\", \"form-control\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"option\", null, \"less 1000 XRP\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"option\", null, \"1000 - 3000 XRP\", 16, {\n        \"selected\": \"true\"\n      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"option\", null, \"3000 - 6000 XRP\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"option\", null, \"+ 10000 XRP\", 16)], 4, {\n        \"id\": \"job_bugdet_range\",\n        \"onInput\": this.handleChangeBudget\n      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"form-group\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"label\", null, \"Categories\", 16, {\n        \"for\": \"exampleFormControlSelect2\"\n      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"p\", null, \"# Selector categories...\", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"form-group\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"label\", null, \"Description\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, \"textarea\", \"form-control\", null, 1, {\n        \"id\": \"job_description\",\n        \"rows\": \"5\",\n        \"value\": this.state.job.description,\n        \"onInput\": this.handleChangeDescription\n      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, \"input\", null, null, 1, {\n        \"type\": \"submit\",\n        \"value\": \"Submit\"\n      })], 4), 2, {\n        \"onSubmit\": this.handleSubmit\n      });\n    }\n  };\n  return JobForm;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\n\n\n//# sourceURL=webpack://inferno-boilerplate/./src/JobForm.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ JobForm)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _models_job__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./models/job */ "./src/models/job.ts");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var JobForm = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(JobForm, _Component);
+  function JobForm(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    _this.state = {
+      was_send: false,
+      job: _models_job__WEBPACK_IMPORTED_MODULE_1__.Job["default"]()
+    };
+    console.log(_this.state);
+    _this.handleChangeTitle = _this.handleChangeTitle.bind(_assertThisInitialized(_this));
+    _this.handleChangeBudget = _this.handleChangeBudget.bind(_assertThisInitialized(_this));
+    _this.handleChangeDescription = _this.handleChangeDescription.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = JobForm.prototype;
+  _proto.handleChangeTitle = function handleChangeTitle(event) {
+    var new_job = this.state.job.clone();
+    new_job.setTitle(event.target.value);
+    this.setState({
+      job: new_job
+    });
+  };
+  _proto.handleChangeBudget = function handleChangeBudget(event) {
+    var new_job = this.state.job.clone();
+    new_job.setBudget(event.target.value);
+    this.setState({
+      job: new_job
+    });
+  };
+  _proto.handleChangeDescription = function handleChangeDescription(event) {
+    var new_job = this.state.job.clone();
+    new_job.setDescription(event.target.value);
+    this.setState({
+      job: new_job
+    });
+  };
+  _proto.handleSubmit = function handleSubmit(event) {
+    this.setState({
+      was_send: true
+    });
+    console.log(this.state.data);
+    event.preventDefault();
+  };
+  _proto.render = function render() {
+    if (this.state.was_send) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border text-primary", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "sr-only", "Loading...", 16), 2, {
+        "role": "status"
+      });
+    } else {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "m-5", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "New Job", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Title", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+        "type": "text",
+        "id": "job_title",
+        "placeholder": "",
+        "value": this.state.job.title,
+        "onInput": this.handleChangeTitle
+      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Budget", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "form-control", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "less 1000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "1000 - 3000 XRP", 16, {
+        "selected": "true"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "3000 - 6000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "+ 10000 XRP", 16)], 4, {
+        "id": "job_bugdet_range",
+        "onInput": this.handleChangeBudget
+      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16, {
+        "for": "exampleFormControlSelect2"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "# Selector categories...", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+        "id": "job_description",
+        "rows": "5",
+        "value": this.state.job.description,
+        "onInput": this.handleChangeDescription
+      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+        "type": "submit",
+        "value": "Submit"
+      })], 4), 2, {
+        "onSubmit": this.handleSubmit
+      });
+    }
+  };
+  return JobForm;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
 
 /***/ }),
 
@@ -112,7 +110,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ JobRow)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n\nfunction _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\nvar JobRow = /*#__PURE__*/function (_Component) {\n  _inheritsLoose(JobRow, _Component);\n  function JobRow(props) {\n    return _Component.call(this, props) || this;\n  }\n  var _proto = JobRow.prototype;\n  _proto.render = function render() {\n    var data = this.props.data; // Recibimos el objeto Job como prop\n\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"card text-center\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"card-header custom-background\", data.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"card-body\", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"p\", \"card-text\", data.description, 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"card-footer text-muted custom-background\", \"2 days ago\", 16)], 4);\n  };\n  return JobRow;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\n\n\n//# sourceURL=webpack://inferno-boilerplate/./src/JobRow.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ JobRow)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var JobRow = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(JobRow, _Component);
+  function JobRow(props) {
+    return _Component.call(this, props) || this;
+  }
+  var _proto = JobRow.prototype;
+  _proto.render = function render() {
+    var data = this.props.data; // Recibimos el objeto Job como prop
+
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card text-center", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-header custom-background", data.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-body", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "card-text", data.description, 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-footer text-muted custom-background", "2 days ago", 16)], 4);
+  };
+  return JobRow;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
 
 /***/ }),
 
@@ -123,7 +143,61 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ JobsList)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api_jobs */ \"./src/api/api_jobs.js\");\n/* harmony import */ var _JobRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobRow */ \"./src/JobRow.js\");\n\nfunction _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n\n\nvar JobsList = /*#__PURE__*/function (_Component) {\n  _inheritsLoose(JobsList, _Component);\n  function JobsList(props) {\n    var _this;\n    console.log(\"Construct ... jobs_list\");\n    console.log(props);\n    _this = _Component.call(this, props) || this;\n    _this.state = {\n      data: []\n    };\n    return _this;\n  }\n  var _proto = JobsList.prototype;\n  _proto.componentDidMount = function componentDidMount() {\n    var _this2 = this;\n    (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_1__.get_list_jobs)().then(function (list_jobs) {\n      _this2.setState({\n        data: list_jobs\n      });\n    })[\"catch\"](function (error) {\n      console.error('Error fetching data:', error);\n    });\n  };\n  _proto._render_jobs = function _render_jobs() {\n    var jobs = this.state.data;\n    var jobElements = [];\n    for (var index = 0; index < jobs.length; index++) {\n      var job = jobs[index];\n      jobElements.push((0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__[\"default\"], {\n        \"data\": job\n      }, job.id));\n    }\n    return jobElements;\n  };\n  _proto.render = function render() {\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", \"m-5\", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h1\", null, \"Jobs list\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, this._render_jobs(), 0, {\n      \"id\": \"list\"\n    })], 4);\n  };\n  return JobsList;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\n\n\n//# sourceURL=webpack://inferno-boilerplate/./src/JobsList.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ JobsList)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api_jobs */ "./src/api/api_jobs.js");
+/* harmony import */ var _JobRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobRow */ "./src/JobRow.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var JobsList = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(JobsList, _Component);
+  function JobsList(props) {
+    var _this;
+    console.log("Construct ... jobs_list");
+    console.log(props);
+    _this = _Component.call(this, props) || this;
+    _this.state = {
+      data: []
+    };
+    return _this;
+  }
+  var _proto = JobsList.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+    (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_1__.get_list_jobs)().then(function (list_jobs) {
+      _this2.setState({
+        data: list_jobs
+      });
+    })["catch"](function (error) {
+      console.error('Error fetching data:', error);
+    });
+  };
+  _proto._render_jobs = function _render_jobs() {
+    var jobs = this.state.data;
+    var jobElements = [];
+    for (var index = 0; index < jobs.length; index++) {
+      var job = jobs[index];
+      jobElements.push((0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        "data": job
+      }, job.id));
+    }
+    return jobElements;
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "m-5", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Jobs list", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this._render_jobs(), 0, {
+      "id": "list"
+    })], 4);
+  };
+  return JobsList;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
 
 /***/ }),
 
@@ -134,7 +208,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ MyApp)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n/* harmony import */ var _VersionComponent_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VersionComponent.js */ \"./src/VersionComponent.js\");\n\n\nfunction MyApp(_ref) {\n  var children = _ref.children;\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h1\", null, \"Inferno Boilerplate\", 16), children], 0);\n}\n\n//# sourceURL=webpack://inferno-boilerplate/./src/MyApp.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MyApp)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _VersionComponent_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VersionComponent.js */ "./src/VersionComponent.js");
+
+
+function MyApp(_ref) {
+  var children = _ref.children;
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Inferno Boilerplate", 16), children], 0);
+}
 
 /***/ }),
 
@@ -145,7 +230,31 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api_jobs */ \"./src/api/api_jobs.js\");\n/* harmony import */ var _JobsList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobsList */ \"./src/JobsList.js\");\n\nfunction _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n\n\nvar MyHome = /*#__PURE__*/function (_Component) {\n  _inheritsLoose(MyHome, _Component);\n  function MyHome(props) {\n    return _Component.call(this, props) || this;\n  }\n  var _proto = MyHome.prototype;\n  _proto.render = function render() {\n    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobsList__WEBPACK_IMPORTED_MODULE_2__[\"default\"]), 2);\n  };\n  return MyHome;\n}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyHome);\n\n//# sourceURL=webpack://inferno-boilerplate/./src/MyHome.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api_jobs */ "./src/api/api_jobs.js");
+/* harmony import */ var _JobsList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobsList */ "./src/JobsList.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var MyHome = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(MyHome, _Component);
+  function MyHome(props) {
+    return _Component.call(this, props) || this;
+  }
+  var _proto = MyHome.prototype;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobsList__WEBPACK_IMPORTED_MODULE_2__["default"]), 2);
+  };
+  return MyHome;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyHome);
 
 /***/ }),
 
@@ -156,7 +265,21 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ VersionComponent)\n/* harmony export */ });\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n\n\nfunction showVersion() {\n  alert(\"The version is: \" + inferno__WEBPACK_IMPORTED_MODULE_0__.version + \"!\");\n}\nfunction VersionComponent() {\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"p\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(\"This is an Inferno Boilerplate example using \"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"em\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(\"Inferno \"), inferno__WEBPACK_IMPORTED_MODULE_0__.version], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(\".\")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"button\", null, \"Show version\", 16, {\n    \"onClick\": showVersion\n  })], 4);\n}\n\n//# sourceURL=webpack://inferno-boilerplate/./src/VersionComponent.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ VersionComponent)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+
+
+function showVersion() {
+  alert("The version is: " + inferno__WEBPACK_IMPORTED_MODULE_0__.version + "!");
+}
+function VersionComponent() {
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("This is an Inferno Boilerplate example using "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Inferno "), inferno__WEBPACK_IMPORTED_MODULE_0__.version], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(".")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", null, "Show version", 16, {
+    "onClick": showVersion
+  })], 4);
+}
 
 /***/ }),
 
@@ -167,7 +290,40 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"get_list_jobs\": () => (/* binding */ get_list_jobs)\n/* harmony export */ });\nfunction _regeneratorRuntime() { \"use strict\"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = \"function\" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || \"@@iterator\", asyncIteratorSymbol = $Symbol.asyncIterator || \"@@asyncIterator\", toStringTagSymbol = $Symbol.toStringTag || \"@@toStringTag\"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, \"\"); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, \"_invoke\", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: \"normal\", arg: fn.call(obj, arg) }; } catch (err) { return { type: \"throw\", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { [\"next\", \"throw\", \"return\"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if (\"throw\" !== record.type) { var result = record.arg, value = result.value; return value && \"object\" == typeof value && hasOwn.call(value, \"__await\") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke(\"next\", value, resolve, reject); }, function (err) { invoke(\"throw\", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke(\"throw\", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, \"_invoke\", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = \"suspendedStart\"; return function (method, arg) { if (\"executing\" === state) throw new Error(\"Generator is already running\"); if (\"completed\" === state) { if (\"throw\" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if (\"next\" === context.method) context.sent = context._sent = context.arg;else if (\"throw\" === context.method) { if (\"suspendedStart\" === state) throw state = \"completed\", context.arg; context.dispatchException(context.arg); } else \"return\" === context.method && context.abrupt(\"return\", context.arg); state = \"executing\"; var record = tryCatch(innerFn, self, context); if (\"normal\" === record.type) { if (state = context.done ? \"completed\" : \"suspendedYield\", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } \"throw\" === record.type && (state = \"completed\", context.method = \"throw\", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, \"throw\" === methodName && delegate.iterator[\"return\"] && (context.method = \"return\", context.arg = undefined, maybeInvokeDelegate(delegate, context), \"throw\" === context.method) || \"return\" !== methodName && (context.method = \"throw\", context.arg = new TypeError(\"The iterator does not provide a '\" + methodName + \"' method\")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if (\"throw\" === record.type) return context.method = \"throw\", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, \"return\" !== context.method && (context.method = \"next\", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = \"throw\", context.arg = new TypeError(\"iterator result is not an object\"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = \"normal\", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: \"root\" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if (\"function\" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, \"constructor\", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, \"constructor\", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, \"GeneratorFunction\"), exports.isGeneratorFunction = function (genFun) { var ctor = \"function\" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || \"GeneratorFunction\" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, \"GeneratorFunction\")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, \"Generator\"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, \"toString\", function () { return \"[object Generator]\"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = \"next\", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) \"t\" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if (\"throw\" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = \"throw\", record.arg = exception, context.next = loc, caught && (context.method = \"next\", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if (\"root\" === entry.tryLoc) return handle(\"end\"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, \"catchLoc\"), hasFinally = hasOwn.call(entry, \"finallyLoc\"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error(\"try statement without catch or finally\"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, \"finallyLoc\") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && (\"break\" === type || \"continue\" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = \"next\", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if (\"throw\" === record.type) throw record.arg; return \"break\" === record.type || \"continue\" === record.type ? this.next = record.arg : \"return\" === record.type ? (this.rval = this.arg = record.arg, this.method = \"return\", this.next = \"end\") : \"normal\" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, \"catch\": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if (\"throw\" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error(\"illegal catch attempt\"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, \"next\" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }\nfunction asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }\nfunction _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \"next\", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \"throw\", err); } _next(undefined); }); }; }\nfunction get_list_jobs() {\n  return _get_list_jobs.apply(this, arguments);\n}\nfunction _get_list_jobs() {\n  _get_list_jobs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {\n    var url, response, data;\n    return _regeneratorRuntime().wrap(function _callee$(_context) {\n      while (1) switch (_context.prev = _context.next) {\n        case 0:\n          url = \"/api/jobs\";\n          _context.next = 3;\n          return fetch(url);\n        case 3:\n          response = _context.sent;\n          _context.next = 6;\n          return response.json();\n        case 6:\n          data = _context.sent;\n          return _context.abrupt(\"return\", data.result);\n        case 8:\n        case \"end\":\n          return _context.stop();\n      }\n    }, _callee);\n  }));\n  return _get_list_jobs.apply(this, arguments);\n}\n\n//# sourceURL=webpack://inferno-boilerplate/./src/api/api_jobs.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "get_list_jobs": () => (/* binding */ get_list_jobs)
+/* harmony export */ });
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == typeof value && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function get_list_jobs() {
+  return _get_list_jobs.apply(this, arguments);
+}
+function _get_list_jobs() {
+  _get_list_jobs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var url, response, data;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          url = "/api/jobs";
+          _context.next = 3;
+          return fetch(url);
+        case 3:
+          response = _context.sent;
+          _context.next = 6;
+          return response.json();
+        case 6:
+          data = _context.sent;
+          return _context.abrupt("return", data.result);
+        case 8:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _get_list_jobs.apply(this, arguments);
+}
 
 /***/ }),
 
@@ -178,7 +334,4906 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ \"./node_modules/inferno/index.esm.js\");\n/* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ \"./node_modules/inferno-router/dist/index.esm.js\");\n/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! history */ \"./node_modules/history/index.js\");\n/* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ \"./src/MyApp.js\");\n/* harmony import */ var _VersionComponent_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./VersionComponent.js */ \"./src/VersionComponent.js\");\n/* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MyHome */ \"./src/MyHome.js\");\n/* harmony import */ var _JobForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./JobForm */ \"./src/JobForm.js\");\n\n// inferno module\n\n\n// routing modules\n\n\n\n\n\n\nvar browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_6__.createBrowserHistory)();\nfunction App(_ref) {\n  var children = _ref.children;\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h1\", null, \"Application\", 16), children], 0);\n}\nfunction NoMatch(_ref2) {\n  var children = _ref2.children,\n    params = _ref2.params;\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, \"no match\", 16);\n}\nfunction Home(_ref3) {\n  var children = _ref3.children;\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, \"home\", 16);\n}\n\n// `children` in this case will be the `User` component\nfunction Users(_ref4) {\n  var match = _ref4.match;\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h2\", null, \"user list\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {\n    \"path\": match.url + '/user/:username',\n    \"component\": User\n  })], 4);\n}\nfunction User(_ref5) {\n  var match = _ref5.match;\n  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h1\", null, JSON.stringify(match.params), 0);\n}\nvar routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.BrowserRouter, {\n  \"history\": browserHistory,\n  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"div\", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, \"h1\", null, \"Application\", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {\n    children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {\n      \"exact\": true,\n      \"path\": \"/\",\n      \"component\": _MyHome__WEBPACK_IMPORTED_MODULE_4__[\"default\"]\n    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {\n      \"path\": \"/new_job\",\n      \"component\": _JobForm__WEBPACK_IMPORTED_MODULE_5__[\"default\"]\n    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {\n      \"path\": \"/users\",\n      \"component\": Users\n    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {\n      \"path\": \"/my-app\",\n      \"component\": _MyApp__WEBPACK_IMPORTED_MODULE_2__[\"default\"]\n    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {\n      \"path\": \"*\",\n      \"component\": NoMatch\n    })]\n  })], 4)\n});\n(0,inferno__WEBPACK_IMPORTED_MODULE_0__.render)(routes, document.getElementById('app'));\n\n//# sourceURL=webpack://inferno-boilerplate/./src/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
+/* harmony import */ var _VersionComponent_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./VersionComponent.js */ "./src/VersionComponent.js");
+/* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
+/* harmony import */ var _JobForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./JobForm */ "./src/JobForm.js");
+
+// inferno module
+
+
+// routing modules
+
+
+
+
+
+
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_6__.createBrowserHistory)();
+function App(_ref) {
+  var children = _ref.children;
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
+}
+function NoMatch(_ref2) {
+  var children = _ref2.children,
+    params = _ref2.params;
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "no match", 16);
+}
+function Home(_ref3) {
+  var children = _ref3.children;
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "home", 16);
+}
+
+// `children` in this case will be the `User` component
+function Users(_ref4) {
+  var match = _ref4.match;
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h2", null, "user list", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    "path": match.url + '/user/:username',
+    "component": User
+  })], 4);
+}
+function User(_ref5) {
+  var match = _ref5.match;
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, JSON.stringify(match.params), 0);
+}
+var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.BrowserRouter, {
+  "history": browserHistory,
+  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
+    children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "exact": true,
+      "path": "/",
+      "component": _MyHome__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": "/new_job",
+      "component": _JobForm__WEBPACK_IMPORTED_MODULE_5__["default"]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": "/users",
+      "component": Users
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": "/my-app",
+      "component": _MyApp__WEBPACK_IMPORTED_MODULE_2__["default"]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": "*",
+      "component": NoMatch
+    })]
+  })], 4)
+});
+(0,inferno__WEBPACK_IMPORTED_MODULE_0__.render)(routes, document.getElementById('app'));
+
+/***/ }),
+
+/***/ "./node_modules/history/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/history/index.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Action": () => (/* binding */ Action),
+/* harmony export */   "createBrowserHistory": () => (/* binding */ createBrowserHistory),
+/* harmony export */   "createHashHistory": () => (/* binding */ createHashHistory),
+/* harmony export */   "createMemoryHistory": () => (/* binding */ createMemoryHistory),
+/* harmony export */   "createPath": () => (/* binding */ createPath),
+/* harmony export */   "parsePath": () => (/* binding */ parsePath)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+
+
+/**
+ * Actions represent the type of change to a location value.
+ *
+ * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#action
+ */
+var Action;
+
+(function (Action) {
+  /**
+   * A POP indicates a change to an arbitrary index in the history stack, such
+   * as a back or forward navigation. It does not describe the direction of the
+   * navigation, only that the current index changed.
+   *
+   * Note: This is the default action for newly created history objects.
+   */
+  Action["Pop"] = "POP";
+  /**
+   * A PUSH indicates a new entry being added to the history stack, such as when
+   * a link is clicked and a new page loads. When this happens, all subsequent
+   * entries in the stack are lost.
+   */
+
+  Action["Push"] = "PUSH";
+  /**
+   * A REPLACE indicates the entry at the current index in the history stack
+   * being replaced by a new one.
+   */
+
+  Action["Replace"] = "REPLACE";
+})(Action || (Action = {}));
+
+var readOnly =  true ? function (obj) {
+  return Object.freeze(obj);
+} : 0;
+
+function warning(cond, message) {
+  if (!cond) {
+    // eslint-disable-next-line no-console
+    if (typeof console !== 'undefined') console.warn(message);
+
+    try {
+      // Welcome to debugging history!
+      //
+      // This error is thrown as a convenience so you can more easily
+      // find the source for a warning that appears in the console by
+      // enabling "pause on exceptions" in your JavaScript debugger.
+      throw new Error(message); // eslint-disable-next-line no-empty
+    } catch (e) {}
+  }
+}
+
+var BeforeUnloadEventType = 'beforeunload';
+var HashChangeEventType = 'hashchange';
+var PopStateEventType = 'popstate';
+/**
+ * Browser history stores the location in regular URLs. This is the standard for
+ * most web apps, but it requires some configuration on the server to ensure you
+ * serve the same app at multiple URLs.
+ *
+ * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#createbrowserhistory
+ */
+
+function createBrowserHistory(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options = options,
+      _options$window = _options.window,
+      window = _options$window === void 0 ? document.defaultView : _options$window;
+  var globalHistory = window.history;
+
+  function getIndexAndLocation() {
+    var _window$location = window.location,
+        pathname = _window$location.pathname,
+        search = _window$location.search,
+        hash = _window$location.hash;
+    var state = globalHistory.state || {};
+    return [state.idx, readOnly({
+      pathname: pathname,
+      search: search,
+      hash: hash,
+      state: state.usr || null,
+      key: state.key || 'default'
+    })];
+  }
+
+  var blockedPopTx = null;
+
+  function handlePop() {
+    if (blockedPopTx) {
+      blockers.call(blockedPopTx);
+      blockedPopTx = null;
+    } else {
+      var nextAction = Action.Pop;
+
+      var _getIndexAndLocation = getIndexAndLocation(),
+          nextIndex = _getIndexAndLocation[0],
+          nextLocation = _getIndexAndLocation[1];
+
+      if (blockers.length) {
+        if (nextIndex != null) {
+          var delta = index - nextIndex;
+
+          if (delta) {
+            // Revert the POP
+            blockedPopTx = {
+              action: nextAction,
+              location: nextLocation,
+              retry: function retry() {
+                go(delta * -1);
+              }
+            };
+            go(delta);
+          }
+        } else {
+          // Trying to POP to a location with no index. We did not create
+          // this location, so we can't effectively block the navigation.
+           true ? warning(false, // TODO: Write up a doc that explains our blocking strategy in
+          // detail and link to it here so people can understand better what
+          // is going on and how to avoid it.
+          "You are trying to block a POP navigation to a location that was not " + "created by the history library. The block will fail silently in " + "production, but in general you should do all navigation with the " + "history library (instead of using window.history.pushState directly) " + "to avoid this situation.") : 0;
+        }
+      } else {
+        applyTx(nextAction);
+      }
+    }
+  }
+
+  window.addEventListener(PopStateEventType, handlePop);
+  var action = Action.Pop;
+
+  var _getIndexAndLocation2 = getIndexAndLocation(),
+      index = _getIndexAndLocation2[0],
+      location = _getIndexAndLocation2[1];
+
+  var listeners = createEvents();
+  var blockers = createEvents();
+
+  if (index == null) {
+    index = 0;
+    globalHistory.replaceState((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, globalHistory.state, {
+      idx: index
+    }), '');
+  }
+
+  function createHref(to) {
+    return typeof to === 'string' ? to : createPath(to);
+  } // state defaults to `null` because `window.history.state` does
+
+
+  function getNextLocation(to, state) {
+    if (state === void 0) {
+      state = null;
+    }
+
+    return readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      pathname: location.pathname,
+      hash: '',
+      search: ''
+    }, typeof to === 'string' ? parsePath(to) : to, {
+      state: state,
+      key: createKey()
+    }));
+  }
+
+  function getHistoryStateAndUrl(nextLocation, index) {
+    return [{
+      usr: nextLocation.state,
+      key: nextLocation.key,
+      idx: index
+    }, createHref(nextLocation)];
+  }
+
+  function allowTx(action, location, retry) {
+    return !blockers.length || (blockers.call({
+      action: action,
+      location: location,
+      retry: retry
+    }), false);
+  }
+
+  function applyTx(nextAction) {
+    action = nextAction;
+
+    var _getIndexAndLocation3 = getIndexAndLocation();
+
+    index = _getIndexAndLocation3[0];
+    location = _getIndexAndLocation3[1];
+    listeners.call({
+      action: action,
+      location: location
+    });
+  }
+
+  function push(to, state) {
+    var nextAction = Action.Push;
+    var nextLocation = getNextLocation(to, state);
+
+    function retry() {
+      push(to, state);
+    }
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      var _getHistoryStateAndUr = getHistoryStateAndUrl(nextLocation, index + 1),
+          historyState = _getHistoryStateAndUr[0],
+          url = _getHistoryStateAndUr[1]; // TODO: Support forced reloading
+      // try...catch because iOS limits us to 100 pushState calls :/
+
+
+      try {
+        globalHistory.pushState(historyState, '', url);
+      } catch (error) {
+        // They are going to lose state here, but there is no real
+        // way to warn them about it since the page will refresh...
+        window.location.assign(url);
+      }
+
+      applyTx(nextAction);
+    }
+  }
+
+  function replace(to, state) {
+    var nextAction = Action.Replace;
+    var nextLocation = getNextLocation(to, state);
+
+    function retry() {
+      replace(to, state);
+    }
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      var _getHistoryStateAndUr2 = getHistoryStateAndUrl(nextLocation, index),
+          historyState = _getHistoryStateAndUr2[0],
+          url = _getHistoryStateAndUr2[1]; // TODO: Support forced reloading
+
+
+      globalHistory.replaceState(historyState, '', url);
+      applyTx(nextAction);
+    }
+  }
+
+  function go(delta) {
+    globalHistory.go(delta);
+  }
+
+  var history = {
+    get action() {
+      return action;
+    },
+
+    get location() {
+      return location;
+    },
+
+    createHref: createHref,
+    push: push,
+    replace: replace,
+    go: go,
+    back: function back() {
+      go(-1);
+    },
+    forward: function forward() {
+      go(1);
+    },
+    listen: function listen(listener) {
+      return listeners.push(listener);
+    },
+    block: function block(blocker) {
+      var unblock = blockers.push(blocker);
+
+      if (blockers.length === 1) {
+        window.addEventListener(BeforeUnloadEventType, promptBeforeUnload);
+      }
+
+      return function () {
+        unblock(); // Remove the beforeunload listener so the document may
+        // still be salvageable in the pagehide event.
+        // See https://html.spec.whatwg.org/#unloading-documents
+
+        if (!blockers.length) {
+          window.removeEventListener(BeforeUnloadEventType, promptBeforeUnload);
+        }
+      };
+    }
+  };
+  return history;
+}
+/**
+ * Hash history stores the location in window.location.hash. This makes it ideal
+ * for situations where you don't want to send the location to the server for
+ * some reason, either because you do cannot configure it or the URL space is
+ * reserved for something else.
+ *
+ * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#createhashhistory
+ */
+
+function createHashHistory(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options2 = options,
+      _options2$window = _options2.window,
+      window = _options2$window === void 0 ? document.defaultView : _options2$window;
+  var globalHistory = window.history;
+
+  function getIndexAndLocation() {
+    var _parsePath = parsePath(window.location.hash.substr(1)),
+        _parsePath$pathname = _parsePath.pathname,
+        pathname = _parsePath$pathname === void 0 ? '/' : _parsePath$pathname,
+        _parsePath$search = _parsePath.search,
+        search = _parsePath$search === void 0 ? '' : _parsePath$search,
+        _parsePath$hash = _parsePath.hash,
+        hash = _parsePath$hash === void 0 ? '' : _parsePath$hash;
+
+    var state = globalHistory.state || {};
+    return [state.idx, readOnly({
+      pathname: pathname,
+      search: search,
+      hash: hash,
+      state: state.usr || null,
+      key: state.key || 'default'
+    })];
+  }
+
+  var blockedPopTx = null;
+
+  function handlePop() {
+    if (blockedPopTx) {
+      blockers.call(blockedPopTx);
+      blockedPopTx = null;
+    } else {
+      var nextAction = Action.Pop;
+
+      var _getIndexAndLocation4 = getIndexAndLocation(),
+          nextIndex = _getIndexAndLocation4[0],
+          nextLocation = _getIndexAndLocation4[1];
+
+      if (blockers.length) {
+        if (nextIndex != null) {
+          var delta = index - nextIndex;
+
+          if (delta) {
+            // Revert the POP
+            blockedPopTx = {
+              action: nextAction,
+              location: nextLocation,
+              retry: function retry() {
+                go(delta * -1);
+              }
+            };
+            go(delta);
+          }
+        } else {
+          // Trying to POP to a location with no index. We did not create
+          // this location, so we can't effectively block the navigation.
+           true ? warning(false, // TODO: Write up a doc that explains our blocking strategy in
+          // detail and link to it here so people can understand better
+          // what is going on and how to avoid it.
+          "You are trying to block a POP navigation to a location that was not " + "created by the history library. The block will fail silently in " + "production, but in general you should do all navigation with the " + "history library (instead of using window.history.pushState directly) " + "to avoid this situation.") : 0;
+        }
+      } else {
+        applyTx(nextAction);
+      }
+    }
+  }
+
+  window.addEventListener(PopStateEventType, handlePop); // popstate does not fire on hashchange in IE 11 and old (trident) Edge
+  // https://developer.mozilla.org/de/docs/Web/API/Window/popstate_event
+
+  window.addEventListener(HashChangeEventType, function () {
+    var _getIndexAndLocation5 = getIndexAndLocation(),
+        nextLocation = _getIndexAndLocation5[1]; // Ignore extraneous hashchange events.
+
+
+    if (createPath(nextLocation) !== createPath(location)) {
+      handlePop();
+    }
+  });
+  var action = Action.Pop;
+
+  var _getIndexAndLocation6 = getIndexAndLocation(),
+      index = _getIndexAndLocation6[0],
+      location = _getIndexAndLocation6[1];
+
+  var listeners = createEvents();
+  var blockers = createEvents();
+
+  if (index == null) {
+    index = 0;
+    globalHistory.replaceState((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, globalHistory.state, {
+      idx: index
+    }), '');
+  }
+
+  function getBaseHref() {
+    var base = document.querySelector('base');
+    var href = '';
+
+    if (base && base.getAttribute('href')) {
+      var url = window.location.href;
+      var hashIndex = url.indexOf('#');
+      href = hashIndex === -1 ? url : url.slice(0, hashIndex);
+    }
+
+    return href;
+  }
+
+  function createHref(to) {
+    return getBaseHref() + '#' + (typeof to === 'string' ? to : createPath(to));
+  }
+
+  function getNextLocation(to, state) {
+    if (state === void 0) {
+      state = null;
+    }
+
+    return readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      pathname: location.pathname,
+      hash: '',
+      search: ''
+    }, typeof to === 'string' ? parsePath(to) : to, {
+      state: state,
+      key: createKey()
+    }));
+  }
+
+  function getHistoryStateAndUrl(nextLocation, index) {
+    return [{
+      usr: nextLocation.state,
+      key: nextLocation.key,
+      idx: index
+    }, createHref(nextLocation)];
+  }
+
+  function allowTx(action, location, retry) {
+    return !blockers.length || (blockers.call({
+      action: action,
+      location: location,
+      retry: retry
+    }), false);
+  }
+
+  function applyTx(nextAction) {
+    action = nextAction;
+
+    var _getIndexAndLocation7 = getIndexAndLocation();
+
+    index = _getIndexAndLocation7[0];
+    location = _getIndexAndLocation7[1];
+    listeners.call({
+      action: action,
+      location: location
+    });
+  }
+
+  function push(to, state) {
+    var nextAction = Action.Push;
+    var nextLocation = getNextLocation(to, state);
+
+    function retry() {
+      push(to, state);
+    }
+
+     true ? warning(nextLocation.pathname.charAt(0) === '/', "Relative pathnames are not supported in hash history.push(" + JSON.stringify(to) + ")") : 0;
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      var _getHistoryStateAndUr3 = getHistoryStateAndUrl(nextLocation, index + 1),
+          historyState = _getHistoryStateAndUr3[0],
+          url = _getHistoryStateAndUr3[1]; // TODO: Support forced reloading
+      // try...catch because iOS limits us to 100 pushState calls :/
+
+
+      try {
+        globalHistory.pushState(historyState, '', url);
+      } catch (error) {
+        // They are going to lose state here, but there is no real
+        // way to warn them about it since the page will refresh...
+        window.location.assign(url);
+      }
+
+      applyTx(nextAction);
+    }
+  }
+
+  function replace(to, state) {
+    var nextAction = Action.Replace;
+    var nextLocation = getNextLocation(to, state);
+
+    function retry() {
+      replace(to, state);
+    }
+
+     true ? warning(nextLocation.pathname.charAt(0) === '/', "Relative pathnames are not supported in hash history.replace(" + JSON.stringify(to) + ")") : 0;
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      var _getHistoryStateAndUr4 = getHistoryStateAndUrl(nextLocation, index),
+          historyState = _getHistoryStateAndUr4[0],
+          url = _getHistoryStateAndUr4[1]; // TODO: Support forced reloading
+
+
+      globalHistory.replaceState(historyState, '', url);
+      applyTx(nextAction);
+    }
+  }
+
+  function go(delta) {
+    globalHistory.go(delta);
+  }
+
+  var history = {
+    get action() {
+      return action;
+    },
+
+    get location() {
+      return location;
+    },
+
+    createHref: createHref,
+    push: push,
+    replace: replace,
+    go: go,
+    back: function back() {
+      go(-1);
+    },
+    forward: function forward() {
+      go(1);
+    },
+    listen: function listen(listener) {
+      return listeners.push(listener);
+    },
+    block: function block(blocker) {
+      var unblock = blockers.push(blocker);
+
+      if (blockers.length === 1) {
+        window.addEventListener(BeforeUnloadEventType, promptBeforeUnload);
+      }
+
+      return function () {
+        unblock(); // Remove the beforeunload listener so the document may
+        // still be salvageable in the pagehide event.
+        // See https://html.spec.whatwg.org/#unloading-documents
+
+        if (!blockers.length) {
+          window.removeEventListener(BeforeUnloadEventType, promptBeforeUnload);
+        }
+      };
+    }
+  };
+  return history;
+}
+/**
+ * Memory history stores the current location in memory. It is designed for use
+ * in stateful non-browser environments like tests and React Native.
+ *
+ * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#creatememoryhistory
+ */
+
+function createMemoryHistory(options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options3 = options,
+      _options3$initialEntr = _options3.initialEntries,
+      initialEntries = _options3$initialEntr === void 0 ? ['/'] : _options3$initialEntr,
+      initialIndex = _options3.initialIndex;
+  var entries = initialEntries.map(function (entry) {
+    var location = readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      pathname: '/',
+      search: '',
+      hash: '',
+      state: null,
+      key: createKey()
+    }, typeof entry === 'string' ? parsePath(entry) : entry));
+     true ? warning(location.pathname.charAt(0) === '/', "Relative pathnames are not supported in createMemoryHistory({ initialEntries }) (invalid entry: " + JSON.stringify(entry) + ")") : 0;
+    return location;
+  });
+  var index = clamp(initialIndex == null ? entries.length - 1 : initialIndex, 0, entries.length - 1);
+  var action = Action.Pop;
+  var location = entries[index];
+  var listeners = createEvents();
+  var blockers = createEvents();
+
+  function createHref(to) {
+    return typeof to === 'string' ? to : createPath(to);
+  }
+
+  function getNextLocation(to, state) {
+    if (state === void 0) {
+      state = null;
+    }
+
+    return readOnly((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      pathname: location.pathname,
+      search: '',
+      hash: ''
+    }, typeof to === 'string' ? parsePath(to) : to, {
+      state: state,
+      key: createKey()
+    }));
+  }
+
+  function allowTx(action, location, retry) {
+    return !blockers.length || (blockers.call({
+      action: action,
+      location: location,
+      retry: retry
+    }), false);
+  }
+
+  function applyTx(nextAction, nextLocation) {
+    action = nextAction;
+    location = nextLocation;
+    listeners.call({
+      action: action,
+      location: location
+    });
+  }
+
+  function push(to, state) {
+    var nextAction = Action.Push;
+    var nextLocation = getNextLocation(to, state);
+
+    function retry() {
+      push(to, state);
+    }
+
+     true ? warning(location.pathname.charAt(0) === '/', "Relative pathnames are not supported in memory history.push(" + JSON.stringify(to) + ")") : 0;
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      index += 1;
+      entries.splice(index, entries.length, nextLocation);
+      applyTx(nextAction, nextLocation);
+    }
+  }
+
+  function replace(to, state) {
+    var nextAction = Action.Replace;
+    var nextLocation = getNextLocation(to, state);
+
+    function retry() {
+      replace(to, state);
+    }
+
+     true ? warning(location.pathname.charAt(0) === '/', "Relative pathnames are not supported in memory history.replace(" + JSON.stringify(to) + ")") : 0;
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      entries[index] = nextLocation;
+      applyTx(nextAction, nextLocation);
+    }
+  }
+
+  function go(delta) {
+    var nextIndex = clamp(index + delta, 0, entries.length - 1);
+    var nextAction = Action.Pop;
+    var nextLocation = entries[nextIndex];
+
+    function retry() {
+      go(delta);
+    }
+
+    if (allowTx(nextAction, nextLocation, retry)) {
+      index = nextIndex;
+      applyTx(nextAction, nextLocation);
+    }
+  }
+
+  var history = {
+    get index() {
+      return index;
+    },
+
+    get action() {
+      return action;
+    },
+
+    get location() {
+      return location;
+    },
+
+    createHref: createHref,
+    push: push,
+    replace: replace,
+    go: go,
+    back: function back() {
+      go(-1);
+    },
+    forward: function forward() {
+      go(1);
+    },
+    listen: function listen(listener) {
+      return listeners.push(listener);
+    },
+    block: function block(blocker) {
+      return blockers.push(blocker);
+    }
+  };
+  return history;
+} ////////////////////////////////////////////////////////////////////////////////
+// UTILS
+////////////////////////////////////////////////////////////////////////////////
+
+function clamp(n, lowerBound, upperBound) {
+  return Math.min(Math.max(n, lowerBound), upperBound);
+}
+
+function promptBeforeUnload(event) {
+  // Cancel the event.
+  event.preventDefault(); // Chrome (and legacy IE) requires returnValue to be set.
+
+  event.returnValue = '';
+}
+
+function createEvents() {
+  var handlers = [];
+  return {
+    get length() {
+      return handlers.length;
+    },
+
+    push: function push(fn) {
+      handlers.push(fn);
+      return function () {
+        handlers = handlers.filter(function (handler) {
+          return handler !== fn;
+        });
+      };
+    },
+    call: function call(arg) {
+      handlers.forEach(function (fn) {
+        return fn && fn(arg);
+      });
+    }
+  };
+}
+
+function createKey() {
+  return Math.random().toString(36).substr(2, 8);
+}
+/**
+ * Creates a string URL path from the given pathname, search, and hash components.
+ *
+ * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#createpath
+ */
+
+
+function createPath(_ref) {
+  var _ref$pathname = _ref.pathname,
+      pathname = _ref$pathname === void 0 ? '/' : _ref$pathname,
+      _ref$search = _ref.search,
+      search = _ref$search === void 0 ? '' : _ref$search,
+      _ref$hash = _ref.hash,
+      hash = _ref$hash === void 0 ? '' : _ref$hash;
+  if (search && search !== '?') pathname += search.charAt(0) === '?' ? search : '?' + search;
+  if (hash && hash !== '#') pathname += hash.charAt(0) === '#' ? hash : '#' + hash;
+  return pathname;
+}
+/**
+ * Parses a string URL path into its separate pathname, search, and hash components.
+ *
+ * @see https://github.com/remix-run/history/tree/main/docs/api-reference.md#parsepath
+ */
+
+function parsePath(path) {
+  var parsedPath = {};
+
+  if (path) {
+    var hashIndex = path.indexOf('#');
+
+    if (hashIndex >= 0) {
+      parsedPath.hash = path.substr(hashIndex);
+      path = path.substr(0, hashIndex);
+    }
+
+    var searchIndex = path.indexOf('?');
+
+    if (searchIndex >= 0) {
+      parsedPath.search = path.substr(searchIndex);
+      path = path.substr(0, searchIndex);
+    }
+
+    if (path) {
+      parsedPath.pathname = path;
+    }
+  }
+
+  return parsedPath;
+}
+
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/hoist-non-inferno-statics/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/hoist-non-inferno-statics/index.js ***!
+  \*********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+var INFERNO_STATICS = {
+    childContextTypes: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    propTypes: true,
+    type: true
+};
+
+var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    arguments: true,
+    arity: true
+};
+
+var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
+
+function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
+    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+        var keys = Object.getOwnPropertyNames(sourceComponent);
+
+        /* istanbul ignore else */
+        if (isGetOwnPropertySymbolsAvailable) {
+            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
+        }
+
+        for (var i = 0; i < keys.length; ++i) {
+            if (!INFERNO_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+                try {
+                    targetComponent[keys[i]] = sourceComponent[keys[i]];
+                } catch (error) {
+
+                }
+            }
+        }
+    }
+
+    return targetComponent;
+};
+
+module.exports = hoistNonReactStatics;
+module.exports["default"] = module.exports;
+
+
+/***/ }),
+
+/***/ "./node_modules/inferno-router/dist/index.esm.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/inferno-router/dist/index.esm.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BrowserRouter": () => (/* binding */ BrowserRouter),
+/* harmony export */   "HashRouter": () => (/* binding */ HashRouter),
+/* harmony export */   "Link": () => (/* binding */ Link),
+/* harmony export */   "MemoryRouter": () => (/* binding */ MemoryRouter),
+/* harmony export */   "NavLink": () => (/* binding */ NavLink),
+/* harmony export */   "Prompt": () => (/* binding */ Prompt),
+/* harmony export */   "Redirect": () => (/* binding */ Redirect),
+/* harmony export */   "Route": () => (/* binding */ Route),
+/* harmony export */   "Router": () => (/* binding */ Router),
+/* harmony export */   "StaticRouter": () => (/* binding */ StaticRouter),
+/* harmony export */   "Switch": () => (/* binding */ Switch),
+/* harmony export */   "createClientSideURL": () => (/* binding */ createClientSideURL),
+/* harmony export */   "matchPath": () => (/* binding */ matchPath),
+/* harmony export */   "resolveLoaders": () => (/* binding */ resolveLoaders),
+/* harmony export */   "traverseLoaders": () => (/* binding */ traverseLoaders),
+/* harmony export */   "useLoaderData": () => (/* binding */ useLoaderData),
+/* harmony export */   "useLoaderError": () => (/* binding */ useLoaderError),
+/* harmony export */   "withRouter": () => (/* binding */ withRouter)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! path-to-regexp-es6 */ "./node_modules/path-to-regexp-es6/index.js");
+/* harmony import */ var path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hoist-non-inferno-statics */ "./node_modules/hoist-non-inferno-statics/index.js");
+/* harmony import */ var hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+
+var isArray = Array.isArray;
+function isNullOrUndef(o) {
+  return o === void 0 || o === null;
+}
+function isInvalid(o) {
+  return o === null || o === false || o === true || o === void 0;
+}
+function isString(o) {
+  return typeof o === 'string';
+}
+function isUndefined(o) {
+  return o === void 0;
+}
+function combineFrom(first, second) {
+  var out = {};
+  if (first) {
+    for (var key in first) {
+      out[key] = first[key];
+    }
+  }
+  if (second) {
+    for (var _key in second) {
+      out[_key] = second[_key];
+    }
+  }
+  return out;
+}
+
+function combinePath(_ref) {
+  var _ref$pathname = _ref.pathname,
+    pathname = _ref$pathname === void 0 ? '/' : _ref$pathname,
+    _ref$search = _ref.search,
+    search = _ref$search === void 0 ? '' : _ref$search,
+    _ref$hash = _ref.hash,
+    hash = _ref$hash === void 0 ? '' : _ref$hash;
+  return pathname + search + hash;
+}
+function invariant(condition, format, a, b, c, d, e, f) {
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+var patternCache = {};
+var cacheLimit = 10000;
+var cacheCount = 0;
+var compilePath = function compilePath(pattern, options) {
+  var cacheKey = "" + options.end + options.strict + options.sensitive;
+  var cache = patternCache[cacheKey] || (patternCache[cacheKey] = {});
+  if (cache[pattern]) {
+    return cache[pattern];
+  }
+  var keys = [];
+  var re = path_to_regexp_es6__WEBPACK_IMPORTED_MODULE_1___default()(pattern, keys, options);
+  var compiledPattern = {
+    re: re,
+    keys: keys
+  };
+  if (cacheCount < cacheLimit) {
+    cache[pattern] = compiledPattern;
+    cacheCount++;
+  }
+  return compiledPattern;
+};
+/**
+ * Public API for matching a URL pathname to a path pattern.
+ */
+function matchPath(pathname, options) {
+  if (typeof options === 'string') {
+    options = {
+      path: options
+    };
+  }
+  var _options = options,
+    _options$path = _options.path,
+    path = _options$path === void 0 ? '/' : _options$path,
+    _options$exact = _options.exact,
+    exact = _options$exact === void 0 ? false : _options$exact,
+    _options$strict = _options.strict,
+    strict = _options$strict === void 0 ? false : _options$strict,
+    _options$sensitive = _options.sensitive,
+    sensitive = _options$sensitive === void 0 ? false : _options$sensitive,
+    loader = _options.loader,
+    _options$initialData = _options.initialData,
+    initialData = _options$initialData === void 0 ? {} : _options$initialData;
+  var _compilePath = compilePath(path, {
+      end: exact,
+      strict: strict,
+      sensitive: sensitive
+    }),
+    re = _compilePath.re,
+    keys = _compilePath.keys;
+  var match = re.exec(pathname);
+  if (!match) {
+    return null;
+  }
+  var loaderData = initialData[path];
+  var url = match[0],
+    values = match.slice(1);
+  var isExact = pathname === url;
+  if (exact && !isExact) {
+    return null;
+  }
+  return {
+    isExact: isExact,
+    loader: loader,
+    loaderData: loaderData,
+    params: keys.reduce(function (memo, key, index) {
+      memo[key.name] = values[index];
+      return memo;
+    }, {}),
+    path: path,
+    url: path === '/' && url === '' ? '/' : url // the matched portion of the URL
+  };
+}
+
+function _inheritsLoose$8(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$8(subClass, superClass); }
+function _setPrototypeOf$8(o, p) { _setPrototypeOf$8 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$8(o, p); }
+function getMatch(pathname, _ref, router) {
+  var _path;
+  var path = _ref.path,
+    exact = _ref.exact,
+    strict = _ref.strict,
+    sensitive = _ref.sensitive,
+    loader = _ref.loader,
+    from = _ref.from;
+  (_path = path) != null ? _path : path = from;
+  var initialData = router.initialData,
+    route = router.route; // This is the parent route
+  return path ? matchPath(pathname, {
+    path: path,
+    exact: exact,
+    strict: strict,
+    sensitive: sensitive,
+    loader: loader,
+    initialData: initialData
+  }) : route.match;
+}
+function extractFirstMatchFromChildren(pathname, children, router) {
+  if (isArray(children)) {
+    for (var i = 0; i < children.length; ++i) {
+      var nestedMatch = extractFirstMatchFromChildren(pathname, children[i], router);
+      if (nestedMatch.match) return nestedMatch;
+    }
+    return {};
+  }
+  return {
+    _child: children,
+    match: getMatch(pathname, children.props, router)
+  };
+}
+var Switch = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$8(Switch, _Component);
+  function Switch(props, context) {
+    var _this;
+    _this = _Component.call(this, props, context) || this;
+    var router = context.router;
+    var location = props.location,
+      children = props.children;
+    var pathname = (location || router.route.location).pathname;
+    var _extractFirstMatchFro = extractFirstMatchFromChildren(pathname, children, router),
+      match = _extractFirstMatchFro.match,
+      _child = _extractFirstMatchFro._child;
+    _this.state = {
+      _child: _child,
+      match: match
+    };
+    return _this;
+  }
+  var _proto = Switch.prototype;
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {
+    var router = nextContext.router;
+    var location = nextProps.location,
+      children = nextProps.children;
+    var pathname = (location || router.route.location).pathname;
+    var _extractFirstMatchFro2 = extractFirstMatchFromChildren(pathname, children, router),
+      match = _extractFirstMatchFro2.match,
+      _child = _extractFirstMatchFro2._child;
+    this.setState({
+      match: match,
+      _child: _child
+    });
+  };
+  _proto.render = function render(_ref2, _ref3, context) {
+    var children = _ref2.children,
+      location = _ref2.location;
+    var match = _ref3.match,
+      _child = _ref3._child;
+    if (isInvalid(children)) {
+      return null;
+    }
+    if (match) {
+      var _location;
+      (_location = location) != null ? _location : location = context.router.route.location;
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(_child.flags, _child.type, combineFrom(_child.props, {
+        location: location,
+        computedMatch: match
+      }));
+    }
+    return null;
+  };
+  return Switch;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+function resolveLoaders(loaderEntries) {
+  var promises = loaderEntries.map(function (_ref) {
+    var path = _ref.path,
+      params = _ref.params,
+      request = _ref.request,
+      loader = _ref.loader;
+    return resolveEntry(path, params, request, loader);
+  });
+  return Promise.all(promises).then(function (result) {
+    return Object.fromEntries(result);
+  });
+}
+function traverseLoaders(location, tree, base) {
+  return _traverseLoaders(location, tree, base, false);
+}
+// Optionally pass base param during SSR to get fully qualified request URI passed to loader in request param
+function _traverseLoaders(location, tree, base, parentIsSwitch) {
+  var _tree$props4, _tree$type;
+  if (parentIsSwitch === void 0) {
+    parentIsSwitch = false;
+  }
+  // Make sure tree isn't null
+  if (isNullOrUndef(tree)) return [];
+  if (Array.isArray(tree)) {
+    var hasMatch = false;
+    var entriesOfArr = tree.reduce(function (res, node) {
+      var _node$type;
+      if (parentIsSwitch && hasMatch) return res;
+      var outpArr = _traverseLoaders(location, node, base, (node == null ? void 0 : (_node$type = node.type) == null ? void 0 : _node$type.prototype) instanceof Switch);
+      if (parentIsSwitch && outpArr.length > 0) {
+        hasMatch = true;
+      }
+      return [].concat(res, outpArr);
+    }, []);
+    return entriesOfArr;
+  }
+  var outp = [];
+  var isRouteButNotMatch = false;
+  if (tree.props) {
+    var _tree$props2, _tree$props3;
+    // TODO: If we traverse a switch, only the first match should be returned
+    // TODO: Should we check if we are in Router? It is defensive and could save a bit of time, but is it worth it?
+    var _tree$props = tree.props,
+      path = _tree$props.path,
+      _tree$props$exact = _tree$props.exact,
+      exact = _tree$props$exact === void 0 ? false : _tree$props$exact,
+      _tree$props$strict = _tree$props.strict,
+      strict = _tree$props$strict === void 0 ? false : _tree$props$strict,
+      _tree$props$sensitive = _tree$props.sensitive,
+      sensitive = _tree$props$sensitive === void 0 ? false : _tree$props$sensitive;
+    var match = matchPath(location, {
+      exact: exact,
+      path: path,
+      sensitive: sensitive,
+      strict: strict
+    });
+    // So we can bail out of recursion it this was a Route which didn't match
+    isRouteButNotMatch = !match;
+    // Add any loader on this node (but only on the VNode)
+    if (match && !tree.context && (_tree$props2 = tree.props) != null && _tree$props2.loader && (_tree$props3 = tree.props) != null && _tree$props3.path) {
+      var params = match.params;
+      var controller = new AbortController();
+      var request = createClientSideRequest(location, controller.signal, base);
+      outp.push({
+        controller: controller,
+        loader: tree.props.loader,
+        params: params,
+        path: path,
+        request: request
+      });
+    }
+  }
+  // Traverse ends here
+  if (isRouteButNotMatch) return outp;
+  // Traverse children
+  var entries = _traverseLoaders(location, tree.children || ((_tree$props4 = tree.props) == null ? void 0 : _tree$props4.children), base, ((_tree$type = tree.type) == null ? void 0 : _tree$type.prototype) instanceof Switch);
+  return [].concat(outp, entries);
+}
+function resolveEntry(path, params, request, loader) {
+  return loader({
+    params: params,
+    request: request
+  }).then(function (res) {
+    // This implementation is based on:
+    // https://github.com/remix-run/react-router/blob/4f3ad7b96e6e0228cc952cd7eafe2c265c7393c7/packages/router/router.ts#L2787-L2879
+    // Check if regular data object (from tests or initialData)
+    if (typeof res.json !== 'function') {
+      return [path, {
+        res: res
+      }];
+    }
+    var contentType = res.headers.get('Content-Type');
+    var dataPromise;
+    // Check between word boundaries instead of startsWith() due to the last
+    // paragraph of https://httpwg.org/specs/rfc9110.html#field.content-type
+    if (contentType && /\bapplication\/json\b/.test(contentType)) {
+      dataPromise = res.json();
+    } else {
+      dataPromise = res.text();
+    }
+    return dataPromise.then(function (body) {
+      // We got a JSON error
+      if (!res.ok) {
+        return [path, {
+          err: body
+        }];
+      }
+      // We got JSON response
+      return [path, {
+        res: body
+      }];
+    })
+    // Could not parse JSON
+    ["catch"](function (err) {
+      return [path, {
+        err: err
+      }];
+    });
+  })
+  // Could not fetch data
+  ["catch"](function (err) {
+    return [path, {
+      err: err
+    }];
+  });
+}
+var inBrowser = typeof window === 'undefined';
+function createClientSideRequest(location, signal,
+// submission?: Submission
+base) {
+  var url = inBrowser || !isUndefined(base) ? createClientSideURL(location, base) : location.toString();
+  var init = {
+    signal: signal
+  };
+  // Content-Type is inferred (https://fetch.spec.whatwg.org/#dom-request)
+  return new Request(url, init);
+}
+/**
+ * Parses a string URL path into its separate pathname, search, and hash components.
+ */
+function createClientSideURL(location, base) {
+  if (base === undefined && typeof window !== 'undefined') {
+    var _window, _window$location;
+    // window.location.origin is "null" (the literal string value) in Firefox
+    // under certain conditions, notably when serving from a local HTML file
+    // See https://bugzilla.mozilla.org/show_bug.cgi?id=878297
+    base = ((_window = window) == null ? void 0 : (_window$location = _window.location) == null ? void 0 : _window$location.origin) !== 'null' ? window.location.origin : window.location.href;
+  }
+  var url = new URL(location.toString(), base);
+  url.hash = '';
+  return url;
+}
+// TODO: react-router supports submitting forms with loaders, this is related to that
+// function isMutationMethod(method?: string): method is MutationFormMethod {
+//   return validMutationMethods.has(method as MutationFormMethod);
+// }
+// function convertFormDataToSearchParams(formData: FormData): URLSearchParams {
+//   let searchParams = new URLSearchParams();
+//   for (let [key, value] of formData.entries()) {
+//     // invariant(
+//     //   typeof value === "string",
+//     //   'File inputs are not supported with encType "application/x-www-form-urlencoded", ' +
+//     //     'please use "multipart/form-data" instead.'
+//     // );
+//     if (typeof value === "string") {
+//       searchParams.append(key, value);
+//     }
+//   }
+//   return searchParams;
+// }
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _inheritsLoose$7(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$7(subClass, superClass); }
+function _setPrototypeOf$7(o, p) { _setPrototypeOf$7 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$7(o, p); }
+/**
+ * The public API for putting history on context.
+ */
+var Router = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$7(Router, _Component);
+  function Router(props, context) {
+    var _this;
+    _this = _Component.call(this, props, context) || this;
+    _this.unlisten = void 0;
+    _this._loaderFetchControllers = [];
+    _this._loaderIteration = 0;
+    var match = _this.computeMatch(props.history.location.pathname);
+    _this.state = {
+      initialData: _this.props.initialData,
+      match: match
+    };
+    return _this;
+  }
+  var _proto = Router.prototype;
+  _proto.getChildContext = function getChildContext() {
+    var _this$state, _this$state2;
+    var parentRouter = this.context.router;
+    var router = combineFrom(parentRouter, null);
+    router.history = this.props.history;
+    router.route = {
+      location: router.history.location,
+      match: (_this$state = this.state) == null ? void 0 : _this$state.match // Why are we sending this? it appears useless.
+    };
+
+    router.initialData = (_this$state2 = this.state) == null ? void 0 : _this$state2.initialData; // this is a dictionary of all data available
+    return {
+      router: router
+    };
+  };
+  _proto.computeMatch = function computeMatch(pathname) {
+    return {
+      isExact: pathname === '/',
+      loader: undefined,
+      params: {},
+      path: '/',
+      url: '/'
+    };
+  };
+  _proto.componentWillMount = function componentWillMount() {
+    var _this2 = this;
+    var history = this.props.history;
+    // Do this here so we can setState when a <Redirect> changes the
+    // location in componentWillMount. This happens e.g. when doing
+    // server rendering using a <StaticRouter>.
+    this.unlisten = history.listen(function () {
+      var match = _this2.computeMatch(history.location.pathname);
+      _this2._matchAndResolveLoaders(match);
+    });
+    // First execution of loaders
+    if (isUndefined(this.props.initialData)) {
+      var _this$state3;
+      this._matchAndResolveLoaders((_this$state3 = this.state) == null ? void 0 : _this$state3.match);
+    }
+  };
+  _proto._matchAndResolveLoaders = function _matchAndResolveLoaders(match) {
+    var _this3 = this;
+    // Keep track of invokation order
+    // Bumping the counter needs to be done first because calling abort
+    // triggers promise to resolve with "aborted"
+    this._loaderIteration = (this._loaderIteration + 1) % 10000;
+    var currentIteration = this._loaderIteration;
+    for (var _iterator = _createForOfIteratorHelperLoose(this._loaderFetchControllers), _step; !(_step = _iterator()).done;) {
+      var controller = _step.value;
+      controller.abort();
+    }
+    this._loaderFetchControllers = [];
+    var _this$props = this.props,
+      history = _this$props.history,
+      children = _this$props.children;
+    var loaderEntries = traverseLoaders(history.location.pathname, children);
+    if (loaderEntries.length === 0) {
+      this.setState({
+        match: match
+      });
+      return;
+    }
+    // Store AbortController instances for each matched loader
+    this._loaderFetchControllers = loaderEntries.map(function (e) {
+      return e.controller;
+    });
+    resolveLoaders(loaderEntries).then(function (initialData) {
+      // On multiple pending navigations, only update interface with last
+      // in case they resolve out of order
+      if (currentIteration === _this3._loaderIteration) {
+        _this3.setState({
+          initialData: initialData,
+          match: match
+        });
+      }
+    });
+  };
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.unlisten();
+  };
+  _proto.render = function render(props) {
+    return props.children;
+  };
+  return Router;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var _excluded$5 = ["basename", "context", "location"];
+function _objectWithoutPropertiesLoose$5(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _inheritsLoose$6(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$6(subClass, superClass); }
+function _setPrototypeOf$6(o, p) { _setPrototypeOf$6 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$6(o, p); }
+function addLeadingSlash(path) {
+  return path.charAt(0) === '/' ? path : '/' + path;
+}
+// tslint:disable-next-line:no-empty
+var noop = function noop() {};
+var StaticRouter = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$6(StaticRouter, _Component);
+  function StaticRouter() {
+    var _this;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this.createHref = function (path) {
+      return addLeadingSlash((_this.props.basename || '') + createURL(path));
+    };
+    _this.handlePush = function (location) {
+      var _this$props = _this.props,
+        basename = _this$props.basename,
+        context = _this$props.context;
+      context.action = 'PUSH';
+      context.location = addBasename(basename, isString(location) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(location) : location);
+      context.url = createURL(context.location);
+    };
+    _this.handleReplace = function (location) {
+      var _this$props2 = _this.props,
+        basename = _this$props2.basename,
+        context = _this$props2.context;
+      context.action = 'REPLACE';
+      context.location = addBasename(basename, isString(location) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(location) : location);
+      context.url = createURL(context.location);
+    };
+    // tslint:disable-next-line:no-empty
+    _this.handleListen = function () {
+      return noop;
+    };
+    // tslint:disable-next-line:no-empty
+    _this.handleBlock = function () {
+      return noop;
+    };
+    return _this;
+  }
+  var _proto = StaticRouter.prototype;
+  _proto.getChildContext = function getChildContext() {
+    return {
+      router: {
+        initialData: this.props.initialData,
+        staticContext: this.props.context
+      }
+    };
+  };
+  _proto.render = function render(_ref) {
+    var basename = _ref.basename;
+      _ref.context;
+      var location = _ref.location,
+      props = _objectWithoutPropertiesLoose$5(_ref, _excluded$5);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, combineFrom(props, {
+      history: {
+        action: 'POP',
+        block: this.handleBlock,
+        createHref: this.createHref,
+        go: staticHandler('go'),
+        goBack: staticHandler('goBack'),
+        goForward: staticHandler('goForward'),
+        listen: this.handleListen,
+        location: stripBasename(basename, createLocation(location)),
+        push: this.handlePush,
+        replace: this.handleReplace
+      }
+    }));
+  };
+  return StaticRouter;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+StaticRouter.defaultProps = {
+  basename: '',
+  location: '/'
+};
+function normalizeLocation(_ref2) {
+  var _ref2$pathname = _ref2.pathname,
+    pathname = _ref2$pathname === void 0 ? '/' : _ref2$pathname,
+    search = _ref2.search,
+    hash = _ref2.hash;
+  return {
+    hash: (hash || '') === '#' ? '' : hash,
+    pathname: pathname,
+    search: (search || '') === '?' ? '' : search
+  };
+}
+function addBasename(basename, location) {
+  if (!basename) {
+    return location;
+  }
+  return combineFrom(location, {
+    pathname: addLeadingSlash(basename) + location.pathname
+  });
+}
+function stripBasename(basename, location) {
+  if (!basename) {
+    return location;
+  }
+  var base = addLeadingSlash(basename);
+  if (location.pathname.indexOf(base) !== 0) {
+    return location;
+  }
+  return combineFrom(location, {
+    pathname: location.pathname.substring(base.length)
+  });
+}
+function createLocation(location) {
+  return typeof location === 'string' ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(location) : normalizeLocation(location);
+}
+function createURL(location) {
+  return typeof location === 'string' ? location : combinePath(location);
+}
+function staticHandler(methodName) {
+  return function () {
+    invariant(false, 'You cannot %s with <StaticRouter>', methodName);
+  };
+}
+
+function _inheritsLoose$5(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$5(subClass, superClass); }
+function _setPrototypeOf$5(o, p) { _setPrototypeOf$5 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$5(o, p); }
+var BrowserRouter = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$5(BrowserRouter, _Component);
+  function BrowserRouter(props, context) {
+    var _this;
+    _this = _Component.call(this, props, context) || this;
+    _this.history = void 0;
+    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_3__.createBrowserHistory)();
+    return _this;
+  }
+  var _proto = BrowserRouter.prototype;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, {
+      children: this.props.children,
+      history: this.history,
+      initialData: this.props.initialData
+    });
+  };
+  return BrowserRouter;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+function _inheritsLoose$4(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$4(subClass, superClass); }
+function _setPrototypeOf$4(o, p) { _setPrototypeOf$4 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$4(o, p); }
+var HashRouter = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$4(HashRouter, _Component);
+  function HashRouter(props, context) {
+    var _this;
+    _this = _Component.call(this, props, context) || this;
+    _this.history = void 0;
+    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_3__.createHashHistory)();
+    return _this;
+  }
+  var _proto = HashRouter.prototype;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, {
+      children: this.props.children,
+      history: this.history
+    });
+  };
+  return HashRouter;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+function _inheritsLoose$3(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$3(subClass, superClass); }
+function _setPrototypeOf$3(o, p) { _setPrototypeOf$3 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$3(o, p); }
+var MemoryRouter = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$3(MemoryRouter, _Component);
+  function MemoryRouter(props, context) {
+    var _this;
+    _this = _Component.call(this, props, context) || this;
+    _this.history = void 0;
+    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_3__.createMemoryHistory)(props);
+    return _this;
+  }
+  var _proto = MemoryRouter.prototype;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Router, {
+      children: this.props.children,
+      history: this.history,
+      initialData: this.props.initialData
+    });
+  };
+  return MemoryRouter;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var _excluded$4 = ["computedMatch"];
+function _objectWithoutPropertiesLoose$4(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _inheritsLoose$2(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$2(subClass, superClass); }
+function _setPrototypeOf$2(o, p) { _setPrototypeOf$2 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$2(o, p); }
+var Route = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$2(Route, _Component);
+  function Route(props, context) {
+    var _this;
+    _this = _Component.call(this, props, context) || this;
+    var match = _this.computeMatch(props, context.router);
+    _this.state = {
+      __loaderData__: match == null ? void 0 : match.loaderData,
+      match: match
+    };
+    return _this;
+  }
+  var _proto = Route.prototype;
+  _proto.getChildContext = function getChildContext() {
+    var parentRouter = this.context.router;
+    var router = combineFrom(parentRouter, null);
+    router.route = {
+      location: this.props.location || parentRouter.route.location,
+      match: this.state.match
+    };
+    return {
+      router: router
+    };
+  };
+  _proto.computeMatch = function computeMatch(_ref, router) {
+    var computedMatch = _ref.computedMatch,
+      props = _objectWithoutPropertiesLoose$4(_ref, _excluded$4);
+    if (!isNullOrUndef(computedMatch)) {
+      // <Switch> already computed the match for us
+      return computedMatch;
+    }
+    var path = props.path,
+      strict = props.strict,
+      exact = props.exact,
+      sensitive = props.sensitive,
+      loader = props.loader;
+    var route = router.route,
+      initialData = router.initialData; // This is the parent route
+    var pathname = (props.location || route.location).pathname;
+    return path ? matchPath(pathname, {
+      path: path,
+      strict: strict,
+      exact: exact,
+      sensitive: sensitive,
+      loader: loader,
+      initialData: initialData
+    }) : route.match;
+  };
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {
+    var match = this.computeMatch(nextProps, nextContext.router);
+    this.setState({
+      __loaderData__: match == null ? void 0 : match.loaderData,
+      match: match
+    });
+  };
+  _proto.render = function render(props, state, context) {
+    var match = state.match,
+      __loaderData__ = state.__loaderData__;
+    var children = props.children,
+      component = props.component,
+      render = props.render,
+      loader = props.loader;
+    var _context$router = context.router,
+      history = _context$router.history,
+      route = _context$router.route,
+      staticContext = _context$router.staticContext;
+    var location = props.location || route.location;
+    var renderProps = {
+      match: match,
+      location: location,
+      history: history,
+      staticContext: staticContext,
+      component: component,
+      render: render,
+      loader: loader,
+      __loaderData__: __loaderData__
+    };
+    // If we have a loader we don't render until it has been resolved
+    if (!isUndefined(loader) && isUndefined(__loaderData__)) {
+      return null;
+    }
+    if (component) {
+      return match ? (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2 /* VNodeFlags.ComponentUnknown */, component, renderProps) : null;
+    }
+    if (render) {
+      // @ts-ignore
+      return match ? render(renderProps, this.context) : null;
+    }
+    if (typeof children === 'function') {
+      return children(renderProps);
+    }
+    return children;
+  };
+  return Route;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var _excluded$3 = ["key", "state"];
+function _objectWithoutPropertiesLoose$3(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+var normalizeToLocation = function normalizeToLocation(to) {
+  return isString(to) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(to) : to;
+};
+var splitLocation = function splitLocation(location) {
+  location.key;
+    var state = location.state,
+    to = _objectWithoutPropertiesLoose$3(location, _excluded$3);
+  return {
+    to: to,
+    state: state
+  };
+};
+
+var _excluded$2 = ["replace", "children", "className", "to", "innerRef"];
+function _objectWithoutPropertiesLoose$2(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+var isModifiedEvent = function isModifiedEvent(event) {
+  return Boolean(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+};
+function handleClick(_ref, event) {
+  var props = _ref.props,
+    context = _ref.context;
+  if (props.onClick) {
+    props.onClick(event);
+  }
+  if (!event.defaultPrevented &&
+  // onClick prevented default
+  event.button === 0 &&
+  // ignore everything but left clicks
+  !props.target &&
+  // let browser handle "target=_blank" etc.
+  !isModifiedEvent(event) // ignore clicks with modifier keys
+  ) {
+    event.preventDefault();
+    var history = context.router.history;
+    var _props$replace = props.replace,
+      replace = _props$replace === void 0 ? false : _props$replace,
+      toPropIn = props.to;
+    var _splitLocation = splitLocation(normalizeToLocation(toPropIn)),
+      to = _splitLocation.to,
+      state = _splitLocation.state;
+    if (replace) {
+      history.replace(to, state);
+    } else {
+      history.push(to, state);
+    }
+  }
+}
+/**
+ * The public API for rendering a history-aware <a>.
+ */
+function Link(props, context) {
+  props.replace;
+    var children = props.children,
+    className = props.className,
+    _props$to = props.to,
+    to = _props$to === void 0 ? '' : _props$to,
+    innerRef = props.innerRef,
+    rest = _objectWithoutPropertiesLoose$2(props, _excluded$2);
+  invariant(context.router, 'You should not use <Link> outside a <Router>');
+  var href = context.router.history.createHref(isString(to) ? (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(to) : to);
+  var newProps = combineFrom(rest, null);
+  newProps.href = href;
+  newProps.onClick = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.linkEvent)({
+    context: context,
+    props: props
+  }, handleClick);
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1 /* VNodeFlags.HtmlElement */, 'a', className, children, 0 /* ChildFlags.UnknownChildren */, newProps, null, innerRef);
+}
+
+var _excluded$1 = ["to", "exact", "strict", "onClick", "location", "activeClassName", "className", "activeStyle", "style", "isActive", "ariaCurrent"];
+function _objectWithoutPropertiesLoose$1(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function filter(i) {
+  return i;
+}
+/**
+ * A <Link> wrapper that knows if it's "active" or not.
+ */
+function NavLink(_ref) {
+  var to = _ref.to,
+    exact = _ref.exact,
+    strict = _ref.strict,
+    onClick = _ref.onClick,
+    linkLocation = _ref.location,
+    _ref$activeClassName = _ref.activeClassName,
+    activeClassName = _ref$activeClassName === void 0 ? 'active' : _ref$activeClassName,
+    classNameProp = _ref.className,
+    activeStyle = _ref.activeStyle,
+    styleProp = _ref.style,
+    getIsActive = _ref.isActive,
+    _ref$ariaCurrent = _ref.ariaCurrent,
+    ariaCurrent = _ref$ariaCurrent === void 0 ? 'true' : _ref$ariaCurrent,
+    rest = _objectWithoutPropertiesLoose$1(_ref, _excluded$1);
+  function linkComponent(_ref2) {
+    var location = _ref2.location,
+      match = _ref2.match;
+    var isActive = Boolean(getIsActive ? getIsActive(match, location) : match);
+    var className = typeof classNameProp === 'function' ? classNameProp(isActive) : classNameProp;
+    var style = typeof styleProp === 'function' ? styleProp(isActive) : styleProp;
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(8 /* VNodeFlags.ComponentFunction */, Link, combineFrom({
+      'aria-current': isActive && ariaCurrent || null,
+      className: isActive ? [className, activeClassName].filter(filter).join(' ') : className,
+      onClick: onClick,
+      style: isActive ? combineFrom(style, activeStyle) : style,
+      to: to
+    }, rest));
+  }
+  return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Route, {
+    children: linkComponent,
+    exact: exact,
+    location: linkLocation,
+    path: typeof to === 'object' ? to.pathname : to,
+    strict: strict
+  });
+}
+
+function _inheritsLoose$1(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf$1(subClass, superClass); }
+function _setPrototypeOf$1(o, p) { _setPrototypeOf$1 = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf$1(o, p); }
+/**
+ * The public API for matching a single path and rendering.
+ */
+var Prompt = /*#__PURE__*/function (_Component) {
+  _inheritsLoose$1(Prompt, _Component);
+  function Prompt() {
+    var _this;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this.unblock = void 0;
+    return _this;
+  }
+  var _proto = Prompt.prototype;
+  _proto.enable = function enable(message) {
+    var _this2 = this;
+    if (this.unblock) {
+      this.unblock();
+    }
+    this.unblock = this.context.router.history.block(function (tx) {
+      if (message && window.confirm(message)) {
+        _this2.unblock();
+        tx.retry();
+      }
+    });
+  };
+  _proto.disable = function disable() {
+    if (this.unblock) {
+      this.unblock();
+      this.unblock = null;
+    }
+  };
+  _proto.componentWillMount = function componentWillMount() {
+    invariant(this.context.router, 'You should not use <Prompt> outside a <Router>');
+    if (this.props.when) {
+      this.enable(this.props.message);
+    }
+  };
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    if (nextProps.when) {
+      if (!this.props.when || this.props.message !== nextProps.message) {
+        this.enable(nextProps.message);
+      }
+    } else {
+      this.disable();
+    }
+  };
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.disable();
+  };
+  _proto.render = function render() {
+    return null;
+  };
+  return Prompt;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function getLocationTarget(to) {
+  if (!isString(to)) {
+    to = combinePath(to);
+  }
+  return (0,history__WEBPACK_IMPORTED_MODULE_3__.parsePath)(to);
+}
+var Redirect = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(Redirect, _Component);
+  function Redirect() {
+    return _Component.apply(this, arguments) || this;
+  }
+  var _proto = Redirect.prototype;
+  _proto.isStatic = function isStatic() {
+    return this.context.router && this.context.router.staticContext;
+  };
+  _proto.componentWillMount = function componentWillMount() {
+    invariant(this.context.router, 'You should not use <Redirect> outside a <Router>');
+    if (this.isStatic()) {
+      this.perform();
+    }
+  };
+  _proto.componentDidMount = function componentDidMount() {
+    if (!this.isStatic()) {
+      this.perform();
+    }
+  };
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var prevTo = getLocationTarget(prevProps.to);
+    var nextTo = getLocationTarget(this.props.to);
+    if (prevTo.pathname === nextTo.pathname && prevTo.search === nextTo.search) {
+      // tslint:disable-next-line:no-console
+      console.error("You tried to redirect to the same route you're currently on: \"" + nextTo.pathname + nextTo.search + "\"");
+      return;
+    }
+    this.perform();
+  };
+  _proto.perform = function perform() {
+    var history = this.context.router.history;
+    var _this$props = this.props,
+      _this$props$push = _this$props.push,
+      push = _this$props$push === void 0 ? false : _this$props$push,
+      to = _this$props.to;
+    if (push) {
+      history.push(to);
+    } else {
+      history.replace(to);
+    }
+  };
+  _proto.render = function render() {
+    return null;
+  };
+  return Redirect;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var _excluded = ["wrappedComponentRef"];
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+/**
+ * A public higher-order component to access the imperative API
+ */
+function withRouter(Com) {
+  var C = function C(props) {
+    var wrappedComponentRef = props.wrappedComponentRef,
+      remainingProps = _objectWithoutPropertiesLoose(props, _excluded);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(4 /* VNodeFlags.ComponentClass */, Route, {
+      render: function render(routeComponentProps) {
+        return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2 /* VNodeFlags.ComponentUnknown */, Com, combineFrom(remainingProps, routeComponentProps), null, wrappedComponentRef);
+      }
+    });
+  };
+  C.displayName = "withRouter(" + (Com.displayName || Com.name) + ")";
+  C.WrappedComponent = Com;
+  return hoist_non_inferno_statics__WEBPACK_IMPORTED_MODULE_2___default()(C, Com);
+}
+
+function useLoaderData(props) {
+  var _props$__loaderData__;
+  return (_props$__loaderData__ = props.__loaderData__) == null ? void 0 : _props$__loaderData__.res;
+}
+function useLoaderError(props) {
+  var _props$__loaderData__2;
+  return (_props$__loaderData__2 = props.__loaderData__) == null ? void 0 : _props$__loaderData__2.err;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/inferno/dist/index.esm.js":
+/*!************************************************!*\
+  !*** ./node_modules/inferno/dist/index.esm.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AnimationQueues": () => (/* binding */ AnimationQueues),
+/* harmony export */   "Component": () => (/* binding */ Component),
+/* harmony export */   "EMPTY_OBJ": () => (/* binding */ EMPTY_OBJ),
+/* harmony export */   "Fragment": () => (/* binding */ Fragment),
+/* harmony export */   "_CI": () => (/* binding */ createClassComponentInstance),
+/* harmony export */   "_HI": () => (/* binding */ normalizeRoot),
+/* harmony export */   "_M": () => (/* binding */ mount),
+/* harmony export */   "_MCCC": () => (/* binding */ mountClassComponentCallbacks),
+/* harmony export */   "_ME": () => (/* binding */ mountElement),
+/* harmony export */   "_MFCC": () => (/* binding */ mountFunctionalComponentCallbacks),
+/* harmony export */   "_MP": () => (/* binding */ mountProps),
+/* harmony export */   "_MR": () => (/* binding */ mountRef),
+/* harmony export */   "_RFC": () => (/* binding */ renderFunctionalComponent),
+/* harmony export */   "__render": () => (/* binding */ __render),
+/* harmony export */   "createComponentVNode": () => (/* binding */ createComponentVNode),
+/* harmony export */   "createFragment": () => (/* binding */ createFragment),
+/* harmony export */   "createPortal": () => (/* binding */ createPortal),
+/* harmony export */   "createRef": () => (/* binding */ createRef),
+/* harmony export */   "createRenderer": () => (/* binding */ createRenderer),
+/* harmony export */   "createTextVNode": () => (/* binding */ createTextVNode),
+/* harmony export */   "createVNode": () => (/* binding */ createVNode),
+/* harmony export */   "directClone": () => (/* binding */ directClone),
+/* harmony export */   "findDOMFromVNode": () => (/* binding */ findDOMFromVNode),
+/* harmony export */   "forwardRef": () => (/* binding */ forwardRef),
+/* harmony export */   "getFlagsForElementVnode": () => (/* binding */ getFlagsForElementVnode),
+/* harmony export */   "linkEvent": () => (/* binding */ linkEvent),
+/* harmony export */   "normalizeProps": () => (/* binding */ normalizeProps),
+/* harmony export */   "options": () => (/* binding */ options),
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "rerender": () => (/* binding */ rerender),
+/* harmony export */   "version": () => (/* binding */ version)
+/* harmony export */ });
+var isArray = Array.isArray;
+function isStringOrNumber(o) {
+  var type = typeof o;
+  return type === 'string' || type === 'number';
+}
+function isNullOrUndef(o) {
+  return o === void 0 || o === null;
+}
+function isInvalid(o) {
+  return o === null || o === false || o === true || o === void 0;
+}
+function isFunction(o) {
+  return typeof o === 'function';
+}
+function isString(o) {
+  return typeof o === 'string';
+}
+function isNumber(o) {
+  return typeof o === 'number';
+}
+function isNull(o) {
+  return o === null;
+}
+function isUndefined(o) {
+  return o === void 0;
+}
+function combineFrom(first, second) {
+  var out = {};
+  if (first) {
+    for (var key in first) {
+      out[key] = first[key];
+    }
+  }
+  if (second) {
+    for (var _key in second) {
+      out[_key] = second[_key];
+    }
+  }
+  return out;
+}
+
+/**
+ * Links given data to event as first parameter
+ * @param {*} data data to be linked, it will be available in function as first parameter
+ * @param {Function} event Function to be called when event occurs
+ * @returns {{data: *, event: Function}}
+ */
+function linkEvent(data, event) {
+  if (isFunction(event)) {
+    return {
+      data: data,
+      event: event
+    };
+  }
+  return null; // Return null when event is invalid, to avoid creating unnecessary event handlers
+}
+// object.event should always be function, otherwise its badly created object.
+function isLinkEventObject(o) {
+  return !isNull(o) && typeof o === 'object';
+}
+
+// We need EMPTY_OBJ defined in one place.
+// It's used for comparison, so we can't inline it into shared
+var EMPTY_OBJ = {};
+// @ts-ignore
+var Fragment = '$F';
+var AnimationQueues = function AnimationQueues() {
+  this.componentDidAppear = [];
+  this.componentWillDisappear = [];
+  this.componentWillMove = [];
+};
+function normalizeEventName(name) {
+  return name.substring(2).toLowerCase();
+}
+function appendChild(parentDOM, dom) {
+  parentDOM.appendChild(dom);
+}
+function insertOrAppend(parentDOM, newNode, nextNode) {
+  if (isNull(nextNode)) {
+    appendChild(parentDOM, newNode);
+  } else {
+    parentDOM.insertBefore(newNode, nextNode);
+  }
+}
+function documentCreateElement(tag, isSVG) {
+  if (isSVG) {
+    return document.createElementNS('http://www.w3.org/2000/svg', tag);
+  }
+  return document.createElement(tag);
+}
+function replaceChild(parentDOM, newDom, lastDom) {
+  parentDOM.replaceChild(newDom, lastDom);
+}
+function removeChild(parentDOM, childNode) {
+  parentDOM.removeChild(childNode);
+}
+function callAll(arrayFn) {
+  for (var i = 0; i < arrayFn.length; i++) {
+    arrayFn[i]();
+  }
+}
+function findChildVNode(vNode, startEdge, flags) {
+  var children = vNode.children;
+  if (flags & 4 /* VNodeFlags.ComponentClass */) {
+    return children.$LI;
+  }
+  if (flags & 8192 /* VNodeFlags.Fragment */) {
+    return vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */ ? children : children[startEdge ? 0 : children.length - 1];
+  }
+  return children;
+}
+function findDOMFromVNode(vNode, startEdge) {
+  var flags;
+  while (vNode) {
+    flags = vNode.flags;
+    if (flags & 1521 /* VNodeFlags.DOMRef */) {
+      return vNode.dom;
+    }
+    vNode = findChildVNode(vNode, startEdge, flags);
+  }
+  return null;
+}
+function callAllAnimationHooks(animationQueue, callback) {
+  var animationsLeft = animationQueue.length;
+  // Picking from the top because it is faster, invocation order should be irrelevant
+  // since all animations are to be run and we can't predict the order in which they complete.
+  var fn;
+  while ((fn = animationQueue.pop()) !== undefined) {
+    fn(function () {
+      if (--animationsLeft <= 0 && isFunction(callback)) {
+        callback();
+      }
+    });
+  }
+}
+function callAllMoveAnimationHooks(animationQueue) {
+  // Start the animations.
+  for (var i = 0; i < animationQueue.length; i++) {
+    animationQueue[i].fn();
+  }
+  // Perform the actual DOM moves when all measurements of initial
+  // position have been performed. The rest of the animations are done
+  // async.
+  for (var _i = 0; _i < animationQueue.length; _i++) {
+    var tmp = animationQueue[_i];
+    insertOrAppend(tmp.parent, tmp.dom, tmp.next);
+  }
+  animationQueue.splice(0, animationQueue.length);
+}
+function clearVNodeDOM(vNode, parentDOM, deferredRemoval) {
+  do {
+    var flags = vNode.flags;
+    if (flags & 1521 /* VNodeFlags.DOMRef */) {
+      // On deferred removals the node might disappear because of later operations
+      if (!deferredRemoval || vNode.dom.parentNode === parentDOM) {
+        removeChild(parentDOM, vNode.dom);
+      }
+      return;
+    }
+    var children = vNode.children;
+    if (flags & 4 /* VNodeFlags.ComponentClass */) {
+      vNode = children.$LI;
+    }
+    if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+      vNode = children;
+    }
+    if (flags & 8192 /* VNodeFlags.Fragment */) {
+      if (vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+        vNode = children;
+      } else {
+        for (var i = 0, len = children.length; i < len; ++i) {
+          clearVNodeDOM(children[i], parentDOM, false);
+        }
+        return;
+      }
+    }
+  } while (vNode);
+}
+function createDeferComponentClassRemovalCallback(vNode, parentDOM) {
+  return function () {
+    // Mark removal as deferred to trigger check that node still exists
+    clearVNodeDOM(vNode, parentDOM, true);
+  };
+}
+function removeVNodeDOM(vNode, parentDOM, animations) {
+  if (animations.componentWillDisappear.length > 0) {
+    // Wait until animations are finished before removing actual dom nodes
+    callAllAnimationHooks(animations.componentWillDisappear, createDeferComponentClassRemovalCallback(vNode, parentDOM));
+  } else {
+    clearVNodeDOM(vNode, parentDOM, false);
+  }
+}
+function addMoveAnimationHook(animations, parentVNode, refOrInstance, dom, parentDOM, nextNode, flags, props) {
+  animations.componentWillMove.push({
+    dom: dom,
+    fn: function fn() {
+      if (flags & 4 /* VNodeFlags.ComponentClass */) {
+        refOrInstance.componentWillMove(parentVNode, parentDOM, dom);
+      } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+        refOrInstance.onComponentWillMove(parentVNode, parentDOM, dom, props);
+      }
+    },
+    next: nextNode,
+    parent: parentDOM
+  });
+}
+function moveVNodeDOM(parentVNode, vNode, parentDOM, nextNode, animations) {
+  var refOrInstance;
+  var instanceProps;
+  var instanceFlags = vNode.flags;
+  do {
+    var flags = vNode.flags;
+    if (flags & 1521 /* VNodeFlags.DOMRef */) {
+      if (!isNullOrUndef(refOrInstance) && (isFunction(refOrInstance.componentWillMove) || isFunction(refOrInstance.onComponentWillMove))) {
+        addMoveAnimationHook(animations, parentVNode, refOrInstance, vNode.dom, parentDOM, nextNode, instanceFlags, instanceProps);
+      } else {
+        // TODO: Should we delay this too to support mixing animated moves with regular?
+        insertOrAppend(parentDOM, vNode.dom, nextNode);
+      }
+      return;
+    }
+    var children = vNode.children;
+    if (flags & 4 /* VNodeFlags.ComponentClass */) {
+      refOrInstance = vNode.children;
+      // TODO: We should probably deprecate this in V9 since it is inconsitent with other class component hooks
+      instanceProps = vNode.props;
+      vNode = children.$LI;
+    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+      refOrInstance = vNode.ref;
+      instanceProps = vNode.props;
+      vNode = children;
+    } else if (flags & 8192 /* VNodeFlags.Fragment */) {
+      if (vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+        vNode = children;
+      } else {
+        for (var i = 0, len = children.length; i < len; ++i) {
+          moveVNodeDOM(parentVNode, children[i], parentDOM, nextNode, animations);
+        }
+        return;
+      }
+    }
+  } while (vNode);
+}
+function createDerivedState(instance, nextProps, state) {
+  if (instance.constructor.getDerivedStateFromProps) {
+    return combineFrom(state, instance.constructor.getDerivedStateFromProps(nextProps, state));
+  }
+  return state;
+}
+var renderCheck = {
+  v: false
+};
+var options = {
+  componentComparator: null,
+  createVNode: null,
+  renderComplete: null
+};
+function setTextContent(dom, children) {
+  dom.textContent = children;
+}
+// Calling this function assumes, nextValue is linkEvent
+function isLastValueSameLinkEvent(lastValue, nextValue) {
+  return isLinkEventObject(lastValue) && lastValue.event === nextValue.event && lastValue.data === nextValue.data;
+}
+function mergeUnsetProperties(to, from) {
+  for (var propName in from) {
+    if (isUndefined(to[propName])) {
+      to[propName] = from[propName];
+    }
+  }
+  return to;
+}
+function safeCall1(method, arg1) {
+  return !!isFunction(method) && (method(arg1), true);
+}
+
+var keyPrefix = '$';
+function V(childFlags, children, className, flags, key, props, ref, type) {
+  this.childFlags = childFlags;
+  this.children = children;
+  this.className = className;
+  this.dom = null;
+  this.flags = flags;
+  this.key = key === void 0 ? null : key;
+  this.props = props === void 0 ? null : props;
+  this.ref = ref === void 0 ? null : ref;
+  this.type = type;
+}
+function createVNode(flags, type, className, children, childFlags, props, key, ref) {
+  var childFlag = childFlags === void 0 ? 1 /* ChildFlags.HasInvalidChildren */ : childFlags;
+  var vNode = new V(childFlag, children, className, flags, key, props, ref, type);
+  if (options.createVNode) {
+    options.createVNode(vNode);
+  }
+  if (childFlag === 0 /* ChildFlags.UnknownChildren */) {
+    normalizeChildren(vNode, vNode.children);
+  }
+  return vNode;
+}
+function mergeDefaultHooks(flags, type, ref) {
+  if (flags & 4 /* VNodeFlags.ComponentClass */) {
+    return ref;
+  }
+  var defaultHooks = (flags & 32768 /* VNodeFlags.ForwardRef */ ? type.render : type).defaultHooks;
+  if (isNullOrUndef(defaultHooks)) {
+    return ref;
+  }
+  if (isNullOrUndef(ref)) {
+    return defaultHooks;
+  }
+  return mergeUnsetProperties(ref, defaultHooks);
+}
+function mergeDefaultProps(flags, type, props) {
+  // set default props
+  var defaultProps = (flags & 32768 /* VNodeFlags.ForwardRef */ ? type.render : type).defaultProps;
+  if (isNullOrUndef(defaultProps)) {
+    return props;
+  }
+  if (isNullOrUndef(props)) {
+    return combineFrom(defaultProps, null);
+  }
+  return mergeUnsetProperties(props, defaultProps);
+}
+function resolveComponentFlags(flags, type) {
+  if (flags & 12 /* VNodeFlags.ComponentKnown */) {
+    return flags;
+  }
+  if (type.prototype && type.prototype.render) {
+    return 4 /* VNodeFlags.ComponentClass */;
+  }
+
+  if (type.render) {
+    return 32776 /* VNodeFlags.ForwardRefComponent */;
+  }
+
+  return 8 /* VNodeFlags.ComponentFunction */;
+}
+
+function createComponentVNode(flags, type, props, key, ref) {
+  flags = resolveComponentFlags(flags, type);
+  var vNode = new V(1 /* ChildFlags.HasInvalidChildren */, null, null, flags, key, mergeDefaultProps(flags, type, props), mergeDefaultHooks(flags, type, ref), type);
+  if (options.createVNode) {
+    options.createVNode(vNode);
+  }
+  return vNode;
+}
+function createTextVNode(text, key) {
+  return new V(1 /* ChildFlags.HasInvalidChildren */, isNullOrUndef(text) || text === true || text === false ? '' : text, null, 16 /* VNodeFlags.Text */, key, null, null, null);
+}
+function createFragment(children, childFlags, key) {
+  var fragment = createVNode(8192 /* VNodeFlags.Fragment */, 8192 /* VNodeFlags.Fragment */, null, children, childFlags, null, key, null);
+  switch (fragment.childFlags) {
+    case 1 /* ChildFlags.HasInvalidChildren */:
+      fragment.children = createVoidVNode();
+      fragment.childFlags = 2 /* ChildFlags.HasVNodeChildren */;
+      break;
+    case 16 /* ChildFlags.HasTextChildren */:
+      fragment.children = [createTextVNode(children)];
+      fragment.childFlags = 4 /* ChildFlags.HasNonKeyedChildren */;
+      break;
+  }
+  return fragment;
+}
+function normalizeProps(vNode) {
+  var props = vNode.props;
+  if (props) {
+    var flags = vNode.flags;
+    if (flags & 481 /* VNodeFlags.Element */) {
+      if (props.children !== void 0 && isNullOrUndef(vNode.children)) {
+        normalizeChildren(vNode, props.children);
+      }
+      if (props.className !== void 0) {
+        if (isNullOrUndef(vNode.className)) {
+          vNode.className = props.className || null;
+        }
+        props.className = undefined;
+      }
+    }
+    if (props.key !== void 0) {
+      vNode.key = props.key;
+      props.key = undefined;
+    }
+    if (props.ref !== void 0) {
+      if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+        vNode.ref = combineFrom(vNode.ref, props.ref);
+      } else {
+        vNode.ref = props.ref;
+      }
+      props.ref = undefined;
+    }
+  }
+  return vNode;
+}
+/*
+ * Fragment is different from normal vNode,
+ * because when it needs to be cloned we need to clone its children too
+ * But not normalize, because otherwise those possibly get KEY and re-mount
+ */
+function cloneFragment(vNodeToClone) {
+  var oldChildren = vNodeToClone.children;
+  var childFlags = vNodeToClone.childFlags;
+  return createFragment(childFlags === 2 /* ChildFlags.HasVNodeChildren */ ? directClone(oldChildren) : oldChildren.map(directClone), childFlags, vNodeToClone.key);
+}
+function directClone(vNodeToClone) {
+  var flags = vNodeToClone.flags & -16385 /* VNodeFlags.ClearInUse */;
+  var props = vNodeToClone.props;
+  if (flags & 14 /* VNodeFlags.Component */) {
+    if (!isNull(props)) {
+      var propsToClone = props;
+      props = {};
+      for (var key in propsToClone) {
+        props[key] = propsToClone[key];
+      }
+    }
+  }
+  if ((flags & 8192 /* VNodeFlags.Fragment */) === 0) {
+    return new V(vNodeToClone.childFlags, vNodeToClone.children, vNodeToClone.className, flags, vNodeToClone.key, props, vNodeToClone.ref, vNodeToClone.type);
+  }
+  return cloneFragment(vNodeToClone);
+}
+function createVoidVNode() {
+  return createTextVNode('', null);
+}
+function createPortal(children, container) {
+  var normalizedRoot = normalizeRoot(children);
+  return createVNode(1024 /* VNodeFlags.Portal */, 1024 /* VNodeFlags.Portal */, null, normalizedRoot, 0 /* ChildFlags.UnknownChildren */, null, normalizedRoot.key, container);
+}
+function _normalizeVNodes(nodes, result, index, currentKey) {
+  for (var len = nodes.length; index < len; index++) {
+    var n = nodes[index];
+    if (!isInvalid(n)) {
+      var newKey = currentKey + keyPrefix + index;
+      if (isArray(n)) {
+        _normalizeVNodes(n, result, 0, newKey);
+      } else {
+        if (isStringOrNumber(n)) {
+          n = createTextVNode(n, newKey);
+        } else {
+          var oldKey = n.key;
+          var isPrefixedKey = isString(oldKey) && oldKey[0] === keyPrefix;
+          if (n.flags & 81920 /* VNodeFlags.InUseOrNormalized */ || isPrefixedKey) {
+            n = directClone(n);
+          }
+          n.flags |= 65536 /* VNodeFlags.Normalized */;
+          if (!isPrefixedKey) {
+            if (isNull(oldKey)) {
+              n.key = newKey;
+            } else {
+              n.key = currentKey + oldKey;
+            }
+          } else if (oldKey.substring(0, currentKey.length) !== currentKey) {
+            n.key = currentKey + oldKey;
+          }
+        }
+        result.push(n);
+      }
+    }
+  }
+}
+function getFlagsForElementVnode(type) {
+  switch (type) {
+    case 'svg':
+      return 32 /* VNodeFlags.SvgElement */;
+    case 'input':
+      return 64 /* VNodeFlags.InputElement */;
+    case 'select':
+      return 256 /* VNodeFlags.SelectElement */;
+    case 'textarea':
+      return 128 /* VNodeFlags.TextareaElement */;
+    // @ts-ignore
+    case Fragment:
+      return 8192 /* VNodeFlags.Fragment */;
+    default:
+      return 1 /* VNodeFlags.HtmlElement */;
+  }
+}
+
+function normalizeChildren(vNode, children) {
+  var newChildren;
+  var newChildFlags = 1 /* ChildFlags.HasInvalidChildren */;
+  // Don't change children to match strict equal (===) true in patching
+  if (isInvalid(children)) {
+    newChildren = children;
+  } else if (isStringOrNumber(children)) {
+    newChildFlags = 16 /* ChildFlags.HasTextChildren */;
+    newChildren = children;
+  } else if (isArray(children)) {
+    var len = children.length;
+    for (var i = 0; i < len; ++i) {
+      var n = children[i];
+      if (isInvalid(n) || isArray(n)) {
+        newChildren = newChildren || children.slice(0, i);
+        _normalizeVNodes(children, newChildren, i, '');
+        break;
+      } else if (isStringOrNumber(n)) {
+        newChildren = newChildren || children.slice(0, i);
+        newChildren.push(createTextVNode(n, keyPrefix + i));
+      } else {
+        var key = n.key;
+        var needsCloning = (n.flags & 81920 /* VNodeFlags.InUseOrNormalized */) > 0;
+        var isNullKey = isNull(key);
+        var isPrefixed = isString(key) && key[0] === keyPrefix;
+        if (needsCloning || isNullKey || isPrefixed) {
+          newChildren = newChildren || children.slice(0, i);
+          if (needsCloning || isPrefixed) {
+            n = directClone(n);
+          }
+          if (isNullKey || isPrefixed) {
+            n.key = keyPrefix + i;
+          }
+          newChildren.push(n);
+        } else if (newChildren) {
+          newChildren.push(n);
+        }
+        n.flags |= 65536 /* VNodeFlags.Normalized */;
+      }
+    }
+
+    newChildren = newChildren || children;
+    if (newChildren.length === 0) {
+      newChildFlags = 1 /* ChildFlags.HasInvalidChildren */;
+    } else {
+      newChildFlags = 8 /* ChildFlags.HasKeyedChildren */;
+    }
+  } else {
+    newChildren = children;
+    newChildren.flags |= 65536 /* VNodeFlags.Normalized */;
+    if (children.flags & 81920 /* VNodeFlags.InUseOrNormalized */) {
+      newChildren = directClone(children);
+    }
+    newChildFlags = 2 /* ChildFlags.HasVNodeChildren */;
+  }
+
+  vNode.children = newChildren;
+  vNode.childFlags = newChildFlags;
+  return vNode;
+}
+function normalizeRoot(input) {
+  if (isInvalid(input) || isStringOrNumber(input)) {
+    return createTextVNode(input, null);
+  }
+  if (isArray(input)) {
+    return createFragment(input, 0 /* ChildFlags.UnknownChildren */, null);
+  }
+  return input.flags & 16384 /* VNodeFlags.InUse */ ? directClone(input) : input;
+}
+
+var xlinkNS = 'http://www.w3.org/1999/xlink';
+var xmlNS = 'http://www.w3.org/XML/1998/namespace';
+var namespaces = {
+  'xlink:actuate': xlinkNS,
+  'xlink:arcrole': xlinkNS,
+  'xlink:href': xlinkNS,
+  'xlink:role': xlinkNS,
+  'xlink:show': xlinkNS,
+  'xlink:title': xlinkNS,
+  'xlink:type': xlinkNS,
+  'xml:base': xmlNS,
+  'xml:lang': xmlNS,
+  'xml:space': xmlNS
+};
+
+function getDelegatedEventObject(v) {
+  return {
+    onClick: v,
+    onDblClick: v,
+    onFocusIn: v,
+    onFocusOut: v,
+    onKeyDown: v,
+    onKeyPress: v,
+    onKeyUp: v,
+    onMouseDown: v,
+    onMouseMove: v,
+    onMouseUp: v,
+    onTouchEnd: v,
+    onTouchMove: v,
+    onTouchStart: v
+  };
+}
+var attachedEventCounts = getDelegatedEventObject(0);
+var attachedEvents = getDelegatedEventObject(null);
+var syntheticEvents = getDelegatedEventObject(true);
+function updateOrAddSyntheticEvent(name, dom) {
+  var eventsObject = dom.$EV;
+  if (!eventsObject) {
+    eventsObject = dom.$EV = getDelegatedEventObject(null);
+  }
+  if (!eventsObject[name]) {
+    if (++attachedEventCounts[name] === 1) {
+      attachedEvents[name] = attachEventToDocument(name);
+    }
+  }
+  return eventsObject;
+}
+function unmountSyntheticEvent(name, dom) {
+  var eventsObject = dom.$EV;
+  if (eventsObject && eventsObject[name]) {
+    if (--attachedEventCounts[name] === 0) {
+      document.removeEventListener(normalizeEventName(name), attachedEvents[name]);
+      attachedEvents[name] = null;
+    }
+    eventsObject[name] = null;
+  }
+}
+function handleSyntheticEvent(name, lastEvent, nextEvent, dom) {
+  if (isFunction(nextEvent)) {
+    updateOrAddSyntheticEvent(name, dom)[name] = nextEvent;
+  } else if (isLinkEventObject(nextEvent)) {
+    if (isLastValueSameLinkEvent(lastEvent, nextEvent)) {
+      return;
+    }
+    updateOrAddSyntheticEvent(name, dom)[name] = nextEvent;
+  } else {
+    unmountSyntheticEvent(name, dom);
+  }
+}
+// When browsers fully support event.composedPath we could loop it through instead of using parentNode property
+function getTargetNode(event) {
+  return isFunction(event.composedPath) ? event.composedPath()[0] : event.target;
+}
+function dispatchEvents(event, isClick, name, eventData) {
+  var dom = getTargetNode(event);
+  do {
+    // Html Nodes can be nested fe: span inside button in that scenario browser does not handle disabled attribute on parent,
+    // because the event listener is on document.body
+    // Don't process clicks on disabled elements
+    if (isClick && dom.disabled) {
+      return;
+    }
+    var eventsObject = dom.$EV;
+    if (eventsObject) {
+      var currentEvent = eventsObject[name];
+      if (currentEvent) {
+        // linkEvent object
+        eventData.dom = dom;
+        currentEvent.event ? currentEvent.event(currentEvent.data, event) : currentEvent(event);
+        if (event.cancelBubble) {
+          return;
+        }
+      }
+    }
+    dom = dom.parentNode;
+  } while (!isNull(dom));
+}
+function stopPropagation() {
+  this.cancelBubble = true;
+  if (!this.immediatePropagationStopped) {
+    this.stopImmediatePropagation();
+  }
+}
+function isDefaultPrevented() {
+  return this.defaultPrevented;
+}
+function isPropagationStopped() {
+  return this.cancelBubble;
+}
+function extendEventProperties(event) {
+  // Event data needs to be object to save reference to currentTarget getter
+  var eventData = {
+    dom: document
+  };
+  event.isDefaultPrevented = isDefaultPrevented;
+  event.isPropagationStopped = isPropagationStopped;
+  event.stopPropagation = stopPropagation;
+  Object.defineProperty(event, 'currentTarget', {
+    configurable: true,
+    get: function get() {
+      return eventData.dom;
+    }
+  });
+  return eventData;
+}
+function rootClickEvent(name) {
+  return function (event) {
+    if (event.button !== 0) {
+      // Firefox incorrectly triggers click event for mid/right mouse buttons.
+      // This bug has been active for 17 years.
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=184051
+      event.stopPropagation();
+      return;
+    }
+    dispatchEvents(event, true, name, extendEventProperties(event));
+  };
+}
+function rootEvent(name) {
+  return function (event) {
+    dispatchEvents(event, false, name, extendEventProperties(event));
+  };
+}
+function attachEventToDocument(name) {
+  var attachedEvent = name === 'onClick' || name === 'onDblClick' ? rootClickEvent(name) : rootEvent(name);
+  document.addEventListener(normalizeEventName(name), attachedEvent);
+  return attachedEvent;
+}
+
+function isSameInnerHTML(dom, innerHTML) {
+  var tempdom = document.createElement('i');
+  tempdom.innerHTML = innerHTML;
+  return tempdom.innerHTML === dom.innerHTML;
+}
+
+function triggerEventListener(props, methodName, e) {
+  if (props[methodName]) {
+    var listener = props[methodName];
+    if (listener.event) {
+      listener.event(listener.data, e);
+    } else {
+      listener(e);
+    }
+  } else {
+    var nativeListenerName = methodName.toLowerCase();
+    if (props[nativeListenerName]) {
+      props[nativeListenerName](e);
+    }
+  }
+}
+function createWrappedFunction(methodName, applyValue) {
+  var fnMethod = function fnMethod(e) {
+    var vNode = this.$V;
+    // If vNode is gone by the time event fires, no-op
+    if (!vNode) {
+      return;
+    }
+    var props = vNode.props || EMPTY_OBJ;
+    var dom = vNode.dom;
+    if (isString(methodName)) {
+      triggerEventListener(props, methodName, e);
+    } else {
+      for (var i = 0; i < methodName.length; ++i) {
+        triggerEventListener(props, methodName[i], e);
+      }
+    }
+    if (isFunction(applyValue)) {
+      var newVNode = this.$V;
+      var newProps = newVNode.props || EMPTY_OBJ;
+      applyValue(newProps, dom, false, newVNode);
+    }
+  };
+  Object.defineProperty(fnMethod, 'wrapped', {
+    configurable: false,
+    enumerable: false,
+    value: true,
+    writable: false
+  });
+  return fnMethod;
+}
+
+function attachEvent(dom, eventName, handler) {
+  var previousKey = "$" + eventName;
+  var previousArgs = dom[previousKey];
+  if (previousArgs) {
+    if (previousArgs[1].wrapped) {
+      return;
+    }
+    dom.removeEventListener(previousArgs[0], previousArgs[1]);
+    dom[previousKey] = null;
+  }
+  if (isFunction(handler)) {
+    dom.addEventListener(eventName, handler);
+    dom[previousKey] = [eventName, handler];
+  }
+}
+
+function isCheckedType(type) {
+  return type === 'checkbox' || type === 'radio';
+}
+var onTextInputChange = createWrappedFunction('onInput', applyValueInput);
+var wrappedOnChange$1 = createWrappedFunction(['onClick', 'onChange'], applyValueInput);
+/* tslint:disable-next-line:no-empty */
+function emptywrapper(event) {
+  event.stopPropagation();
+}
+emptywrapper.wrapped = true;
+function inputEvents(dom, nextPropsOrEmpty) {
+  if (isCheckedType(nextPropsOrEmpty.type)) {
+    attachEvent(dom, 'change', wrappedOnChange$1);
+    attachEvent(dom, 'click', emptywrapper);
+  } else {
+    attachEvent(dom, 'input', onTextInputChange);
+  }
+}
+function applyValueInput(nextPropsOrEmpty, dom) {
+  var type = nextPropsOrEmpty.type;
+  var value = nextPropsOrEmpty.value;
+  var checked = nextPropsOrEmpty.checked;
+  var multiple = nextPropsOrEmpty.multiple;
+  var defaultValue = nextPropsOrEmpty.defaultValue;
+  var hasValue = !isNullOrUndef(value);
+  if (type && type !== dom.type) {
+    dom.setAttribute('type', type);
+  }
+  if (!isNullOrUndef(multiple) && multiple !== dom.multiple) {
+    dom.multiple = multiple;
+  }
+  if (!isNullOrUndef(defaultValue) && !hasValue) {
+    dom.defaultValue = defaultValue + '';
+  }
+  if (isCheckedType(type)) {
+    if (hasValue) {
+      dom.value = value;
+    }
+    if (!isNullOrUndef(checked)) {
+      dom.checked = checked;
+    }
+  } else {
+    if (hasValue && dom.value !== value) {
+      dom.defaultValue = value;
+      dom.value = value;
+    } else if (!isNullOrUndef(checked)) {
+      dom.checked = checked;
+    }
+  }
+}
+
+function updateChildOptions(vNode, value) {
+  if (vNode.type === 'option') {
+    updateChildOption(vNode, value);
+  } else {
+    var children = vNode.children;
+    var flags = vNode.flags;
+    if (flags & 4 /* VNodeFlags.ComponentClass */) {
+      updateChildOptions(children.$LI, value);
+    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+      updateChildOptions(children, value);
+    } else if (vNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+      updateChildOptions(children, value);
+    } else if (vNode.childFlags & 12 /* ChildFlags.MultipleChildren */) {
+      for (var i = 0, len = children.length; i < len; ++i) {
+        updateChildOptions(children[i], value);
+      }
+    }
+  }
+}
+function updateChildOption(vNode, value) {
+  var props = vNode.props || EMPTY_OBJ;
+  var dom = vNode.dom;
+  // we do this as multiple may have changed
+  dom.value = props.value;
+  if (props.value === value || isArray(value) && value.indexOf(props.value) !== -1) {
+    dom.selected = true;
+  } else if (!isNullOrUndef(value) || !isNullOrUndef(props.selected)) {
+    dom.selected = props.selected || false;
+  }
+}
+var onSelectChange = createWrappedFunction('onChange', applyValueSelect);
+function selectEvents(dom) {
+  attachEvent(dom, 'change', onSelectChange);
+}
+function applyValueSelect(nextPropsOrEmpty, dom, mounting, vNode) {
+  var multiplePropInBoolean = Boolean(nextPropsOrEmpty.multiple);
+  if (!isNullOrUndef(nextPropsOrEmpty.multiple) && multiplePropInBoolean !== dom.multiple) {
+    dom.multiple = multiplePropInBoolean;
+  }
+  var index = nextPropsOrEmpty.selectedIndex;
+  if (index === -1) {
+    dom.selectedIndex = -1;
+  }
+  var childFlags = vNode.childFlags;
+  if (childFlags !== 1 /* ChildFlags.HasInvalidChildren */) {
+    var value = nextPropsOrEmpty.value;
+    if (isNumber(index) && index > -1 && dom.options[index]) {
+      value = dom.options[index].value;
+    }
+    if (mounting && isNullOrUndef(value)) {
+      value = nextPropsOrEmpty.defaultValue;
+    }
+    updateChildOptions(vNode, value);
+  }
+}
+
+var onTextareaInputChange = createWrappedFunction('onInput', applyValueTextArea);
+var wrappedOnChange = createWrappedFunction('onChange');
+function textAreaEvents(dom, nextPropsOrEmpty) {
+  attachEvent(dom, 'input', onTextareaInputChange);
+  if (nextPropsOrEmpty.onChange) {
+    attachEvent(dom, 'change', wrappedOnChange);
+  }
+}
+function applyValueTextArea(nextPropsOrEmpty, dom, mounting) {
+  var value = nextPropsOrEmpty.value;
+  var domValue = dom.value;
+  if (isNullOrUndef(value)) {
+    if (mounting) {
+      var defaultValue = nextPropsOrEmpty.defaultValue;
+      if (!isNullOrUndef(defaultValue) && defaultValue !== domValue) {
+        dom.defaultValue = defaultValue;
+        dom.value = defaultValue;
+      }
+    }
+  } else if (domValue !== value) {
+    /* There is value so keep it controlled */
+    dom.defaultValue = value;
+    dom.value = value;
+  }
+}
+
+function processElement(flags, vNode, dom, nextPropsOrEmpty, mounting, isControlled) {
+  if (flags & 64 /* VNodeFlags.InputElement */) {
+    applyValueInput(nextPropsOrEmpty, dom);
+  } else if (flags & 256 /* VNodeFlags.SelectElement */) {
+    applyValueSelect(nextPropsOrEmpty, dom, mounting, vNode);
+  } else if (flags & 128 /* VNodeFlags.TextareaElement */) {
+    applyValueTextArea(nextPropsOrEmpty, dom, mounting);
+  }
+  if (isControlled) {
+    dom.$V = vNode;
+  }
+}
+function addFormElementEventHandlers(flags, dom, nextPropsOrEmpty) {
+  if (flags & 64 /* VNodeFlags.InputElement */) {
+    inputEvents(dom, nextPropsOrEmpty);
+  } else if (flags & 256 /* VNodeFlags.SelectElement */) {
+    selectEvents(dom);
+  } else if (flags & 128 /* VNodeFlags.TextareaElement */) {
+    textAreaEvents(dom, nextPropsOrEmpty);
+  }
+}
+function isControlledFormElement(nextPropsOrEmpty) {
+  return nextPropsOrEmpty.type && isCheckedType(nextPropsOrEmpty.type) ? !isNullOrUndef(nextPropsOrEmpty.checked) : !isNullOrUndef(nextPropsOrEmpty.value);
+}
+
+function createRef() {
+  return {
+    current: null
+  };
+}
+// TODO: Make this return value typed
+function forwardRef(render) {
+  var ref = {
+    render: render
+  };
+  // @ts-ignore
+  return ref;
+}
+function unmountRef(ref) {
+  if (ref) {
+    if (!safeCall1(ref, null) && ref.current) {
+      ref.current = null;
+    }
+  }
+}
+function mountRef(ref, value, lifecycle) {
+  if (ref && (isFunction(ref) || ref.current !== void 0)) {
+    lifecycle.push(function () {
+      if (!safeCall1(ref, value) && ref.current !== void 0) {
+        ref.current = value;
+      }
+    });
+  }
+}
+
+function remove(vNode, parentDOM, animations) {
+  unmount(vNode, animations);
+  removeVNodeDOM(vNode, parentDOM, animations);
+}
+function unmount(vNode, animations) {
+  var flags = vNode.flags;
+  var children = vNode.children;
+  var ref;
+  if (flags & 481 /* VNodeFlags.Element */) {
+    ref = vNode.ref;
+    var props = vNode.props;
+    unmountRef(ref);
+    var childFlags = vNode.childFlags;
+    if (!isNull(props)) {
+      var keys = Object.keys(props);
+      for (var i = 0, len = keys.length; i < len; i++) {
+        var key = keys[i];
+        if (syntheticEvents[key]) {
+          unmountSyntheticEvent(key, vNode.dom);
+        }
+      }
+    }
+    if (childFlags & 12 /* ChildFlags.MultipleChildren */) {
+      unmountAllChildren(children, animations);
+    } else if (childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+      unmount(children, animations);
+    }
+  } else if (children) {
+    if (flags & 4 /* VNodeFlags.ComponentClass */) {
+      if (isFunction(children.componentWillUnmount)) {
+        // TODO: Possible entrypoint
+        children.componentWillUnmount();
+      }
+      // If we have a componentWillDisappear on this component, block children from animating
+      var childAnimations = animations;
+      if (isFunction(children.componentWillDisappear)) {
+        childAnimations = new AnimationQueues();
+        addDisappearAnimationHook(animations, children, children.$LI.dom, flags, undefined);
+      }
+      unmountRef(vNode.ref);
+      children.$UN = true;
+      unmount(children.$LI, childAnimations);
+    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+      // If we have a onComponentWillDisappear on this component, block children from animating
+      var _childAnimations = animations;
+      ref = vNode.ref;
+      if (!isNullOrUndef(ref)) {
+        var domEl = null;
+        if (isFunction(ref.onComponentWillUnmount)) {
+          domEl = findDOMFromVNode(vNode, true);
+          ref.onComponentWillUnmount(domEl, vNode.props || EMPTY_OBJ);
+        }
+        if (isFunction(ref.onComponentWillDisappear)) {
+          _childAnimations = new AnimationQueues();
+          domEl = domEl || findDOMFromVNode(vNode, true);
+          addDisappearAnimationHook(animations, ref, domEl, flags, vNode.props);
+        }
+      }
+      unmount(children, _childAnimations);
+    } else if (flags & 1024 /* VNodeFlags.Portal */) {
+      remove(children, vNode.ref, animations);
+    } else if (flags & 8192 /* VNodeFlags.Fragment */) {
+      if (vNode.childFlags & 12 /* ChildFlags.MultipleChildren */) {
+        unmountAllChildren(children, animations);
+      }
+    }
+  }
+}
+function unmountAllChildren(children, animations) {
+  for (var i = 0, len = children.length; i < len; ++i) {
+    unmount(children[i], animations);
+  }
+}
+function createClearAllCallback(children, parentDOM) {
+  return function () {
+    // We need to remove children one by one because elements can be added during animation
+    if (parentDOM) {
+      for (var i = 0; i < children.length; i++) {
+        var vNode = children[i];
+        clearVNodeDOM(vNode, parentDOM, false);
+      }
+    }
+  };
+}
+function clearDOM(parentDOM, children, animations) {
+  if (animations.componentWillDisappear.length > 0) {
+    // Wait until animations are finished before removing actual dom nodes
+    // Be aware that the element could be removed by a later operation
+    callAllAnimationHooks(animations.componentWillDisappear, createClearAllCallback(children, parentDOM));
+  } else {
+    // Optimization for clearing dom
+    parentDOM.textContent = '';
+  }
+}
+function removeAllChildren(dom, vNode, children, animations) {
+  unmountAllChildren(children, animations);
+  if (vNode.flags & 8192 /* VNodeFlags.Fragment */) {
+    removeVNodeDOM(vNode, dom, animations);
+  } else {
+    clearDOM(dom, children, animations);
+  }
+}
+// Only add animations to queue in browser
+function addDisappearAnimationHook(animations, instanceOrRef, dom, flags, props) {
+  animations.componentWillDisappear.push(function (callback) {
+    if (flags & 4 /* VNodeFlags.ComponentClass */) {
+      instanceOrRef.componentWillDisappear(dom, callback);
+    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+      instanceOrRef.onComponentWillDisappear(dom, props, callback);
+    }
+  });
+}
+
+function wrapLinkEvent(nextValue) {
+  // This variable makes sure there is no "this" context in callback
+  var ev = nextValue.event;
+  return function (e) {
+    ev(nextValue.data, e);
+  };
+}
+function patchEvent(name, lastValue, nextValue, dom) {
+  if (isLinkEventObject(nextValue)) {
+    if (isLastValueSameLinkEvent(lastValue, nextValue)) {
+      return;
+    }
+    nextValue = wrapLinkEvent(nextValue);
+  }
+  attachEvent(dom, normalizeEventName(name), nextValue);
+}
+// We are assuming here that we come from patchProp routine
+// -nextAttrValue cannot be null or undefined
+function patchStyle(lastAttrValue, nextAttrValue, dom) {
+  if (isNullOrUndef(nextAttrValue)) {
+    dom.removeAttribute('style');
+    return;
+  }
+  var domStyle = dom.style;
+  var style;
+  var value;
+  if (isString(nextAttrValue)) {
+    domStyle.cssText = nextAttrValue;
+    return;
+  }
+  if (!isNullOrUndef(lastAttrValue) && !isString(lastAttrValue)) {
+    for (style in nextAttrValue) {
+      // do not add a hasOwnProperty check here, it affects performance
+      value = nextAttrValue[style];
+      if (value !== lastAttrValue[style]) {
+        domStyle.setProperty(style, value);
+      }
+    }
+    for (style in lastAttrValue) {
+      if (isNullOrUndef(nextAttrValue[style])) {
+        domStyle.removeProperty(style);
+      }
+    }
+  } else {
+    for (style in nextAttrValue) {
+      value = nextAttrValue[style];
+      domStyle.setProperty(style, value);
+    }
+  }
+}
+function patchDangerInnerHTML(lastValue, nextValue, lastVNode, dom, animations) {
+  var lastHtml = lastValue && lastValue.__html || '';
+  var nextHtml = nextValue && nextValue.__html || '';
+  if (lastHtml !== nextHtml) {
+    if (!isNullOrUndef(nextHtml) && !isSameInnerHTML(dom, nextHtml)) {
+      if (!isNull(lastVNode)) {
+        if (lastVNode.childFlags & 12 /* ChildFlags.MultipleChildren */) {
+          unmountAllChildren(lastVNode.children, animations);
+        } else if (lastVNode.childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+          unmount(lastVNode.children, animations);
+        }
+        lastVNode.children = null;
+        lastVNode.childFlags = 1 /* ChildFlags.HasInvalidChildren */;
+      }
+
+      dom.innerHTML = nextHtml;
+    }
+  }
+}
+function patchProp(prop, lastValue, nextValue, dom, isSVG, hasControlledValue, lastVNode, animations) {
+  switch (prop) {
+    case 'children':
+    case 'childrenType':
+    case 'className':
+    case 'defaultValue':
+    case 'key':
+    case 'multiple':
+    case 'ref':
+    case 'selectedIndex':
+      break;
+    case 'autoFocus':
+      dom.autofocus = !!nextValue;
+      break;
+    case 'allowfullscreen':
+    case 'autoplay':
+    case 'capture':
+    case 'checked':
+    case 'controls':
+    case 'default':
+    case 'disabled':
+    case 'hidden':
+    case 'indeterminate':
+    case 'loop':
+    case 'muted':
+    case 'novalidate':
+    case 'open':
+    case 'readOnly':
+    case 'required':
+    case 'reversed':
+    case 'scoped':
+    case 'seamless':
+    case 'selected':
+      dom[prop] = !!nextValue;
+      break;
+    case 'defaultChecked':
+    case 'value':
+    case 'volume':
+      if (hasControlledValue && prop === 'value') {
+        break;
+      }
+      var value = isNullOrUndef(nextValue) ? '' : nextValue;
+      if (dom[prop] !== value) {
+        dom[prop] = value;
+      }
+      break;
+    case 'style':
+      patchStyle(lastValue, nextValue, dom);
+      break;
+    case 'dangerouslySetInnerHTML':
+      patchDangerInnerHTML(lastValue, nextValue, lastVNode, dom, animations);
+      break;
+    default:
+      if (syntheticEvents[prop]) {
+        handleSyntheticEvent(prop, lastValue, nextValue, dom);
+      } else if (prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110) {
+        patchEvent(prop, lastValue, nextValue, dom);
+      } else if (isNullOrUndef(nextValue)) {
+        dom.removeAttribute(prop);
+      } else if (isSVG && namespaces[prop]) {
+        // We optimize for isSVG being false
+        // If we end up in this path we can read property again
+        dom.setAttributeNS(namespaces[prop], prop, nextValue);
+      } else {
+        dom.setAttribute(prop, nextValue);
+      }
+      break;
+  }
+}
+function mountProps(vNode, flags, props, dom, isSVG, animations) {
+  var hasControlledValue = false;
+  var isFormElement = (flags & 448 /* VNodeFlags.FormElement */) > 0;
+  if (isFormElement) {
+    hasControlledValue = isControlledFormElement(props);
+    if (hasControlledValue) {
+      addFormElementEventHandlers(flags, dom, props);
+    }
+  }
+  for (var prop in props) {
+    // do not add a hasOwnProperty check here, it affects performance
+    patchProp(prop, null, props[prop], dom, isSVG, hasControlledValue, null, animations);
+  }
+  if (isFormElement) {
+    processElement(flags, vNode, dom, props, true, hasControlledValue);
+  }
+}
+
+function renderNewInput(instance, props, context) {
+  var nextInput = normalizeRoot(instance.render(props, instance.state, context));
+  var childContext = context;
+  if (isFunction(instance.getChildContext)) {
+    childContext = combineFrom(context, instance.getChildContext());
+  }
+  instance.$CX = childContext;
+  return nextInput;
+}
+function createClassComponentInstance(vNode, Component, props, context, isSVG, lifecycle) {
+  var instance = new Component(props, context);
+  var usesNewAPI = instance.$N = Boolean(Component.getDerivedStateFromProps || instance.getSnapshotBeforeUpdate);
+  instance.$SVG = isSVG;
+  instance.$L = lifecycle;
+  vNode.children = instance;
+  instance.$BS = false;
+  instance.context = context;
+  if (instance.props === EMPTY_OBJ) {
+    instance.props = props;
+  }
+  if (!usesNewAPI) {
+    if (isFunction(instance.componentWillMount)) {
+      instance.$BR = true;
+      instance.componentWillMount();
+      var pending = instance.$PS;
+      if (!isNull(pending)) {
+        var state = instance.state;
+        if (isNull(state)) {
+          instance.state = pending;
+        } else {
+          for (var key in pending) {
+            state[key] = pending[key];
+          }
+        }
+        instance.$PS = null;
+      }
+      instance.$BR = false;
+    }
+  } else {
+    instance.state = createDerivedState(instance, props, instance.state);
+  }
+  instance.$LI = renderNewInput(instance, props, context);
+  return instance;
+}
+function renderFunctionalComponent(vNode, context) {
+  var props = vNode.props || EMPTY_OBJ;
+  return vNode.flags & 32768 /* VNodeFlags.ForwardRef */ ? vNode.type.render(props, vNode.ref, context) : vNode.type(props, context);
+}
+
+function mount(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var flags = vNode.flags |= 16384 /* VNodeFlags.InUse */;
+  if (flags & 481 /* VNodeFlags.Element */) {
+    mountElement(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  } else if (flags & 4 /* VNodeFlags.ComponentClass */) {
+    mountClassComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+    mountFunctionalComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  } else if (flags & 16 /* VNodeFlags.Text */) {
+    mountText(vNode, parentDOM, nextNode);
+  } else if (flags & 8192 /* VNodeFlags.Fragment */) {
+    mountFragment(vNode, context, parentDOM, isSVG, nextNode, lifecycle, animations);
+  } else if (flags & 1024 /* VNodeFlags.Portal */) {
+    mountPortal(vNode, context, parentDOM, nextNode, lifecycle, animations);
+  } else ;
+}
+function mountPortal(vNode, context, parentDOM, nextNode, lifecycle, animations) {
+  mount(vNode.children, vNode.ref, context, false, null, lifecycle, animations);
+  var placeHolderVNode = createVoidVNode();
+  mountText(placeHolderVNode, parentDOM, nextNode);
+  vNode.dom = placeHolderVNode.dom;
+}
+function mountFragment(vNode, context, parentDOM, isSVG, nextNode, lifecycle, animations) {
+  var children = vNode.children;
+  var childFlags = vNode.childFlags;
+  // When fragment is optimized for multiple children, check if there is no children and change flag to invalid
+  // This is the only normalization always done, to keep optimization flags API same for fragments and regular elements
+  if (childFlags & 12 /* ChildFlags.MultipleChildren */ && children.length === 0) {
+    childFlags = vNode.childFlags = 2 /* ChildFlags.HasVNodeChildren */;
+    children = vNode.children = createVoidVNode();
+  }
+  if (childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+    mount(children, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  } else {
+    mountArrayChildren(children, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  }
+}
+function mountText(vNode, parentDOM, nextNode) {
+  var dom = vNode.dom = document.createTextNode(vNode.children);
+  if (!isNull(parentDOM)) {
+    insertOrAppend(parentDOM, dom, nextNode);
+  }
+}
+function mountElement(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var flags = vNode.flags;
+  var props = vNode.props;
+  var className = vNode.className;
+  var childFlags = vNode.childFlags;
+  var dom = vNode.dom = documentCreateElement(vNode.type, isSVG = isSVG || (flags & 32 /* VNodeFlags.SvgElement */) > 0);
+  var children = vNode.children;
+  if (!isNullOrUndef(className) && className !== '') {
+    if (isSVG) {
+      dom.setAttribute('class', className);
+    } else {
+      dom.className = className;
+    }
+  }
+  if (childFlags === 16 /* ChildFlags.HasTextChildren */) {
+    setTextContent(dom, children);
+  } else if (childFlags !== 1 /* ChildFlags.HasInvalidChildren */) {
+    var childrenIsSVG = isSVG && vNode.type !== 'foreignObject';
+    if (childFlags === 2 /* ChildFlags.HasVNodeChildren */) {
+      if (children.flags & 16384 /* VNodeFlags.InUse */) {
+        vNode.children = children = directClone(children);
+      }
+      mount(children, dom, context, childrenIsSVG, null, lifecycle, animations);
+    } else if (childFlags === 8 /* ChildFlags.HasKeyedChildren */ || childFlags === 4 /* ChildFlags.HasNonKeyedChildren */) {
+      mountArrayChildren(children, dom, context, childrenIsSVG, null, lifecycle, animations);
+    }
+  }
+  if (!isNull(parentDOM)) {
+    insertOrAppend(parentDOM, dom, nextNode);
+  }
+  if (!isNull(props)) {
+    mountProps(vNode, flags, props, dom, isSVG, animations);
+  }
+  mountRef(vNode.ref, dom, lifecycle);
+}
+function mountArrayChildren(children, dom, context, isSVG, nextNode, lifecycle, animations) {
+  for (var i = 0; i < children.length; ++i) {
+    var child = children[i];
+    if (child.flags & 16384 /* VNodeFlags.InUse */) {
+      children[i] = child = directClone(child);
+    }
+    mount(child, dom, context, isSVG, nextNode, lifecycle, animations);
+  }
+}
+function mountClassComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var instance = createClassComponentInstance(vNode, vNode.type, vNode.props || EMPTY_OBJ, context, isSVG, lifecycle);
+  // If we have a componentDidAppear on this component, we shouldn't allow children to animate so we're passing an dummy animations queue
+  var childAnimations = animations;
+  if (isFunction(instance.componentDidAppear)) {
+    childAnimations = new AnimationQueues();
+  }
+  mount(instance.$LI, parentDOM, instance.$CX, isSVG, nextNode, lifecycle, childAnimations);
+  mountClassComponentCallbacks(vNode.ref, instance, lifecycle, animations);
+}
+function mountFunctionalComponent(vNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var ref = vNode.ref;
+  // If we have a componentDidAppear on this component, we shouldn't allow children to animate so we're passing an dummy animations queue
+  var childAnimations = animations;
+  if (!isNullOrUndef(ref) && isFunction(ref.onComponentDidAppear)) {
+    childAnimations = new AnimationQueues();
+  }
+  mount(vNode.children = normalizeRoot(renderFunctionalComponent(vNode, context)), parentDOM, context, isSVG, nextNode, lifecycle, childAnimations);
+  mountFunctionalComponentCallbacks(vNode, lifecycle, animations);
+}
+function createClassMountCallback(instance) {
+  return function () {
+    instance.componentDidMount();
+  };
+}
+function addAppearAnimationHook(animations, instanceOrRef, dom, flags, props) {
+  animations.componentDidAppear.push(function () {
+    if (flags & 4 /* VNodeFlags.ComponentClass */) {
+      instanceOrRef.componentDidAppear(dom);
+    } else if (flags & 8 /* VNodeFlags.ComponentFunction */) {
+      instanceOrRef.onComponentDidAppear(dom, props);
+    }
+  });
+}
+function mountClassComponentCallbacks(ref, instance, lifecycle, animations) {
+  mountRef(ref, instance, lifecycle);
+  if (isFunction(instance.componentDidMount)) {
+    lifecycle.push(createClassMountCallback(instance));
+  }
+  if (isFunction(instance.componentDidAppear)) {
+    addAppearAnimationHook(animations, instance, instance.$LI.dom, 4 /* VNodeFlags.ComponentClass */, undefined);
+  }
+}
+function createOnMountCallback(ref, vNode) {
+  return function () {
+    ref.onComponentDidMount(findDOMFromVNode(vNode, true), vNode.props || EMPTY_OBJ);
+  };
+}
+function mountFunctionalComponentCallbacks(vNode, lifecycle, animations) {
+  var ref = vNode.ref;
+  if (!isNullOrUndef(ref)) {
+    safeCall1(ref.onComponentWillMount, vNode.props || EMPTY_OBJ);
+    if (isFunction(ref.onComponentDidMount)) {
+      lifecycle.push(createOnMountCallback(ref, vNode));
+    }
+    if (isFunction(ref.onComponentDidAppear)) {
+      addAppearAnimationHook(animations, ref, findDOMFromVNode(vNode, true), 8 /* VNodeFlags.ComponentFunction */, vNode.props);
+    }
+  }
+}
+
+function replaceWithNewNode(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations) {
+  unmount(lastVNode, animations);
+  if ((nextVNode.flags & lastVNode.flags & 1521 /* VNodeFlags.DOMRef */) !== 0) {
+    mount(nextVNode, null, context, isSVG, null, lifecycle, animations);
+    // Single DOM operation, when we have dom references available
+    replaceChild(parentDOM, nextVNode.dom, lastVNode.dom);
+  } else {
+    mount(nextVNode, parentDOM, context, isSVG, findDOMFromVNode(lastVNode, true), lifecycle, animations);
+    removeVNodeDOM(lastVNode, parentDOM, animations);
+  }
+}
+function patch(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var nextFlags = nextVNode.flags |= 16384 /* VNodeFlags.InUse */;
+  if (lastVNode.flags !== nextFlags || lastVNode.type !== nextVNode.type || lastVNode.key !== nextVNode.key || nextFlags & 2048 /* VNodeFlags.ReCreate */) {
+    if (lastVNode.flags & 16384 /* VNodeFlags.InUse */) {
+      replaceWithNewNode(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations);
+    } else {
+      // Last vNode is not in use, it has crashed at application level. Just mount nextVNode and ignore last one
+      mount(nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+    }
+  } else if (nextFlags & 481 /* VNodeFlags.Element */) {
+    patchElement(lastVNode, nextVNode, context, isSVG, nextFlags, lifecycle, animations);
+  } else if (nextFlags & 4 /* VNodeFlags.ComponentClass */) {
+    patchClassComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  } else if (nextFlags & 8 /* VNodeFlags.ComponentFunction */) {
+    patchFunctionalComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+  } else if (nextFlags & 16 /* VNodeFlags.Text */) {
+    patchText(lastVNode, nextVNode);
+  } else if (nextFlags & 8192 /* VNodeFlags.Fragment */) {
+    patchFragment(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations);
+  } else {
+    patchPortal(lastVNode, nextVNode, context, lifecycle, animations);
+  }
+}
+function patchSingleTextChild(lastChildren, nextChildren, parentDOM) {
+  if (lastChildren !== nextChildren) {
+    if (lastChildren !== '') {
+      parentDOM.firstChild.nodeValue = nextChildren;
+    } else {
+      setTextContent(parentDOM, nextChildren);
+    }
+  }
+}
+function patchContentEditableChildren(dom, nextChildren) {
+  if (dom.textContent !== nextChildren) {
+    dom.textContent = nextChildren;
+  }
+}
+function patchFragment(lastVNode, nextVNode, parentDOM, context, isSVG, lifecycle, animations) {
+  var lastChildren = lastVNode.children;
+  var nextChildren = nextVNode.children;
+  var lastChildFlags = lastVNode.childFlags;
+  var nextChildFlags = nextVNode.childFlags;
+  var nextNode = null;
+  // When fragment is optimized for multiple children, check if there is no children and change flag to invalid
+  // This is the only normalization always done, to keep optimization flags API same for fragments and regular elements
+  if (nextChildFlags & 12 /* ChildFlags.MultipleChildren */ && nextChildren.length === 0) {
+    nextChildFlags = nextVNode.childFlags = 2 /* ChildFlags.HasVNodeChildren */;
+    nextChildren = nextVNode.children = createVoidVNode();
+  }
+  var nextIsSingle = (nextChildFlags & 2 /* ChildFlags.HasVNodeChildren */) !== 0;
+  if (lastChildFlags & 12 /* ChildFlags.MultipleChildren */) {
+    var lastLen = lastChildren.length;
+    // We need to know Fragment's edge node when
+    if (
+    // It uses keyed algorithm
+    lastChildFlags & 8 /* ChildFlags.HasKeyedChildren */ && nextChildFlags & 8 /* ChildFlags.HasKeyedChildren */ ||
+    // It transforms from many to single
+    nextIsSingle ||
+    // It will append more nodes
+    !nextIsSingle && nextChildren.length > lastLen) {
+      // When fragment has multiple children there is always at least one vNode
+      nextNode = findDOMFromVNode(lastChildren[lastLen - 1], false).nextSibling;
+    }
+  }
+  patchChildren(lastChildFlags, nextChildFlags, lastChildren, nextChildren, parentDOM, context, isSVG, nextNode, lastVNode, lifecycle, animations);
+}
+function patchPortal(lastVNode, nextVNode, context, lifecycle, animations) {
+  var lastContainer = lastVNode.ref;
+  var nextContainer = nextVNode.ref;
+  var nextChildren = nextVNode.children;
+  patchChildren(lastVNode.childFlags, nextVNode.childFlags, lastVNode.children, nextChildren, lastContainer, context, false, null, lastVNode, lifecycle, animations);
+  nextVNode.dom = lastVNode.dom;
+  if (lastContainer !== nextContainer && !isInvalid(nextChildren)) {
+    var node = nextChildren.dom;
+    removeChild(lastContainer, node);
+    appendChild(nextContainer, node);
+  }
+}
+function patchElement(lastVNode, nextVNode, context, isSVG, nextFlags, lifecycle, animations) {
+  var dom = nextVNode.dom = lastVNode.dom;
+  var lastProps = lastVNode.props;
+  var nextProps = nextVNode.props;
+  var isFormElement = false;
+  var hasControlledValue = false;
+  var nextPropsOrEmpty;
+  isSVG = isSVG || (nextFlags & 32 /* VNodeFlags.SvgElement */) > 0;
+  // inlined patchProps  -- starts --
+  if (lastProps !== nextProps) {
+    var lastPropsOrEmpty = lastProps || EMPTY_OBJ;
+    nextPropsOrEmpty = nextProps || EMPTY_OBJ;
+    if (nextPropsOrEmpty !== EMPTY_OBJ) {
+      isFormElement = (nextFlags & 448 /* VNodeFlags.FormElement */) > 0;
+      if (isFormElement) {
+        hasControlledValue = isControlledFormElement(nextPropsOrEmpty);
+      }
+      for (var prop in nextPropsOrEmpty) {
+        var lastValue = lastPropsOrEmpty[prop];
+        var nextValue = nextPropsOrEmpty[prop];
+        if (lastValue !== nextValue) {
+          patchProp(prop, lastValue, nextValue, dom, isSVG, hasControlledValue, lastVNode, animations);
+        }
+      }
+    }
+    if (lastPropsOrEmpty !== EMPTY_OBJ) {
+      for (var _prop in lastPropsOrEmpty) {
+        if (isNullOrUndef(nextPropsOrEmpty[_prop]) && !isNullOrUndef(lastPropsOrEmpty[_prop])) {
+          patchProp(_prop, lastPropsOrEmpty[_prop], null, dom, isSVG, hasControlledValue, lastVNode, animations);
+        }
+      }
+    }
+  }
+  var nextChildren = nextVNode.children;
+  var nextClassName = nextVNode.className;
+  // inlined patchProps  -- ends --
+  if (lastVNode.className !== nextClassName) {
+    if (isNullOrUndef(nextClassName)) {
+      dom.removeAttribute('class');
+    } else if (isSVG) {
+      dom.setAttribute('class', nextClassName);
+    } else {
+      dom.className = nextClassName;
+    }
+  }
+  if (nextFlags & 4096 /* VNodeFlags.ContentEditable */) {
+    patchContentEditableChildren(dom, nextChildren);
+  } else {
+    patchChildren(lastVNode.childFlags, nextVNode.childFlags, lastVNode.children, nextChildren, dom, context, isSVG && nextVNode.type !== 'foreignObject', null, lastVNode, lifecycle, animations);
+  }
+  if (isFormElement) {
+    processElement(nextFlags, nextVNode, dom, nextPropsOrEmpty, false, hasControlledValue);
+  }
+  var nextRef = nextVNode.ref;
+  var lastRef = lastVNode.ref;
+  if (lastRef !== nextRef) {
+    unmountRef(lastRef);
+    mountRef(nextRef, dom, lifecycle);
+  }
+}
+function replaceOneVNodeWithMultipleVNodes(lastChildren, nextChildren, parentDOM, context, isSVG, lifecycle, animations) {
+  unmount(lastChildren, animations);
+  mountArrayChildren(nextChildren, parentDOM, context, isSVG, findDOMFromVNode(lastChildren, true), lifecycle, animations);
+  removeVNodeDOM(lastChildren, parentDOM, animations);
+}
+function patchChildren(lastChildFlags, nextChildFlags, lastChildren, nextChildren, parentDOM, context, isSVG, nextNode, parentVNode, lifecycle, animations) {
+  switch (lastChildFlags) {
+    case 2 /* ChildFlags.HasVNodeChildren */:
+      switch (nextChildFlags) {
+        case 2 /* ChildFlags.HasVNodeChildren */:
+          patch(lastChildren, nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+          break;
+        case 1 /* ChildFlags.HasInvalidChildren */:
+          remove(lastChildren, parentDOM, animations);
+          break;
+        case 16 /* ChildFlags.HasTextChildren */:
+          unmount(lastChildren, animations);
+          setTextContent(parentDOM, nextChildren);
+          break;
+        default:
+          replaceOneVNodeWithMultipleVNodes(lastChildren, nextChildren, parentDOM, context, isSVG, lifecycle, animations);
+          break;
+      }
+      break;
+    case 1 /* ChildFlags.HasInvalidChildren */:
+      switch (nextChildFlags) {
+        case 2 /* ChildFlags.HasVNodeChildren */:
+          mount(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+          break;
+        case 1 /* ChildFlags.HasInvalidChildren */:
+          break;
+        case 16 /* ChildFlags.HasTextChildren */:
+          setTextContent(parentDOM, nextChildren);
+          break;
+        default:
+          mountArrayChildren(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+          break;
+      }
+      break;
+    case 16 /* ChildFlags.HasTextChildren */:
+      switch (nextChildFlags) {
+        case 16 /* ChildFlags.HasTextChildren */:
+          patchSingleTextChild(lastChildren, nextChildren, parentDOM);
+          break;
+        case 2 /* ChildFlags.HasVNodeChildren */:
+          clearDOM(parentDOM, lastChildren, animations);
+          mount(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+          break;
+        case 1 /* ChildFlags.HasInvalidChildren */:
+          clearDOM(parentDOM, lastChildren, animations);
+          break;
+        default:
+          clearDOM(parentDOM, lastChildren, animations);
+          mountArrayChildren(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+          break;
+      }
+      break;
+    default:
+      switch (nextChildFlags) {
+        case 16 /* ChildFlags.HasTextChildren */:
+          unmountAllChildren(lastChildren, animations);
+          setTextContent(parentDOM, nextChildren);
+          break;
+        case 2 /* ChildFlags.HasVNodeChildren */:
+          removeAllChildren(parentDOM, parentVNode, lastChildren, animations);
+          mount(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+          break;
+        case 1 /* ChildFlags.HasInvalidChildren */:
+          removeAllChildren(parentDOM, parentVNode, lastChildren, animations);
+          break;
+        default:
+          var lastLength = lastChildren.length | 0;
+          var nextLength = nextChildren.length | 0;
+          // Fast path's for both algorithms
+          if (lastLength === 0) {
+            if (nextLength > 0) {
+              mountArrayChildren(nextChildren, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+            }
+          } else if (nextLength === 0) {
+            removeAllChildren(parentDOM, parentVNode, lastChildren, animations);
+          } else if (nextChildFlags === 8 /* ChildFlags.HasKeyedChildren */ && lastChildFlags === 8 /* ChildFlags.HasKeyedChildren */) {
+            patchKeyedChildren(lastChildren, nextChildren, parentDOM, context, isSVG, lastLength, nextLength, nextNode, parentVNode, lifecycle, animations);
+          } else {
+            patchNonKeyedChildren(lastChildren, nextChildren, parentDOM, context, isSVG, lastLength, nextLength, nextNode, lifecycle, animations);
+          }
+          break;
+      }
+      break;
+  }
+}
+function createDidUpdate(instance, lastProps, lastState, snapshot, lifecycle) {
+  lifecycle.push(function () {
+    instance.componentDidUpdate(lastProps, lastState, snapshot);
+  });
+}
+function updateClassComponent(instance, nextState, nextProps, parentDOM, context, isSVG, force, nextNode, lifecycle, animations) {
+  var lastState = instance.state;
+  var lastProps = instance.props;
+  var usesNewAPI = Boolean(instance.$N);
+  var hasSCU = isFunction(instance.shouldComponentUpdate);
+  if (usesNewAPI) {
+    nextState = createDerivedState(instance, nextProps, nextState !== lastState ? combineFrom(lastState, nextState) : nextState);
+  }
+  if (force || !hasSCU || hasSCU && instance.shouldComponentUpdate(nextProps, nextState, context)) {
+    if (!usesNewAPI && isFunction(instance.componentWillUpdate)) {
+      instance.componentWillUpdate(nextProps, nextState, context);
+    }
+    instance.props = nextProps;
+    instance.state = nextState;
+    instance.context = context;
+    var snapshot = null;
+    var nextInput = renderNewInput(instance, nextProps, context);
+    if (usesNewAPI && isFunction(instance.getSnapshotBeforeUpdate)) {
+      snapshot = instance.getSnapshotBeforeUpdate(lastProps, lastState);
+    }
+    patch(instance.$LI, nextInput, parentDOM, instance.$CX, isSVG, nextNode, lifecycle, animations);
+    // Don't update Last input, until patch has been successfully executed
+    instance.$LI = nextInput;
+    if (isFunction(instance.componentDidUpdate)) {
+      createDidUpdate(instance, lastProps, lastState, snapshot, lifecycle);
+    }
+  } else {
+    instance.props = nextProps;
+    instance.state = nextState;
+    instance.context = context;
+  }
+}
+function patchClassComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var instance = nextVNode.children = lastVNode.children;
+  // If Component has crashed, ignore it to stay functional
+  if (isNull(instance)) {
+    return;
+  }
+  instance.$L = lifecycle;
+  var nextProps = nextVNode.props || EMPTY_OBJ;
+  var nextRef = nextVNode.ref;
+  var lastRef = lastVNode.ref;
+  var nextState = instance.state;
+  if (!instance.$N) {
+    if (isFunction(instance.componentWillReceiveProps)) {
+      instance.$BR = true;
+      instance.componentWillReceiveProps(nextProps, context);
+      // If instance component was removed during its own update do nothing.
+      if (instance.$UN) {
+        return;
+      }
+      instance.$BR = false;
+    }
+    if (!isNull(instance.$PS)) {
+      nextState = combineFrom(nextState, instance.$PS);
+      instance.$PS = null;
+    }
+  }
+  updateClassComponent(instance, nextState, nextProps, parentDOM, context, isSVG, false, nextNode, lifecycle, animations);
+  if (lastRef !== nextRef) {
+    unmountRef(lastRef);
+    mountRef(nextRef, instance, lifecycle);
+  }
+}
+function patchFunctionalComponent(lastVNode, nextVNode, parentDOM, context, isSVG, nextNode, lifecycle, animations) {
+  var shouldUpdate = true;
+  var nextProps = nextVNode.props || EMPTY_OBJ;
+  var nextRef = nextVNode.ref;
+  var lastProps = lastVNode.props;
+  var nextHooksDefined = !isNullOrUndef(nextRef);
+  var lastInput = lastVNode.children;
+  if (nextHooksDefined && isFunction(nextRef.onComponentShouldUpdate)) {
+    shouldUpdate = nextRef.onComponentShouldUpdate(lastProps, nextProps);
+  }
+  if (shouldUpdate !== false) {
+    if (nextHooksDefined && isFunction(nextRef.onComponentWillUpdate)) {
+      nextRef.onComponentWillUpdate(lastProps, nextProps);
+    }
+    var nextInput = normalizeRoot(renderFunctionalComponent(nextVNode, context));
+    patch(lastInput, nextInput, parentDOM, context, isSVG, nextNode, lifecycle, animations);
+    nextVNode.children = nextInput;
+    if (nextHooksDefined && isFunction(nextRef.onComponentDidUpdate)) {
+      nextRef.onComponentDidUpdate(lastProps, nextProps);
+    }
+  } else {
+    nextVNode.children = lastInput;
+  }
+}
+function patchText(lastVNode, nextVNode) {
+  var nextText = nextVNode.children;
+  var dom = nextVNode.dom = lastVNode.dom;
+  if (nextText !== lastVNode.children) {
+    dom.nodeValue = nextText;
+  }
+}
+function patchNonKeyedChildren(lastChildren, nextChildren, dom, context, isSVG, lastChildrenLength, nextChildrenLength, nextNode, lifecycle, animations) {
+  var commonLength = lastChildrenLength > nextChildrenLength ? nextChildrenLength : lastChildrenLength;
+  var i = 0;
+  var nextChild;
+  var lastChild;
+  for (; i < commonLength; ++i) {
+    nextChild = nextChildren[i];
+    lastChild = lastChildren[i];
+    if (nextChild.flags & 16384 /* VNodeFlags.InUse */) {
+      nextChild = nextChildren[i] = directClone(nextChild);
+    }
+    patch(lastChild, nextChild, dom, context, isSVG, nextNode, lifecycle, animations);
+    lastChildren[i] = nextChild;
+  }
+  if (lastChildrenLength < nextChildrenLength) {
+    for (i = commonLength; i < nextChildrenLength; ++i) {
+      nextChild = nextChildren[i];
+      if (nextChild.flags & 16384 /* VNodeFlags.InUse */) {
+        nextChild = nextChildren[i] = directClone(nextChild);
+      }
+      mount(nextChild, dom, context, isSVG, nextNode, lifecycle, animations);
+    }
+  } else if (lastChildrenLength > nextChildrenLength) {
+    for (i = commonLength; i < lastChildrenLength; ++i) {
+      remove(lastChildren[i], dom, animations);
+    }
+  }
+}
+function patchKeyedChildren(a, b, dom, context, isSVG, aLength, bLength, outerEdge, parentVNode, lifecycle, animations) {
+  var aEnd = aLength - 1;
+  var bEnd = bLength - 1;
+  var j = 0;
+  var aNode = a[j];
+  var bNode = b[j];
+  var nextPos;
+  var nextNode;
+  // Step 1
+  // tslint:disable-next-line
+  outer: {
+    // Sync nodes with the same key at the beginning.
+    while (aNode.key === bNode.key) {
+      if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+        b[j] = bNode = directClone(bNode);
+      }
+      patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);
+      a[j] = bNode;
+      ++j;
+      if (j > aEnd || j > bEnd) {
+        break outer;
+      }
+      aNode = a[j];
+      bNode = b[j];
+    }
+    aNode = a[aEnd];
+    bNode = b[bEnd];
+    // Sync nodes with the same key at the end.
+    while (aNode.key === bNode.key) {
+      if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+        b[bEnd] = bNode = directClone(bNode);
+      }
+      patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);
+      a[aEnd] = bNode;
+      aEnd--;
+      bEnd--;
+      if (j > aEnd || j > bEnd) {
+        break outer;
+      }
+      aNode = a[aEnd];
+      bNode = b[bEnd];
+    }
+  }
+  if (j > aEnd) {
+    if (j <= bEnd) {
+      nextPos = bEnd + 1;
+      nextNode = nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge;
+      while (j <= bEnd) {
+        bNode = b[j];
+        if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+          b[j] = bNode = directClone(bNode);
+        }
+        ++j;
+        mount(bNode, dom, context, isSVG, nextNode, lifecycle, animations);
+      }
+    }
+  } else if (j > bEnd) {
+    while (j <= aEnd) {
+      remove(a[j++], dom, animations);
+    }
+  } else {
+    patchKeyedChildrenComplex(a, b, context, aLength, bLength, aEnd, bEnd, j, dom, isSVG, outerEdge, parentVNode, lifecycle, animations);
+  }
+}
+function patchKeyedChildrenComplex(a, b, context, aLength, bLength, aEnd, bEnd, j, dom, isSVG, outerEdge, parentVNode, lifecycle, animations) {
+  var aNode;
+  var bNode;
+  var nextPos = 0;
+  var i = 0;
+  var aStart = j;
+  var bStart = j;
+  var aLeft = aEnd - j + 1;
+  var bLeft = bEnd - j + 1;
+  var sources = new Int32Array(bLeft + 1);
+  // Keep track if its possible to remove whole DOM using textContent = '';
+  var canRemoveWholeContent = aLeft === aLength;
+  var moved = false;
+  var pos = 0;
+  var patched = 0;
+  // When sizes are small, just loop them through
+  if (bLength < 4 || (aLeft | bLeft) < 32) {
+    for (i = aStart; i <= aEnd; ++i) {
+      aNode = a[i];
+      if (patched < bLeft) {
+        for (j = bStart; j <= bEnd; j++) {
+          bNode = b[j];
+          if (aNode.key === bNode.key) {
+            sources[j - bStart] = i + 1;
+            if (canRemoveWholeContent) {
+              canRemoveWholeContent = false;
+              while (aStart < i) {
+                remove(a[aStart++], dom, animations);
+              }
+            }
+            if (pos > j) {
+              moved = true;
+            } else {
+              pos = j;
+            }
+            if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+              b[j] = bNode = directClone(bNode);
+            }
+            patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);
+            ++patched;
+            break;
+          }
+        }
+        if (!canRemoveWholeContent && j > bEnd) {
+          remove(aNode, dom, animations);
+        }
+      } else if (!canRemoveWholeContent) {
+        remove(aNode, dom, animations);
+      }
+    }
+  } else {
+    var keyIndex = {};
+    // Map keys by their index
+    for (i = bStart; i <= bEnd; ++i) {
+      keyIndex[b[i].key] = i;
+    }
+    // Try to patch same keys
+    for (i = aStart; i <= aEnd; ++i) {
+      aNode = a[i];
+      if (patched < bLeft) {
+        j = keyIndex[aNode.key];
+        if (j !== void 0) {
+          if (canRemoveWholeContent) {
+            canRemoveWholeContent = false;
+            while (i > aStart) {
+              remove(a[aStart++], dom, animations);
+            }
+          }
+          sources[j - bStart] = i + 1;
+          if (pos > j) {
+            moved = true;
+          } else {
+            pos = j;
+          }
+          bNode = b[j];
+          if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+            b[j] = bNode = directClone(bNode);
+          }
+          patch(aNode, bNode, dom, context, isSVG, outerEdge, lifecycle, animations);
+          ++patched;
+        } else if (!canRemoveWholeContent) {
+          remove(aNode, dom, animations);
+        }
+      } else if (!canRemoveWholeContent) {
+        remove(aNode, dom, animations);
+      }
+    }
+  }
+  // fast-path: if nothing patched remove all old and add all new
+  if (canRemoveWholeContent) {
+    removeAllChildren(dom, parentVNode, a, animations);
+    mountArrayChildren(b, dom, context, isSVG, outerEdge, lifecycle, animations);
+  } else if (moved) {
+    var seq = lis_algorithm(sources);
+    j = seq.length - 1;
+    for (i = bLeft - 1; i >= 0; i--) {
+      if (sources[i] === 0) {
+        pos = i + bStart;
+        bNode = b[pos];
+        if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+          b[pos] = bNode = directClone(bNode);
+        }
+        nextPos = pos + 1;
+        mount(bNode, dom, context, isSVG, nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge, lifecycle, animations);
+      } else if (j < 0 || i !== seq[j]) {
+        pos = i + bStart;
+        bNode = b[pos];
+        nextPos = pos + 1;
+        // --- the DOM-node is moved by a call to insertAppend
+        moveVNodeDOM(parentVNode, bNode, dom, nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge, animations);
+      } else {
+        j--;
+      }
+    }
+    // Invoke move animations when all moves have been calculated
+    if (animations.componentWillMove.length > 0) {
+      callAllMoveAnimationHooks(animations.componentWillMove);
+    }
+  } else if (patched !== bLeft) {
+    // when patched count doesn't match b length we need to insert those new ones
+    // loop backwards so we can use insertBefore
+    for (i = bLeft - 1; i >= 0; i--) {
+      if (sources[i] === 0) {
+        pos = i + bStart;
+        bNode = b[pos];
+        if (bNode.flags & 16384 /* VNodeFlags.InUse */) {
+          b[pos] = bNode = directClone(bNode);
+        }
+        nextPos = pos + 1;
+        mount(bNode, dom, context, isSVG, nextPos < bLength ? findDOMFromVNode(b[nextPos], true) : outerEdge, lifecycle, animations);
+      }
+    }
+  }
+}
+var result;
+var p;
+var maxLen = 0;
+// https://en.wikipedia.org/wiki/Longest_increasing_subsequence
+function lis_algorithm(arr) {
+  var arrI = 0;
+  var i = 0;
+  var j = 0;
+  var k = 0;
+  var u = 0;
+  var v = 0;
+  var c = 0;
+  var len = arr.length;
+  if (len > maxLen) {
+    maxLen = len;
+    result = new Int32Array(len);
+    p = new Int32Array(len);
+  }
+  for (; i < len; ++i) {
+    arrI = arr[i];
+    if (arrI !== 0) {
+      j = result[k];
+      if (arr[j] < arrI) {
+        p[i] = j;
+        result[++k] = i;
+        continue;
+      }
+      u = 0;
+      v = k;
+      while (u < v) {
+        c = u + v >> 1;
+        if (arr[result[c]] < arrI) {
+          u = c + 1;
+        } else {
+          v = c;
+        }
+      }
+      if (arrI < arr[result[u]]) {
+        if (u > 0) {
+          p[i] = result[u - 1];
+        }
+        result[u] = i;
+      }
+    }
+  }
+  u = k + 1;
+  var seq = new Int32Array(u);
+  v = result[u - 1];
+  while (u-- > 0) {
+    seq[u] = v;
+    v = p[v];
+    result[u] = 0;
+  }
+  return seq;
+}
+
+var hasDocumentAvailable = typeof document !== 'undefined';
+if (hasDocumentAvailable) {
+  /*
+   * Defining $EV and $V properties on Node.prototype
+   * fixes v8 "wrong map" de-optimization
+   */
+  if (window.Node) {
+    Node.prototype.$EV = null;
+    Node.prototype.$V = null;
+  }
+}
+function __render(input, parentDOM, callback, context) {
+  var lifecycle = [];
+  var animations = new AnimationQueues();
+  var rootInput = parentDOM.$V;
+  renderCheck.v = true;
+  if (isNullOrUndef(rootInput)) {
+    if (!isNullOrUndef(input)) {
+      if (input.flags & 16384 /* VNodeFlags.InUse */) {
+        input = directClone(input);
+      }
+      mount(input, parentDOM, context, false, null, lifecycle, animations);
+      parentDOM.$V = input;
+      rootInput = input;
+    }
+  } else {
+    if (isNullOrUndef(input)) {
+      remove(rootInput, parentDOM, animations);
+      parentDOM.$V = null;
+    } else {
+      if (input.flags & 16384 /* VNodeFlags.InUse */) {
+        input = directClone(input);
+      }
+      patch(rootInput, input, parentDOM, context, false, null, lifecycle, animations);
+      rootInput = parentDOM.$V = input;
+    }
+  }
+  callAll(lifecycle);
+  callAllAnimationHooks(animations.componentDidAppear);
+  renderCheck.v = false;
+  if (isFunction(callback)) {
+    callback();
+  }
+  if (isFunction(options.renderComplete)) {
+    options.renderComplete(rootInput, parentDOM);
+  }
+}
+function render(input, parentDOM, callback, context) {
+  if (callback === void 0) {
+    callback = null;
+  }
+  if (context === void 0) {
+    context = EMPTY_OBJ;
+  }
+  __render(input, parentDOM, callback, context);
+}
+function createRenderer(parentDOM) {
+  return function renderer(lastInput, nextInput, callback, context) {
+    if (!parentDOM) {
+      parentDOM = lastInput;
+    }
+    render(nextInput, parentDOM, callback, context);
+  };
+}
+
+var COMPONENTS_QUEUE = [];
+var nextTick = typeof Promise !== 'undefined' ? Promise.resolve().then.bind(Promise.resolve()) : function (a) {
+  window.setTimeout(a, 0);
+};
+var microTaskPending = false;
+function queueStateChanges(component, newState, callback, force) {
+  var pending = component.$PS;
+  if (isFunction(newState)) {
+    newState = newState(pending ? combineFrom(component.state, pending) : component.state, component.props, component.context);
+  }
+  if (isNullOrUndef(pending)) {
+    component.$PS = newState;
+  } else {
+    for (var stateKey in newState) {
+      pending[stateKey] = newState[stateKey];
+    }
+  }
+  if (!component.$BR) {
+    if (!renderCheck.v) {
+      if (COMPONENTS_QUEUE.length === 0) {
+        applyState(component, force);
+        if (isFunction(callback)) {
+          callback.call(component);
+        }
+        return;
+      }
+    }
+    if (COMPONENTS_QUEUE.indexOf(component) === -1) {
+      COMPONENTS_QUEUE.push(component);
+    }
+    if (force) {
+      component.$F = true;
+    }
+    if (!microTaskPending) {
+      microTaskPending = true;
+      nextTick(rerender);
+    }
+    if (isFunction(callback)) {
+      var QU = component.$QU;
+      if (!QU) {
+        QU = component.$QU = [];
+      }
+      QU.push(callback);
+    }
+  } else if (isFunction(callback)) {
+    component.$L.push(callback.bind(component));
+  }
+}
+function callSetStateCallbacks(component) {
+  var queue = component.$QU;
+  for (var i = 0; i < queue.length; ++i) {
+    queue[i].call(component);
+  }
+  component.$QU = null;
+}
+function rerender() {
+  var component;
+  microTaskPending = false;
+  while (component = COMPONENTS_QUEUE.shift()) {
+    if (!component.$UN) {
+      var force = component.$F;
+      component.$F = false;
+      applyState(component, force);
+      if (component.$QU) {
+        callSetStateCallbacks(component);
+      }
+    }
+  }
+}
+function applyState(component, force) {
+  if (force || !component.$BR) {
+    var pendingState = component.$PS;
+    component.$PS = null;
+    var lifecycle = [];
+    var animations = new AnimationQueues();
+    renderCheck.v = true;
+    updateClassComponent(component, combineFrom(component.state, pendingState), component.props, findDOMFromVNode(component.$LI, true).parentNode, component.context, component.$SVG, force, null, lifecycle, animations);
+    callAll(lifecycle);
+    callAllAnimationHooks(animations.componentDidAppear);
+    renderCheck.v = false;
+  } else {
+    component.state = component.$PS;
+    component.$PS = null;
+  }
+}
+var Component = /*#__PURE__*/function () {
+  // Force update flag
+  function Component(props, context) {
+    // Public
+    this.state = null;
+    this.props = void 0;
+    this.context = void 0;
+    this.displayName = void 0;
+    // Internal properties
+    this.$BR = false;
+    // BLOCK RENDER
+    this.$BS = true;
+    // BLOCK STATE
+    this.$PS = null;
+    // PENDING STATE (PARTIAL or FULL)
+    this.$LI = null;
+    // LAST INPUT
+    this.$UN = false;
+    // UNMOUNTED
+    this.$CX = null;
+    // CHILDCONTEXT
+    this.$QU = null;
+    // QUEUE
+    this.$N = false;
+    // Uses new lifecycle API Flag
+    this.$SSR = void 0;
+    // Server side rendering flag, true when rendering on server, non existent on client
+    this.$L = null;
+    // Current lifecycle of this component
+    this.$SVG = false;
+    // Flag to keep track if component is inside SVG tree
+    this.$F = false;
+    this.props = props || EMPTY_OBJ;
+    this.context = context || EMPTY_OBJ; // context should not be mutable
+  }
+  var _proto = Component.prototype;
+  _proto.forceUpdate = function forceUpdate(callback) {
+    if (this.$UN) {
+      return;
+    }
+    // Do not allow double render during force update
+    queueStateChanges(this, {}, callback, true);
+  };
+  _proto.setState = function setState(newState, callback) {
+    if (this.$UN) {
+      return;
+    }
+    if (!this.$BS) {
+      queueStateChanges(this, newState, callback, false);
+    }
+  };
+  // @ts-expect-error TS6133
+  _proto.render = function render(props, state, context) {
+    return null;
+  };
+  return Component;
+}();
+Component.defaultProps = null;
+
+var version = "8.2.2";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/inferno/index.esm.js":
+/*!*******************************************!*\
+  !*** ./node_modules/inferno/index.esm.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AnimationQueues": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.AnimationQueues),
+/* harmony export */   "Component": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.Component),
+/* harmony export */   "EMPTY_OBJ": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.EMPTY_OBJ),
+/* harmony export */   "Fragment": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.Fragment),
+/* harmony export */   "_CI": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._CI),
+/* harmony export */   "_HI": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._HI),
+/* harmony export */   "_M": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._M),
+/* harmony export */   "_MCCC": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MCCC),
+/* harmony export */   "_ME": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._ME),
+/* harmony export */   "_MFCC": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MFCC),
+/* harmony export */   "_MP": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MP),
+/* harmony export */   "_MR": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._MR),
+/* harmony export */   "_RFC": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__._RFC),
+/* harmony export */   "__render": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.__render),
+/* harmony export */   "createComponentVNode": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode),
+/* harmony export */   "createFragment": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createFragment),
+/* harmony export */   "createPortal": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createPortal),
+/* harmony export */   "createRef": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createRef),
+/* harmony export */   "createRenderer": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createRenderer),
+/* harmony export */   "createTextVNode": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createTextVNode),
+/* harmony export */   "createVNode": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.createVNode),
+/* harmony export */   "directClone": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.directClone),
+/* harmony export */   "findDOMFromVNode": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.findDOMFromVNode),
+/* harmony export */   "forwardRef": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.forwardRef),
+/* harmony export */   "getFlagsForElementVnode": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.getFlagsForElementVnode),
+/* harmony export */   "linkEvent": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.linkEvent),
+/* harmony export */   "normalizeProps": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.normalizeProps),
+/* harmony export */   "options": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.options),
+/* harmony export */   "render": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "rerender": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.rerender),
+/* harmony export */   "version": () => (/* reexport safe */ _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__.version)
+/* harmony export */ });
+/* harmony import */ var _dist_index_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dist/index.esm.js */ "./node_modules/inferno/dist/index.esm.js");
+
+
+if (true) {
+  console.warn('You are running production build of Inferno in development mode. Use dev:module entry point.');
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/isarray/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/isarray/index.js ***!
+  \***************************************/
+/***/ ((module) => {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/path-to-regexp-es6/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/path-to-regexp-es6/index.js ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var pathToRegExp = __webpack_require__(/*! path-to-regexp */ "./node_modules/path-to-regexp/index.js")
+
+/**
+ * Expose `pathToRegexp` as ES6 module
+ */
+module.exports = pathToRegExp;
+module.exports.parse = pathToRegExp.parse
+module.exports.compile = pathToRegExp.compile
+module.exports.tokensToFunction = pathToRegExp.tokensToFunction
+module.exports.tokensToRegExp = pathToRegExp.tokensToRegExp
+module.exports["default"] = module.exports;
+
+
+/***/ }),
+
+/***/ "./node_modules/path-to-regexp/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/path-to-regexp/index.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isarray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js")
+
+/**
+ * Expose `pathToRegexp`.
+ */
+module.exports = pathToRegexp
+module.exports.parse = parse
+module.exports.compile = compile
+module.exports.tokensToFunction = tokensToFunction
+module.exports.tokensToRegExp = tokensToRegExp
+
+/**
+ * The main path matching regexp utility.
+ *
+ * @type {RegExp}
+ */
+var PATH_REGEXP = new RegExp([
+  // Match escaped characters that would otherwise appear in future matches.
+  // This allows the user to escape special characters that won't transform.
+  '(\\\\.)',
+  // Match Express-style parameters and un-named parameters with a prefix
+  // and optional suffixes. Matches appear as:
+  //
+  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
+  // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
+  // "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
+  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'
+].join('|'), 'g')
+
+/**
+ * Parse a string for the raw tokens.
+ *
+ * @param  {string}  str
+ * @param  {Object=} options
+ * @return {!Array}
+ */
+function parse (str, options) {
+  var tokens = []
+  var key = 0
+  var index = 0
+  var path = ''
+  var defaultDelimiter = options && options.delimiter || '/'
+  var res
+
+  while ((res = PATH_REGEXP.exec(str)) != null) {
+    var m = res[0]
+    var escaped = res[1]
+    var offset = res.index
+    path += str.slice(index, offset)
+    index = offset + m.length
+
+    // Ignore already escaped sequences.
+    if (escaped) {
+      path += escaped[1]
+      continue
+    }
+
+    var next = str[index]
+    var prefix = res[2]
+    var name = res[3]
+    var capture = res[4]
+    var group = res[5]
+    var modifier = res[6]
+    var asterisk = res[7]
+
+    // Push the current path onto the tokens.
+    if (path) {
+      tokens.push(path)
+      path = ''
+    }
+
+    var partial = prefix != null && next != null && next !== prefix
+    var repeat = modifier === '+' || modifier === '*'
+    var optional = modifier === '?' || modifier === '*'
+    var delimiter = res[2] || defaultDelimiter
+    var pattern = capture || group
+
+    tokens.push({
+      name: name || key++,
+      prefix: prefix || '',
+      delimiter: delimiter,
+      optional: optional,
+      repeat: repeat,
+      partial: partial,
+      asterisk: !!asterisk,
+      pattern: pattern ? escapeGroup(pattern) : (asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?')
+    })
+  }
+
+  // Match any characters still remaining.
+  if (index < str.length) {
+    path += str.substr(index)
+  }
+
+  // If the path exists, push it onto the end.
+  if (path) {
+    tokens.push(path)
+  }
+
+  return tokens
+}
+
+/**
+ * Compile a string to a template function for the path.
+ *
+ * @param  {string}             str
+ * @param  {Object=}            options
+ * @return {!function(Object=, Object=)}
+ */
+function compile (str, options) {
+  return tokensToFunction(parse(str, options))
+}
+
+/**
+ * Prettier encoding of URI path segments.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+function encodeURIComponentPretty (str) {
+  return encodeURI(str).replace(/[\/?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  })
+}
+
+/**
+ * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+function encodeAsterisk (str) {
+  return encodeURI(str).replace(/[?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  })
+}
+
+/**
+ * Expose a method for transforming tokens into the path function.
+ */
+function tokensToFunction (tokens) {
+  // Compile all the tokens into regexps.
+  var matches = new Array(tokens.length)
+
+  // Compile all the patterns before compilation.
+  for (var i = 0; i < tokens.length; i++) {
+    if (typeof tokens[i] === 'object') {
+      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$')
+    }
+  }
+
+  return function (obj, opts) {
+    var path = ''
+    var data = obj || {}
+    var options = opts || {}
+    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent
+
+    for (var i = 0; i < tokens.length; i++) {
+      var token = tokens[i]
+
+      if (typeof token === 'string') {
+        path += token
+
+        continue
+      }
+
+      var value = data[token.name]
+      var segment
+
+      if (value == null) {
+        if (token.optional) {
+          // Prepend partial segment prefixes.
+          if (token.partial) {
+            path += token.prefix
+          }
+
+          continue
+        } else {
+          throw new TypeError('Expected "' + token.name + '" to be defined')
+        }
+      }
+
+      if (isarray(value)) {
+        if (!token.repeat) {
+          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`')
+        }
+
+        if (value.length === 0) {
+          if (token.optional) {
+            continue
+          } else {
+            throw new TypeError('Expected "' + token.name + '" to not be empty')
+          }
+        }
+
+        for (var j = 0; j < value.length; j++) {
+          segment = encode(value[j])
+
+          if (!matches[i].test(segment)) {
+            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`')
+          }
+
+          path += (j === 0 ? token.prefix : token.delimiter) + segment
+        }
+
+        continue
+      }
+
+      segment = token.asterisk ? encodeAsterisk(value) : encode(value)
+
+      if (!matches[i].test(segment)) {
+        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"')
+      }
+
+      path += token.prefix + segment
+    }
+
+    return path
+  }
+}
+
+/**
+ * Escape a regular expression string.
+ *
+ * @param  {string} str
+ * @return {string}
+ */
+function escapeString (str) {
+  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1')
+}
+
+/**
+ * Escape the capturing group by escaping special characters and meaning.
+ *
+ * @param  {string} group
+ * @return {string}
+ */
+function escapeGroup (group) {
+  return group.replace(/([=!:$\/()])/g, '\\$1')
+}
+
+/**
+ * Attach the keys as a property of the regexp.
+ *
+ * @param  {!RegExp} re
+ * @param  {Array}   keys
+ * @return {!RegExp}
+ */
+function attachKeys (re, keys) {
+  re.keys = keys
+  return re
+}
+
+/**
+ * Get the flags for a regexp from the options.
+ *
+ * @param  {Object} options
+ * @return {string}
+ */
+function flags (options) {
+  return options.sensitive ? '' : 'i'
+}
+
+/**
+ * Pull out keys from a regexp.
+ *
+ * @param  {!RegExp} path
+ * @param  {!Array}  keys
+ * @return {!RegExp}
+ */
+function regexpToRegexp (path, keys) {
+  // Use a negative lookahead to match only capturing groups.
+  var groups = path.source.match(/\((?!\?)/g)
+
+  if (groups) {
+    for (var i = 0; i < groups.length; i++) {
+      keys.push({
+        name: i,
+        prefix: null,
+        delimiter: null,
+        optional: false,
+        repeat: false,
+        partial: false,
+        asterisk: false,
+        pattern: null
+      })
+    }
+  }
+
+  return attachKeys(path, keys)
+}
+
+/**
+ * Transform an array into a regexp.
+ *
+ * @param  {!Array}  path
+ * @param  {Array}   keys
+ * @param  {!Object} options
+ * @return {!RegExp}
+ */
+function arrayToRegexp (path, keys, options) {
+  var parts = []
+
+  for (var i = 0; i < path.length; i++) {
+    parts.push(pathToRegexp(path[i], keys, options).source)
+  }
+
+  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options))
+
+  return attachKeys(regexp, keys)
+}
+
+/**
+ * Create a path regexp from string input.
+ *
+ * @param  {string}  path
+ * @param  {!Array}  keys
+ * @param  {!Object} options
+ * @return {!RegExp}
+ */
+function stringToRegexp (path, keys, options) {
+  return tokensToRegExp(parse(path, options), keys, options)
+}
+
+/**
+ * Expose a function for taking tokens and returning a RegExp.
+ *
+ * @param  {!Array}          tokens
+ * @param  {(Array|Object)=} keys
+ * @param  {Object=}         options
+ * @return {!RegExp}
+ */
+function tokensToRegExp (tokens, keys, options) {
+  if (!isarray(keys)) {
+    options = /** @type {!Object} */ (keys || options)
+    keys = []
+  }
+
+  options = options || {}
+
+  var strict = options.strict
+  var end = options.end !== false
+  var route = ''
+
+  // Iterate over the tokens and create our regexp string.
+  for (var i = 0; i < tokens.length; i++) {
+    var token = tokens[i]
+
+    if (typeof token === 'string') {
+      route += escapeString(token)
+    } else {
+      var prefix = escapeString(token.prefix)
+      var capture = '(?:' + token.pattern + ')'
+
+      keys.push(token)
+
+      if (token.repeat) {
+        capture += '(?:' + prefix + capture + ')*'
+      }
+
+      if (token.optional) {
+        if (!token.partial) {
+          capture = '(?:' + prefix + '(' + capture + '))?'
+        } else {
+          capture = prefix + '(' + capture + ')?'
+        }
+      } else {
+        capture = prefix + '(' + capture + ')'
+      }
+
+      route += capture
+    }
+  }
+
+  var delimiter = escapeString(options.delimiter || '/')
+  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter
+
+  // In non-strict mode we allow a slash at the end of match. If the path to
+  // match already ends with a slash, we remove it for consistency. The slash
+  // is valid at the end of a path match, not in the middle. This is important
+  // in non-ending mode, where "/test/" shouldn't match "/test//route".
+  if (!strict) {
+    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?'
+  }
+
+  if (end) {
+    route += '$'
+  } else {
+    // In non-ending mode, we need the capturing groups to match as much as
+    // possible by using a positive lookahead to the end or next path segment.
+    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)'
+  }
+
+  return attachKeys(new RegExp('^' + route, flags(options)), keys)
+}
+
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array can be passed in for the keys, which will hold the
+ * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+ * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+ *
+ * @param  {(string|RegExp|Array)} path
+ * @param  {(Array|Object)=}       keys
+ * @param  {Object=}               options
+ * @return {!RegExp}
+ */
+function pathToRegexp (path, keys, options) {
+  if (!isarray(keys)) {
+    options = /** @type {!Object} */ (keys || options)
+    keys = []
+  }
+
+  options = options || {}
+
+  if (path instanceof RegExp) {
+    return regexpToRegexp(path, /** @type {!Array} */ (keys))
+  }
+
+  if (isarray(path)) {
+    return arrayToRegexp(/** @type {!Array} */ (path), /** @type {!Array} */ (keys), options)
+  }
+
+  return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
+}
+
+
+/***/ }),
+
+/***/ "./src/models/job.ts":
+/*!***************************!*\
+  !*** ./src/models/job.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Job": () => (/* binding */ Job)
+/* harmony export */ });
+class InmmutableModel {
+    data;
+    constructor(data) {
+        this.data = data;
+    }
+    clone_data() {
+        return JSON.parse(JSON.stringify(this.data));
+    }
+}
+class Job extends InmmutableModel {
+    constructor(job) {
+        super(job);
+    }
+    static default() {
+        let data = {
+            title: "",
+            description: "",
+            budget: ""
+        };
+        return new Job(data);
+    }
+    clone() {
+        return new Job(this.clone_data());
+    }
+    setTitle(title) {
+        this.data.title = title;
+    }
+    setBudget(budget) {
+        this.data.budget = budget;
+    }
+    setDescription(description) {
+        this.data.description = description;
+    }
+}
+
 
 /***/ }),
 
@@ -189,7 +5244,24 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var infe
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ _extends)\n/* harmony export */ });\nfunction _extends() {\n  _extends = Object.assign ? Object.assign.bind() : function (target) {\n    for (var i = 1; i < arguments.length; i++) {\n      var source = arguments[i];\n      for (var key in source) {\n        if (Object.prototype.hasOwnProperty.call(source, key)) {\n          target[key] = source[key];\n        }\n      }\n    }\n    return target;\n  };\n  return _extends.apply(this, arguments);\n}\n\n//# sourceURL=webpack://inferno-boilerplate/./node_modules/@babel/runtime/helpers/esm/extends.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _extends)
+/* harmony export */ });
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
 
 /***/ })
 
@@ -278,7 +5350,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("255eb593cfd4e333b2e0")
+/******/ 		__webpack_require__.h = () => ("081ff628c47c4c65f684")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -1266,3 +6338,4 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=bundle.js.map
