@@ -1,6 +1,18 @@
 <html>
 <head>
 	<title>Inferno Boilerplate</title>
+	<link rel="stylesheet" href="/static/css/app.css">
+	<link rel="stylesheet" href="https://use.typekit.net/vtt7ckl.css">
+	<script>
+		var theme = ((new URLSearchParams(document.location.href))
+					 .get('xAppStyle') || 'light').toLowerCase()
+		var link = document.createElement('link')
+		link.href = 'https://xumm.app/assets/themes/xapp/xumm-'
+		  + theme + '/bootstrap.min.css'
+		link.type = 'text/css'
+		link.rel = 'stylesheet'
+		document.getElementsByTagName('head')[0].appendChild(link)
+	</script>
 </head>
 <body>
 	<div id="app"></div>

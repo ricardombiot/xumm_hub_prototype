@@ -20,6 +20,8 @@ class NoPydanticValidation:
 @dataclasses.dataclass
 class SelectJobsResult(NoPydanticValidation):
     id: uuid.UUID
+    title: str
+    description: str
 
 
 async def select_jobs(
@@ -28,7 +30,9 @@ async def select_jobs(
     return await executor.query(
         """\
         select default::Job {
-          id
+          id,
+          title,
+          description
         }\
         """,
     )

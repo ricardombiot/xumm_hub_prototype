@@ -1,3 +1,5 @@
 select default::Job {
-  id
+  id,
+  title,
+  description
 }

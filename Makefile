@@ -19,3 +19,6 @@ edgedb-migration-create:
 
 edgedb-migrate:
 	cd server && edgedb migrate --dsn edgedb://edgedb:1234@localhost:10701 --tls-security insecure
+
+git-push:
+	git push -u origin main
