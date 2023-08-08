@@ -5,10 +5,9 @@ import {render} from 'inferno';
 import {BrowserRouter, Switch, Link, Route} from 'inferno-router';
 import {createBrowserHistory} from 'history';
 import MyApp from './MyApp';
-import VersionComponent from './VersionComponent.js';
 import MyHome from './MyHome';
-import JobForm from './JobForm';
-import JobPage from './JobPage';
+import JobForm from './components/job/JobForm';
+import JobPage from './components/job/JobPage';
 
 const browserHistory = createBrowserHistory();
 
@@ -42,8 +41,10 @@ function Users({match}) {
 function JobRouter({match}) {
     return (
         <div id="job_router">
-            <Route path={match.url + '/new'} component={JobForm}/>
-            <Route path={match.url + '/:job_id'} component={JobPage}/>
+            <Switch>
+                <Route path={match.url + '/new'} component={JobForm}/>
+                <Route path={match.url + '/:job_id'} component={JobPage}/>
+            </Switch>
         </div>
     );
 }

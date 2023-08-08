@@ -1,5 +1,5 @@
 import { Component } from 'inferno';
-import JobsList from "./JobsList";
+import JobsList from "./components/job/JobsList";
 
 class MyHome extends Component {
     constructor(props) {

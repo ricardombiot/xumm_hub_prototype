@@ -1,8 +1,8 @@
 import { Component } from 'inferno';
-import { get_job } from './api/api_jobs';
+import { get_job } from './../../api/api_jobs';
 import JobRow from './JobRow';
-import QuotationForm  from "./components/quotation/QuotationForm";
-import QuotationsList  from "./components/quotation/QuotationsList";
+import QuotationForm  from "./../quotation/QuotationForm";
+import QuotationsList  from "./../quotation/QuotationsList";
 
 class JobPage extends Component {
     constructor(props) {

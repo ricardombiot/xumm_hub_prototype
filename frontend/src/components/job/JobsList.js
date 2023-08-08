@@ -1,13 +1,10 @@
 import { Component } from 'inferno';
 import { Link } from 'inferno-router';
-
-import { get_list_jobs } from './api/api_jobs';
+import { get_list_jobs } from './../../api/api_jobs';
 import JobRow from './JobRow';
 
 export default class JobsList extends Component {
     constructor(props) {
-        console.log("Construct ... jobs_list")
-        console.log(props)
         super(props)
         this.state = {
           data: []

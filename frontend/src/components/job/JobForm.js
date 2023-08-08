@@ -1,6 +1,6 @@
 import { linkEvent, Component } from "inferno";
-import { Job } from "./models/job";
-import { register_new_job } from "./api/api_jobs";
+import { Job } from "../../models/job";
+import { register_new_job } from "../../api/api_jobs";
 
 
 export default class JobForm extends Component {
