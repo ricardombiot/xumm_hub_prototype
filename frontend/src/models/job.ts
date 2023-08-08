@@ -14,7 +14,7 @@ class InmmutableModel<T> {
 
 export interface IJob {
     title : string,
-    budget : string,
+    budget_range : string,
     description : string
 }
 
@@ -29,7 +29,7 @@ export class Job extends InmmutableModel<IJob> {
         let data : IJob = {
             title: "",
             description: "",
-            budget: ""
+            budget_range: ""
         }
 
         return new Job(data);
@@ -43,8 +43,8 @@ export class Job extends InmmutableModel<IJob> {
       this.data.title = title;
     }
   
-    setBudget(budget : string){
-      this.data.budget = budget
+    setBudgetRange(budget_range : string){
+      this.data.budget_range = budget_range
     }
   
     setDescription(description : string){

@@ -4,5 +4,6 @@ select default::Job {
     id
   },
   title,
-  description
+  description,
+  budget_range
 } filter .id = <std::uuid> $job_id

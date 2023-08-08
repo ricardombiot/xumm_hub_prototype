@@ -47,7 +47,8 @@ var JobForm = /*#__PURE__*/function (_Component) {
   };
   _proto.handleChangeBudget = function handleChangeBudget(event) {
     var new_job = this.state.job.clone();
-    new_job.setBudget(event.target.value);
+    //@TODO Not run, should take select range.
+    new_job.setBudgetRange(event.target.value);
     this.setState({
       job: new_job
     });
@@ -121,9 +122,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api_jobs */ "./src/api/api_jobs.ts");
 /* harmony import */ var _JobRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobRow */ "./src/JobRow.js");
+/* harmony import */ var _components_quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/quotation/QuotationForm */ "./src/components/quotation/QuotationForm.js");
+/* harmony import */ var _components_quotation_QuotationsList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/quotation/QuotationsList */ "./src/components/quotation/QuotationsList.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -155,9 +160,13 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "role": "status"
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
         "data": this.state.job
-      });
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        "job_id": this.state.job.id
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_quotation_QuotationsList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        "job_id": this.state.job.id
+      })], 4);
     }
   };
   _proto.render = function render() {
@@ -355,6 +364,76 @@ function VersionComponent() {
     "onClick": showVersion
   })], 4);
 }
+
+/***/ }),
+
+/***/ "./src/components/quotation/QuotationForm.js":
+/*!***************************************************!*\
+  !*** ./src/components/quotation/QuotationForm.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationForm)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var QuotationForm = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationForm, _Component);
+  function QuotationForm(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var job_id = _this.props.job_id;
+    console.log("QuotationForm JobId: " + job_id);
+    return _this;
+  }
+  var _proto = QuotationForm.prototype;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationForm...", 16);
+  };
+  return QuotationForm;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
+/***/ "./src/components/quotation/QuotationsList.js":
+/*!****************************************************!*\
+  !*** ./src/components/quotation/QuotationsList.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationsList)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var QuotationsList = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationsList, _Component);
+  function QuotationsList(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var job_id = _this.props.job_id;
+    console.log("QuotationForm JobId: " + job_id);
+    return _this;
+  }
+  var _proto = QuotationsList.prototype;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsList...", 16);
+  };
+  return QuotationsList;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
 
 /***/ }),
 
@@ -5306,7 +5385,7 @@ class Job extends InmmutableModel {
         let data = {
             title: "",
             description: "",
-            budget: ""
+            budget_range: ""
         };
         return new Job(data);
     }
@@ -5316,8 +5395,8 @@ class Job extends InmmutableModel {
     setTitle(title) {
         this.data.title = title;
     }
-    setBudget(budget) {
-        this.data.budget = budget;
+    setBudgetRange(budget_range) {
+        this.data.budget_range = budget_range;
     }
     setDescription(description) {
         this.data.description = description;
@@ -5440,7 +5519,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("7bdf28d87cf610a33719")
+/******/ 		__webpack_require__.h = () => ("cd5571f123679d431f4a")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

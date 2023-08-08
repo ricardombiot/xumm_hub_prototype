@@ -24,6 +24,7 @@ class JobSelectOneResult(NoPydanticValidation):
     payer: JobSelectOneResultPayer
     title: str
     description: str
+    budget_range: typing.Optional[str]
 
 
 @dataclasses.dataclass
@@ -44,7 +45,8 @@ async def job_select_one(
             id
           },
           title,
-          description
+          description,
+          budget_range
         } filter .id = <std::uuid> $job_id\
         """,
         job_id=job_id,

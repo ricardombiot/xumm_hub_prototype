@@ -1,6 +1,8 @@
 import { Component } from 'inferno';
 import { get_job } from './api/api_jobs';
 import JobRow from './JobRow';
+import QuotationForm  from "./components/quotation/QuotationForm";
+import QuotationsList  from "./components/quotation/QuotationsList";
 
 class JobPage extends Component {
     constructor(props) {
@@ -26,7 +28,13 @@ class JobPage extends Component {
             <span class="sr-only">Loading...</span>
           </div>);
         }else{
-            return  <JobRow data={this.state.job}></JobRow>
+            return  (
+                <div>
+                    <JobRow data={this.state.job}></JobRow>
+                    <QuotationForm job_id={this.state.job.id}></QuotationForm>
+                    <QuotationsList job_id={this.state.job.id}></QuotationsList>
+                </div>
+            )
         }
        
     }

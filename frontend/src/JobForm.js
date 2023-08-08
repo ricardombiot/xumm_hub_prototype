@@ -29,7 +29,8 @@ export default class JobForm extends Component {
 
     handleChangeBudget(event) {
       let new_job = this.state.job.clone();
-      new_job.setBudget(event.target.value)
+      //@TODO Not run, should take select range.
+      new_job.setBudgetRange(event.target.value);
       this.setState({job: new_job});
     }
 
