@@ -379,10 +379,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _models_quotation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../models/quotation */ "./src/models/quotation.ts");
 /* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_quotations */ "./src/api/api_quotations.ts");
+/* harmony import */ var _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../utils/XRPInput */ "./src/components/utils/XRPInput.js");
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -437,7 +439,9 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
       "placeholder": "",
       "value": this.state.quotation.total_amount,
       "onInput": this.handleChangeTotalAmount
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      "label": "Total Amount"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
       "type": "submit",
       "value": "Submit"
     })], 4), 2, {
@@ -525,6 +529,61 @@ var QuotationsList = /*#__PURE__*/function (_Component) {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsList...", 16);
   };
   return QuotationsList;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
+/***/ "./src/components/utils/XRPInput.js":
+/*!******************************************!*\
+  !*** ./src/components/utils/XRPInput.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ XRPInput)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _models_xrp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../models/xrp */ "./src/models/xrp.ts");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var XRPInput = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(XRPInput, _Component);
+  function XRPInput(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var label = props.label;
+    _this.state = {
+      label: label,
+      amount: _models_xrp__WEBPACK_IMPORTED_MODULE_1__.XRPValue["default"]("1.0")
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = XRPInput.prototype;
+  _proto.handleChange = function handleChange(event) {
+    var new_amount = this.state.amount.clone();
+    console.log(event.target.value);
+    new_amount.trySetValueFromStr(event.target.value);
+    this.setState({
+      amount: new_amount
+    });
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "xrp-input", null, 1, {
+      "type": "text",
+      "placeholder": "0.1",
+      "value": this.state.amount.data.value_txt,
+      "onInput": this.handleChange
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", "xrp-input-tag", "XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.amount.data.drops, 0)], 4);
+  };
+  return XRPInput;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
@@ -5588,6 +5647,63 @@ class Quotation extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.Inmmutabl
 
 /***/ }),
 
+/***/ "./src/models/xrp.ts":
+/*!***************************!*\
+  !*** ./src/models/xrp.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "XRPValue": () => (/* binding */ XRPValue)
+/* harmony export */ });
+/* harmony import */ var _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inmmutable_model */ "./src/models/inmmutable_model.ts");
+
+class XRPValue extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.InmmutableModel {
+    static default(value_txt) {
+        let data = {
+            value: 0.0,
+            value_txt: "0.0",
+            drops: "0"
+        };
+        let xrp = new XRPValue(data);
+        xrp.trySetValueFromStr(value_txt);
+        return xrp;
+    }
+    clone() {
+        return new XRPValue(this.clone_data());
+    }
+    trySetValueFromStr(value_txt) {
+        let is_empty = value_txt == "";
+        if (is_empty) {
+            value_txt = "0";
+        }
+        let is_last_char_is_dot = value_txt.slice(-1) == '.';
+        if (is_last_char_is_dot) {
+            value_txt += "0";
+        }
+        console.log(value_txt);
+        let new_canditate_value = parseFloat(value_txt);
+        if (!Number.isNaN(new_canditate_value)) {
+            if (new_canditate_value == 0) {
+                this.data.value = 0.0;
+                this.data.value_txt = "0.0";
+                this.data.drops = "0";
+            }
+            else if (new_canditate_value > 0) {
+                let drops = new_canditate_value / 0.000001;
+                this.data.value = new_canditate_value;
+                this.data.value_txt = value_txt;
+                this.data.drops = drops.toString();
+            }
+        }
+    }
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
@@ -5701,7 +5817,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("5008ab66c4f531d07505")
+/******/ 		__webpack_require__.h = () => ("ac23c8d289c870397849")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

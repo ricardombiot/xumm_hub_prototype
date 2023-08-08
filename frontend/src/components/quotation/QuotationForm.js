@@ -1,6 +1,7 @@
 import { Component } from 'inferno';
 import { Quotation } from './../../models/quotation';
 import { register_new_quotation } from "./../../api/api_quotations"; 
+import XRPInput from './../utils/XRPInput';
 
 export default class QuotationForm extends Component {
     constructor(props) {
@@ -56,6 +57,7 @@ export default class QuotationForm extends Component {
                 <label>Total amount</label>
                 <input type="text" class="form-control" id="quotation_total_amount" placeholder="" value={this.state.quotation.total_amount} onInput={this.handleChangeTotalAmount}></input>
               </div>
+              <XRPInput label="Total Amount"></XRPInput>
               <input type="submit" value="Submit" />
             </div>
             </form>
