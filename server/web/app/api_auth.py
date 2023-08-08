@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 from flask import json
 from flask.json import jsonify
+from web.app.auth.auth_middleware import auth_middleware
 from web.app.api_errors import NotAuthorizationError
 
 from web.app.auth.xumm_jwt_reader import checks_auth_by_xumm_token
@@ -47,6 +48,11 @@ async def ping():
     
 
     
+@api_auth.route('/api/auth/ping2')
+@auth_middleware
+def ping2():
+    info = request.session_info
+    return jsonify({"result": info})
     
     
     
