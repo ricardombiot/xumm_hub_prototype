@@ -8,6 +8,8 @@ app = Flask(__name__,
 from web.app.single_page_app_routes import spa_routes
 from web.app.api_jobs import api_jobs
 from web.app.api_quotation import api_quotations
+from web.app.api_auth import api_auth
+from web.app.api_errors import api_errors
 
 
 @app.route("/ping")
@@ -17,6 +19,10 @@ def ping():
 ### API                 ###
 app.register_blueprint(api_jobs)
 app.register_blueprint(api_quotations)
+app.register_blueprint(api_auth)
+app.register_blueprint(api_errors)
 
 ### SPA using Inferno   ###
 app.register_blueprint(spa_routes)
+
+

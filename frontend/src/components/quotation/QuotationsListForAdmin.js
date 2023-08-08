@@ -1,6 +1,6 @@
 import { Component } from 'inferno';
 
-export default class QuotationsList extends Component {
+export default class QuotationsListForAdmin extends Component {
     constructor(props) {
         super(props);
 
@@ -10,7 +10,7 @@ export default class QuotationsList extends Component {
 
     render() {
       return <div>
-            Here QuotationsList...
+            Here QuotationsListForAdmin...
         </div>
     }
 }

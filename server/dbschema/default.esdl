@@ -2,8 +2,8 @@ module default {
 
   type User {
     required public_address -> str;
-    required email -> str;
-    required name -> str;
+    email -> str;
+    name -> str;
     description -> str;
   }
 

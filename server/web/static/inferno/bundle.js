@@ -203,7 +203,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_jobs */ "./src/api/api_jobs.ts");
 /* harmony import */ var _JobRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobRow */ "./src/components/job/JobRow.js");
 /* harmony import */ var _quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../quotation/QuotationForm */ "./src/components/quotation/QuotationForm.js");
-/* harmony import */ var _quotation_QuotationsList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../quotation/QuotationsList */ "./src/components/quotation/QuotationsList.js");
+/* harmony import */ var _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../quotation/QuotationsListForAdmin */ "./src/components/quotation/QuotationsListForAdmin.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -244,7 +244,7 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "data": this.state.job
       }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         "job_id": this.state.job.id
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_4__["default"], {
         "job_id": this.state.job.id
       })], 4);
     }
@@ -489,36 +489,36 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "./src/components/quotation/QuotationsList.js":
-/*!****************************************************!*\
-  !*** ./src/components/quotation/QuotationsList.js ***!
-  \****************************************************/
+/***/ "./src/components/quotation/QuotationsListForAdmin.js":
+/*!************************************************************!*\
+  !*** ./src/components/quotation/QuotationsListForAdmin.js ***!
+  \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ QuotationsList)
+/* harmony export */   "default": () => (/* binding */ QuotationsListForAdmin)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var QuotationsList = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(QuotationsList, _Component);
-  function QuotationsList(props) {
+var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationsListForAdmin, _Component);
+  function QuotationsListForAdmin(props) {
     var _this;
     _this = _Component.call(this, props) || this;
     var job_id = _this.props.job_id;
     console.log("QuotationList JobId: " + job_id);
     return _this;
   }
-  var _proto = QuotationsList.prototype;
+  var _proto = QuotationsListForAdmin.prototype;
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsList...", 16);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsListForAdmin...", 16);
   };
-  return QuotationsList;
+  return QuotationsListForAdmin;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
@@ -5813,7 +5813,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("3d5c4c1e9869eb878bfe")
+/******/ 		__webpack_require__.h = () => ("1d10240940a9c1593c66")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
