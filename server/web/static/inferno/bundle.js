@@ -398,8 +398,8 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
     _this.state = {
       quotation: _models_quotation__WEBPACK_IMPORTED_MODULE_1__.Quotation["default"](job_id)
     };
-    _this.handleChangeTotalAmount = _this.handleChangeTotalAmount.bind(_assertThisInitialized(_this));
     _this.handleChangeDescription = _this.handleChangeDescription.bind(_assertThisInitialized(_this));
+    _this.handleUpdateTotalAmount = _this.handleUpdateTotalAmount.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -411,15 +411,11 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
       quotation: new_quotation
     });
   };
-  _proto.handleChangeTotalAmount = function handleChangeTotalAmount(event) {
-    var new_quotation = this.state.quotation.clone();
-    new_quotation.setTotalAmount(event.target.value);
-    this.setState({
-      quotation: new_quotation
-    });
+  _proto.handleUpdateTotalAmount = function handleUpdateTotalAmount(amount) {
+    //console.log("updateAmount");
+    this.state.quotation.setTotalAmount(amount.data.value);
   };
   _proto.handleSubmit = function handleSubmit(event) {
-    console.log(this.state.quotation);
     var quotation = this.state.quotation.raw();
     (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.register_new_quotation)(this.state.quotation.raw()).then(function (result) {
       var redirect_url = quotation.job_id + "/quote/" + result.id;
@@ -433,15 +429,9 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
       "rows": "5",
       "value": this.state.quotation.description,
       "onInput": this.handleChangeDescription
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
-      "type": "text",
-      "id": "quotation_total_amount",
-      "placeholder": "",
-      "value": this.state.quotation.total_amount,
-      "onInput": this.handleChangeTotalAmount
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      "label": "Total Amount"
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      "afterUpdate": this.handleUpdateTotalAmount
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
       "type": "submit",
       "value": "Submit"
     })], 4), 2, {
@@ -558,10 +548,12 @@ var XRPInput = /*#__PURE__*/function (_Component) {
   function XRPInput(props) {
     var _this;
     _this = _Component.call(this, props) || this;
-    var label = props.label;
+    var label = props.label,
+      afterUpdate = props.afterUpdate;
     _this.state = {
       label: label,
-      amount: _models_xrp__WEBPACK_IMPORTED_MODULE_1__.XRPValue["default"]("1.0")
+      amount: _models_xrp__WEBPACK_IMPORTED_MODULE_1__.XRPValue["default"]("1.0"),
+      afterUpdate: afterUpdate
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     return _this;
@@ -569,19 +561,21 @@ var XRPInput = /*#__PURE__*/function (_Component) {
   var _proto = XRPInput.prototype;
   _proto.handleChange = function handleChange(event) {
     var new_amount = this.state.amount.clone();
-    console.log(event.target.value);
     new_amount.trySetValueFromStr(event.target.value);
     this.setState({
       amount: new_amount
     });
   };
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this.state.afterUpdate(this.state.amount);
+  };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "xrp-input", null, 1, {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "xrp-input", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
       "type": "text",
       "placeholder": "0.1",
       "value": this.state.amount.data.value_txt,
       "onInput": this.handleChange
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", "xrp-input-tag", "XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.amount.data.drops, 0)], 4);
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", "xrp-input-tag", "XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", "xrp-input-dolars", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("estimation "), this.state.amount.data.on_dolars, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $")], 0)], 4);
   };
   return XRPInput;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -5660,12 +5654,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inmmutable_model */ "./src/models/inmmutable_model.ts");
 
+// This should be take from API.
+const XRP_TO_DOLARS = 0.71;
 class XRPValue extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.InmmutableModel {
     static default(value_txt) {
         let data = {
             value: 0.0,
             value_txt: "0.0",
-            drops: "0"
+            drops: "0",
+            on_dolars: "0.00"
         };
         let xrp = new XRPValue(data);
         xrp.trySetValueFromStr(value_txt);
@@ -5673,6 +5670,9 @@ class XRPValue extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.Inmmutable
     }
     clone() {
         return new XRPValue(this.clone_data());
+    }
+    calc_dolars() {
+        this.data.on_dolars = (this.data.value * XRP_TO_DOLARS).toFixed(2);
     }
     trySetValueFromStr(value_txt) {
         let is_empty = value_txt == "";
@@ -5683,19 +5683,15 @@ class XRPValue extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.Inmmutable
         if (is_last_char_is_dot) {
             value_txt += "0";
         }
-        console.log(value_txt);
+        const regex = /^(?:\d{1,8}(?:\.\d{1,6})?|\.\d{1,6})$/;
         let new_canditate_value = parseFloat(value_txt);
-        if (!Number.isNaN(new_canditate_value)) {
-            if (new_canditate_value == 0) {
-                this.data.value = 0.0;
-                this.data.value_txt = "0.0";
-                this.data.drops = "0";
-            }
-            else if (new_canditate_value > 0) {
-                let drops = new_canditate_value / 0.000001;
+        if (!Number.isNaN(new_canditate_value) && regex.test(value_txt)) {
+            if (new_canditate_value >= 0) {
                 this.data.value = new_canditate_value;
                 this.data.value_txt = value_txt;
-                this.data.drops = drops.toString();
+                let drops = (new_canditate_value / 0.000001).toFixed(0);
+                this.data.drops = drops;
+                this.calc_dolars();
             }
         }
     }
@@ -5817,7 +5813,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("ac23c8d289c870397849")
+/******/ 		__webpack_require__.h = () => ("3d5c4c1e9869eb878bfe")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

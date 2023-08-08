@@ -13,8 +13,8 @@ export default class QuotationForm extends Component {
             quotation: Quotation.default(job_id)
         }
 
-        this.handleChangeTotalAmount = this.handleChangeTotalAmount.bind(this);
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
+        this.handleUpdateTotalAmount = this.handleUpdateTotalAmount.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -25,15 +25,12 @@ export default class QuotationForm extends Component {
         this.setState({quotation: new_quotation});
     }
 
-    handleChangeTotalAmount(event){
-        let new_quotation = this.state.quotation.clone();
-        new_quotation.setTotalAmount(event.target.value);
-        this.setState({quotation: new_quotation});
+    handleUpdateTotalAmount(amount){
+        //console.log("updateAmount");
+        this.state.quotation.setTotalAmount(amount.data.value);
     }
 
     handleSubmit(event){
-        console.log(this.state.quotation);
-
         let quotation = this.state.quotation.raw();
 
         register_new_quotation(this.state.quotation.raw()).then((result) => {
@@ -55,9 +52,8 @@ export default class QuotationForm extends Component {
               </div>
               <div class="form-group">
                 <label>Total amount</label>
-                <input type="text" class="form-control" id="quotation_total_amount" placeholder="" value={this.state.quotation.total_amount} onInput={this.handleChangeTotalAmount}></input>
+                <XRPInput afterUpdate={this.handleUpdateTotalAmount}></XRPInput>
               </div>
-              <XRPInput label="Total Amount"></XRPInput>
               <input type="submit" value="Submit" />
             </div>
             </form>
