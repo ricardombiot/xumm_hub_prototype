@@ -322,8 +322,6 @@ var JobsList = /*#__PURE__*/function (_Component) {
   _inheritsLoose(JobsList, _Component);
   function JobsList(props) {
     var _this;
-    console.log("Construct ... jobs_list");
-    console.log(props);
     _this = _Component.call(this, props) || this;
     _this.state = {
       data: []
@@ -379,9 +377,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ QuotationForm)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _models_quotation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../models/quotation */ "./src/models/quotation.ts");
+/* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_quotations */ "./src/api/api_quotations.ts");
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 var QuotationForm = /*#__PURE__*/function (_Component) {
   _inheritsLoose(QuotationForm, _Component);
@@ -390,13 +393,103 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
     _this = _Component.call(this, props) || this;
     var job_id = _this.props.job_id;
     console.log("QuotationForm JobId: " + job_id);
+    _this.state = {
+      quotation: _models_quotation__WEBPACK_IMPORTED_MODULE_1__.Quotation["default"](job_id)
+    };
+    _this.handleChangeTotalAmount = _this.handleChangeTotalAmount.bind(_assertThisInitialized(_this));
+    _this.handleChangeDescription = _this.handleChangeDescription.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
   var _proto = QuotationForm.prototype;
+  _proto.handleChangeDescription = function handleChangeDescription(event) {
+    var new_quotation = this.state.quotation.clone();
+    new_quotation.setDescription(event.target.value);
+    this.setState({
+      quotation: new_quotation
+    });
+  };
+  _proto.handleChangeTotalAmount = function handleChangeTotalAmount(event) {
+    var new_quotation = this.state.quotation.clone();
+    new_quotation.setTotalAmount(event.target.value);
+    this.setState({
+      quotation: new_quotation
+    });
+  };
+  _proto.handleSubmit = function handleSubmit(event) {
+    console.log(this.state.quotation);
+    var quotation = this.state.quotation.raw();
+    (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.register_new_quotation)(this.state.quotation.raw()).then(function (result) {
+      var redirect_url = quotation.job_id + "/quote/" + result.id;
+      window.location.href = redirect_url;
+    });
+    event.preventDefault();
+  };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationForm...", 16);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "m-5", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Quotation", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+      "id": "quotation_description",
+      "rows": "5",
+      "value": this.state.quotation.description,
+      "onInput": this.handleChangeDescription
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "id": "quotation_total_amount",
+      "placeholder": "",
+      "value": this.state.quotation.total_amount,
+      "onInput": this.handleChangeTotalAmount
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "submit",
+      "value": "Submit"
+    })], 4), 2, {
+      "onSubmit": this.handleSubmit
+    }), 2);
   };
   return QuotationForm;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
+/***/ "./src/components/quotation/QuotationPage.js":
+/*!***************************************************!*\
+  !*** ./src/components/quotation/QuotationPage.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationPage)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var QuotationPage = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationPage, _Component);
+  function QuotationPage(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var params = props.match.params;
+    _this.state = {
+      quotation: "NOT_LOADED",
+      job_id: params.job_id,
+      quotation_id: params.quotation_id
+    };
+    return _this;
+  }
+  var _proto = QuotationPage.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    /* get_job(this.state.job_id).then((job) => {
+         console.log(job);
+         this.setState({job: job})
+     })*/
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job id: "), this.state.job_id, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quote: "), this.state.quotation_id], 0), 2);
+  };
+  return QuotationPage;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
@@ -447,11 +540,12 @@ var QuotationsList = /*#__PURE__*/function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
 /* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
 /* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
 /* harmony import */ var _components_job_JobForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobForm */ "./src/components/job/JobForm.js");
 /* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
+/* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
 
 // inferno module
 
@@ -463,7 +557,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_6__.createBrowserHistory)();
+
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_7__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
@@ -492,6 +587,9 @@ function JobRouter(_ref5) {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/new',
       "component": _components_job_JobForm__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": match.url + '/:job_id/quote/:quotation_id',
+      "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id',
       "component": _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -5354,16 +5452,44 @@ async function register_new_job(job) {
 
 /***/ }),
 
-/***/ "./src/models/job.ts":
-/*!***************************!*\
-  !*** ./src/models/job.ts ***!
-  \***************************/
+/***/ "./src/api/api_quotations.ts":
+/*!***********************************!*\
+  !*** ./src/api/api_quotations.ts ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Job": () => (/* binding */ Job)
+/* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation)
+/* harmony export */ });
+async function register_new_quotation(quotation) {
+    let url = "/api/quotation";
+    let response = await fetch(url, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(quotation)
+    });
+    let data = await response.json();
+    return data.result;
+}
+
+
+/***/ }),
+
+/***/ "./src/models/inmmutable_model.ts":
+/*!****************************************!*\
+  !*** ./src/models/inmmutable_model.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "InmmutableModel": () => (/* binding */ InmmutableModel)
 /* harmony export */ });
 class InmmutableModel {
     data;
@@ -5377,7 +5503,24 @@ class InmmutableModel {
         return this.data;
     }
 }
-class Job extends InmmutableModel {
+
+
+/***/ }),
+
+/***/ "./src/models/job.ts":
+/*!***************************!*\
+  !*** ./src/models/job.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Job": () => (/* binding */ Job)
+/* harmony export */ });
+/* harmony import */ var _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inmmutable_model */ "./src/models/inmmutable_model.ts");
+
+class Job extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.InmmutableModel {
     constructor(job) {
         super(job);
     }
@@ -5397,6 +5540,45 @@ class Job extends InmmutableModel {
     }
     setBudgetRange(budget_range) {
         this.data.budget_range = budget_range;
+    }
+    setDescription(description) {
+        this.data.description = description;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/models/quotation.ts":
+/*!*********************************!*\
+  !*** ./src/models/quotation.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Quotation": () => (/* binding */ Quotation)
+/* harmony export */ });
+/* harmony import */ var _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inmmutable_model */ "./src/models/inmmutable_model.ts");
+
+class Quotation extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.InmmutableModel {
+    constructor(quote) {
+        super(quote);
+    }
+    static default(job_id) {
+        let data = {
+            job_id: job_id,
+            description: "",
+            total_amount: 0.0
+        };
+        return new Quotation(data);
+    }
+    clone() {
+        return new Quotation(this.clone_data());
+    }
+    setTotalAmount(total_amount) {
+        this.data.total_amount = parseFloat(total_amount);
     }
     setDescription(description) {
         this.data.description = description;
@@ -5519,7 +5701,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a044de9d540b8b36ea5a")
+/******/ 		__webpack_require__.h = () => ("5008ab66c4f531d07505")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

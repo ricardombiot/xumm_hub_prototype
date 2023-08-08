@@ -8,6 +8,7 @@ import MyApp from './MyApp';
 import MyHome from './MyHome';
 import JobForm from './components/job/JobForm';
 import JobPage from './components/job/JobPage';
+import QuotationPage  from './components/quotation/QuotationPage';
 
 const browserHistory = createBrowserHistory();
 
@@ -43,6 +44,7 @@ function JobRouter({match}) {
         <div id="job_router">
             <Switch>
                 <Route path={match.url + '/new'} component={JobForm}/>
+                <Route path={match.url + '/:job_id/quote/:quotation_id'} component={QuotationPage}/>
                 <Route path={match.url + '/:job_id'} component={JobPage}/>
             </Switch>
         </div>

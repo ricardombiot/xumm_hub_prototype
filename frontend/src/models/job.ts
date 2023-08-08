@@ -1,16 +1,5 @@
+import { InmmutableModel } from "./inmmutable_model";
 
-class InmmutableModel<T> {
-    constructor(public data : T){
-    }
-
-    protected clone_data() : T {
-      return JSON.parse(JSON.stringify(this.data));
-    }
-
-    raw() : T {
-      return this.data;
-    }
-}
 
 export interface IJob {
     title : string,
