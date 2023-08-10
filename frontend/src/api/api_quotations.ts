@@ -7,7 +7,7 @@ export async function list_quotation_by_job(job_id : string){
   let search_criteria = {
     "job_id": job_id
   }
-
+  
   let data = await fetch_auth_post(url, search_criteria);
   return data.result;
 }

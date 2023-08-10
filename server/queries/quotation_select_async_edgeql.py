@@ -24,12 +24,18 @@ class QuotationSelectResult(NoPydanticValidation):
     description: str
     total_amount: float
     destine: QuotationSelectResultDestine
+    job: QuotationSelectResultJob
 
 
 @dataclasses.dataclass
 class QuotationSelectResultDestine(NoPydanticValidation):
     id: uuid.UUID
     name: typing.Optional[str]
+
+
+@dataclasses.dataclass
+class QuotationSelectResultJob(NoPydanticValidation):
+    id: uuid.UUID
 
 
 async def quotation_select(
@@ -47,6 +53,9 @@ async def quotation_select(
           destine: {
             id,
             name
+          },
+          job : {
+            id
           }
         } filter .job.payer.id = <std::uuid> $payer_id and
           .job.id = <std::uuid> $job_id\

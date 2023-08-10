@@ -1,7 +1,6 @@
 
 
 
-from flask import request
 from edgedb_conn import get_conn
 from queries.user_select_async_edgeql import user_select
 from queries.user_register_async_edgeql import user_register
@@ -37,15 +36,15 @@ def inject_session_user_info_as_guest(request):
         "role": "GUEST"
     }
     
-def session_user_id():
+def session_user_id(request):
     return request.session_info["user_id"]
 
-def session_account():
+def session_account(request):
     return request.session_info["account"]
 
-def session_is_user():
+def session_is_user(request):
     return request.session_info["role"] == "USER"
 
-def session_is_guest():
+def session_is_guest(request):
     return request.session_info["role"] == "GUEST"
 

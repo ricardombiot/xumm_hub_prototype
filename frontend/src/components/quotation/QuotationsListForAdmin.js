@@ -1,6 +1,7 @@
 import { Component } from 'inferno';
 import { session_is_owner } from "./../../api/api_with_auth";
 import { list_quotation_by_job } from "./../../api/api_quotations";
+import QuotationRow from "./QuotationRow";
 
 export default class QuotationsListForAdmin extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class QuotationsListForAdmin extends Component {
 
         const { job_id, payer_id } = this.props;
 
-        this.state = {quotations: []};
+        this.state = {quotations: [], job_id: job_id, payer_id: payer_id};
        
         if(session_is_owner(payer_id)){
             console.log("QuotationList JobId: " + job_id + "OWNER");
@@ -30,7 +31,7 @@ export default class QuotationsListForAdmin extends Component {
     
         for (let index = 0; index < quotes.length; index++) {
             const quote = quotes[index];
-            let html = <div>{quote.id}</div>
+            let html = <QuotationRow data={quote}></QuotationRow>
             quotesElements.push(html);
         }
     

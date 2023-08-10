@@ -40,7 +40,7 @@ async def register_job():
     data = json.loads(request.data)
     
     # @TODO payer_id from AUTH.
-    payer_id = session_user_id()
+    payer_id = session_user_id(request)
     job_title = data['title']
     job_description = data['description']
     job_budget_range = data['budget_range']

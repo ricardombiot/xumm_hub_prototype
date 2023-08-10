@@ -493,6 +493,45 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/quotation/QuotationRow.js":
+/*!**************************************************!*\
+  !*** ./src/components/quotation/QuotationRow.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationRow)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+//import { session_is_owner } from "./../../api/api_with_auth";
+var QuotationRow = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationRow, _Component);
+  function QuotationRow(props) {
+    return _Component.call(this, props) || this;
+  }
+  var _proto = QuotationRow.prototype;
+  _proto.render = function render() {
+    var data = this.props.data; // Recibimos el objeto Job como prop
+    var url_quotation = "/job/" + data.job.id + "/quote/" + data.id;
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card text-center", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-header custom-background", [data.destine.name, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("TOTAL: "), data.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-body", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "card-text", data.description, 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-footer text-muted custom-background", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("2 days ago "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Link, {
+      "to": url_quotation,
+      children: " CHAT "
+    })], 4)], 4);
+  };
+  return QuotationRow;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
 /***/ "./src/components/quotation/QuotationsListForAdmin.js":
 /*!************************************************************!*\
   !*** ./src/components/quotation/QuotationsListForAdmin.js ***!
@@ -507,9 +546,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_with_auth */ "./src/api/api_with_auth.ts");
 /* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_quotations */ "./src/api/api_quotations.ts");
+/* harmony import */ var _QuotationRow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./QuotationRow */ "./src/components/quotation/QuotationRow.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -522,7 +563,9 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
       job_id = _this$props.job_id,
       payer_id = _this$props.payer_id;
     _this.state = {
-      quotations: []
+      quotations: [],
+      job_id: job_id,
+      payer_id: payer_id
     };
     if ((0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__.session_is_owner)(payer_id)) {
       console.log("QuotationList JobId: " + job_id + "OWNER");
@@ -545,7 +588,9 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
     var quotesElements = [];
     for (var index = 0; index < quotes.length; index++) {
       var quote = quotes[index];
-      var html = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, quote.id, 0);
+      var html = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _QuotationRow__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        "data": quote
+      });
       quotesElements.push(html);
     }
     return quotesElements;
@@ -5915,7 +5960,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("cdb7cef45a672ed04d6b")
+/******/ 		__webpack_require__.h = () => ("283f727e5e8e6591cc4b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

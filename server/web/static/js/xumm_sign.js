@@ -1,8 +1,15 @@
 var xumm = new Xumm('a0676337-4f6e-4e2f-b685-77848a2832f1')
-        
+   
+function should_wait_login(){
+  return "XummPkceJwt" in localStorage;
+}
+
 xumm.on("ready", () => {
   console.log("ready xumm");
-  window.main_inferno();
+
+  if(!should_wait_login()){
+    window.main_inferno();
+  }
 })
 
 // We rely on promises in the `success` event: fired again if a user
