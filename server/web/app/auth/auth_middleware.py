@@ -2,7 +2,7 @@ from flask import request
 
 from web.app.auth.token import verify_token
 from web.app.api_errors import NotAuthorizationError
-
+from web.app.auth.user_session import inject_session_user_info
 
 def auth_middleware(func):
     def wrapper(*args, **kwargs):
@@ -25,9 +25,3 @@ def auth_middleware(func):
     return wrapper
 
 
-def inject_session_user_info(request, payload):
-    
-    request.session_info = {
-        "payload": payload,
-        "user_id": "123423"
-    }

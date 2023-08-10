@@ -17,7 +17,8 @@ def checks_auth_by_xumm_token(xumm_jwt):
     response = requests.get(url, headers=headers)
 
     info_jwt = response.json()
-    if info_jwt["pong"] == True and info_jwt["network_type"] == USERS_NETWORK:
+    #print(info_jwt)
+    if info_jwt != None and info_jwt["pong"] == True and info_jwt["network_type"] == USERS_NETWORK:
         info = {
           "account": info_jwt["sub"],
           "xumm_jwt": xumm_jwt,

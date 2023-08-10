@@ -5,11 +5,13 @@ from flask.json import jsonify
 
 from edgedb_conn import get_conn
 from queries.quotation_insert_async_edgeql import quotation_insert
+from web.app.auth.auth_middleware import auth_middleware
 
 api_quotations = Blueprint('api_quotations', __name__)
 
 
 @api_quotations.post('/api/quotation')
+@auth_middleware
 async def register_job():
     data = json.loads(request.data)
     

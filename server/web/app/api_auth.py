@@ -15,13 +15,17 @@ load_dotenv()
 @api_auth.get('/api/auth/access_by_xumm')
 async def access_by_xumm_login_or_register():
     headers = request.headers
-    xumm_jwt = headers.get("X-Xumm-Jwt")
+    token = headers.get("Authorization")
 
+    if token is None:
+        raise NotAuthorizationError("Require authorization")
+
+    xumm_jwt = token.replace("Bearer ", "")
     is_valid, info_from_xumm = checks_auth_by_xumm_token(xumm_jwt)
     
     if is_valid :
-        token = build_token(info_from_xumm)
-        print(token)
+        token = await build_token(info_from_xumm)
+        #print(token)
         return jsonify({"result": {
             "token": str(token)
         }})
