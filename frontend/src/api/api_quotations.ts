@@ -1,20 +1,11 @@
 import { IJobQuotation } from "../models/quotation";
+import { fetch_auth_post } from "./api_with_auth";
 
 
 
 export async function register_new_quotation(quotation : IJobQuotation){
-    let url = "/api/quotation"
+    let url = "/api/quotation/create"
 
-    let response = await fetch(url, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(quotation)
-    });
-
-    let data = await response.json();
-
+    let data = await fetch_auth_post(url, quotation);
     return data.result;
 }

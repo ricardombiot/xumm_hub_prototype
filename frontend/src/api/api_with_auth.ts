@@ -1,4 +1,6 @@
 
+const DEFAULT_HEADERS = { 'Accept': 'application/json', 'Content-Type': 'application/json'}
+
 export function is_login(){
     return 'jwt_xapp' in window && window['jwt_xapp'] != undefined;
 }  
@@ -12,21 +14,25 @@ export function if_login_inject_authorization_header(headers : any){
     return headers;
 }
 
-export async function fetch_auth_post(url : string, headers : any = {}, body : any){
+export async function fetch_auth_post(url : string, body : any, headers : any = DEFAULT_HEADERS) : Promise<any> {
     headers = if_login_inject_authorization_header(headers)
     
-    await fetch(url, {
+    let response = await fetch(url, {
         headers: headers,
         method: "POST",
         body: JSON.stringify(body)
     });
+
+    return await response.json();
 }
 
-export async function fetch_auth_get(url : string, headers : any = {}, body : any){
+export async function fetch_auth_get(url : string, headers : any = DEFAULT_HEADERS) : Promise<any> {
     headers = if_login_inject_authorization_header(headers)
     
-    await fetch(url, {
+    let response = await fetch(url, {
         headers: headers,
         method: "GET"
     });
+
+    return await response.json();
 }

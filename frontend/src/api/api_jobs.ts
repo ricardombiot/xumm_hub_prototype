@@ -1,39 +1,24 @@
 import { IJob } from "../models/job";
+import { fetch_auth_get, fetch_auth_post } from "./api_with_auth";
 
 
 export async function get_list_jobs() : Promise<IJob[]> {
     let url = "/api/jobs"
 
-    let response = await fetch(url);
-
-    let data = await response.json();
-
+    let data = await fetch_auth_get(url);
     return data.result;
 }
 
 export async function get_job(job_id : string) : Promise<IJob> {
     let url = `/api/job/${job_id}`
-
-    let response = await fetch(url);
-
-    let data = await response.json();
-
+    let data = await fetch_auth_get(url);
     return data.result;
 }
 
 export async function register_new_job(job : IJob){
-    let url = "/api/job"
+    let url = "/api/job/create"
 
-    let response = await fetch(url, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(job)
-    });
-
-    let data = await response.json();
+    let data = await fetch_auth_post(url, job);
 
     return data.result;
 }

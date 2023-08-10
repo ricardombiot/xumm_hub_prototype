@@ -28,7 +28,7 @@ async def build_token(info_from_xumm):
         "exp": exp
     }
     
-    print(payload)
+    #print(payload)
     
     encoded_jwt = jwt.encode(payload, JWT_SECRET, algorithm="HS256")
     return encoded_jwt

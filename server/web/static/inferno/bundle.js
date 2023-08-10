@@ -5476,29 +5476,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "get_list_jobs": () => (/* binding */ get_list_jobs),
 /* harmony export */   "register_new_job": () => (/* binding */ register_new_job)
 /* harmony export */ });
+/* harmony import */ var _api_with_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api_with_auth */ "./src/api/api_with_auth.ts");
+
 async function get_list_jobs() {
     let url = "/api/jobs";
-    let response = await fetch(url);
-    let data = await response.json();
+    //let response = await fetch(url);
+    //let data = await response.json();
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_get)(url);
     return data.result;
 }
 async function get_job(job_id) {
     let url = `/api/job/${job_id}`;
-    let response = await fetch(url);
-    let data = await response.json();
+    //let response = await fetch(url);
+    //let data = await response.json();
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_get)(url);
     return data.result;
 }
 async function register_new_job(job) {
-    let url = "/api/job";
-    let response = await fetch(url, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(job)
-    });
-    let data = await response.json();
+    let url = "/api/job/create";
+    /* let response = await fetch(url, {
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+         method: "POST",
+         body: JSON.stringify(job)
+     });
+ 
+     let data = await response.json();*/
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, job);
     return data.result;
 }
 
@@ -5516,18 +5522,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation)
 /* harmony export */ });
+/* harmony import */ var _api_with_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api_with_auth */ "./src/api/api_with_auth.ts");
+
 async function register_new_quotation(quotation) {
-    let url = "/api/quotation";
-    let response = await fetch(url, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(quotation)
-    });
-    let data = await response.json();
+    let url = "/api/quotation/create";
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, quotation);
+    /* fetch(url, {
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+         method: "POST",
+         body: JSON.stringify(quotation)
+     });*/
+    // let data = await response.json();
     return data.result;
+}
+
+
+/***/ }),
+
+/***/ "./src/api/api_with_auth.ts":
+/*!**********************************!*\
+  !*** ./src/api/api_with_auth.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetch_auth_get": () => (/* binding */ fetch_auth_get),
+/* harmony export */   "fetch_auth_post": () => (/* binding */ fetch_auth_post),
+/* harmony export */   "if_login_inject_authorization_header": () => (/* binding */ if_login_inject_authorization_header),
+/* harmony export */   "is_login": () => (/* binding */ is_login)
+/* harmony export */ });
+const DEFAULT_HEADERS = { 'Accept': 'application/json', 'Content-Type': 'application/json' };
+function is_login() {
+    return 'jwt_xapp' in window && window['jwt_xapp'] != undefined;
+}
+function if_login_inject_authorization_header(headers) {
+    if (is_login() && 'jwt_xapp' in window) {
+        let jwt_xapp = window['jwt_xapp'];
+        headers['Authorization'] = 'Bearer ' + jwt_xapp;
+    }
+    return headers;
+}
+async function fetch_auth_post(url, body, headers = DEFAULT_HEADERS) {
+    headers = if_login_inject_authorization_header(headers);
+    let response = await fetch(url, {
+        headers: headers,
+        method: "POST",
+        body: JSON.stringify(body)
+    });
+    return await response.json();
+}
+async function fetch_auth_get(url, headers = DEFAULT_HEADERS) {
+    headers = if_login_inject_authorization_header(headers);
+    let response = await fetch(url, {
+        headers: headers,
+        method: "GET"
+    });
+    return await response.json();
 }
 
 
@@ -5813,7 +5868,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("1d10240940a9c1593c66")
+/******/ 		__webpack_require__.h = () => ("a5c2a2463a02c8c3bbb4")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
