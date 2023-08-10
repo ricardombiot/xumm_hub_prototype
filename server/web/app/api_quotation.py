@@ -11,7 +11,6 @@ from web.app.auth.user_session import session_user_id
 from web.app.auth.auth_middleware import auth_middleware, require_user_middleware
 
 api_quotations = Blueprint('api_quotations', __name__)
-
 api_quotations_secure = Blueprint('api_quotations_secure', __name__)
 
 @api_quotations.before_request
@@ -33,8 +32,6 @@ async def admin_list_quotation_by_job():
     #page = criteria_search['page']
     conn = get_conn()
     result = await quotation_select(conn, job_id=job_id, payer_id=user_id)
-    
-
     
     return jsonify({"result": result})
 

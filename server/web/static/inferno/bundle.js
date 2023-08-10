@@ -506,9 +506,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_with_auth */ "./src/api/api_with_auth.ts");
+/* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_quotations */ "./src/api/api_quotations.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
@@ -519,6 +521,9 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
     var _this$props = _this.props,
       job_id = _this$props.job_id,
       payer_id = _this$props.payer_id;
+    _this.state = {
+      quotations: []
+    };
     if ((0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__.session_is_owner)(payer_id)) {
       console.log("QuotationList JobId: " + job_id + "OWNER");
     } else {
@@ -527,12 +532,32 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
     return _this;
   }
   var _proto = QuotationsListForAdmin.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+    (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.list_quotation_by_job)(this.state.job_id).then(function (quotations) {
+      _this2.setState({
+        quotations: quotations
+      });
+    });
+  };
+  _proto._render_quotes = function _render_quotes() {
+    var quotes = this.state.quotations;
+    var quotesElements = [];
+    for (var index = 0; index < quotes.length; index++) {
+      var quote = quotes[index];
+      var html = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, quote.id, 0);
+      quotesElements.push(html);
+    }
+    return quotesElements;
+  };
   _proto.render = function render() {
     var _this$props2 = this.props,
       job_id = _this$props2.job_id,
       payer_id = _this$props2.payer_id;
     if ((0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__.session_is_owner)(payer_id)) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsListForAdmin... i am OWNER... :)", 16);
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this._render_quotes(), 0, {
+        "id": "admin_quotations_list"
+      });
     } else {
       return [];
     }
@@ -5890,7 +5915,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("1a0202edf52a1f9f1715")
+/******/ 		__webpack_require__.h = () => ("cdb7cef45a672ed04d6b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
