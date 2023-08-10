@@ -245,7 +245,8 @@ var JobPage = /*#__PURE__*/function (_Component) {
       }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         "job_id": this.state.job.id
       }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        "job_id": this.state.job.id
+        "job_id": this.state.job.id,
+        "payer_id": this.state.job.payer.id
       })], 4);
     }
   };
@@ -271,9 +272,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
+/* harmony import */ var _api_api_with_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_with_auth */ "./src/api/api_with_auth.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 var JobRow = /*#__PURE__*/function (_Component) {
@@ -285,7 +288,8 @@ var JobRow = /*#__PURE__*/function (_Component) {
   _proto.render = function render() {
     var data = this.props.data; // Recibimos el objeto Job como prop
     var url_job = "/job/" + data.id;
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card text-center", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-header custom-background", data.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-body", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "card-text", data.description, 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-footer text-muted custom-background", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("2 days ago "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    var text_owner = (0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_2__.session_is_owner)(data.payer.id) ? "(OWNER)" : "";
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card text-center", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-header custom-background", [data.title, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), text_owner], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-body", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "card-text", data.description, 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-footer text-muted custom-background", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("2 days ago "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Link, {
       "to": url_job,
       children: " See more "
     })], 4)], 4);
@@ -501,22 +505,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ QuotationsListForAdmin)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_with_auth */ "./src/api/api_with_auth.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
   _inheritsLoose(QuotationsListForAdmin, _Component);
   function QuotationsListForAdmin(props) {
     var _this;
     _this = _Component.call(this, props) || this;
-    var job_id = _this.props.job_id;
-    console.log("QuotationList JobId: " + job_id);
+    var _this$props = _this.props,
+      job_id = _this$props.job_id,
+      payer_id = _this$props.payer_id;
+    if ((0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__.session_is_owner)(payer_id)) {
+      console.log("QuotationList JobId: " + job_id + "OWNER");
+    } else {
+      console.log("QuotationList JobId: " + job_id + "NOT OWNER");
+    }
     return _this;
   }
   var _proto = QuotationsListForAdmin.prototype;
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsListForAdmin...", 16);
+    var _this$props2 = this.props,
+      job_id = _this$props2.job_id,
+      payer_id = _this$props2.payer_id;
+    if ((0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__.session_is_owner)(payer_id)) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Here QuotationsListForAdmin... i am OWNER... :)", 16);
+    } else {
+      return [];
+    }
   };
   return QuotationsListForAdmin;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -611,6 +630,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//import { xumm_main } from './xumm_app';
+
 var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_7__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
@@ -677,7 +698,13 @@ var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, in
     })]
   })], 4)
 });
-(0,inferno__WEBPACK_IMPORTED_MODULE_0__.render)(routes, document.getElementById('app'));
+function main() {
+  console.log("ready inferno... APP");
+  (0,inferno__WEBPACK_IMPORTED_MODULE_0__.render)(routes, document.getElementById('app'));
+}
+window.main_inferno = function () {
+  main();
+};
 
 /***/ }),
 
@@ -5480,30 +5507,16 @@ __webpack_require__.r(__webpack_exports__);
 
 async function get_list_jobs() {
     let url = "/api/jobs";
-    //let response = await fetch(url);
-    //let data = await response.json();
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_get)(url);
     return data.result;
 }
 async function get_job(job_id) {
     let url = `/api/job/${job_id}`;
-    //let response = await fetch(url);
-    //let data = await response.json();
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_get)(url);
     return data.result;
 }
 async function register_new_job(job) {
     let url = "/api/job/create";
-    /* let response = await fetch(url, {
-         headers: {
-           'Accept': 'application/json',
-           'Content-Type': 'application/json'
-         },
-         method: "POST",
-         body: JSON.stringify(job)
-     });
- 
-     let data = await response.json();*/
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, job);
     return data.result;
 }
@@ -5520,22 +5533,22 @@ async function register_new_job(job) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "list_quotation_by_job": () => (/* binding */ list_quotation_by_job),
 /* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation)
 /* harmony export */ });
 /* harmony import */ var _api_with_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api_with_auth */ "./src/api/api_with_auth.ts");
 
+async function list_quotation_by_job(job_id) {
+    let url = "/api/quotations";
+    let search_criteria = {
+        "job_id": job_id
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, search_criteria);
+    return data.result;
+}
 async function register_new_quotation(quotation) {
     let url = "/api/quotation/create";
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, quotation);
-    /* fetch(url, {
-         headers: {
-           'Accept': 'application/json',
-           'Content-Type': 'application/json'
-         },
-         method: "POST",
-         body: JSON.stringify(quotation)
-     });*/
-    // let data = await response.json();
     return data.result;
 }
 
@@ -5554,11 +5567,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetch_auth_get": () => (/* binding */ fetch_auth_get),
 /* harmony export */   "fetch_auth_post": () => (/* binding */ fetch_auth_post),
 /* harmony export */   "if_login_inject_authorization_header": () => (/* binding */ if_login_inject_authorization_header),
-/* harmony export */   "is_login": () => (/* binding */ is_login)
+/* harmony export */   "is_login": () => (/* binding */ is_login),
+/* harmony export */   "session_is_owner": () => (/* binding */ session_is_owner)
 /* harmony export */ });
 const DEFAULT_HEADERS = { 'Accept': 'application/json', 'Content-Type': 'application/json' };
 function is_login() {
     return 'jwt_xapp' in window && window['jwt_xapp'] != undefined;
+}
+function session_is_owner(user_id) {
+    if (is_login()) {
+        return 'jwt_xapp_user_id' in window && window['jwt_xapp_user_id'] == user_id;
+    }
+    else {
+        return false;
+    }
 }
 function if_login_inject_authorization_header(headers) {
     if (is_login() && 'jwt_xapp' in window) {
@@ -5868,7 +5890,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a5c2a2463a02c8c3bbb4")
+/******/ 		__webpack_require__.h = () => ("1a0202edf52a1f9f1715")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

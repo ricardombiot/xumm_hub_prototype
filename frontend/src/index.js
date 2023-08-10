@@ -9,6 +9,7 @@ import MyHome from './MyHome';
 import JobForm from './components/job/JobForm';
 import JobPage from './components/job/JobPage';
 import QuotationPage  from './components/quotation/QuotationPage';
+//import { xumm_main } from './xumm_app';
 
 const browserHistory = createBrowserHistory();
 
@@ -71,4 +72,12 @@ const routes = (
     </BrowserRouter>
 );
 
-render(routes, document.getElementById('app'));
+
+function main(){
+    console.log("ready inferno... APP");
+    render(routes, document.getElementById('app'));
+}
+
+window.main_inferno = function(){
+    main();
+}

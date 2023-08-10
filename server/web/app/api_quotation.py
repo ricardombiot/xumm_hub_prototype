@@ -5,6 +5,7 @@ from flask.json import jsonify
 
 from edgedb_conn import get_conn
 from queries.quotation_insert_async_edgeql import quotation_insert
+from queries.quotation_select_async_edgeql import quotation_select
 from web.app.auth.optional_auth_middleware import guest_or_user_middleware
 from web.app.auth.user_session import session_user_id
 from web.app.auth.auth_middleware import auth_middleware, require_user_middleware
@@ -20,6 +21,22 @@ def apply_auth_middleware():
 @api_quotations_secure.before_request
 def apply_auth_middleware_secure():
     require_user_middleware()
+
+
+@api_quotations_secure.post("/api/quotations")
+async def admin_list_quotation_by_job():
+    user_id = session_user_id()
+    criteria_search = json.loads(request.data)
+    # Only will be able to take the quotations if its owner of job (payer_id == user_id)
+    
+    job_id = criteria_search['job_id']
+    #page = criteria_search['page']
+    conn = get_conn()
+    result = await quotation_select(conn, job_id=job_id, payer_id=user_id)
+    
+
+    
+    return jsonify({"result": result})
 
 @api_quotations_secure.post('/api/quotation/create')
 async def register_quotation():

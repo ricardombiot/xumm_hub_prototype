@@ -32,7 +32,7 @@ class JobPage extends Component {
                 <div>
                     <JobRow data={this.state.job}></JobRow>
                     <QuotationForm job_id={this.state.job.id}></QuotationForm>
-                    <QuotationsListForAdmin job_id={this.state.job.id}></QuotationsListForAdmin>
+                    <QuotationsListForAdmin job_id={this.state.job.id} payer_id={this.state.job.payer.id}></QuotationsListForAdmin>
                 </div>
             )
         }

@@ -31,7 +31,7 @@ async def build_token(info_from_xumm):
     #print(payload)
     
     encoded_jwt = jwt.encode(payload, JWT_SECRET, algorithm="HS256")
-    return encoded_jwt
+    return encoded_jwt, payload
     
 
 def verify_token(token):

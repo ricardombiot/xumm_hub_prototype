@@ -8,6 +8,6 @@
     },
     "include": [
         "./src/**/*.ts",            // Patrón para incluir archivos TypeScript en la compilación
-        "./src/**/*.tsx"            // Patrón para incluir archivos TypeScript con JSX
+        "./src/**/*.tsx"            // Patrón para incluir archivos TypeScript con JSX   
     ]
 }

@@ -43,8 +43,9 @@ async def register_job():
     payer_id = session_user_id()
     job_title = data['title']
     job_description = data['description']
+    job_budget_range = data['budget_range']
     
     conn = get_conn()
-    result = await job_insert(conn, payer_id=payer_id, job_description=job_description, job_title=job_title)
+    result = await job_insert(conn, payer_id=payer_id, job_description=job_description, job_title=job_title, job_budget_range=job_budget_range)
     
     return jsonify({"result": result})

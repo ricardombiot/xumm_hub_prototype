@@ -4,7 +4,10 @@ import { InmmutableModel } from "./inmmutable_model";
 export interface IJob {
     title : string,
     budget_range : string,
-    description : string
+    description : string,
+    payer?: {
+      id : string
+    }
 }
 
   

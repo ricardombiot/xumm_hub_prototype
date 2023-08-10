@@ -5,6 +5,14 @@ export function is_login(){
     return 'jwt_xapp' in window && window['jwt_xapp'] != undefined;
 }  
 
+export function session_is_owner(user_id : string){
+    if (is_login()){
+        return 'jwt_xapp_user_id' in window && window['jwt_xapp_user_id'] == user_id;
+    }else{
+        return false;
+    }
+}
+
 export function if_login_inject_authorization_header(headers : any){
     if(is_login() && 'jwt_xapp' in window){
         let jwt_xapp = window['jwt_xapp'];

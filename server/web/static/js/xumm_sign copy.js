@@ -1,8 +1,7 @@
 var xumm = new Xumm('a0676337-4f6e-4e2f-b685-77848a2832f1')
         
 xumm.on("ready", () => {
-  console.log("ready xumm");
-  window.main_inferno();
+  window._init_inferno();
 })
 
 // We rely on promises in the `success` event: fired again if a user
@@ -15,8 +14,6 @@ xumm.on("success", async () => {
     xumm.environment.bearer.then(async (jwt) => {
       window.jwt_xumm = jwt
       await login_or_register();
-      console.log("ready xumm... login_or_register");
-      window.main_inferno();
     });
   })
 
@@ -39,7 +36,7 @@ async function login_or_register(){
     })
     let json = await resp.json();
   
-    //console.log(json);
+    console.log(json);
     let token = json.result.token;
     window.jwt_xapp = token;
     let user_id = json.result.payload.user_id;
