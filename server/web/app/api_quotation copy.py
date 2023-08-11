@@ -7,15 +7,12 @@ from edgedb_conn import get_conn
 from queries.quotation_insert_async_edgeql import quotation_insert
 from queries.quotation_select_async_edgeql import quotation_select
 from queries.quotation_save_escrow_xumm_payload_uuid_async_edgeql import quotation_save_escrow_xumm_payload_uuid
-from queries.quotation_select_for_escrow_async_edgeql import quotation_select_for_escrow
-from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
-from web.app.api_errors import NotAuthorizationError
-
+from web.app.escrow.read_xrpl_tx import read_transaction
+from web.app.escrow.read_xumm_payload import load_xumm_payload
 from web.app.escrow.create_escrow import escrow_create_payload_by_quotation
 from web.app.auth.optional_auth_middleware import guest_or_user_middleware
 from web.app.auth.user_session import session_user_id
 from web.app.auth.auth_middleware import auth_middleware, require_user_middleware
-from web.app.escrow.checks_create_escrow import check_escrow_create
 
 api_quotations = Blueprint('api_quotations', __name__)
 api_quotations_secure = Blueprint('api_quotations_secure', __name__)
@@ -29,21 +26,6 @@ def apply_auth_middleware_secure():
     require_user_middleware()
 
 
-@api_quotations_secure.errorhandler(NotAuthorizationError)
-def handle_not_authorization_error(error):
-    response = jsonify({"error": str(error)})
-    response.status_code = 400
-    return response
-
-@api_quotations_secure.post("/api/quotation/finish_escrow")
-async def admin_finish_escrow():
-    data = json.loads(request.data)
-    user_id = session_user_id(request)
-    # Should be user_id (Destine)
-    quotation_id = data['quotation_id']
-    result = await escrow_finish_payload_by_quotation(user_id, quotation_id)
-    return jsonify({"result": result})
-
 @api_quotations_secure.post("/api/quotation/create_escrow")
 async def admin_create_escrow():
     data = json.loads(request.data)
@@ -52,6 +34,7 @@ async def admin_create_escrow():
     quotation_id = data['quotation_id']
     job_id = data['job_id']
     delta_days = data['delta_days']
+    
     
     result = await escrow_create_payload_by_quotation(user_id, quotation_id)
     return jsonify({"result": result})
@@ -67,39 +50,40 @@ async def admin_quotation_save_escrow_xumm_payload_uuid():
     conn = get_conn()
     result = await quotation_save_escrow_xumm_payload_uuid(conn, payer_id=user_id, quotation_id=quotation_id, escrow_xumm_payload_uuid=xumm_payload_uuid)
     
-    if result == None :
-        raise NotAuthorizationError("User havent priviligies.")
-    else:
-        return jsonify({"result": result})
-   
-   
-@api_quotations_secure.post("/api/quotation/escrow/checks")  
-async def admin_quotation_checks():
+    if result != None :
+        
+        quotation_save_escrow_xumm_payload_uuid(conn, )
+    
+    
+@api_quotations_secure.post("/api/quotation/create_escrow/save_xumm_payload")  
+async def admin_quotation_save_escrow_xumm_payload_uuid():
     data = json.loads(request.data)
     user_id = session_user_id(request)
     
     quotation_id = data['quotation_id']
+    xumm_payload_uuid = data['xumm_payload_uuid']
     conn = get_conn()
-    result = await quotation_select_for_escrow(conn, quotation_id=quotation_id, payer_id=user_id)
+    result = await quotation_save_escrow_xumm_payload_uuid(conn, payer_id=user_id, quotation_id=quotation_id, escrow_xumm_payload_uuid=xumm_payload_uuid)
     
-    if result == None :
-        raise NotAuthorizationError("User havent priviligies.")
-    else:
-        action = "Checked"
-        escrow_state = str(result.escrow_state)
-        escrow_xumm_payload_uuid = result.escrow_xumm_payload_uuid
-        if escrow_state == "WAITING_XUMM_SIGN":
-            result = await check_escrow_create(user_id, quotation_id, escrow_xumm_payload_uuid)
-            if result == True:
-                action = "SuccessCheck"
-            else:
-                action = "RejectCheck"
-
-        return jsonify({"result": {
-            "_action": action,
-            "state": escrow_state
-        }})
+    if result != None :
+        result = load_xumm_payload(xumm_payload_uuid)
         
+        
+        #print(result)
+        
+        dispatched_result = result["response"]["dispatched_result"]
+        if dispatched_result == "tesSUCCESS":
+            txid = result["response"]["txid"]
+            #result_ledger = None
+            result_ledger = read_transaction(txid)
+            #result = await quotation_save_escrow_txid(conn, payer_id=user_id, quotation_id=quotation_id, escrow_txid=txid)
+
+            return jsonify({
+                    "result_xumm": result,
+                    "result_ledger": result_ledger
+                })
+    
+    return jsonify({"result": "Not authorized"})
 
 @api_quotations_secure.post("/api/quotations")
 async def admin_list_quotation_by_job():

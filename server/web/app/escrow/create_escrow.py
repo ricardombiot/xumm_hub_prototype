@@ -1,11 +1,13 @@
 
 
+import json
 from os import urandom
 from cryptoconditions import PreimageSha256
 import time
 
 from queries.quotation_select_for_escrow_async_edgeql import quotation_select_for_escrow
 from edgedb_conn import get_conn
+from queries.quotation_save_escrow_async_edgeql import quotation_save_escrow
 
  
 async def escrow_create_payload_by_quotation(user_id, quotation_id):
@@ -15,21 +17,38 @@ async def escrow_create_payload_by_quotation(user_id, quotation_id):
 
     if quotation != None :
         
-        print(quotation)
+        if quotation.escrow_payload != None:
+            payload = json.loads(quotation.escrow_payload)
+            
+            return {
+                "_action": "CachedEscrow",
+                "tx": payload
+            }
+        else:
+            
+            escrow_builder = EscrowCreatePayloadJsonBuilder(
+                amount=quotation.total_amount, 
+                payer_address=quotation.job.payer.public_address, 
+                destine_address=quotation.destine.public_address,
+                delta_days=7
+            )
+            
+            payload = escrow_builder.build()
+            fullfilment = escrow_builder.get_fullfilment()
+
+            escrow_payload = json.dumps(payload)
+            escrow_fullfilment = str(fullfilment)
+            conn = get_conn()
+            quotation = await quotation_save_escrow(conn, 
+                                                    payer_id=user_id,
+                                                    quotation_id=quotation_id, 
+                                                    escrow_payload=escrow_payload,
+                                                    escrow_fullfilment=escrow_fullfilment)
         
-        #Object{total_amount := 50.0, destine := Object{public_address := 'rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW'}, job := Object{payer := Object{id := UUID('0cff4858-3768-11ee-941e-1304d7536d93'), public_address := 'r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm'}}}
-        escrow_builder = EscrowCreatePayloadJsonBuilder(
-            amount=quotation.total_amount, 
-            payer_address=quotation.job.payer.public_address, 
-            destine_address=quotation.destine.public_address,
-            delta_days=7
-        )
-        
-        payload = escrow_builder.build()
-        fullfilment = escrow_builder.get_fullfilment()
-        # @TODO save fullfilment on quotation db.
-        
-        return payload
+            return {
+                "_action": "NewEscrow",
+                "tx": payload
+            }
     else:
         return None
 

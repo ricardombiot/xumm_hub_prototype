@@ -24,6 +24,7 @@ app.register_blueprint(api_quotations_secure)
 app.register_blueprint(api_auth)
 app.register_blueprint(api_errors)
 
+
 ### SPA using Inferno   ###
 app.register_blueprint(spa_routes)
 

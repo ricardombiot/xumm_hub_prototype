@@ -38,6 +38,11 @@ xumm.on("success", async () => {
   })
 })
 
+function xumm_run_tx(tx, callback){
+  xumm.payload.create(tx).then(payload => {
+    callback(payload);
+  })
+}
 
 async function login_or_register(){
     let url = "/api/auth/access_by_xumm";

@@ -4,6 +4,7 @@ class NotAuthorizationError(Exception):
     pass
 
 
+
 api_errors = Blueprint('api_errors', __name__)
 
 @api_errors.errorhandler(NotAuthorizationError)

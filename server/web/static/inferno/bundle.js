@@ -460,9 +460,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ QuotationPage)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_escrow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_escrow */ "./src/api/api_escrow.ts");
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 var QuotationPage = /*#__PURE__*/function (_Component) {
   _inheritsLoose(QuotationPage, _Component);
@@ -475,6 +478,8 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
       job_id: params.job_id,
       quotation_id: params.quotation_id
     };
+    _this.handle_submit_create_escrow = _this.handle_submit_create_escrow.bind(_assertThisInitialized(_this));
+    _this.handle_submit_finish_escrow = _this.handle_submit_finish_escrow.bind(_assertThisInitialized(_this));
     return _this;
   }
   var _proto = QuotationPage.prototype;
@@ -484,8 +489,18 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
          this.setState({job: job})
      })*/
   };
+  _proto.handle_submit_create_escrow = function handle_submit_create_escrow() {
+    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_create_escrow)(this.state.job_id, this.state.quotation_id);
+  };
+  _proto.handle_submit_finish_escrow = function handle_submit_finish_escrow() {
+    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_finish_escrow)(this.state.quotation_id);
+  };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job id: "), this.state.job_id, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quote: "), this.state.quotation_id], 0), 2);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job id: "), this.state.job_id, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quote: "), this.state.quotation_id], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Create escrow", 16, {
+      "onclick": this.handle_submit_create_escrow
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Finish escrow", 16, {
+      "onclick": this.handle_submit_finish_escrow
+    })], 4);
   };
   return QuotationPage;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -5560,6 +5575,50 @@ function pathToRegexp (path, keys, options) {
 
 /***/ }),
 
+/***/ "./src/api/api_escrow.ts":
+/*!*******************************!*\
+  !*** ./src/api/api_escrow.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "sumbit_create_escrow": () => (/* binding */ sumbit_create_escrow),
+/* harmony export */   "sumbit_finish_escrow": () => (/* binding */ sumbit_finish_escrow)
+/* harmony export */ });
+/* harmony import */ var _api_quotations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api_quotations */ "./src/api/api_quotations.ts");
+
+function sumbit_create_escrow(job_id, quotation_id, delta_days = 7, callback = (_) => { }) {
+    let promise_tx = (0,_api_quotations__WEBPACK_IMPORTED_MODULE_0__.build_payload_create_escrow)(job_id, quotation_id);
+    promise_tx.then((result) => {
+        console.log(result);
+        xumm_run_tx(result.tx, (payload) => {
+            console.log(payload);
+            callback(payload);
+        });
+    });
+}
+function sumbit_finish_escrow(quotation_id, callback = (_) => { }) {
+    let promise_tx = (0,_api_quotations__WEBPACK_IMPORTED_MODULE_0__.build_payload_finish_escrow)(quotation_id);
+    promise_tx.then((result) => {
+        console.log(result);
+        xumm_run_tx(result, (payload) => {
+            console.log(payload);
+            callback(payload);
+        });
+    });
+}
+async function xumm_run_tx(tx, callback = (_) => { }) {
+    if ("xumm" in window) {
+        let xumm = window["xumm"];
+        xumm.payload.create(tx).then(callback);
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/api/api_jobs.ts":
 /*!*****************************!*\
   !*** ./src/api/api_jobs.ts ***!
@@ -5603,6 +5662,8 @@ async function register_new_job(job) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "build_payload_create_escrow": () => (/* binding */ build_payload_create_escrow),
+/* harmony export */   "build_payload_finish_escrow": () => (/* binding */ build_payload_finish_escrow),
 /* harmony export */   "list_quotation_by_job": () => (/* binding */ list_quotation_by_job),
 /* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation)
 /* harmony export */ });
@@ -5619,6 +5680,24 @@ async function list_quotation_by_job(job_id) {
 async function register_new_quotation(quotation) {
     let url = "/api/quotation/create";
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, quotation);
+    return data.result;
+}
+async function build_payload_create_escrow(job_id, quotation_id) {
+    let url = `/api/quotation/create_escrow`;
+    let req_body = {
+        "quotation_id": quotation_id,
+        "job_id": job_id,
+        "delta_days": "@todo"
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
+    return data.result;
+}
+async function build_payload_finish_escrow(quotation_id) {
+    let url = `/api/quotation/finish_escrow`;
+    let req_body = {
+        "quotation_id": quotation_id
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
     return data.result;
 }
 
@@ -5960,7 +6039,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("283f727e5e8e6591cc4b")
+/******/ 		__webpack_require__.h = () => ("cf3fcc0f5dbaa5fce6ef")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

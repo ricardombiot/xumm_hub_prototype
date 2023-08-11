@@ -1,6 +1,7 @@
 select default::Quotation {
   total_amount,
   destine : {
+    id,
     public_address
   },
   job : {
@@ -11,7 +12,9 @@ select default::Quotation {
   },
   escrow_payload,
   escrow_xumm_payload_uuid,
+  escrow_fullfilment,
+  escrow_sequence,
   escrow_state
-} filter .job.payer.id = <std::uuid> $payer_id and
-  .id = <std::uuid> $quotation_id
+} filter .destine.id = <std::uuid> $destine_id and
+  .id = <std::uuid> $quotation_id 
 

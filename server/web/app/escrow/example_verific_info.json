@@ -1,0 +1,169 @@
+{
+    "result_ledger": {
+      "result": {
+        "Account": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+        "Amount": "50000000",
+        "CancelAfter": 745666059,
+        "Condition": "A0258020CE95BF39FB938FC6775FA6A13B7D956270E786DB13932ECFE8889EAB99A5C055810120",
+        "Destination": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+        "DestinationTag": 1,
+        "Fee": "15",
+        "LastLedgerSequence": 40252088,
+        "Sequence": 39983735,
+        "SigningPubKey": "ED03C2C3F9452B7F53112EBDC193228F3F12606BF7BCB18877EE5A466AF3D4C38A",
+        "SourceTag": 1,
+        "TransactionType": "EscrowCreate",
+        "TxnSignature": "CE30997E4BE71B984C711D5E45BA633B5FF37811B4236FD62D3670AA25C42F3F2CCA14F71030AC29F9C2BB6EA2D28AEEB138A52B30C9CF63DC9679DF8044AB0D",
+        "date": 745063682,
+        "hash": "BBA15E9F8DFD52C009D5451C52032E4B34B3AD4C4E9C44D62678F76457442626",
+        "inLedger": 40252080,
+        "ledger_index": 40252080,
+        "meta": {
+          "AffectedNodes": [
+            {
+              "ModifiedNode": {
+                "FinalFields": {
+                  "Flags": 0,
+                  "Owner": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+                  "RootIndex": "449A2BC0D1DFFD66039FAF7BB98F81F1AC1451AECCFEE980C7452773958E2396"
+                },
+                "LedgerEntryType": "DirectoryNode",
+                "LedgerIndex": "449A2BC0D1DFFD66039FAF7BB98F81F1AC1451AECCFEE980C7452773958E2396"
+              }
+            },
+            {
+              "CreatedNode": {
+                "LedgerEntryType": "Escrow",
+                "LedgerIndex": "79FAED431EFACD2C48EAFF48BFC56BB1939A995FA8F08548F4A85C4F80BA988B",
+                "NewFields": {
+                  "Account": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+                  "Amount": "50000000",
+                  "CancelAfter": 745666059,
+                  "Condition": "A0258020CE95BF39FB938FC6775FA6A13B7D956270E786DB13932ECFE8889EAB99A5C055810120",
+                  "Destination": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+                  "DestinationTag": 1,
+                  "SourceTag": 1
+                }
+              }
+            },
+            {
+              "ModifiedNode": {
+                "FinalFields": {
+                  "Flags": 0,
+                  "Owner": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+                  "RootIndex": "8C475A11C3AEC338B7CD1B61140D93E8C5FE486E17144B150A756965904E3466"
+                },
+                "LedgerEntryType": "DirectoryNode",
+                "LedgerIndex": "8C475A11C3AEC338B7CD1B61140D93E8C5FE486E17144B150A756965904E3466"
+              }
+            },
+            {
+              "ModifiedNode": {
+                "FinalFields": {
+                  "Account": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+                  "Balance": "9839875367",
+                  "Flags": 0,
+                  "MintedNFTokens": 3,
+                  "OwnerCount": 5,
+                  "Sequence": 39983736
+                },
+                "LedgerEntryType": "AccountRoot",
+                "LedgerIndex": "94FE2875575F213B8B0F548DF5E4DB5DA5F6EB40231478B8C32C498FCDB5C15F",
+                "PreviousFields": {
+                  "Balance": "9889875382",
+                  "OwnerCount": 4,
+                  "Sequence": 39983735
+                },
+                "PreviousTxnID": "8495BDFA4501459AC7255FD045012643CDF2560415D4785A61B0525AFC3932A2",
+                "PreviousTxnLgrSeq": 40086142
+              }
+            },
+            {
+              "ModifiedNode": {
+                "LedgerEntryType": "AccountRoot",
+                "LedgerIndex": "A844E33F2832BDB4D0FB5C208C860A6C395EF38613D4696663EF630EC473BA54",
+                "PreviousTxnID": "8495BDFA4501459AC7255FD045012643CDF2560415D4785A61B0525AFC3932A2",
+                "PreviousTxnLgrSeq": 40086142
+              }
+            }
+          ],
+          "TransactionIndex": 2,
+          "TransactionResult": "tesSUCCESS"
+        },
+        "status": "success",
+        "validated": true
+      }
+    },
+    "result_xumm": {
+      "application": {
+        "description": "Application of virtual tickets for events and conferences. (MVP for the XRPL Summer Hackathon 2023)",
+        "disabled": 0,
+        "icon_url": "https://cdn.xumm.pro/cdn-cgi/image/width=500,height=500,quality=75,fit=crop/app-logo/c70943aa-f276-4836-97ea-5fd7ec58fb5f.jpeg",
+        "issued_user_token": "e58dfec9-45ce-4bc9-8c12-95bc893056b9",
+        "name": "Events",
+        "uuidv4": "a0676337-4f6e-4e2f-b685-77848a2832f1"
+      },
+      "custom_meta": {
+        "blob": null,
+        "identifier": null,
+        "instruction": null
+      },
+      "meta": {
+        "app_opened": true,
+        "cancelled": false,
+        "destination": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+        "exists": true,
+        "expired": false,
+        "force_network": null,
+        "is_xapp": false,
+        "multisign": false,
+        "opened_by_deeplink": true,
+        "pathfinding": false,
+        "pathfinding_fallback": false,
+        "pushed": true,
+        "resolved": true,
+        "resolved_destination": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+        "return_url_app": null,
+        "return_url_web": null,
+        "signed": true,
+        "signers": null,
+        "submit": true,
+        "uuid": "bdfde9c4-f569-4e66-9db2-5c1fbac77179"
+      },
+      "payload": {
+        "created_at": "2023-08-11T10:07:16Z",
+        "expires_at": "2023-08-12T10:07:16Z",
+        "expires_in_seconds": 82102,
+        "origintype": "PUSH_NOTIFICATION",
+        "request_json": {
+          "Account": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+          "Amount": "50000000",
+          "CancelAfter": 745666059,
+          "Condition": "A0258020CE95BF39FB938FC6775FA6A13B7D956270E786DB13932ECFE8889EAB99A5C055810120",
+          "Destination": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+          "DestinationTag": 1,
+          "SourceTag": 1,
+          "TransactionType": "EscrowCreate"
+        },
+        "signmethod": "PIN",
+        "tx_destination": "rfqhCQxE9KpqL3F1CuYCzHdsbkRj6mf8wW",
+        "tx_destination_tag": 1,
+        "tx_type": "EscrowCreate"
+      },
+      "response": {
+        "account": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+        "dispatched_nodetype": "TESTNET",
+        "dispatched_result": "tesSUCCESS",
+        "dispatched_to": "wss://testnet.xrpl-labs.com",
+        "dispatched_to_node": true,
+        "environment_nodetype": "TESTNET",
+        "environment_nodeuri": "wss://testnet.xrpl-labs.com",
+        "hex": "12000123000000012402621A772E00000001201B026632B820242C71F60B614000000002FAF08068400000000000000F7321ED03C2C3F9452B7F53112EBDC193228F3F12606BF7BCB18877EE5A466AF3D4C38A7440CE30997E4BE71B984C711D5E45BA633B5FF37811B4236FD62D3670AA25C42F3F2CCA14F71030AC29F9C2BB6EA2D28AEEB138A52B30C9CF63DC9679DF8044AB0D701127A0258020CE95BF39FB938FC6775FA6A13B7D956270E786DB13932ECFE8889EAB99A5C055810120811462A66BB78AD2A9D6C7C976429A47C1B04271870383144AE7C72AC7557108C0F6BF1C00E984A6F25459C7",
+        "multisign_account": "",
+        "resolved_at": "2023-08-11T10:08:00Z",
+        "signer": "r9zc2vUJYL5xykjeiRdzQo2QdUfE2Ub9Nm",
+        "txid": "BBA15E9F8DFD52C009D5451C52032E4B34B3AD4C4E9C44D62678F76457442626",
+        "user": "b5dcaef4-7e0e-46dc-a951-2d698e6da5b4"
+      }
+    }
+  }
