@@ -5,6 +5,9 @@ export default class QuotationPage extends Component {
     constructor(props) {
         super(props);
         let params = props.match.params;
+        
+        // @TODO LOAD QUOTATION
+        // STATE = WAITING... CHECK EVERY 2 SECONDS CHECKS...
 
         this.state = {
             quotation: "NOT_LOADED",
@@ -37,7 +40,12 @@ export default class QuotationPage extends Component {
                 <h1>Job id: {this.state.job_id} Quote: {this.state.quotation_id}</h1>
                 <button class="button" onclick={this.handle_submit_create_escrow}>Create escrow</button>
                 <button class="button" onclick={this.handle_submit_finish_escrow}>Finish escrow</button>
-            </div>)
+                </div>)
+
+
+       /* return (<div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+                </div>);*/
     }
 }
 

@@ -1,6 +1,13 @@
 import { IJobQuotation } from "../models/quotation";
 import { fetch_auth_get, fetch_auth_post } from "./api_with_auth";
 
+export async function get_quotation(quotation_id : string){
+  let url = "/api/quotation/" + quotation_id;
+  
+  let data = await fetch_auth_get(url);
+  return data.result;
+}
+
 export async function list_quotation_by_job(job_id : string){
   let url = "/api/quotations";
 
@@ -42,3 +49,17 @@ export async function build_payload_finish_escrow(quotation_id : string) : Promi
   let data = await fetch_auth_post(url, req_body);
   return data.result;
 }
+
+export async function send_xumm_uuid(quotation_id : string, xumm_payload_uuid : string) : Promise<any> {
+  let url = `/api/quotation/create_escrow/save_xumm_payload`;
+  
+  let req_body = {
+    "quotation_id": quotation_id,
+    "xumm_payload_uuid": xumm_payload_uuid
+  }
+  
+  let data = await fetch_auth_post(url, req_body);
+  return data.result;
+}
+
+

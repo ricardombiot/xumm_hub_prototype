@@ -501,6 +501,9 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Finish escrow", 16, {
       "onclick": this.handle_submit_finish_escrow
     })], 4);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border text-primary", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "sr-only", "Loading...", 16), 2, {
+      "role": "status"
+    });
   };
   return QuotationPage;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -5595,7 +5598,7 @@ function sumbit_create_escrow(job_id, quotation_id, delta_days = 7, callback = (
         console.log(result);
         xumm_run_tx(result.tx, (payload) => {
             console.log(payload);
-            callback(payload);
+            (0,_api_quotations__WEBPACK_IMPORTED_MODULE_0__.send_xumm_uuid)(quotation_id, payload.uuid).then(callback);
         });
     });
 }
@@ -5664,11 +5667,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "build_payload_create_escrow": () => (/* binding */ build_payload_create_escrow),
 /* harmony export */   "build_payload_finish_escrow": () => (/* binding */ build_payload_finish_escrow),
+/* harmony export */   "get_quotation": () => (/* binding */ get_quotation),
 /* harmony export */   "list_quotation_by_job": () => (/* binding */ list_quotation_by_job),
-/* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation)
+/* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation),
+/* harmony export */   "send_xumm_uuid": () => (/* binding */ send_xumm_uuid)
 /* harmony export */ });
 /* harmony import */ var _api_with_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api_with_auth */ "./src/api/api_with_auth.ts");
 
+async function get_quotation(quotation_id) {
+    let url = "/api/quotation/" + quotation_id;
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_get)(url);
+    return data.result;
+}
 async function list_quotation_by_job(job_id) {
     let url = "/api/quotations";
     let search_criteria = {
@@ -5696,6 +5706,15 @@ async function build_payload_finish_escrow(quotation_id) {
     let url = `/api/quotation/finish_escrow`;
     let req_body = {
         "quotation_id": quotation_id
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
+    return data.result;
+}
+async function send_xumm_uuid(quotation_id, xumm_payload_uuid) {
+    let url = `/api/quotation/create_escrow/save_xumm_payload`;
+    let req_body = {
+        "quotation_id": quotation_id,
+        "xumm_payload_uuid": xumm_payload_uuid
     };
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
     return data.result;
@@ -6039,7 +6058,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("cf3fcc0f5dbaa5fce6ef")
+/******/ 		__webpack_require__.h = () => ("068a64e06314c3071f72")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

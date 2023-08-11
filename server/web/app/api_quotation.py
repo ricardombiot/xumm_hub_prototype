@@ -35,6 +35,13 @@ def handle_not_authorization_error(error):
     response.status_code = 400
     return response
 
+@api_quotations_secure.get("/api/quotation/<quotation_id>")
+async def admin_get_quotation(quotation_id):
+    # @TODO da toda la información para la pagina de quote,
+    
+    return jsonify({"result": None})
+
+
 @api_quotations_secure.post("/api/quotation/finish_escrow")
 async def admin_finish_escrow():
     data = json.loads(request.data)

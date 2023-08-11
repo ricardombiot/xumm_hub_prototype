@@ -10,7 +10,7 @@ from web.app.api_jobs import api_jobs, api_jobs_secure
 from web.app.api_quotation import api_quotations, api_quotations_secure
 from web.app.api_auth import api_auth
 from web.app.api_errors import api_errors
-
+from web.app.api_webhook import api_webhook
 
 @app.route("/ping")
 def ping():
@@ -21,6 +21,7 @@ app.register_blueprint(api_jobs)
 app.register_blueprint(api_jobs_secure)
 app.register_blueprint(api_quotations)
 app.register_blueprint(api_quotations_secure)
+app.register_blueprint(api_webhook)
 app.register_blueprint(api_auth)
 app.register_blueprint(api_errors)
 
