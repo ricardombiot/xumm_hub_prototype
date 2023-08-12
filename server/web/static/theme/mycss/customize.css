@@ -48,10 +48,50 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
     background-color: #f8c282;
 }
 
-.custom_gradient_border {
+
+.mysubnav {
+    margin-top: 65px;
+}
+
+.myform .custom_bg .startup {
+    background-color: #f8c282;
+}
+
+.freelance .myform .custom_bg {
+    background-color: #e7e9fd;
+}
+
+.startup .custom_subheader {
+    background-color: #004dda !important;
+}
+
+.freelance .custom_subheader {
+    background-color: #da0011db !important;
+    height: 50px;
+    padding: 7px;
+    text-align: center;
+}
+
+
+.startup .custom_gradient_border  {
     border: 3px solid #014dda !important;
     border-image: linear-gradient(to bottom, #014dda, transparent) !important;
     border-image-slice: 1 !important;
 
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3) !important;
 }
+
+.freelance .custom_gradient_border  {
+    border: 2px solid #da0101 !important;
+    border-image: linear-gradient(to bottom, #da0101, transparent) !important;
+    border-image-slice: 1 !important;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.freelance h1 {
+    color:black;
+}
+
+
+
+

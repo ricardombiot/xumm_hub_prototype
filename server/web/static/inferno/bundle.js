@@ -85,113 +85,6 @@ function VersionComponent() {
 
 /***/ }),
 
-/***/ "./src/components/job/JobForm.js":
-/*!***************************************!*\
-  !*** ./src/components/job/JobForm.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ JobForm)
-/* harmony export */ });
-/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
-/* harmony import */ var _models_job__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../models/job */ "./src/models/job.ts");
-/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api_jobs */ "./src/api/api_jobs.ts");
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-var JobForm = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(JobForm, _Component);
-  function JobForm(props) {
-    var _this;
-    _this = _Component.call(this, props) || this;
-    _this.state = {
-      was_send: false,
-      job: _models_job__WEBPACK_IMPORTED_MODULE_1__.Job["default"]()
-    };
-    _this.handleChangeTitle = _this.handleChangeTitle.bind(_assertThisInitialized(_this));
-    _this.handleChangeBudget = _this.handleChangeBudget.bind(_assertThisInitialized(_this));
-    _this.handleChangeDescription = _this.handleChangeDescription.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-  var _proto = JobForm.prototype;
-  _proto.handleChangeTitle = function handleChangeTitle(event) {
-    var new_job = this.state.job.clone();
-    new_job.setTitle(event.target.value);
-    this.setState({
-      job: new_job
-    });
-  };
-  _proto.handleChangeBudget = function handleChangeBudget(event) {
-    var new_job = this.state.job.clone();
-    //@TODO Not run, should take select range.
-    new_job.setBudgetRange(event.target.value);
-    this.setState({
-      job: new_job
-    });
-  };
-  _proto.handleChangeDescription = function handleChangeDescription(event) {
-    var new_job = this.state.job.clone();
-    new_job.setDescription(event.target.value);
-    this.setState({
-      job: new_job
-    });
-  };
-  _proto.handleSubmit = function handleSubmit(event) {
-    this.setState({
-      was_send: true
-    });
-    (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_2__.register_new_job)(this.state.job.raw()).then(function (result) {
-      var new_job_id = result.id;
-      window.location.href = "/job/" + new_job_id;
-    });
-    event.preventDefault();
-  };
-  _proto.render = function render() {
-    if (this.state.was_send) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border text-primary", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "sr-only", "Loading...", 16), 2, {
-        "role": "status"
-      });
-    } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "m-5", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "New Job", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Title", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
-        "type": "text",
-        "id": "job_title",
-        "placeholder": "",
-        "value": this.state.job.title,
-        "onInput": this.handleChangeTitle
-      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Budget", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "form-control", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "less 1000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "1000 - 3000 XRP", 16, {
-        "selected": "true"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "3000 - 6000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "+ 10000 XRP", 16)], 4, {
-        "id": "job_bugdet_range",
-        "onInput": this.handleChangeBudget
-      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16, {
-        "for": "exampleFormControlSelect2"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "# Selector categories...", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
-        "id": "job_description",
-        "rows": "5",
-        "value": this.state.job.description,
-        "onInput": this.handleChangeDescription
-      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
-        "type": "submit",
-        "value": "Submit"
-      })], 4), 2, {
-        "onSubmit": this.handleSubmit
-      });
-    }
-  };
-  return JobForm;
-}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-
-/***/ }),
-
 /***/ "./src/components/job/JobFormPage.js":
 /*!*******************************************!*\
   !*** ./src/components/job/JobFormPage.js ***!
@@ -285,13 +178,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_jobs */ "./src/api/api_jobs.ts");
 /* harmony import */ var _JobRow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./JobRow */ "./src/components/job/JobRow.js");
-/* harmony import */ var _quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../quotation/QuotationForm */ "./src/components/quotation/QuotationForm.js");
-/* harmony import */ var _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../quotation/QuotationsListForAdmin */ "./src/components/quotation/QuotationsListForAdmin.js");
+/* harmony import */ var _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../quotation/QuotationsListForAdmin */ "./src/components/quotation/QuotationsListForAdmin.js");
+/* harmony import */ var _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../quotation/QuotationAsideContactForm */ "./src/components/quotation/QuotationAsideContactForm.js");
+/* harmony import */ var _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../quotation/QuotationJobForm */ "./src/components/quotation/QuotationJobForm.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+
+//import QuotationForm  from "./../quotation/QuotationForm";
 
 
 
@@ -323,15 +219,13 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "role": "status"
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "nav", "secondary_nav sticky_horizontal_2", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "clearfix", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "active", "Description", 16, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "nav", "secondary_nav sticky_horizontal_2 mysubnav", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "clearfix", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "active", "Description", 16, {
         "href": "#description"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Reviews", 16, {
         "href": "#reviews"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Booking", 16, {
         "href": "#sidebar"
-      }), 2)], 4), 2), 2, {
-        "style": "position: sticky;"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "btn-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Left", 16, {
+      }), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "btn-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Left", 16, {
         "type": "button"
       }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Middle", 16, {
         "type": "button"
@@ -344,56 +238,18 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "href": "https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
       })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.job.description, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row add_bottom_30", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Valentino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Gucci", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Louis Vuitton", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Burberry", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Moschino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Diesel", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Prada", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Ralph Lauren", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Moschino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Diesel", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Prada", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Ralph Lauren", 16)], 4), 2)], 4)], 4, {
         "id": "description"
-      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "aside", "col-lg-4", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_detail booking", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "price", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "d-inline", "Contact us", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "score", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Good"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "350 Reviews", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "7.0", 16)], 4)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, null, 1, {
-        "id": "message-contact-detail"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
-        "type": "text",
-        "placeholder": "Name",
-        "name": "name_detail",
-        "id": "name_detail"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "ti-user")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
-        "type": "email",
-        "placeholder": "Email",
-        "name": "email_detail",
-        "id": "email_detail"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_mail_alt")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
-        "placeholder": "Your message",
-        "name": "message_detail",
-        "id": "message_detail"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "ti-pencil")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
-        "placeholder": "Are you human? 3 + 1 =",
-        "type": "text",
-        "id": "verify_contact_detail",
-        "name": "verify_contact_detail"
-      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "add_top_30 btn_1 full-width purchase", null, 1, {
-        "type": "submit",
-        "value": "Contact us",
-        "id": "submit-contact-detail"
-      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_1 full-width outline wishlist", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_heart"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Add to wishlist")], 4, {
-        "href": "wishlist.html"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "No money charged in this step", 16), 2)], 4, {
-        "method": "post",
-        "action": "assets/contact_detail.php",
-        "id": "contact_detail",
-        "autocomplete": "off"
-      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "share-buttons", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "fb-share", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "social_facebook"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Share")], 4, {
-        "href": "#0"
-      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "twitter-share", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "social_twitter"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Share")], 4, {
-        "href": "#0"
-      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "gplus-share", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "social_googleplus"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Share")], 4, {
-        "href": "#0"
-      }), 2)], 4)], 4, {
-        "id": "sidebar"
-      })], 4), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        "data": this.state.job
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         "job_id": this.state.job.id
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        "job_id": this.state.job.id,
-        "payer_id": this.state.job.payer.id
-      })], 4)], 4);
+      })], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        "job_id": this.state.job.id
+      })], 4);
     }
-  };
+  }
+
+  /** <JobRow data={this.state.job}></JobRow>
+         <QuotationForm job_id={this.state.job.id}></QuotationForm>
+         <QuotationsListForAdmin job_id={this.state.job.id} payer_id={this.state.job.payer.id}></QuotationsListForAdmin> 
+  */;
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this._render_job(), 0);
   };
@@ -513,16 +369,82 @@ var JobsList = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "./src/components/quotation/QuotationForm.js":
-/*!***************************************************!*\
-  !*** ./src/components/quotation/QuotationForm.js ***!
-  \***************************************************/
+/***/ "./src/components/quotation/QuotationAsideContactForm.js":
+/*!***************************************************************!*\
+  !*** ./src/components/quotation/QuotationAsideContactForm.js ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ QuotationForm)
+/* harmony export */   "default": () => (/* binding */ QuotationAsideContactForm)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/FormComponent */ "./src/components/utils/FormComponent.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var QuotationAsideContactForm = /*#__PURE__*/function (_FormComponent) {
+  _inheritsLoose(QuotationAsideContactForm, _FormComponent);
+  function QuotationAsideContactForm(props) {
+    var _this;
+    _this = _FormComponent.call(this, props) || this;
+    var job_id = _this.props.job_id;
+    console.log("QuotationForm JobId: " + job_id);
+    _this.state = {
+      title: "Title2"
+    };
+    return _this;
+  }
+  var _proto = QuotationAsideContactForm.prototype;
+  _proto.onSubmit = function onSubmit(formData) {
+    console.log(formData);
+    var job = {
+      title: formData.title,
+      description: formData.description,
+      budget_range: formData.budget_range
+    };
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "aside", "col-lg-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_detail booking", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "price", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "d-inline", "Chat", 16), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-dark", "Quote now", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, null, 1, {
+      "id": "message-contact-detail"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "... here last messages...", 16, {
+      "id": "messages"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+      "placeholder": "Your message",
+      "name": "message_detail",
+      "id": "message_detail"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "ti-pencil")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "add_top_30 btn_1 full-width purchase", null, 1, {
+      "type": "submit",
+      "value": "Contact us",
+      "id": "submit-contact-detail"
+    }), 2)], 4, {
+      "method": "post",
+      "action": "assets/contact_detail.php",
+      "id": "contact_detail",
+      "autocomplete": "off"
+    })], 4), 2, {
+      "id": "sidebar"
+    });
+  };
+  return QuotationAsideContactForm;
+}(_utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+/***/ }),
+
+/***/ "./src/components/quotation/QuotationJobForm.js":
+/*!******************************************************!*\
+  !*** ./src/components/quotation/QuotationJobForm.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationJobForm)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _models_quotation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../models/quotation */ "./src/models/quotation.ts");
@@ -536,9 +458,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 
 
 
-var QuotationForm = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(QuotationForm, _Component);
-  function QuotationForm(props) {
+var QuotationJobForm = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationJobForm, _Component);
+  function QuotationJobForm(props) {
     var _this;
     _this = _Component.call(this, props) || this;
     var job_id = _this.props.job_id;
@@ -551,7 +473,7 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
-  var _proto = QuotationForm.prototype;
+  var _proto = QuotationJobForm.prototype;
   _proto.handleChangeDescription = function handleChangeDescription(event) {
     var new_quotation = this.state.quotation.clone();
     new_quotation.setDescription(event.target.value);
@@ -572,21 +494,21 @@ var QuotationForm = /*#__PURE__*/function (_Component) {
     event.preventDefault();
   };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "m-5", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Quotation", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
-      "id": "quotation_description",
-      "rows": "5",
-      "value": this.state.quotation.description,
-      "onInput": this.handleChangeDescription
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg freelance", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader freelance", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quote now!", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border freelance", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
       "afterUpdate": this.handleUpdateTotalAmount
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+      "name": "description",
+      "value": this.state.quotation.description,
+      "onInput": this.handleChangeDescription,
+      "rows": "25",
+      "style": "min-height: 200px !important;"
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Publish now!", 16, {
       "type": "submit",
-      "value": "Submit"
-    })], 4), 2, {
-      "onSubmit": this.handleSubmit
-    }), 2);
+      "onsubmit": this.handleSubmit,
+      "onclick": this.handleSubmit
+    }), 2)], 4)], 4), 2), 2)], 4);
   };
-  return QuotationForm;
+  return QuotationJobForm;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
@@ -1271,14 +1193,13 @@ function is_login() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
 /* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
 /* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
-/* harmony import */ var _components_job_JobForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobForm */ "./src/components/job/JobForm.js");
-/* harmony import */ var _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobFormPage */ "./src/components/job/JobFormPage.js");
-/* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
-/* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
-/* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
+/* harmony import */ var _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobFormPage */ "./src/components/job/JobFormPage.js");
+/* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
+/* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
+/* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
 
 // inferno module
 
@@ -1288,14 +1209,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+//import JobForm from './components/job/JobForm';
 
 
 
 
 //import { xumm_main } from './xumm_app';
 
-var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_9__.createBrowserHistory)();
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_8__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
@@ -1323,13 +1244,13 @@ function JobRouter(_ref5) {
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/new',
-      "component": _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_5__["default"]
+      "component": _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id/quote/:quotation_id',
-      "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_7__["default"]
+      "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id',
-      "component": _components_job_JobPage__WEBPACK_IMPORTED_MODULE_6__["default"]
+      "component": _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__["default"]
     })]
   }), 2, {
     "id": "job_router"
@@ -1341,7 +1262,7 @@ function User(_ref6) {
 }
 var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.BrowserRouter, {
   "history": browserHistory,
-  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_8__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
+  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "exact": true,
       "path": "/",
@@ -6382,48 +6303,6 @@ class InmmutableModel {
 
 /***/ }),
 
-/***/ "./src/models/job.ts":
-/*!***************************!*\
-  !*** ./src/models/job.ts ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Job": () => (/* binding */ Job)
-/* harmony export */ });
-/* harmony import */ var _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inmmutable_model */ "./src/models/inmmutable_model.ts");
-
-class Job extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.InmmutableModel {
-    constructor(job) {
-        super(job);
-    }
-    static default() {
-        let data = {
-            title: "",
-            description: "",
-            budget_range: ""
-        };
-        return new Job(data);
-    }
-    clone() {
-        return new Job(this.clone_data());
-    }
-    setTitle(title) {
-        this.data.title = title;
-    }
-    setBudgetRange(budget_range) {
-        this.data.budget_range = budget_range;
-    }
-    setDescription(description) {
-        this.data.description = description;
-    }
-}
-
-
-/***/ }),
-
 /***/ "./src/models/quotation.ts":
 /*!*********************************!*\
   !*** ./src/models/quotation.ts ***!
@@ -6635,7 +6514,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("398b28dd737d40600214")
+/******/ 		__webpack_require__.h = () => ("f5a6d53150c5a465c5a6")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

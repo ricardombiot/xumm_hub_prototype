@@ -6,7 +6,7 @@ import {BrowserRouter, Switch, Link, Route} from 'inferno-router';
 import {createBrowserHistory} from 'history';
 import MyApp from './MyApp';
 import MyHome from './MyHome';
-import JobForm from './components/job/JobForm';
+//import JobForm from './components/job/JobForm';
 import JobFormPage from './components/job/JobFormPage';
 import JobPage from './components/job/JobPage';
 import QuotationPage  from './components/quotation/QuotationPage';
