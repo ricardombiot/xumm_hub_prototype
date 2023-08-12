@@ -205,9 +205,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/FormComponent */ "./src/components/utils/FormComponent.js");
+/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api_jobs */ "./src/api/api_jobs.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 var JobFormPage = /*#__PURE__*/function (_FormComponent) {
@@ -223,6 +225,15 @@ var JobFormPage = /*#__PURE__*/function (_FormComponent) {
   var _proto = JobFormPage.prototype;
   _proto.onSubmit = function onSubmit(formData) {
     console.log(formData);
+    var job = {
+      title: formData.title,
+      description: formData.description,
+      budget_range: formData.budget_range
+    };
+    (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_2__.register_new_job)(job).then(function (result) {
+      var new_job_id = result.id;
+      window.location.href = "/job/" + new_job_id;
+    });
   };
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bisque_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Listing new job", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", "new_client", "Information", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
@@ -6563,7 +6574,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("9d8c3a400eade0f0eb71")
+/******/ 		__webpack_require__.h = () => ("d1f9a248bd7c03bc0504")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

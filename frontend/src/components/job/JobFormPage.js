@@ -1,5 +1,6 @@
 import { Component } from "inferno";
 import FormComponent from "../utils/FormComponent";
+import { register_new_job } from "../../api/api_jobs";
 
 export default class JobFormPage extends FormComponent {
 
@@ -14,6 +15,17 @@ export default class JobFormPage extends FormComponent {
 
     onSubmit(formData){
         console.log(formData);
+
+        let job = {
+          title: formData.title,
+          description: formData.description,
+          budget_range: formData.budget_range
+        }
+
+        register_new_job(job).then((result) => {
+            let new_job_id = result.id
+            window.location.href = "/job/" + new_job_id;
+        })
     }
 
     render(){
