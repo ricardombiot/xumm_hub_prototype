@@ -1,0 +1,32 @@
+
+
+#startup_container {
+    background-color: cornsilk;
+}
+
+#startup_container .startup_bg {
+    background-image: url(/static/theme/myimg/business_startup.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 827px;
+    background-position-y: 41px;
+    background-position-x: -217px;
+}
+
+#startup_container .startup_button {
+    width: 317px;
+    height: 47px;
+}
+
+#myheader {
+    background-color: #ffffffe3;
+    color: black !important;
+    height: 60px !important;
+    padding: 10px 30px !important;
+}
+
+#myheader a {
+    color: black !important;
+}
+
+

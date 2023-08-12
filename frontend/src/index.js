@@ -9,6 +9,7 @@ import MyHome from './MyHome';
 import JobForm from './components/job/JobForm';
 import JobPage from './components/job/JobPage';
 import QuotationPage  from './components/quotation/QuotationPage';
+import HeaderMenu from './components/ui/header_menu';
 //import { xumm_main } from './xumm_app';
 
 const browserHistory = createBrowserHistory();
@@ -58,8 +59,8 @@ function User({match}) {
 
 const routes = (
     <BrowserRouter history={browserHistory}>
-        <div>
-            <h1>Application</h1>
+        <div id="page">
+            <HeaderMenu></HeaderMenu>
             <Switch>
                 <Route exact path="/" component={MyHome}/>
                 <Route path="/job" component={JobRouter}/>
@@ -75,7 +76,7 @@ const routes = (
 
 function main(){
     console.log("ready inferno... APP");
-    render(routes, document.getElementById('app'));
+    render(routes, document.body);
 }
 
 window.main_inferno = function(){
