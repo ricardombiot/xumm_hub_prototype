@@ -323,18 +323,79 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "role": "status"
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "nav", "secondary_nav sticky_horizontal_2", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "clearfix", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "active", "Description", 16, {
+        "href": "#description"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Reviews", 16, {
+        "href": "#reviews"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Booking", 16, {
+        "href": "#sidebar"
+      }), 2)], 4), 2), 2, {
+        "style": "position: sticky;"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "btn-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Left", 16, {
+        "type": "button"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Middle", 16, {
+        "type": "button"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Right", 16, {
+        "type": "button"
+      })], 4, {
+        "role": "group",
+        "aria-label": "Basic outlined example"
+      })], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_60_35", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "section", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "detail_title_1", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "address", "438 Rush Green Road, Romford", 16, {
+        "href": "https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
+      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.job.description, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row add_bottom_30", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Valentino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Gucci", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Louis Vuitton", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Burberry", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Moschino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Diesel", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Prada", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Ralph Lauren", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Moschino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Diesel", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Prada", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Ralph Lauren", 16)], 4), 2)], 4)], 4, {
+        "id": "description"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "aside", "col-lg-4", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_detail booking", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "price", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "d-inline", "Contact us", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "score", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Good"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "350 Reviews", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "7.0", 16)], 4)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, null, 1, {
+        "id": "message-contact-detail"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+        "type": "text",
+        "placeholder": "Name",
+        "name": "name_detail",
+        "id": "name_detail"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "ti-user")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+        "type": "email",
+        "placeholder": "Email",
+        "name": "email_detail",
+        "id": "email_detail"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_mail_alt")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+        "placeholder": "Your message",
+        "name": "message_detail",
+        "id": "message_detail"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "ti-pencil")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+        "placeholder": "Are you human? 3 + 1 =",
+        "type": "text",
+        "id": "verify_contact_detail",
+        "name": "verify_contact_detail"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "add_top_30 btn_1 full-width purchase", null, 1, {
+        "type": "submit",
+        "value": "Contact us",
+        "id": "submit-contact-detail"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_1 full-width outline wishlist", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_heart"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Add to wishlist")], 4, {
+        "href": "wishlist.html"
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "No money charged in this step", 16), 2)], 4, {
+        "method": "post",
+        "action": "assets/contact_detail.php",
+        "id": "contact_detail",
+        "autocomplete": "off"
+      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "share-buttons", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "fb-share", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "social_facebook"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Share")], 4, {
+        "href": "#0"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "twitter-share", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "social_twitter"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Share")], 4, {
+        "href": "#0"
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "gplus-share", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "social_googleplus"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Share")], 4, {
+        "href": "#0"
+      }), 2)], 4)], 4, {
+        "id": "sidebar"
+      })], 4), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _JobRow__WEBPACK_IMPORTED_MODULE_2__["default"], {
         "data": this.state.job
       }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         "job_id": this.state.job.id
       }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_4__["default"], {
         "job_id": this.state.job.id,
         "payer_id": this.state.job.payer.id
-      })], 4);
+      })], 4)], 4);
     }
   };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job Page: "), this.state.job_id], 0), this._render_job()], 0);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this._render_job(), 0);
   };
   return JobPage;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -6574,7 +6635,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("d1f9a248bd7c03bc0504")
+/******/ 		__webpack_require__.h = () => ("398b28dd737d40600214")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
