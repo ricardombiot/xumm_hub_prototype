@@ -7,11 +7,11 @@ export default class XRPInput extends Component {
     constructor(props) {
         super(props);
 
-        let {label , afterUpdate } = props;
+        let {label , afterUpdate , initial } = props;
 
         this.state = {
             label: label,
-            amount: XRPValue.default("1.0"),
+            amount: XRPValue.default(`${initial}`),
             afterUpdate: afterUpdate
         }
 

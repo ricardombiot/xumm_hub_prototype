@@ -8,6 +8,13 @@ export async function get_quotation(quotation_id : string){
   return data.result;
 }
 
+export async function get_quotation_by_job(job_id : string){
+  let url = "/api/quotation/get_by_job/" + job_id;
+  
+  let data = await fetch_auth_get(url);
+  return data.result;
+}
+
 export async function list_quotation_by_job(job_id : string){
   let url = "/api/quotations";
 

@@ -32,7 +32,6 @@ export default class QuotationAsideContactForm extends FormComponent {
             <div class="price">
                 <h5 class="d-inline">Chat</h5>   
             </div>
-            <a class="btn btn-dark">Quote now</a>
             <div id="message-contact-detail"></div>
             <div id="messages">
                 ... here last messages...

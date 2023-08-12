@@ -8,6 +8,8 @@ from queries.quotation_insert_async_edgeql import quotation_insert
 from queries.quotation_select_async_edgeql import quotation_select
 from queries.quotation_save_escrow_xumm_payload_uuid_async_edgeql import quotation_save_escrow_xumm_payload_uuid
 from queries.quotation_select_for_escrow_async_edgeql import quotation_select_for_escrow
+from queries.quotation_select_destine_for_job_async_edgeql import quotation_select_destine_for_job
+from queries.quotation_update_async_edgeql import quotation_update
 from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
 from web.app.api_errors import NotAuthorizationError
 
@@ -123,21 +125,46 @@ async def admin_list_quotation_by_job():
     
     return jsonify({"result": result})
 
+@api_quotations_secure.get('/api/quotation/get_by_job/<job_id>')
+async def get_by_job(job_id):
+    quotation = await get_my_quotation_for_job(request, job_id)
+    
+    return jsonify({"result": quotation})
+   
+async def get_my_quotation_for_job(request, job_id):
+    
+    destine_id = session_user_id(request)
+    conn = get_conn()
+    quotation = await quotation_select_destine_for_job(conn, job_id=job_id, destine_id=destine_id)
+    
+    return quotation 
+
 @api_quotations_secure.post('/api/quotation/create')
 async def register_quotation():
     data = json.loads(request.data)
     
-    # @TODO destine_id from AUTH.
     destine_id = session_user_id(request)
     quotation_description = data['description']
     quotation_total_amount = data['total_amount']
     job_id = data['job_id']
     
-    conn = get_conn()
-    result = await quotation_insert(conn, 
-                    destine_id=destine_id, 
-                    quotation_description=quotation_description,
-                    quotation_total_amount=quotation_total_amount,
-                    job_id=job_id)
-    
-    return jsonify({"result": result})
+    quotation = await get_my_quotation_for_job(request, job_id)
+    if quotation != None :
+        
+        conn = get_conn()
+        result = await quotation_update(conn, 
+                        quotation_id=quotation.id, 
+                        quotation_description=quotation_description,
+                        quotation_total_amount=quotation_total_amount)
+        
+        return jsonify({"result": result})
+        
+    else:
+        conn = get_conn()
+        result = await quotation_insert(conn, 
+                        destine_id=destine_id, 
+                        quotation_description=quotation_description,
+                        quotation_total_amount=quotation_total_amount,
+                        job_id=job_id)
+        
+        return jsonify({"result": result})

@@ -44,11 +44,18 @@ export class XRPValue extends InmmutableModel<IXRPValue>  {
             value_txt += "0";
         }
 
+
+
         const regex = /^(?:\d{1,8}(?:\.\d{1,6})?|\.\d{1,6})$/;
         let new_canditate_value = parseFloat(value_txt);
 
         if(!Number.isNaN(new_canditate_value) && regex.test(value_txt)) {
             if(new_canditate_value >= 0){
+                let havent_dot = value_txt.indexOf(".") == -1;
+                if(havent_dot){
+                    value_txt += ".0";
+                }
+
                 this.data.value = new_canditate_value;
                 this.data.value_txt = value_txt;
 

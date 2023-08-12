@@ -1,7 +1,7 @@
 
 import { Component } from 'inferno';
 import { Quotation } from './../../models/quotation';
-import { register_new_quotation } from "./../../api/api_quotations"; 
+import { register_new_quotation, get_quotation_by_job } from "./../../api/api_quotations"; 
 import XRPInput from './../utils/XRPInput';
 
 export default class QuotationJobForm extends Component {
@@ -9,16 +9,51 @@ export default class QuotationJobForm extends Component {
     constructor(props) {
         super(props);
         const { job_id } = this.props;
-        console.log("QuotationForm JobId: " + job_id);
+        console.log("QuotationJobForm JobId: " + job_id);
 
         this.state = {
-            quotation: Quotation.default(job_id)
+            job_id: job_id,
+            quotation_id: null,
+            quotation: Quotation.default(job_id),
+            is_loading: true
         }
 
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleUpdateTotalAmount = this.handleUpdateTotalAmount.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    have_quotation(){
+        return this.state.quotation_id != null
+    }
+
+    componentDidMount(){
+        get_quotation_by_job(this.state.job_id).then((quotation) => {
+            console.log(quotation);
+            const have_quote = quotation != null;
+
+            if(have_quote){
+                let new_quotation = this.state.quotation.clone();
+
+                new_quotation.setDescription(quotation.description);
+                new_quotation.setTotalAmount(quotation.total_amount);
+                this.setState({
+                    quotation_id: quotation.id,
+                    quotation: new_quotation , 
+                    is_loading: false
+                });
+            }else{
+                this.setState({
+                    quotation_id: null,
+                    is_loading: false
+                })
+            }
+
+            console.log(this.state);
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     handleChangeDescription(event){
@@ -44,15 +79,36 @@ export default class QuotationJobForm extends Component {
         event.preventDefault();
     }
 
-    render(){
+
+
+    _render_title_form(){
+        if(this.have_quotation()){
+            return (
+                <div>
+                <div class="sub_header_in sticky_header custom_subheader freelance">
+                    <div class="container">
+                        <h3>Improve your quote!</h3>
+                    </div>
+                   
+                </div>
+                <p>...options..</p>
+                </div>)
+        }else{
+            return (
+                <div class="sub_header_in sticky_header custom_subheader freelance">
+                    <div class="container">
+                        <h3>Quote now!</h3>
+                    </div>
+                </div>)
+        }
+
+    }
+
+    _render_form(){
 
 return (
     <div class="myform custom_bg freelance">
-        <div class="sub_header_in sticky_header custom_subheader freelance">
-            <div class="container">
-                <h3>Quote now!</h3>
-            </div>
-        </div>
+        {this._render_title_form()}
 
     <div class="row justify-content-center">
     <div class="col-xl-7 col-lg-8 col-md-10 mt-5">
@@ -61,13 +117,13 @@ return (
     <div class="form_container custom_gradient_border freelance">
         <div class="form-group">
             <label>Total amount</label>
-            <XRPInput afterUpdate={this.handleUpdateTotalAmount}></XRPInput>
+            <XRPInput afterUpdate={this.handleUpdateTotalAmount} initial={this.state.quotation.data.total_amount}></XRPInput>
         </div>
         <div class="form-group mb-3">
             <label class="form-label">Description</label>
             <textarea   class="form-control" 
                         name="description"
-                        value={this.state.quotation.description} 
+                        value={this.state.quotation.data.description} 
                         onInput={this.handleChangeDescription}
                         rows="25" 
                         style="min-height: 200px !important;">
@@ -84,6 +140,16 @@ return (
 )
 
 }
+
+    render(){
+        if(this.state.is_loading) {
+            return (<div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>);
+        }else{
+            return this._render_form();
+        }
+    }
 
 
 }

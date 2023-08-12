@@ -41,11 +41,6 @@ export default class QuotationPage extends Component {
                 <button class="button" onclick={this.handle_submit_create_escrow}>Create escrow</button>
                 <button class="button" onclick={this.handle_submit_finish_escrow}>Finish escrow</button>
                 </div>)
-
-
-       /* return (<div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>);*/
     }
 }
 
