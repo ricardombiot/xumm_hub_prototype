@@ -39,6 +39,7 @@ export default class QuotationPage extends Component {
         return (<div>
                 <h1>Job id: {this.state.job_id} Quote: {this.state.quotation_id}</h1>
                 <button class="button" onclick={this.handle_submit_create_escrow}>Create escrow</button>
+                Owner job should checks escrow.
                 <button class="button" onclick={this.handle_submit_finish_escrow}>Finish escrow</button>
                 </div>)
     }

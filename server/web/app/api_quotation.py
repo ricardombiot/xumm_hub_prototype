@@ -148,7 +148,10 @@ async def register_quotation():
     quotation_total_amount = data['total_amount']
     job_id = data['job_id']
     
+    # @TODO owner job cannot add quote.
+    
     quotation = await get_my_quotation_for_job(request, job_id)
+    print(quotation)
     if quotation != None :
         
         conn = get_conn()

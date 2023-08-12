@@ -94,4 +94,14 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
 
 
 
+.form-group label {
+    font-size: 19px !important;
+}
 
+.form-group input, .form-group textarea, .form-group select {
+    font-size: 18px !important;
+}
+
+.xrp-input-dolars {
+    font-size: 17px;
+}

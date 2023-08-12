@@ -5,6 +5,7 @@ import JobRow from './JobRow';
 import QuotationsListForAdmin  from "./../quotation/QuotationsListForAdmin";
 import QuotationAsideContactForm from '../quotation/QuotationAsideContactForm';
 import QuotationJobForm from '../quotation/QuotationJobForm';
+import AuthRouting from './../../components/utils/AuthRouting';
 
 class JobPage extends Component {
     constructor(props) {
@@ -23,6 +24,22 @@ class JobPage extends Component {
             this.setState({job: job})
         })
     }
+
+	_render_job_bottom_by_user(){
+		const is_owner = AuthRouting.is_owner(this.state.job.payer.id);
+		const is_freelance = !is_owner;
+
+		if(is_freelance){
+			return (<QuotationJobForm job_id={this.state.job.id}></QuotationJobForm>);
+		}
+		
+
+		if(is_owner){
+			// @TODO pending theme list admin...
+			return (<QuotationsListForAdmin job_id={this.state.job.id} payer_id={this.state.job.payer.id}></QuotationsListForAdmin>)
+		}
+	
+	}
 
     _render_job(){
         if(this.state.job == "NOT_LOADED") {
@@ -92,7 +109,7 @@ class JobPage extends Component {
 						</div>
 
 				</div>
-				<QuotationJobForm job_id={this.state.job.id}></QuotationJobForm>
+				{this._render_job_bottom_by_user()}
                 </div>
             )
         }

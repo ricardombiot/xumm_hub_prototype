@@ -181,6 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../quotation/QuotationsListForAdmin */ "./src/components/quotation/QuotationsListForAdmin.js");
 /* harmony import */ var _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../quotation/QuotationAsideContactForm */ "./src/components/quotation/QuotationAsideContactForm.js");
 /* harmony import */ var _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../quotation/QuotationJobForm */ "./src/components/quotation/QuotationJobForm.js");
+/* harmony import */ var _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../components/utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -188,6 +189,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 
 
 //import QuotationForm  from "./../quotation/QuotationForm";
+
 
 
 
@@ -212,6 +214,22 @@ var JobPage = /*#__PURE__*/function (_Component) {
         job: job
       });
     });
+  };
+  _proto._render_job_bottom_by_user = function _render_job_bottom_by_user() {
+    var is_owner = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_6__["default"].is_owner(this.state.job.payer.id);
+    var is_freelance = !is_owner;
+    if (is_freelance) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        "job_id": this.state.job.id
+      });
+    }
+    if (is_owner) {
+      // @TODO pending theme list admin...
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        "job_id": this.state.job.id,
+        "payer_id": this.state.job.payer.id
+      });
+    }
   };
   _proto._render_job = function _render_job() {
     if (this.state.job == "NOT_LOADED") {
@@ -240,9 +258,7 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "id": "description"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         "job_id": this.state.job.id
-      })], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        "job_id": this.state.job.id
-      })], 4);
+      })], 4), 2), this._render_job_bottom_by_user()], 0);
     }
   }
 
@@ -6328,6 +6344,37 @@ async function fetch_auth_get(url, headers = DEFAULT_HEADERS) {
 
 /***/ }),
 
+/***/ "./src/components/utils/AuthRouting.ts":
+/*!*********************************************!*\
+  !*** ./src/components/utils/AuthRouting.ts ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AuthRouting)
+/* harmony export */ });
+class AuthRouting {
+    static is_login() {
+        return "jwt_xapp" in window;
+    }
+    static get_user_id() {
+        if ("jwt_xapp_user_id" in window) {
+            return window.jwt_xapp_user_id;
+        }
+        else {
+            return null;
+        }
+    }
+    static is_owner(owner_id) {
+        return AuthRouting.get_user_id() == owner_id;
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/models/inmmutable_model.ts":
 /*!****************************************!*\
   !*** ./src/models/inmmutable_model.ts ***!
@@ -6570,7 +6617,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a49152eda71dd8105810")
+/******/ 		__webpack_require__.h = () => ("d6568f19fa7b7c81b6db")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
