@@ -1,4 +1,5 @@
 import { Component } from "inferno";
+import BtnLogin from "./btn_login";
 
 export default class HeaderMenu extends Component {
     constructor(props) {
@@ -7,7 +8,8 @@ export default class HeaderMenu extends Component {
 
     render(){
 
-        return (<header id="myheader" class="header menu_fixed">
+        return (
+        <header id="myheader" class="header menu_fixed">
         <div id="logo">
             <a href="index.html" title="Sparker - Directory and listings template">
                 <img src="img/logo.svg" width="165" height="35" alt="" class="logo_normal"></img>
@@ -15,9 +17,10 @@ export default class HeaderMenu extends Component {
             </a>
         </div>
         <ul id="top_menu">
-            <li><a href="account.html" class="btn_add">Add Listing</a></li>
+           
             <li><a href="#sign-in-dialog" id="sign-in" class="login" title="Sign In">Sign In</a></li>
             <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+            <li><BtnLogin></BtnLogin></li>
         </ul>
         <a href="#menu" class="btn_mobile">
             <div class="hamburger hamburger--spin" id="hamburger">

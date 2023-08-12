@@ -192,6 +192,92 @@ var JobForm = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/job/JobFormPage.js":
+/*!*******************************************!*\
+  !*** ./src/components/job/JobFormPage.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ JobFormPage)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/FormComponent */ "./src/components/utils/FormComponent.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var JobFormPage = /*#__PURE__*/function (_FormComponent) {
+  _inheritsLoose(JobFormPage, _FormComponent);
+  function JobFormPage(props) {
+    var _this;
+    _this = _FormComponent.call(this, props) || this;
+    _this.state = {
+      title: "Title2"
+    };
+    console.log(_this.state);
+
+    // this.handleInputChange = this.handleInputChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    return _this;
+  }
+  var _proto = JobFormPage.prototype;
+  _proto.onSubmit = function onSubmit(formData) {
+    console.log(formData);
+  }
+
+  /*
+  handleInputChange(event){
+      console.log("... InputChange");
+      console.log(this.state);
+      const { name, value } = event.target;
+      this.setState({
+          [name]: value
+      });
+  }
+   handleSubmit(event){
+      event.preventDefault();
+      this.onSubmit(this.state);
+  }*/;
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bisque_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Listing new job", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", "new_client", "Information", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "title",
+      "value": this.state.title || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Title*"
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Budget", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "form-control", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "less 1000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "1000 - 3000 XRP", 16, {
+      "selected": "true"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "3000 - 6000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "+ 10000 XRP", 16)], 4, {
+      "name": "budget_range",
+      "value": this.state.budget_range || '',
+      "onChange": this.handleInputChange,
+      "id": "job_bugdet_range"
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("...")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "hr"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+      "name": "description",
+      "value": this.state.description || '',
+      "onInput": this.handleInputChange,
+      "rows": "25",
+      "style": "min-height: 200px !important;"
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Accept "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Terms and conditions", 16, {
+      "href": "#0"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Publish now!", 16, {
+      "type": "submit",
+      "onsubmit": this.handleSubmit,
+      "onclick": this.handleSubmit
+    }), 2)], 4)], 4), 2), 2)], 4);
+  };
+  return JobFormPage;
+}(_utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+/***/ }),
+
 /***/ "./src/components/job/JobPage.js":
 /*!***************************************!*\
   !*** ./src/components/job/JobPage.js ***!
@@ -640,6 +726,81 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/ui/btn_login.js":
+/*!****************************************!*\
+  !*** ./src/components/ui/btn_login.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ BtnLogin)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/nav_authorization */ "./src/components/utils/nav_authorization.js");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var BtnLogin = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(BtnLogin, _Component);
+  function BtnLogin(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    _this.state = {
+      is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__.is_login)()
+    };
+    _this.handle_login = _this.handle_login.bind(_assertThisInitialized(_this));
+    _this.handle_logout = _this.handle_logout.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = BtnLogin.prototype;
+  _proto._check_login = function _check_login() {
+    var _this2 = this;
+    if (!this.state.is_login) {
+      setTimeout(function () {
+        if ((0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__.is_login)()) {
+          _this2.setState({
+            is_login: true
+          });
+        } else {
+          _this2._check_login();
+        }
+      }, 1000);
+    }
+  };
+  _proto.handle_login = function handle_login() {
+    this._check_login();
+    xumm.authorize();
+  };
+  _proto.handle_logout = function handle_logout() {
+    xumm.logout();
+    this.setState({
+      is_login: false
+    });
+  };
+  _proto.render = function render() {
+    if (this.state.is_login) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_add btn-dark", "Logout", 16, {
+        "id": "logoutbutton",
+        "onclick": this.handle_logout
+      });
+    } else {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_add", "Login", 16, {
+        "id": "signinbutton",
+        "onclick": this.handle_login
+      });
+    }
+  };
+  return BtnLogin;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
 /***/ "./src/components/ui/header_menu.js":
 /*!******************************************!*\
   !*** ./src/components/ui/header_menu.js ***!
@@ -652,9 +813,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ HeaderMenu)
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _btn_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./btn_login */ "./src/components/ui/btn_login.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 var HeaderMenu = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HeaderMenu, _Component);
@@ -678,16 +841,14 @@ var HeaderMenu = /*#__PURE__*/function (_Component) {
       "title": "Sparker - Directory and listings template"
     }), 2, {
       "id": "logo"
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_add", "Add Listing", 16, {
-      "href": "account.html"
-    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "login", "Sign In", 16, {
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "login", "Sign In", 16, {
       "href": "#sign-in-dialog",
       "id": "sign-in",
       "title": "Sign In"
     }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "wishlist_bt_top", "Your wishlist", 16, {
       "href": "wishlist.html",
       "title": "Your wishlist"
-    }), 2)], 4, {
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _btn_login__WEBPACK_IMPORTED_MODULE_1__["default"]), 2)], 4, {
       "id": "top_menu"
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_mobile", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "hamburger hamburger--spin", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "hamburger-box", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "hamburger-inner"), 2), 2, {
       "id": "hamburger"
@@ -912,13 +1073,59 @@ var SecHomeStartUp = /*#__PURE__*/function (_Component) {
   }
   var _proto = SecHomeStartUp.prototype;
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container-fluid margin_80_55", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8 mx-auto startup_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "main_title_2", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em"), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h2", null, "You lead, you earn: No commissions on your path to success! ", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "Launch your new project, using blockchain technology and Save up 20%!", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-grid gap-2 d-sm-flex justify-content-sm-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-primary btn-lg px-4 gap-3 startup_button", "Start Now", 16, {
-      "type": "button"
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container-fluid margin_80_55", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8 mx-auto startup_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "main_title_2", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em"), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h2", null, "You lead, you earn: No commissions on your path to success! ", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "Launch your new project, using blockchain technology and Save up 20%!", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-grid gap-2 d-sm-flex justify-content-sm-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-primary btn-lg px-4 gap-3 startup_button", "Start Now", 16, {
+      "type": "button",
+      "href": "/job/new"
     }), 2)], 4), 2, {
       "id": "startup_container"
     });
   };
   return SecHomeStartUp;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
+/***/ "./src/components/utils/FormComponent.js":
+/*!***********************************************!*\
+  !*** ./src/components/utils/FormComponent.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ FormComponent)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var FormComponent = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(FormComponent, _Component);
+  function FormComponent(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = FormComponent.prototype;
+  _proto.handleInputChange = function handleInputChange(event) {
+    var _this$setState;
+    console.log("... InputChange");
+    console.log(this.state);
+    var _event$target = event.target,
+      name = _event$target.name,
+      value = _event$target.value;
+    this.setState((_this$setState = {}, _this$setState[name] = value, _this$setState));
+  };
+  _proto.handleSubmit = function handleSubmit(event) {
+    event.preventDefault();
+    this.onSubmit(this.state);
+  };
+  return FormComponent;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
@@ -983,6 +1190,23 @@ var XRPInput = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/utils/nav_authorization.js":
+/*!***************************************************!*\
+  !*** ./src/components/utils/nav_authorization.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "is_login": () => (/* binding */ is_login)
+/* harmony export */ });
+function is_login() {
+  return window.jwt_xapp != undefined;
+}
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -993,13 +1217,14 @@ var XRPInput = /*#__PURE__*/function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
 /* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
 /* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
 /* harmony import */ var _components_job_JobForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobForm */ "./src/components/job/JobForm.js");
-/* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
-/* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
-/* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
+/* harmony import */ var _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobFormPage */ "./src/components/job/JobFormPage.js");
+/* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
+/* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
+/* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
 
 // inferno module
 
@@ -1013,9 +1238,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //import { xumm_main } from './xumm_app';
 
-var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_8__.createBrowserHistory)();
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_9__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
@@ -1043,13 +1269,13 @@ function JobRouter(_ref5) {
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/new',
-      "component": _components_job_JobForm__WEBPACK_IMPORTED_MODULE_4__["default"]
+      "component": _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_5__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id/quote/:quotation_id',
-      "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__["default"]
+      "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_7__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id',
-      "component": _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__["default"]
+      "component": _components_job_JobPage__WEBPACK_IMPORTED_MODULE_6__["default"]
     })]
   }), 2, {
     "id": "job_router"
@@ -1061,7 +1287,7 @@ function User(_ref6) {
 }
 var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.BrowserRouter, {
   "history": browserHistory,
-  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
+  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_8__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "exact": true,
       "path": "/",
@@ -6355,7 +6581,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("415c633dc89597624030")
+/******/ 		__webpack_require__.h = () => ("aaa2c4743a89eb0ffbb8")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

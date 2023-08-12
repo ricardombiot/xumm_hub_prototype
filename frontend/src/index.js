@@ -7,6 +7,7 @@ import {createBrowserHistory} from 'history';
 import MyApp from './MyApp';
 import MyHome from './MyHome';
 import JobForm from './components/job/JobForm';
+import JobFormPage from './components/job/JobFormPage';
 import JobPage from './components/job/JobPage';
 import QuotationPage  from './components/quotation/QuotationPage';
 import HeaderMenu from './components/ui/header_menu';
@@ -45,7 +46,7 @@ function JobRouter({match}) {
     return (
         <div id="job_router">
             <Switch>
-                <Route path={match.url + '/new'} component={JobForm}/>
+                <Route path={match.url + '/new'} component={JobFormPage}/>
                 <Route path={match.url + '/:job_id/quote/:quotation_id'} component={QuotationPage}/>
                 <Route path={match.url + '/:job_id'} component={JobPage}/>
             </Switch>

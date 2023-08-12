@@ -12,11 +12,17 @@ xumm.on("ready", () => {
   }
 })
 
+xumm.on("logout", () => {
+  console.log("LOGOUT!!")
+  window.public_address = undefined;
+  window.jwt_xumm = undefined;
+  window.jwt_xapp = undefined;
+  window.jwt_xapp_user_id = undefined;
+})
 // We rely on promises in the `success` event: fired again if a user
 // logs out and logs back in again (resets all promises)
 xumm.on("success", async () => {
   xumm.user.account.then(account => {
-    document.getElementById('accountaddress').innerText = account
     window.public_address = account
 
     xumm.environment.bearer.then(async (jwt) => {

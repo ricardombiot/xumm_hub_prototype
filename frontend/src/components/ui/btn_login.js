@@ -1,0 +1,56 @@
+
+
+import { Component } from "inferno";
+import { is_login } from "../utils/nav_authorization";
+
+export default class BtnLogin extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            is_login: is_login()
+        }
+
+        this.handle_login = this.handle_login.bind(this);
+        this.handle_logout = this.handle_logout.bind(this);
+    }
+
+    _check_login(){
+        if(!this.state.is_login){
+            setTimeout(() => {
+                if(is_login()){
+                    this.setState({is_login: true})
+                }else{
+                    this._check_login();
+                }
+            }, 1000)        
+        }
+    }
+
+    handle_login() {
+        this._check_login();
+        xumm.authorize();
+    }
+
+    handle_logout() {
+        xumm.logout();
+        this.setState({is_login: false});
+    }
+
+    render(){
+        if(this.state.is_login){
+            return (<a id="logoutbutton" class="btn_add btn-dark" onclick={this.handle_logout}>Logout</a>)
+        }else{
+            return (<a id="signinbutton" class="btn_add" onclick={this.handle_login}>Login</a>)
+        }
+       
+    }
+
+
+
+
+}
+
+
+
+

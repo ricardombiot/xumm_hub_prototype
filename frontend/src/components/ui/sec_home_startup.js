@@ -20,7 +20,7 @@ return (
             <p>Launch your new project, using blockchain technology and Save up 20%!</p>
         </div>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button type="button" class="btn btn-primary btn-lg px-4 gap-3 startup_button">Start Now</button>
+          <a type="button" class="btn btn-primary btn-lg px-4 gap-3 startup_button" href="/job/new">Start Now</a>
         </div>
     </div>
 
