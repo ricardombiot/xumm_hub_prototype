@@ -13,7 +13,6 @@ export function sumbit_create_escrow(job_id : string, quotation_id : string, del
     });
 }
 
-
 export function sumbit_finish_escrow(quotation_id : string, callback : (payload : any) => void = (_)=> {}) {
     let promise_tx = build_payload_finish_escrow(quotation_id);
     

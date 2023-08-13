@@ -40,12 +40,6 @@ def handle_not_authorization_error(error):
     response.status_code = 400
     return response
 
-@api_quotations_secure.get("/api/quotation/<quotation_id>")
-async def admin_get_quotation(quotation_id):
-    # @TODO da toda la información para la pagina de quote,
-    
-    return jsonify({"result": None})
-
 
 @api_quotations_secure.post("/api/quotation/finish_escrow")
 async def admin_finish_escrow():
@@ -191,7 +185,7 @@ async def approved_quotation():
         if str(quotation.job.payer.id) != payer_id :
             raise NotAuthorizationError("You arent the job owner.")
         
-        if quotation.job.approved_quotation_id != None :
+        if quotation.job.approved_quotation != None :
             raise NotAuthorizationError("Job have already one quote approved.")
         
         conn = get_conn()
@@ -201,3 +195,39 @@ async def approved_quotation():
         return jsonify({"result": "Approved!"})
     else:
         raise NotAuthorizationError("Dont exits quotation")
+    
+@api_quotations_secure.get("/api/quotation/<quotation_id>")
+async def admin_get_quotation(quotation_id):
+    # @TODO da toda la información para la pagina de quote,
+    payer_or_destine_id = session_user_id(request)
+    
+    conn = get_conn()
+    quotation = await quotation_select_by_id(conn, quotation_id=quotation_id)
+    print(quotation)
+    if quotation != None :
+        if str(quotation.job.payer.id) == payer_or_destine_id or str(quotation.destine.id) == payer_or_destine_id :
+            
+            
+            quotation_partial = {
+                "id": quotation.id,
+                "description": quotation.description,
+                "total_amount": quotation.total_amount,
+                
+                "job" : {
+                    "id": quotation.job.id,
+                    "payer" : {
+                        "id": str(quotation.job.payer.id)
+                    }
+                },
+                "destine": {
+                    "id": quotation.destine.id,
+                    "name": quotation.destine.name
+                },
+                
+                "escrow_state": str(quotation.escrow_state)
+            }
+            
+            return jsonify({"result": quotation_partial})
+        
+            
+    raise NotAuthorizationError("You arent the job owner.")

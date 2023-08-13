@@ -69,7 +69,16 @@ export async function send_xumm_uuid(quotation_id : string, xumm_payload_uuid : 
   return data.result;
 }
 
-
+export async function checks_escrow(quotation_id : string) : Promise<any> {
+  let url = `/api/quotation/escrow/checks`;
+  
+  let req_body = {
+    "quotation_id": quotation_id
+  }
+  
+  let data = await fetch_auth_post(url, req_body);
+  return data.result;
+}
 
 export async function make_quotation_approved(quotation_id : string){
   let url = "/api/quotation/approved" ;

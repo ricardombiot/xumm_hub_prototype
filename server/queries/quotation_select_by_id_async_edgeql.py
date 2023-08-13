@@ -5,6 +5,7 @@
 from __future__ import annotations
 import dataclasses
 import edgedb
+import enum
 import typing
 import uuid
 
@@ -25,6 +26,7 @@ class QuotationSelectByIdResult(NoPydanticValidation):
     total_amount: float
     destine: QuotationSelectByIdResultDestine
     job: QuotationSelectByIdResultJob
+    escrow_state: typing.Optional[StateQuotationEscrow]
 
 
 @dataclasses.dataclass
@@ -37,17 +39,25 @@ class QuotationSelectByIdResultDestine(NoPydanticValidation):
 class QuotationSelectByIdResultJob(NoPydanticValidation):
     id: uuid.UUID
     payer: QuotationSelectByIdResultJobPayer
-    approved_quotation_id: typing.Optional[QuotationSelectByIdResultJobApprovedQuotationId]
+    approved_quotation: typing.Optional[QuotationSelectByIdResultJobApprovedQuotation]
 
 
 @dataclasses.dataclass
-class QuotationSelectByIdResultJobApprovedQuotationId(NoPydanticValidation):
+class QuotationSelectByIdResultJobApprovedQuotation(NoPydanticValidation):
     id: uuid.UUID
 
 
 @dataclasses.dataclass
 class QuotationSelectByIdResultJobPayer(NoPydanticValidation):
     id: uuid.UUID
+
+
+class StateQuotationEscrow(enum.Enum):
+    NONE = "NONE"
+    BUILED = "BUILED"
+    WAITING_XUMM_SIGN = "WAITING_XUMM_SIGN"
+    CHECKED = "CHECKED"
+    FINISH = "FINISH"
 
 
 async def quotation_select_by_id(
@@ -70,8 +80,9 @@ async def quotation_select_by_id(
             payer : {
               id
             },
-            approved_quotation_id
-          }
+            approved_quotation
+          },
+          escrow_state
         } filter .id = <std::uuid> $quotation_id\
         """,
         quotation_id=quotation_id,

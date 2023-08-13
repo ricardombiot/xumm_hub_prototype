@@ -181,7 +181,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../quotation/QuotationsListForAdmin */ "./src/components/quotation/QuotationsListForAdmin.js");
 /* harmony import */ var _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../quotation/QuotationAsideContactForm */ "./src/components/quotation/QuotationAsideContactForm.js");
 /* harmony import */ var _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../quotation/QuotationJobForm */ "./src/components/quotation/QuotationJobForm.js");
-/* harmony import */ var _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../components/utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
+/* harmony import */ var _quotation_QuotationApprovedPanel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../quotation/QuotationApprovedPanel */ "./src/components/quotation/QuotationApprovedPanel.js");
+/* harmony import */ var _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../components/utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -189,6 +190,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 
 
 //import QuotationForm  from "./../quotation/QuotationForm";
+
 
 
 
@@ -216,7 +218,13 @@ var JobPage = /*#__PURE__*/function (_Component) {
     });
   };
   _proto._render_job_bottom_by_user = function _render_job_bottom_by_user() {
-    var is_owner = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_6__["default"].is_owner(this.state.job.payer.id);
+    var have_approved_quotation = this.state.job.approved_quotation != undefined;
+    if (have_approved_quotation) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationApprovedPanel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        "quotation_id": this.state.job.approved_quotation.id
+      });
+    }
+    var is_owner = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_7__["default"].is_owner(this.state.job.payer.id);
     var is_freelance = !is_owner;
     if (is_freelance) {
       return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -224,7 +232,6 @@ var JobPage = /*#__PURE__*/function (_Component) {
       });
     }
     if (is_owner) {
-      // @TODO pending theme list admin...
       return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationsListForAdmin__WEBPACK_IMPORTED_MODULE_3__["default"], {
         "job_id": this.state.job.id,
         "payer_id": this.state.job.payer.id
@@ -565,6 +572,212 @@ var JobsList = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/quotation/QuotationApprovedEscrow.js":
+/*!*************************************************************!*\
+  !*** ./src/components/quotation/QuotationApprovedEscrow.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationApprovedEscrow)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_escrow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_escrow */ "./src/api/api_escrow.ts");
+/* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api_quotations */ "./src/api/api_quotations.ts");
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == typeof value && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var QuotationApprovedEscrow = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationApprovedEscrow, _Component);
+  function QuotationApprovedEscrow(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var quotation = props.quotation;
+    _this.state = {
+      quotation: quotation,
+      is_checking: quotation.escrow_state != "NONE",
+      is_checked_success: false
+    };
+    _this.handleSign = _this.handleSign.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = QuotationApprovedEscrow.prototype;
+  _proto.handleSign = function handleSign(event) {
+    var _this2 = this;
+    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_create_escrow)(this.state.quotation.job.id, this.state.quotation.id, function () {
+      _this2.setState({
+        is_checking: true
+      });
+      _this2.checkEscrow();
+    });
+  };
+  _proto.componentDidMount = function componentDidMount() {
+    this.checkEscrow();
+  };
+  _proto.checkEscrow = function checkEscrow() {
+    var _this3 = this;
+    if (this.state.is_checking) {
+      console.log("checkEscrow...");
+      setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var result;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.checks_escrow)(_this3.state.quotation.id);
+            case 2:
+              result = _context.sent;
+              console.log(result);
+              if (result._action == "SuccessCheck" || result._action == "Checked") {
+                _this3.setState({
+                  is_checked_success: true
+                });
+                _this3.cron_reload();
+              } else {
+                _this3.checkEscrow();
+              }
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      })), 1000);
+    }
+  };
+  _proto.cron_reload = function cron_reload() {
+    var _this4 = this;
+    setTimeout(function () {
+      window.location = "/job/" + _this4.state.quotation.job.id;
+    }, 750);
+  };
+  _proto.render = function render() {
+    if (this.state.is_checking) {
+      return this._render_check();
+    } else {
+      return this._render_sign_form();
+    }
+  };
+  _proto._render_loader = function _render_loader() {
+    if (this.state.is_checked_success) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-flex align-items-center me-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "Checked escrow... [OK]", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border ms-auto text-secondary", null, 1, {
+        "role": "status",
+        "aria-hidden": "true"
+      })], 4);
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-flex align-items-center me-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "Checking escrow...", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border ms-auto text-secondary", null, 1, {
+      "role": "status",
+      "aria-hidden": "true"
+    })], 4);
+  };
+  _proto._render_check = function _render_check() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Escrow for Quotation")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Deposit", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this._render_loader(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "img", "bordered-image img-fluid", null, 1, {
+      "src": "/static/videos/close_box.webp",
+      "type": "video/webp",
+      "loop": "loop"
+    })], 0), 2)], 4), 2), 2)], 4);
+  };
+  _proto._render_sign_form = function _render_sign_form() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Escrow for Quotation")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Deposit", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Destine", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.quotation.destine.name, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this.state.quotation.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Days", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "@TODO DELTA DAYS", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Sign escrow now!", 16, {
+      "onclick": this.handleSign
+    }), 2)], 4)], 4), 2), 2)], 4);
+  };
+  return QuotationApprovedEscrow;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
+/***/ "./src/components/quotation/QuotationApprovedPanel.js":
+/*!************************************************************!*\
+  !*** ./src/components/quotation/QuotationApprovedPanel.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationApprovedPanel)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/api_quotations */ "./src/api/api_quotations.ts");
+/* harmony import */ var _QuotationApprovedEscrow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QuotationApprovedEscrow */ "./src/components/quotation/QuotationApprovedEscrow.js");
+/* harmony import */ var _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var QuotationApprovedPanel = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationApprovedPanel, _Component);
+  function QuotationApprovedPanel(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    _this.state = {
+      quotation_id: _this.props.quotation_id,
+      quotation: "LOADING",
+      is_payer: false,
+      is_destine: false
+    };
+    return _this;
+  }
+  var _proto = QuotationApprovedPanel.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+    (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_1__.get_quotation)(this.state.quotation_id).then(function (quotation) {
+      var is_payer = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_3__["default"].is_owner(quotation.job.payer.id);
+      var is_destine = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_3__["default"].is_owner(quotation.destine.id);
+      console.log(quotation);
+      _this2.setState({
+        quotation: quotation,
+        is_payer: is_payer,
+        is_destine: is_destine
+      });
+    });
+  };
+  _proto._render_payer_by_escrow_state = function _render_payer_by_escrow_state() {
+    var need_sign_and_check = ["NONE", "BUILED", "WAITING_XUMM_SIGN"].indexOf(this.state.quotation.escrow_state) != -1;
+    if (need_sign_and_check) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _QuotationApprovedEscrow__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        "quotation": this.state.quotation
+      });
+    } else {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "IS ESCROW IS ALREADY SIGN...", 16);
+    }
+  };
+  _proto._render_by_user = function _render_by_user() {
+    if (this.state.is_payer) {
+      return this._render_payer_by_escrow_state();
+    } else if (this.state.is_destine) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "I am destine...", 16);
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Job was assigned already!", 16);
+  };
+  _proto.render = function render() {
+    if (this.state.quotation == "LOADING") {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border text-primary", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "sr-only", "Loading...", 16), 2, {
+        "role": "status"
+      });
+    } else {
+      return this._render_by_user();
+    }
+  };
+  return QuotationApprovedPanel;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
 /***/ "./src/components/quotation/QuotationAsideContactForm.js":
 /*!***************************************************************!*\
   !*** ./src/components/quotation/QuotationAsideContactForm.js ***!
@@ -859,11 +1072,14 @@ var QuotationRow = /*#__PURE__*/function (_Component) {
     console.log(data);
     var job_id = data.job.id;
     var quotation_id = data.id;
-    console.log("Job_id: " + job_id + " + Quota: " + quotation_id);
     (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.make_quotation_approved)(quotation_id).then(function (result) {
-      console.log(result);
-
-      // window.location = "/job/" + job_id
+      if (result == "Approved!") {
+        window.location = "/job/" + job_id;
+      } else {
+        console.error("Internal Error!! Ouhj");
+      }
+    })["catch"](function (err) {
+      console.error(err);
     });
   };
   _proto.render = function render() {
@@ -6323,6 +6539,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "build_payload_create_escrow": () => (/* binding */ build_payload_create_escrow),
 /* harmony export */   "build_payload_finish_escrow": () => (/* binding */ build_payload_finish_escrow),
+/* harmony export */   "checks_escrow": () => (/* binding */ checks_escrow),
 /* harmony export */   "get_quotation": () => (/* binding */ get_quotation),
 /* harmony export */   "get_quotation_by_job": () => (/* binding */ get_quotation_by_job),
 /* harmony export */   "list_quotation_by_job": () => (/* binding */ list_quotation_by_job),
@@ -6378,6 +6595,14 @@ async function send_xumm_uuid(quotation_id, xumm_payload_uuid) {
     let req_body = {
         "quotation_id": quotation_id,
         "xumm_payload_uuid": xumm_payload_uuid
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
+    return data.result;
+}
+async function checks_escrow(quotation_id) {
+    let url = `/api/quotation/escrow/checks`;
+    let req_body = {
+        "quotation_id": quotation_id
     };
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
     return data.result;
@@ -6722,7 +6947,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("f0c427e6645417a5d47b")
+/******/ 		__webpack_require__.h = () => ("8c5127ea76ebd644f5f3")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

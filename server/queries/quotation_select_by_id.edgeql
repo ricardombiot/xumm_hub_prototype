@@ -11,7 +11,8 @@ select default::Quotation {
     payer : {
       id
     },
-    approved_quotation_id
-  }
+    approved_quotation
+  },
+  escrow_state
 } filter .id = <std::uuid> $quotation_id 
 

@@ -15,7 +15,7 @@ module default {
     required description -> str;
     budget_range -> str;
 
-    approved_quotation_id -> Quotation;
+    approved_quotation -> Quotation;
 
     link quotations := .<job[is Quotation];
   }

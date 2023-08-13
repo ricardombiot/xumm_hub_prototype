@@ -36,7 +36,7 @@ async def job_update_approved(
         filter .id = <std::uuid> $job_id and
         .payer.id = <std::uuid> $payer_id 
         set {
-            approved_quotation_id := (SELECT Quotation filter .id = <std::uuid> $approved_quotation_id )
+            approved_quotation := (SELECT Quotation filter .id = <std::uuid> $approved_quotation_id )
         }\
         """,
         job_id=job_id,

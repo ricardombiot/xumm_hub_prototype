@@ -5,6 +5,7 @@ import JobRow from './JobRow';
 import QuotationsListForAdmin  from "./../quotation/QuotationsListForAdmin";
 import QuotationAsideContactForm from '../quotation/QuotationAsideContactForm';
 import QuotationJobForm from '../quotation/QuotationJobForm';
+import QuotationApprovedPanel from '../quotation/QuotationApprovedPanel';
 import AuthRouting from './../../components/utils/AuthRouting';
 
 class JobPage extends Component {
@@ -26,6 +27,11 @@ class JobPage extends Component {
     }
 
 	_render_job_bottom_by_user(){
+		const have_approved_quotation = this.state.job.approved_quotation != undefined;
+		if(have_approved_quotation) {	
+			return ( <QuotationApprovedPanel quotation_id={this.state.job.approved_quotation.id} ></QuotationApprovedPanel>)
+		}
+		
 		const is_owner = AuthRouting.is_owner(this.state.job.payer.id);
 		const is_freelance = !is_owner;
 
@@ -33,9 +39,7 @@ class JobPage extends Component {
 			return (<QuotationJobForm job_id={this.state.job.id}></QuotationJobForm>);
 		}
 		
-
 		if(is_owner){
-			// @TODO pending theme list admin...
 			return (<QuotationsListForAdmin job_id={this.state.job.id} payer_id={this.state.job.payer.id}></QuotationsListForAdmin>)
 		}
 	
