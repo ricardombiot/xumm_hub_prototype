@@ -11,6 +11,7 @@ import JobFormPage from './components/job/JobFormPage';
 import JobPage from './components/job/JobPage';
 import QuotationPage  from './components/quotation/QuotationPage';
 import HeaderMenu from './components/ui/header_menu';
+import JobSearchPage from './components/job/JobSearchPage';
 //import { xumm_main } from './xumm_app';
 
 const browserHistory = createBrowserHistory();
@@ -47,8 +48,11 @@ function JobRouter({match}) {
         <div id="job_router">
             <Switch>
                 <Route path={match.url + '/new'} component={JobFormPage}/>
+                <Route path={match.url + '/search/:text'} component={JobSearchPage}/>
                 <Route path={match.url + '/:job_id/quote/:quotation_id'} component={QuotationPage}/>
                 <Route path={match.url + '/:job_id'} component={JobPage}/>
+
+               
             </Switch>
         </div>
     );
@@ -62,6 +66,7 @@ const routes = (
     <BrowserRouter history={browserHistory}>
         <div id="page">
             <HeaderMenu></HeaderMenu>
+            <div id="space" style="margin-top: 65px; !important"></div>
             <Switch>
                 <Route exact path="/" component={MyHome}/>
                 <Route path="/job" component={JobRouter}/>

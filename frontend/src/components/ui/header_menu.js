@@ -137,7 +137,9 @@ export default class HeaderMenu extends Component {
                 <li><span><a href="#0">Buy template</a></span></li>
             </ul>
         </nav>
-        </header>)
+       
+        </header>
+       )
 
     }
 

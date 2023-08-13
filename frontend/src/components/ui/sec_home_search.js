@@ -6,6 +6,13 @@ export default class SecHomeSearch extends Component {
         super(props)
     }
 
+    handleText(event){
+        let text = event.target.value
+
+        let url = "/job/search/" + text;
+        window.location = url;
+    }
+
     render(){
 
 
@@ -19,7 +26,7 @@ return (	<section class="hero_single version_4">
             <div class="row g-0 custom-search-input-2">
                 <div class="col-lg-7">
                     <div class="form-group">
-                        <input class="form-control" type="text" placeholder="What are you looking for..."></input>
+                        <input class="form-control" type="text" placeholder="What are you looking for..." onInput={this.handleText}></input>
                         <i class="icon_search"></i>
                     </div>
                 </div>

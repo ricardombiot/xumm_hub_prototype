@@ -105,3 +105,12 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
 .xrp-input-dolars {
     font-size: 17px;
 }
+
+.search-item .name-company, .search-item .short-description {
+    color: black !important;
+    font-size: 17px;
+}
+
+.search-item .wrapper {
+    min-height: 165px !important;
+}

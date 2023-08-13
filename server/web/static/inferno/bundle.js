@@ -316,6 +316,186 @@ var JobRow = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/job/JobSearchPage.js":
+/*!*********************************************!*\
+  !*** ./src/components/job/JobSearchPage.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ JobSearchPage)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_jobs */ "./src/api/api_jobs.ts");
+/* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var JobSearchPage = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(JobSearchPage, _Component);
+  function JobSearchPage(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var params = props.match.params;
+    _this.state = {
+      is_loading: true,
+      data: [],
+      search_text: params.search
+    };
+    return _this;
+  }
+  var _proto = JobSearchPage.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+    (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_1__.get_list_jobs)().then(function (list_jobs) {
+      _this2.setState({
+        data: list_jobs,
+        is_loading: false
+      });
+    })["catch"](function (error) {
+      console.error('Error fetching data:', error);
+      _this2.setState({
+        is_loading: false
+      });
+    });
+  };
+  _proto._render_list = function _render_list() {
+    if (this.state.is_loading) {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-4 col-lg-6 col-md-6", "Loading...", 16);
+    }
+    var jobs = this.state.data;
+    var jobElements = [];
+    for (var index = 0; index < jobs.length; index++) {
+      var job = jobs[index];
+      //<JobRow key={job.id} data={job}/>
+      jobElements.push(this._render_item(job));
+    }
+    return jobElements;
+  };
+  _proto._render_item = function _render_item(job) {
+    var title = job.title;
+    var short_description = job.description.slice(0, 45) + "...";
+    var url_detail = "/job/" + job.id;
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-4 col-lg-6 col-md-6 search-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "strip grid", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "figure", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "wish_bt", null, 1, {
+      "href": "#0"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      "to": url_detail,
+      children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "img", "img-fluid", null, 1, {
+        "src": "/static/theme/img/location_1.jpg",
+        "alt": ""
+      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "read_more", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, "Read more", 16), 2)]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "Restaurant", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "wrapper", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      "to": url_detail,
+      children: title
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "name-company", "@COMPANY NAME", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "short-description", short_description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "loc_open", "Now Open", 16), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "score", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Superb"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "10 Quotes", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "8.9", 16)], 4), 2)], 4)], 4), 2);
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-3 col-md-4 col-10", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h4", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "145", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" result for All listing")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-9 col-md-8 col-2", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "search_mob btn_search_mobile", null, 1, {
+      "href": "#0"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row g-0 custom-search-input-2 inner", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "placeholder": "What are you looking for..."
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_search")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "placeholder": "Where"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_pin_alt")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-3", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "wide", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "All Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Shops", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Hotels", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Restaurants", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Bars", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Events", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Fitness", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-1", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "submit"
+    }), 2)], 4)], 4)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "search_mob_wp", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "custom-search-input-2", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "placeholder": "What are you looking for..."
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_search")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "placeholder": "Where"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_pin_alt")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "wide", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "All Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Shops", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Hotels", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Restaurants", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Bars", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Events", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Fitness", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "submit"
+    })], 4), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "filters_listing sticky_horizontal", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "clearfix", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "switch-field", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "radio",
+      "id": "all",
+      "name": "listing_filter",
+      "value": "all",
+      "checked": true
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "All", 16, {
+      "for": "all"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "radio",
+      "id": "popular",
+      "name": "listing_filter",
+      "value": "popular"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Popular", 16, {
+      "for": "popular"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "radio",
+      "id": "latest",
+      "name": "listing_filter",
+      "value": "latest"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Latest", 16, {
+      "for": "latest"
+    })], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_filt", "More filters", 16, {
+      "data-bs-toggle": "collapse",
+      "href": "#filters",
+      "aria-expanded": "false",
+      "aria-controls": "filters",
+      "data-text-swap": "Less filters",
+      "data-text-original": "More filters"
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "layout_view", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "active", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-th"), 2, {
+      "href": "#0"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-th-list"), 2, {
+      "href": "#0"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-map"), 2, {
+      "href": "#0"
+    })], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_map", "View on map", 16, {
+      "data-bs-toggle": "collapse",
+      "href": "#collapseMap",
+      "aria-expanded": "false",
+      "aria-controls": "collapseMap",
+      "data-text-swap": "Hide map",
+      "data-text-original": "View on map"
+    }), 2)], 4), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "collapse", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "map", null, 1, {
+      "id": "map"
+    }), 2, {
+      "id": "collapseMap"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "collapse", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_30_5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h6", null, "Rating", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Superb 9+ "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "67", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Very Good 8+ "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "89", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Good 7+ "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "45", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Pleasant 6+ "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "78", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2)], 4)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h6", null, "Tags", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Wireless Internet "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "12", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Smoking Allowed "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "11", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Wheelchair Accesible "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "23", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "container_check", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Parking "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "56", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "checkbox"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "checkmark")], 4), 2)], 4)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "add_bottom_30", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h6", null, "Distance", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "distance", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Radius around selected destination "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" km")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
+      "type": "range",
+      "min": "10",
+      "max": "100",
+      "step": "10",
+      "value": "30",
+      "data-orientation": "horizontal"
+    })], 4), 2)], 4), 2), 2, {
+      "id": "filters"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_60_35", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", this._render_list(), 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_1 rounded add_top_30", "Load more", 16, {
+      "href": "#0"
+    }), 2)], 4)], 4, {
+      "id": "results"
+    });
+  };
+  return JobSearchPage;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
 /***/ "./src/components/job/JobsList.js":
 /*!****************************************!*\
   !*** ./src/components/job/JobsList.js ***!
@@ -633,7 +813,7 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job id: "), this.state.job_id, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quote: "), this.state.quotation_id], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Create escrow", 16, {
       "onclick": this.handle_submit_create_escrow
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Finish escrow", 16, {
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Owner job should checks escrow."), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Finish escrow", 16, {
       "onclick": this.handle_submit_finish_escrow
     })], 4);
   };
@@ -1069,10 +1249,16 @@ var SecHomeSearch = /*#__PURE__*/function (_Component) {
     return _Component.call(this, props) || this;
   }
   var _proto = SecHomeSearch.prototype;
+  _proto.handleText = function handleText(event) {
+    var text = event.target.value;
+    var url = "/job/search/" + text;
+    window.location = url;
+  };
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "section", "hero_single version_4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "wrapper", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Your work, your rules, your earnings: "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "br"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" No commissions!")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "Experience instant and secure payments, and transparent interactions. Our blockchain-powered platform ensures rapid, reliable transactions and eliminates unnecessary intermediaries. Join us for a boundaryless freelance journey.", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "form", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row g-0 custom-search-input-2", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-7", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
       "type": "text",
-      "placeholder": "What are you looking for..."
+      "placeholder": "What are you looking for...",
+      "onInput": this.handleText
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon_search")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-3", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "wide", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "All Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Website Design", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Speed", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Smartphone", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Research", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Prototype", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Maerketing", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Design", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Contract", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Coding", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Branding", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Apps Development", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "Analysis", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-2", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", null, null, 1, {
       "type": "submit",
       "value": "Search"
@@ -1255,13 +1441,14 @@ function is_login() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
 /* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
 /* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
 /* harmony import */ var _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobFormPage */ "./src/components/job/JobFormPage.js");
 /* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
 /* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
 /* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
+/* harmony import */ var _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/job/JobSearchPage */ "./src/components/job/JobSearchPage.js");
 
 // inferno module
 
@@ -1276,9 +1463,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //import { xumm_main } from './xumm_app';
 
-var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_8__.createBrowserHistory)();
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_9__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
@@ -1308,6 +1496,9 @@ function JobRouter(_ref5) {
       "path": match.url + '/new',
       "component": _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": match.url + '/search/:text',
+      "component": _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_8__["default"]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id/quote/:quotation_id',
       "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
@@ -1324,7 +1515,10 @@ function User(_ref6) {
 }
 var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.BrowserRouter, {
   "history": browserHistory,
-  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
+  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, null, 1, {
+    "id": "space",
+    "style": "margin-top: 65px; !important"
+  }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "exact": true,
       "path": "/",
@@ -6617,7 +6811,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("d6568f19fa7b7c81b6db")
+/******/ 		__webpack_require__.h = () => ("c94d114d9a9818a13717")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
