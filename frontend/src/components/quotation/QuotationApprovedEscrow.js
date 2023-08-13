@@ -18,19 +18,20 @@ export default class QuotationApprovedEscrow extends Component {
     }
 
     handleSign(event){
-        sumbit_create_escrow(this.state.quotation.job.id, this.state.quotation.id, () => {
+        this.setState({ is_checking: true });
+        sumbit_create_escrow(this.state.quotation.job.id, this.state.quotation.id, (_payload) => {
             this.setState({ is_checking: true });
-            this.checkEscrow();
+            this.checkEscrow(true);
         });
     }
 
     componentDidMount(){
-        this.checkEscrow();
+        this.checkEscrow(false);
     }
 
 
-    checkEscrow(){
-        if(this.state.is_checking){
+    checkEscrow(force){
+        if(this.state.is_checking || force){
             console.log("checkEscrow...")
             setTimeout(async () => {
                 let result = await checks_escrow(this.state.quotation.id);
@@ -39,7 +40,7 @@ export default class QuotationApprovedEscrow extends Component {
                     this.setState({is_checked_success: true});
                     this.cron_reload();
                 }else{
-                    this.checkEscrow();
+                    this.checkEscrow(true);
                 }
             },1000)
         }

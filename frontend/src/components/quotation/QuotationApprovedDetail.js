@@ -61,7 +61,7 @@ export default class QuotationApprovedDetail extends Component {
                 return (<div class="text-center">
                     <button class="btn_1 full-width" onclick={this.handleDone}>I have finished!</button>
                 </div>);
-            }else if(this.state.quotation.state == "CONFIRM"){
+            }else if(this.state.quotation.state == "CONFIRMED"){
                 return (<div class="text-center">
                     <button class="btn_1 full-width" onclick={this.handle_submit_finish_escrow}>Finish escrow, Gets your earning now!</button>
                 </div>);

@@ -74,9 +74,9 @@ async def admin_quotation_save_escrow_finished_xumm_payload_uuid():
     destine_id = session_user_id(request)
     
     quotation_id = data['quotation_id']
-    escrow_finished_xumm_payload_uuid = data['escrow_finished_xumm_payload_uuid']
+    finished_xumm_payload_uuid = data['finished_xumm_payload_uuid']
     conn = get_conn()
-    result = await quotation_save_escrow_finished_xumm_payload_uuid(conn, destine_id=destine_id, quotation_id=quotation_id, finished_xumm_payload_uuid=escrow_finished_xumm_payload_uuid)
+    result = await quotation_save_escrow_finished_xumm_payload_uuid(conn, destine_id=destine_id, quotation_id=quotation_id, finished_xumm_payload_uuid=finished_xumm_payload_uuid)
     
     if result == None :
         raise NotAuthorizationError("User havent priviligies.")
