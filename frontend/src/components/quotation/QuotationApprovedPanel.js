@@ -21,7 +21,7 @@ export default class QuotationApprovedPanel extends Component {
         get_quotation(this.state.quotation_id).then((quotation) => {
             const is_payer = AuthRouting.is_owner(quotation.job.payer.id);
             const is_destine = AuthRouting.is_owner(quotation.destine.id);
-            console.log(quotation);
+            //console.log(quotation);
             this.setState({
                 quotation: quotation,
                 is_payer: is_payer,

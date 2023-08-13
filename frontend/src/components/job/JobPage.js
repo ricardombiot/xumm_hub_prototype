@@ -21,7 +21,7 @@ class JobPage extends Component {
 
     componentDidMount(){
         get_job(this.state.job_id).then((job) => {
-            console.log(job);
+            //console.log(job);
             this.setState({job: job})
         })
     }

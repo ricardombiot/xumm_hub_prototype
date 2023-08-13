@@ -2,6 +2,7 @@ import { Component } from "inferno";
 import AuthRouting  from "../../components/utils/AuthRouting";
 import { make_quotation_done, make_quotation_confirm } from "../../api/api_quotations";
 import { sumbit_finish_escrow } from "../../api/api_escrow";
+import QuotationApprovedWaitingFinished from "./QuotationApprovedWaitingFinished";
 
 export default class QuotationApprovedDetail extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ export default class QuotationApprovedDetail extends Component {
             quotation: quotation,
             is_payer: is_payer,
             is_destine: is_destine,
-            waiting_finish_escrow: false
+            waiting_finish_escrow: this._is_waiting_finish_escrow(quotation)
         }
 
 
@@ -24,6 +25,10 @@ export default class QuotationApprovedDetail extends Component {
         this.handleConfirm = this.handleConfirm.bind(this);
         this.handle_submit_finish_escrow = this.handle_submit_finish_escrow.bind(this);
 
+    }
+
+    _is_waiting_finish_escrow(quotation){
+        return quotation.state == "CONFIRMED" && quotation.escrow_state == "WAITING_XUMM_SIGN_FINISH"
     }
 
     handle_submit_finish_escrow(){
@@ -51,14 +56,17 @@ export default class QuotationApprovedDetail extends Component {
 
     _render_options(){
         if(this.state.is_destine){
+           
             if(this.state.quotation.state == "APPROVED"){
                 return (<div class="text-center">
                     <button class="btn_1 full-width" onclick={this.handleDone}>I have finished!</button>
                 </div>);
-            }else{
+            }else if(this.state.quotation.state == "CONFIRM"){
                 return (<div class="text-center">
                     <button class="btn_1 full-width" onclick={this.handle_submit_finish_escrow}>Finish escrow, Gets your earning now!</button>
                 </div>);
+            }else{
+                return [];
             }
         }
 
@@ -75,35 +83,17 @@ export default class QuotationApprovedDetail extends Component {
         }
     }
 
-    render_video(){
-        return (
-            <div class="myform custom_bg freelance">
-            <div class="sub_header_in sticky_header custom_subheader freelance">
-                <div class="container">
-                    <h3>Closing quotation</h3>
-                </div>
-               
-            </div>
+    render(){
+        if (this.state.waiting_finish_escrow && this.state.is_destine){
+            return (<QuotationApprovedWaitingFinished quotation={this.state.quotation}></QuotationApprovedWaitingFinished>)
+        }
 
-            <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-8 col-md-10 mt-5">
-            <div class="box_account">
-            <h3> <i class="icon-tasks-1"></i> Open Escrow </h3> 
-            <div class="form_container custom_gradient_border startup">
-                    <div >
-                        <div class="d-flex align-items-center me-3">
-                            <strong>Closing escrow...</strong>
-                            <div class="spinner-border ms-auto text-secondary" role="status" aria-hidden="true"></div>
-                        </div>
-                        <img src="/static/videos/open_box.webp" type="video/webp" class="bordered-image img-fluid" loop="loop"></img>
-                    </div>
-            </div></div></div></div></div>); 
+        return this.render_content();
     }
 
-    render(){
-        if (this.state.waiting_finish_escrow){
-            return this.render_video();
-        }
+
+    render_content(){
+
 
         return (<div class="myform custom_bg startup">
         <div class="sub_header_in sticky_header custom_subheader startup">

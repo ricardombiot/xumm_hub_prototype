@@ -15,6 +15,9 @@ from queries.job_update_approved_async_edgeql import job_update_approved
 from queries.quotation_update_approved_async_edgeql import quotation_update_approved
 from queries.quotation_update_confirmed_async_edgeql import quotation_update_confirmed
 from queries.quotation_update_done_async_edgeql import quotation_update_done
+from queries.quotation_save_escrow_finished_xumm_payload_uuid_async_edgeql import quotation_save_escrow_finished_xumm_payload_uuid
+from queries.quotation_select_for_escrow_finished_async_edgeql import quotation_select_for_escrow_finished
+from web.app.escrow.checks_finished_escrow import check_escrow_finished
 from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
 from web.app.api_errors import NotAuthorizationError
 
@@ -63,6 +66,22 @@ async def admin_create_escrow():
     
     result = await escrow_create_payload_by_quotation(user_id, quotation_id)
     return jsonify({"result": result})
+   
+   
+@api_quotations_secure.post("/api/quotation/finished_escrow/save_xumm_payload")  
+async def admin_quotation_save_escrow_finished_xumm_payload_uuid():
+    data = json.loads(request.data)
+    destine_id = session_user_id(request)
+    
+    quotation_id = data['quotation_id']
+    escrow_finished_xumm_payload_uuid = data['escrow_finished_xumm_payload_uuid']
+    conn = get_conn()
+    result = await quotation_save_escrow_finished_xumm_payload_uuid(conn, destine_id=destine_id, quotation_id=quotation_id, finished_xumm_payload_uuid=escrow_finished_xumm_payload_uuid)
+    
+    if result == None :
+        raise NotAuthorizationError("User havent priviligies.")
+    else:
+        return jsonify({"result": result}) 
     
     
 @api_quotations_secure.post("/api/quotation/create_escrow/save_xumm_payload")  
@@ -107,7 +126,33 @@ async def admin_quotation_checks():
             "_action": action,
             "state": escrow_state
         }})
-        
+
+@api_quotations_secure.post("/api/quotation/escrow/checks_finished")  
+async def admin_quotation_checks_finished():
+    data = json.loads(request.data)
+    destine_id = session_user_id(request)
+    
+    quotation_id = data['quotation_id']
+    conn = get_conn()
+    result = await quotation_select_for_escrow_finished(conn, quotation_id=quotation_id, destine_id=destine_id)
+    
+    if result == None :
+        raise NotAuthorizationError("User havent priviligies.")
+    else:
+        action = "Checked"
+        escrow_state = str(result.escrow_state)
+        escrow_finished_xumm_payload_uuid = result.escrow_finished_xumm_payload_uuid
+        if escrow_state == "WAITING_XUMM_SIGN_FINISH":
+            result = await check_escrow_finished(destine_id=destine_id, quotation_id=quotation_id, xumm_uuid=escrow_finished_xumm_payload_uuid)
+            if result == True:
+                action = "SuccessCheck"
+            else:
+                action = "RejectCheck"
+
+        return jsonify({"result": {
+            "_action": action,
+            "state": escrow_state
+        }})    
 
 @api_quotations_secure.post("/api/quotations")
 async def admin_list_quotation_by_job():
@@ -280,5 +325,7 @@ async def confirm_quotation():
         return jsonify({"result": "Done!"})
     else:
         raise NotAuthorizationError("Dont exits quotation")
+
+
 
 

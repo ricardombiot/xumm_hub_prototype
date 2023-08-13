@@ -14,7 +14,7 @@ export default class JobFormPage extends FormComponent {
     }
 
     onSubmit(formData){
-        console.log(formData);
+        //console.log(formData);
 
         let job = {
           title: formData.title,

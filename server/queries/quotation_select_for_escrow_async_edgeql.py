@@ -53,7 +53,8 @@ class StateQuotationEscrow(enum.Enum):
     BUILED = "BUILED"
     WAITING_XUMM_SIGN = "WAITING_XUMM_SIGN"
     CHECKED = "CHECKED"
-    FINISH = "FINISH"
+    WAITING_XUMM_SIGN_FINISH = "WAITING_XUMM_SIGN_FINISH"
+    FINISHED = "FINISHED"
 
 
 async def quotation_select_for_escrow(
