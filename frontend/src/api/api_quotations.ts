@@ -70,3 +70,14 @@ export async function send_xumm_uuid(quotation_id : string, xumm_payload_uuid : 
 }
 
 
+
+export async function make_quotation_approved(quotation_id : string){
+  let url = "/api/quotation/approved" ;
+  
+  let req_body = {
+    "quotation_id": quotation_id
+  }
+
+  let data = await fetch_auth_post(url, req_body);
+  return data.result;
+}

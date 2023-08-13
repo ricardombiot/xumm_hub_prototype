@@ -15,11 +15,13 @@ module default {
     required description -> str;
     budget_range -> str;
 
+    approved_quotation_id -> Quotation;
+
     link quotations := .<job[is Quotation];
   }
 
   scalar type StateQuotationEscrow extending enum<NONE,BUILED,WAITING_XUMM_SIGN,CHECKED,FINISH>;
-  scalar type StateQuotation extending enum<PUBLISHED,ACCEPTED,REJECTED>;
+  scalar type StateQuotation extending enum<PUBLISHED,APPROVED>;
   
   type Quotation {
     required job -> Job;

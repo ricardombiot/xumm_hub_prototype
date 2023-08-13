@@ -10,6 +10,9 @@ from queries.quotation_save_escrow_xumm_payload_uuid_async_edgeql import quotati
 from queries.quotation_select_for_escrow_async_edgeql import quotation_select_for_escrow
 from queries.quotation_select_destine_for_job_async_edgeql import quotation_select_destine_for_job
 from queries.quotation_update_async_edgeql import quotation_update
+from queries.quotation_select_by_id_async_edgeql import quotation_select_by_id
+from queries.job_update_approved_async_edgeql import job_update_approved
+from queries.quotation_update_approved_async_edgeql import quotation_update_approved
 from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
 from web.app.api_errors import NotAuthorizationError
 
@@ -114,11 +117,11 @@ async def admin_quotation_checks():
 async def admin_list_quotation_by_job():
     user_id = session_user_id(request)
     criteria_search = json.loads(request.data)
-    print(criteria_search)
+    #print(criteria_search)
     # Only will be able to take the quotations if its owner of job (payer_id == user_id)
     
     job_id = criteria_search['job_id']
-    print(f"user_id: {user_id}")
+    #print(f"user_id: {user_id}")
     #page = criteria_search['page']
     conn = get_conn()
     result = await quotation_select(conn, job_id=job_id, payer_id=user_id)
@@ -139,6 +142,7 @@ async def get_my_quotation_for_job(request, job_id):
     
     return quotation 
 
+
 @api_quotations_secure.post('/api/quotation/create')
 async def register_quotation():
     data = json.loads(request.data)
@@ -151,7 +155,7 @@ async def register_quotation():
     # @TODO owner job cannot add quote.
     
     quotation = await get_my_quotation_for_job(request, job_id)
-    print(quotation)
+    #print(quotation)
     if quotation != None :
         
         conn = get_conn()
@@ -171,3 +175,29 @@ async def register_quotation():
                         job_id=job_id)
         
         return jsonify({"result": result})
+
+
+
+@api_quotations_secure.post('/api/quotation/approved')
+async def approved_quotation():
+    data = json.loads(request.data)
+    quotation_id = data['quotation_id']
+    
+    payer_id = session_user_id(request)
+
+    conn = get_conn()
+    quotation = await quotation_select_by_id(conn, quotation_id=quotation_id)
+    if quotation != None :
+        if str(quotation.job.payer.id) != payer_id :
+            raise NotAuthorizationError("You arent the job owner.")
+        
+        if quotation.job.approved_quotation_id != None :
+            raise NotAuthorizationError("Job have already one quote approved.")
+        
+        conn = get_conn()
+        _result_update_quote = await quotation_update_approved(conn, payer_id=payer_id, quotation_id=quotation_id)
+        _result_update_job = await job_update_approved(conn, payer_id=payer_id, job_id=quotation.job.id, approved_quotation_id=quotation_id)
+        
+        return jsonify({"result": "Approved!"})
+    else:
+        raise NotAuthorizationError("Dont exits quotation")
