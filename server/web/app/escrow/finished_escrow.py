@@ -14,6 +14,9 @@ async def escrow_finish_payload_by_quotation(user_id, quotation_id):
         raise NotAuthorizationError("Should finish destine user...")
     else: 
         #@TODO - SHOULD CHECK STATE QUOATION IS CLOSE BY OWNER.
+        if str(quotation.state) != "CONFIRMED": 
+            raise NotAuthorizationError("Cannot finish escrow before payer confirm...")
+        
         payload = json.loads(quotation.escrow_payload)
 
         return {

@@ -30,6 +30,7 @@ class QuotationSelectForEscrowDestineResult(NoPydanticValidation):
     escrow_fullfilment: typing.Optional[str]
     escrow_sequence: typing.Optional[int]
     escrow_state: typing.Optional[StateQuotationEscrow]
+    state: typing.Optional[StateQuotation]
 
 
 @dataclasses.dataclass
@@ -42,6 +43,14 @@ class QuotationSelectForEscrowDestineResultDestine(NoPydanticValidation):
 class QuotationSelectForEscrowDestineResultJob(NoPydanticValidation):
     id: uuid.UUID
     payer: QuotationSelectForEscrowDestineResultDestine
+
+
+class StateQuotation(enum.Enum):
+    PUBLISHED = "PUBLISHED"
+    APPROVED = "APPROVED"
+    DONE = "DONE"
+    CONFIRMED = "CONFIRMED"
+    CLOSED = "CLOSED"
 
 
 class StateQuotationEscrow(enum.Enum):
@@ -76,7 +85,8 @@ async def quotation_select_for_escrow_destine(
           escrow_xumm_payload_uuid,
           escrow_fullfilment,
           escrow_sequence,
-          escrow_state
+          escrow_state,
+          state
         } filter .destine.id = <std::uuid> $destine_id and
           .id = <std::uuid> $quotation_id\
         """,

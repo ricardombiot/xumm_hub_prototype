@@ -11,7 +11,7 @@ export default class SecHomeSearch extends Component {
         }
 
         this.handleText = this.handleText.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleText(event){

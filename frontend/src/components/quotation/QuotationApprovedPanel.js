@@ -1,6 +1,7 @@
 import { Component } from "inferno";
 import { get_quotation } from "../../api/api_quotations";
 import QuotationApprovedEscrow from "./QuotationApprovedEscrow";
+import QuotationApprovedDetail from "./QuotationApprovedDetail";
 import AuthRouting from "../utils/AuthRouting";
 
 export default class QuotationApprovedPanel extends Component {
@@ -37,7 +38,7 @@ export default class QuotationApprovedPanel extends Component {
         if(need_sign_and_check){
             return <QuotationApprovedEscrow quotation={this.state.quotation}></QuotationApprovedEscrow>
         }else{
-            return <div>IS ESCROW IS ALREADY SIGN...</div>
+            return <QuotationApprovedDetail quotation={this.state.quotation}></QuotationApprovedDetail>
         }
     }
 
@@ -46,7 +47,7 @@ export default class QuotationApprovedPanel extends Component {
         if(this.state.is_payer){
             return this._render_payer_by_escrow_state();
         }else if(this.state.is_destine){
-            return (<div>I am destine...</div>)
+            return <QuotationApprovedDetail quotation={this.state.quotation}></QuotationApprovedDetail>
         }
 
         return (<div>Job was assigned already!</div>)

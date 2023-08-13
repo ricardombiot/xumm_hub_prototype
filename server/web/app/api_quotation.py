@@ -13,6 +13,8 @@ from queries.quotation_update_async_edgeql import quotation_update
 from queries.quotation_select_by_id_async_edgeql import quotation_select_by_id
 from queries.job_update_approved_async_edgeql import job_update_approved
 from queries.quotation_update_approved_async_edgeql import quotation_update_approved
+from queries.quotation_update_confirmed_async_edgeql import quotation_update_confirmed
+from queries.quotation_update_done_async_edgeql import quotation_update_done
 from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
 from web.app.api_errors import NotAuthorizationError
 
@@ -224,10 +226,59 @@ async def admin_get_quotation(quotation_id):
                     "name": quotation.destine.name
                 },
                 
-                "escrow_state": str(quotation.escrow_state)
+                "escrow_state": str(quotation.escrow_state),
+                "state": str(quotation.state)
             }
             
             return jsonify({"result": quotation_partial})
         
             
     raise NotAuthorizationError("You arent the job owner.")
+
+
+
+@api_quotations_secure.post('/api/quotation/done')
+async def done_quotation():
+    data = json.loads(request.data)
+    quotation_id = data['quotation_id']
+    
+    destine_id = session_user_id(request)
+
+    conn = get_conn()
+    quotation = await quotation_select_by_id(conn, quotation_id=quotation_id)
+    if quotation != None :
+        if str(quotation.destine.id) != destine_id :
+            raise NotAuthorizationError("You arent the destine owner.")
+        
+        
+        conn = get_conn()
+        _result_update_quote = await quotation_update_done(conn, destine_id=destine_id, quotation_id=quotation_id)
+
+        return jsonify({"result": "Done!"})
+    else:
+        raise NotAuthorizationError("Dont exits quotation")
+
+
+
+@api_quotations_secure.post('/api/quotation/confirm')
+async def confirm_quotation():
+    data = json.loads(request.data)
+    quotation_id = data['quotation_id']
+    
+    payer_id = session_user_id(request)
+
+    conn = get_conn()
+    quotation = await quotation_select_by_id(conn, quotation_id=quotation_id)
+    if quotation != None :
+        if str(quotation.job.payer.id) != payer_id :
+            raise NotAuthorizationError("You arent the payer owner.")
+        
+        
+        conn = get_conn()
+        _result_update_quote = await quotation_update_confirmed(conn, payer_id=payer_id, quotation_id=quotation_id)
+
+        return jsonify({"result": "Done!"})
+    else:
+        raise NotAuthorizationError("Dont exits quotation")
+
+

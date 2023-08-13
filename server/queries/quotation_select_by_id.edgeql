@@ -13,6 +13,7 @@ select default::Quotation {
     },
     approved_quotation
   },
-  escrow_state
+  escrow_state,
+  state
 } filter .id = <std::uuid> $quotation_id 
 

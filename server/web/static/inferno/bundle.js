@@ -572,6 +572,115 @@ var JobsList = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/quotation/QuotationApprovedDetail.js":
+/*!*************************************************************!*\
+  !*** ./src/components/quotation/QuotationApprovedDetail.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationApprovedDetail)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
+/* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api_quotations */ "./src/api/api_quotations.ts");
+/* harmony import */ var _api_api_escrow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../api/api_escrow */ "./src/api/api_escrow.ts");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var QuotationApprovedDetail = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationApprovedDetail, _Component);
+  function QuotationApprovedDetail(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var quotation = _this.props.quotation;
+    var is_payer = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_1__["default"].is_owner(quotation.job.payer.id);
+    var is_destine = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_1__["default"].is_owner(quotation.destine.id);
+    _this.state = {
+      quotation: quotation,
+      is_payer: is_payer,
+      is_destine: is_destine,
+      waiting_finish_escrow: false
+    };
+    _this.handleDone = _this.handleDone.bind(_assertThisInitialized(_this));
+    _this.handleConfirm = _this.handleConfirm.bind(_assertThisInitialized(_this));
+    _this.handle_submit_finish_escrow = _this.handle_submit_finish_escrow.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = QuotationApprovedDetail.prototype;
+  _proto.handle_submit_finish_escrow = function handle_submit_finish_escrow() {
+    this.setState({
+      waiting_finish_escrow: true
+    });
+    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_3__.sumbit_finish_escrow)(this.state.quotation.id);
+  };
+  _proto.handleDone = function handleDone(event) {
+    var _this2 = this;
+    (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.make_quotation_done)(this.state.quotation.id).then(function (_res) {
+      _this2.refresh();
+    });
+  };
+  _proto.handleConfirm = function handleConfirm(event) {
+    var _this3 = this;
+    (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_2__.make_quotation_confirm)(this.state.quotation.id).then(function (_res) {
+      _this3.refresh();
+    });
+  };
+  _proto.refresh = function refresh() {
+    window.location = "/job/" + this.state.quotation.job.id;
+  };
+  _proto._render_options = function _render_options() {
+    if (this.state.is_destine) {
+      if (this.state.quotation.state == "APPROVED") {
+        return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "I have finished!", 16, {
+          "onclick": this.handleDone
+        }), 2);
+      } else {
+        return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Finish escrow, Gets your earning now!", 16, {
+          "onclick": this.handle_submit_finish_escrow
+        }), 2);
+      }
+    }
+    if (this.state.is_payer) {
+      if (this.state.quotation.state == "DONE") {
+        return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Confirm!", 16, {
+          "onclick": this.handleConfirm
+        }), 2);
+      }
+      /*else{
+          return (<div>OPTIONS: Is payer</div>);
+      }*/
+    }
+  };
+  _proto.render_video = function render_video() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg freelance", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader freelance", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Closing quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Open Escrow ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-flex align-items-center me-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "Closing escrow...", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border ms-auto text-secondary", null, 1, {
+      "role": "status",
+      "aria-hidden": "true"
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "img", "bordered-image img-fluid", null, 1, {
+      "src": "/static/videos/open_box.webp",
+      "type": "video/webp",
+      "loop": "loop"
+    })], 4), 2)], 4), 2), 2)], 4);
+  };
+  _proto.render = function render() {
+    if (this.state.waiting_finish_escrow) {
+      return this.render_video();
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Destine", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.quotation.destine.name, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this.state.quotation.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Signed", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "@DATE ESCROW SIGNED", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Expire", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "@TODO DELTA DAYS", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Status", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_state, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "State", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.state, 0)], 4), this._render_options()], 0)], 4), 2), 2)], 4);
+  };
+  return QuotationApprovedDetail;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
 /***/ "./src/components/quotation/QuotationApprovedEscrow.js":
 /*!*************************************************************!*\
   !*** ./src/components/quotation/QuotationApprovedEscrow.js ***!
@@ -710,10 +819,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/api_quotations */ "./src/api/api_quotations.ts");
 /* harmony import */ var _QuotationApprovedEscrow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QuotationApprovedEscrow */ "./src/components/quotation/QuotationApprovedEscrow.js");
-/* harmony import */ var _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
+/* harmony import */ var _QuotationApprovedDetail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./QuotationApprovedDetail */ "./src/components/quotation/QuotationApprovedDetail.js");
+/* harmony import */ var _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -735,8 +846,8 @@ var QuotationApprovedPanel = /*#__PURE__*/function (_Component) {
   _proto.componentDidMount = function componentDidMount() {
     var _this2 = this;
     (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_1__.get_quotation)(this.state.quotation_id).then(function (quotation) {
-      var is_payer = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_3__["default"].is_owner(quotation.job.payer.id);
-      var is_destine = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_3__["default"].is_owner(quotation.destine.id);
+      var is_payer = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_4__["default"].is_owner(quotation.job.payer.id);
+      var is_destine = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_4__["default"].is_owner(quotation.destine.id);
       console.log(quotation);
       _this2.setState({
         quotation: quotation,
@@ -752,14 +863,18 @@ var QuotationApprovedPanel = /*#__PURE__*/function (_Component) {
         "quotation": this.state.quotation
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "IS ESCROW IS ALREADY SIGN...", 16);
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _QuotationApprovedDetail__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        "quotation": this.state.quotation
+      });
     }
   };
   _proto._render_by_user = function _render_by_user() {
     if (this.state.is_payer) {
       return this._render_payer_by_escrow_state();
     } else if (this.state.is_destine) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "I am destine...", 16);
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _QuotationApprovedDetail__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        "quotation": this.state.quotation
+      });
     }
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "Job was assigned already!", 16);
   };
@@ -1338,7 +1453,7 @@ var SecHomeSearch = /*#__PURE__*/function (_Component) {
       text: ""
     };
     _this.handleText = _this.handleText.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    //this.handleSubmit = this.handleSubmit.bind(this);
     return _this;
   }
   var _proto = SecHomeSearch.prototype;
@@ -6544,6 +6659,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "get_quotation_by_job": () => (/* binding */ get_quotation_by_job),
 /* harmony export */   "list_quotation_by_job": () => (/* binding */ list_quotation_by_job),
 /* harmony export */   "make_quotation_approved": () => (/* binding */ make_quotation_approved),
+/* harmony export */   "make_quotation_confirm": () => (/* binding */ make_quotation_confirm),
+/* harmony export */   "make_quotation_done": () => (/* binding */ make_quotation_done),
 /* harmony export */   "register_new_quotation": () => (/* binding */ register_new_quotation),
 /* harmony export */   "send_xumm_uuid": () => (/* binding */ send_xumm_uuid)
 /* harmony export */ });
@@ -6609,6 +6726,22 @@ async function checks_escrow(quotation_id) {
 }
 async function make_quotation_approved(quotation_id) {
     let url = "/api/quotation/approved";
+    let req_body = {
+        "quotation_id": quotation_id
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
+    return data.result;
+}
+async function make_quotation_done(quotation_id) {
+    let url = "/api/quotation/done";
+    let req_body = {
+        "quotation_id": quotation_id
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
+    return data.result;
+}
+async function make_quotation_confirm(quotation_id) {
+    let url = "/api/quotation/confirm";
     let req_body = {
         "quotation_id": quotation_id
     };
@@ -6947,7 +7080,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("8c5127ea76ebd644f5f3")
+/******/ 		__webpack_require__.h = () => ("3e4ab405b858fdacea4b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

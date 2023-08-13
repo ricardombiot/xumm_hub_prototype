@@ -21,7 +21,7 @@ module default {
   }
 
   scalar type StateQuotationEscrow extending enum<NONE,BUILED,WAITING_XUMM_SIGN,CHECKED,FINISH>;
-  scalar type StateQuotation extending enum<PUBLISHED,APPROVED>;
+  scalar type StateQuotation extending enum<PUBLISHED, APPROVED, DONE, CONFIRMED, CLOSED>;
   
   type Quotation {
     required job -> Job;
@@ -35,6 +35,8 @@ module default {
     escrow_xumm_payload_uuid -> str;
     escrow_txid -> str;
     escrow_sequence -> int64;
+
+    escrow_finished_xumm_payload_uuid -> str;
 
     escrow_state -> default::StateQuotationEscrow {
       default := <default::StateQuotationEscrow> "NONE";

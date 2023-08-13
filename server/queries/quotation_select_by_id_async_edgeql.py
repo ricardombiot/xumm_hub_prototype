@@ -27,6 +27,7 @@ class QuotationSelectByIdResult(NoPydanticValidation):
     destine: QuotationSelectByIdResultDestine
     job: QuotationSelectByIdResultJob
     escrow_state: typing.Optional[StateQuotationEscrow]
+    state: typing.Optional[StateQuotation]
 
 
 @dataclasses.dataclass
@@ -50,6 +51,14 @@ class QuotationSelectByIdResultJobApprovedQuotation(NoPydanticValidation):
 @dataclasses.dataclass
 class QuotationSelectByIdResultJobPayer(NoPydanticValidation):
     id: uuid.UUID
+
+
+class StateQuotation(enum.Enum):
+    PUBLISHED = "PUBLISHED"
+    APPROVED = "APPROVED"
+    DONE = "DONE"
+    CONFIRMED = "CONFIRMED"
+    CLOSED = "CLOSED"
 
 
 class StateQuotationEscrow(enum.Enum):
@@ -82,7 +91,8 @@ async def quotation_select_by_id(
             },
             approved_quotation
           },
-          escrow_state
+          escrow_state,
+          state
         } filter .id = <std::uuid> $quotation_id\
         """,
         quotation_id=quotation_id,
