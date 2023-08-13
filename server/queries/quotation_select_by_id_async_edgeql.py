@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 import dataclasses
+import datetime
 import edgedb
 import enum
 import typing
@@ -27,6 +28,7 @@ class QuotationSelectByIdResult(NoPydanticValidation):
     destine: QuotationSelectByIdResultDestine
     job: QuotationSelectByIdResultJob
     escrow_state: typing.Optional[StateQuotationEscrow]
+    escrow_checked_at: typing.Optional[datetime.datetime]
     state: typing.Optional[StateQuotation]
 
 
@@ -93,6 +95,7 @@ async def quotation_select_by_id(
             approved_quotation
           },
           escrow_state,
+          escrow_checked_at,
           state
         } filter .id = <std::uuid> $quotation_id\
         """,

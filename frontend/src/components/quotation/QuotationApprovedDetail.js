@@ -121,8 +121,8 @@ export default class QuotationApprovedDetail extends Component {
             <p>{this.state.quotation.description}</p>
             </div>
             <div class="form-group mb-3">
-            <label class="form-label">Escrow Signed</label>
-            <p>@DATE ESCROW SIGNED</p>
+            <label class="form-label">Escrow Cheched Time</label>
+            <p>{this.state.quotation.escrow_checked_at}</p>
             </div>
             <div class="form-group">
             <label>Expire</label>

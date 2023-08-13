@@ -17,6 +17,9 @@ async def check_escrow_finished(destine_id, quotation_id, xumm_uuid):
         raise NotAuthorizationError("User havent priviligies.")
         
     response_xumm = load_xumm_payload(xumm_uuid)
+    print(response_xumm)
+    ##@TODO If is expired go back state 
+    ## i should fixed a few minutes expiration 5 min - 10 min - https://xumm.readme.io/docs/doc-payload-life-cycle
     if response_xumm["response"]["dispatched_result"] != "tesSUCCESS":
         return False
 

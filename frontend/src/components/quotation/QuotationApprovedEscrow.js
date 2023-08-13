@@ -1,5 +1,5 @@
 import { Component } from "inferno";
-import { sumbit_create_escrow } from "./../../api/api_escrow";
+import { submit_create_escrow } from "./../../api/api_escrow";
 import { checks_escrow } from "../../api/api_quotations";
 
 export default class QuotationApprovedEscrow extends Component {
@@ -19,7 +19,10 @@ export default class QuotationApprovedEscrow extends Component {
 
     handleSign(event){
         this.setState({ is_checking: true });
-        sumbit_create_escrow(this.state.quotation.job.id, this.state.quotation.id, (_payload) => {
+        submit_create_escrow(this.state.quotation.job.id, this.state.quotation.id, (payload) => {
+            console.log("After submit_create");
+            console.log(payload);
+            console.log(this.state);
             this.setState({ is_checking: true });
             this.checkEscrow(true);
         });

@@ -1,5 +1,5 @@
 import { Component } from 'inferno';
-import { sumbit_create_escrow, sumbit_finish_escrow } from "./../../api/api_escrow";
+import { submit_create_escrow, sumbit_finish_escrow } from "./../../api/api_escrow";
 
 export default class QuotationPage extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ export default class QuotationPage extends Component {
     }
 
     handle_submit_create_escrow(){
-        sumbit_create_escrow(this.state.job_id, this.state.quotation_id)
+        submit_create_escrow(this.state.job_id, this.state.quotation_id)
     }
 
     handle_submit_finish_escrow(){

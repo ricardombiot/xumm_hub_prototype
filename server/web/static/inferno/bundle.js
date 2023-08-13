@@ -676,7 +676,7 @@ var QuotationApprovedDetail = /*#__PURE__*/function (_Component) {
     return this.render_content();
   };
   _proto.render_content = function render_content() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Destine", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.quotation.destine.name, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this.state.quotation.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Signed", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "@DATE ESCROW SIGNED", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Expire", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "@TODO DELTA DAYS", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Status", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_state, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "State", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.state, 0)], 4), this._render_options()], 0)], 4), 2), 2)], 4);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Destine", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.quotation.destine.name, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this.state.quotation.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Cheched Time", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_checked_at, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Expire", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "@TODO DELTA DAYS", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Status", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_state, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "State", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.state, 0)], 4), this._render_options()], 0)], 4), 2), 2)], 4);
   };
   return QuotationApprovedDetail;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -728,7 +728,10 @@ var QuotationApprovedEscrow = /*#__PURE__*/function (_Component) {
     this.setState({
       is_checking: true
     });
-    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_create_escrow)(this.state.quotation.job.id, this.state.quotation.id, function (_payload) {
+    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.submit_create_escrow)(this.state.quotation.job.id, this.state.quotation.id, function (payload) {
+      console.log("After submit_create");
+      console.log(payload);
+      console.log(_this2.state);
       _this2.setState({
         is_checking: true
       });
@@ -928,7 +931,8 @@ var QuotationApprovedWaitingFinished = /*#__PURE__*/function (_Component) {
     var quotation = _this.props.quotation;
     _this.state = {
       quotation: quotation,
-      is_checking: true
+      is_checking: true,
+      iters: 0
     };
     return _this;
   }
@@ -956,6 +960,9 @@ var QuotationApprovedWaitingFinished = /*#__PURE__*/function (_Component) {
                 });
                 _this2.cron_reload();
               } else {
+                _this2.setState({
+                  iters: _this2.state.iters += 1
+                });
                 _this2.checkEscrow();
               }
             case 5:
@@ -1231,7 +1238,7 @@ var QuotationPage = /*#__PURE__*/function (_Component) {
      })*/
   };
   _proto.handle_submit_create_escrow = function handle_submit_create_escrow() {
-    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_create_escrow)(this.state.job_id, this.state.quotation_id);
+    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.submit_create_escrow)(this.state.job_id, this.state.quotation_id);
   };
   _proto.handle_submit_finish_escrow = function handle_submit_finish_escrow() {
     (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_finish_escrow)(this.state.quotation_id);
@@ -6672,7 +6679,7 @@ function pathToRegexp (path, keys, options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sumbit_create_escrow": () => (/* binding */ sumbit_create_escrow),
+/* harmony export */   "submit_create_escrow": () => (/* binding */ submit_create_escrow),
 /* harmony export */   "sumbit_finish_escrow": () => (/* binding */ sumbit_finish_escrow)
 /* harmony export */ });
 /* harmony import */ var _models_once_execution__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/once_execution */ "./src/models/once_execution.ts");
@@ -6681,7 +6688,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let CREATE_ESCROW_TX_GUARD = new _models_once_execution__WEBPACK_IMPORTED_MODULE_0__["default"]();
 let FINISH_ESCROW_TX_GUARD = new _models_once_execution__WEBPACK_IMPORTED_MODULE_0__["default"]();
-function sumbit_create_escrow(job_id, quotation_id, delta_days = 7, callback = (_) => { }) {
+function submit_create_escrow(job_id, quotation_id, delta_days = 7, callback = (_) => { }) {
     let promise_tx = (0,_api_quotations__WEBPACK_IMPORTED_MODULE_1__.build_payload_create_escrow)(job_id, quotation_id);
     if (CREATE_ESCROW_TX_GUARD.run()) {
         promise_tx.then((result) => {
@@ -6711,10 +6718,15 @@ function sumbit_finish_escrow(quotation_id, callback = (_) => { }) {
         console.error("Inferno conflict, handlers was overwrite... try execute more than one time the escrow action.");
     }
 }
-async function xumm_run_tx(tx, callback = (_) => { }) {
+function xumm_run_tx(tx, callback = (_) => { }) {
     if ("xumm" in window) {
         let xumm = window["xumm"];
-        xumm.payload.create(tx).then(callback);
+        xumm.payload.create({
+            "txjson": tx,
+            "options": {
+                "expire": 5
+            }
+        }).then(callback);
     }
 }
 
@@ -7242,7 +7254,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("b317a234cdba6a2a273c")
+/******/ 		__webpack_require__.h = () => ("742932591b7b7aedcfdc")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

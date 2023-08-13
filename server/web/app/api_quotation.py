@@ -272,7 +272,8 @@ async def admin_get_quotation(quotation_id):
                 },
                 
                 "escrow_state": str(quotation.escrow_state),
-                "state": str(quotation.state)
+                "state": str(quotation.state),
+                "escrow_checked_at": str(quotation.escrow_checked_at)
             }
             
             return jsonify({"result": quotation_partial})

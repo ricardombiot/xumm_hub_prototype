@@ -38,7 +38,8 @@ async def quotation_save_escrow_after_checked(
         set {
           escrow_txid := <std::str> $escrow_txid,
           escrow_sequence := <std::int64> $escrow_sequence,
-          escrow_state := <default::StateQuotationEscrow> "CHECKED"
+          escrow_state := <default::StateQuotationEscrow> "CHECKED",
+          escrow_checked_at := datetime_of_statement()
         }\
         """,
         quotation_id=quotation_id,

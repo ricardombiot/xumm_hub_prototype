@@ -14,6 +14,7 @@ select default::Quotation {
     approved_quotation
   },
   escrow_state,
+  escrow_checked_at,
   state
 } filter .id = <std::uuid> $quotation_id 
 

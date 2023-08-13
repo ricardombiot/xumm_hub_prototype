@@ -4,7 +4,7 @@ import { build_payload_create_escrow, build_payload_finish_escrow, send_xumm_uui
 let CREATE_ESCROW_TX_GUARD = new OnlyOneExecutionGuard();
 let FINISH_ESCROW_TX_GUARD = new OnlyOneExecutionGuard();
 
-export function sumbit_create_escrow(job_id : string, quotation_id : string, delta_days : number = 7, callback : (payload : any) => void = (_)=> {}) {
+export function submit_create_escrow(job_id : string, quotation_id : string, delta_days : number = 7, callback : (payload : any) => void = (_)=> {}) {
     let promise_tx = build_payload_create_escrow(job_id, quotation_id);
     
     if(CREATE_ESCROW_TX_GUARD.run()){
@@ -40,11 +40,18 @@ export function sumbit_finish_escrow(quotation_id : string, callback : (payload 
 }
 
 
-async function xumm_run_tx(tx : any, callback : (payload : any) => void = (_)=> {}){
+function xumm_run_tx(tx : any, callback : (payload : any) => void = (_)=> {}) : void{
     if("xumm" in window){
         let xumm : any = window["xumm"];
 
-        xumm.payload.create(tx).then(callback)
+        xumm.payload.create(
+            {
+                "txjson":tx, 
+                "options": {
+                     "expire": 5
+                }
+            }
+        ).then(callback)
     }
 }
 

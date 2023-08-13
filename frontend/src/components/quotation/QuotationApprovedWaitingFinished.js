@@ -1,7 +1,9 @@
 import { Component } from "inferno";
 import { checks_escrow_finished } from "../../api/api_quotations";
 
+ 
 export default class QuotationApprovedWaitingFinished extends Component {
+
     constructor(props) {
         super(props)
 
@@ -9,7 +11,8 @@ export default class QuotationApprovedWaitingFinished extends Component {
 
         this.state = {
             quotation: quotation,
-            is_checking: true
+            is_checking: true,
+            iters: 0
         }
 
     }
@@ -28,6 +31,7 @@ export default class QuotationApprovedWaitingFinished extends Component {
                     this.setState({is_checked_success: true});
                     this.cron_reload();
                 }else{
+                    this.setState({iters: this.state.iters += 1});
                     this.checkEscrow();
                 }
             },1000)

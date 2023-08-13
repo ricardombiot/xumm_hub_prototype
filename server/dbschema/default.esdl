@@ -18,6 +18,11 @@ module default {
     approved_quotation -> Quotation;
 
     link quotations := .<job[is Quotation];
+
+    created_at: datetime {
+      readonly := true;
+      default := datetime_of_statement();
+    }
   }
 
   scalar type StateQuotationEscrow extending enum<NONE,BUILED,WAITING_XUMM_SIGN,CHECKED,WAITING_XUMM_SIGN_FINISH,FINISHED>;
@@ -46,6 +51,13 @@ module default {
       default := <default::StateQuotation> "PUBLISHED";
     }
 
+
+    escrow_checked_at: datetime;
+
+    created_at: datetime {
+      readonly := true;
+      default := datetime_of_statement();
+    }
   }
 
 }
