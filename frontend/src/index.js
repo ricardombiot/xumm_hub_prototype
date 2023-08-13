@@ -48,11 +48,10 @@ function JobRouter({match}) {
         <div id="job_router">
             <Switch>
                 <Route path={match.url + '/new'} component={JobFormPage}/>
+                <Route path={match.url + '/search'} component={JobSearchPage}/>
                 <Route path={match.url + '/search/:text'} component={JobSearchPage}/>
                 <Route path={match.url + '/:job_id/quote/:quotation_id'} component={QuotationPage}/>
                 <Route path={match.url + '/:job_id'} component={JobPage}/>
-
-               
             </Switch>
         </div>
     );

@@ -13,10 +13,7 @@ class MyHome extends Component {
 	    <main>
             <SecHomeSearch ></SecHomeSearch>
             <SecHomeStartUp></SecHomeStartUp>
-            <JobsList />
         </main>
-           
-
         </div>
     }
 }
