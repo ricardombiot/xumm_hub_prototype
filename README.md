@@ -23,12 +23,13 @@
 ## 📝 Table of Contents
 
 - [Business opportunity](#idea)
-- [Learning Challenges](#problem_statement)
+- [Challenges and Opportunities](#challenges_and_opportunities)
+- [Learning Technology Stack](#tech_stack)
 - [Dependencies / Limitations](#limitations)
 - [Future Scope](#future_scope)
 - [Setting up a local environment](#getting_started)
 - [Usage](#usage)
-- [Technology Stack](#tech_stack)
+
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgments)
@@ -53,7 +54,7 @@ In summary:
 > Your work, your rules, your earnings: No commissions on your success path!
 
 
-## 🧐 Challenges and Opportunities <a name = "problem_statement"></a>
+## 🧐 Challenges and Opportunities <a name = "challenges_and_opportunities"></a>
 
 The challenges at the business level lead us towards the technical challenges that we will address later in this huge spike.
 
@@ -74,21 +75,33 @@ The challenges at the business level lead us towards the technical challenges th
   However, there are an opportunity to reduce these costs, if this application was integrated into the Xumm application marketplace and therefore was at the heart of the XRP ecosystem, marketing costs would be very low since our platform is free of charge. It would be accessible to all current and future users of the XRP ecosystem. We are talking about a global service for all XRP Ledger users.
  
 
-### Tech
+### Tech Chanllenges
 
-- Xumm integration:
+The main challenges, which we have addressed in this huge spike, related to the implementation of this project using Ripple's technology are the following:
 
-- Escrows vs Payment Channels:
+- Xumm integration:We really liked how Xumm facilitates the login and logout of users in our application, however, we have implemented our own associated authorization system so that we do not have to ask Xumm every time if a user has the permissions or not, to access to a route or endpoint of our api.
 
-- Transfers:
+- Escrows vs Payment Channels:It is interesting in the face of trust that before starting a job, the company commits to making a full (or partial) deposit of the budget for the project given by the freelancer. In the first place, we studied using the use of payment channels, however, we found the limitation that some processes of the payment channel flow are not transactions but methods, this made integration with Xumm difficult, since as we have established, we will delegate to this all security responsibilities that will control the private keys, sign and send the transactions.
 
-- Mint NFT:
+  https://xrpl.org/payment-channels.html
 
-- Hooks:
+  <p align="center">
+  <img src="./docs/img/Integration Xumm - Methods vs Transactions .png" ></a>
+  </p>
+
+  That is why, later, we opted to use Escrows, which is similar, but follows a much simpler flow than payment channels where there are only transactions. 
+
+  https://xrpl.org/escrow.html
+
+  @HERE FLOW IMAGE
+
+
+- Direct Transfers:
+  @TODO
 
 
 
-
+💡 Proposal: We think that it would be interesting within the ecosystem to offer templates, ready-made skeletons to speed up the creation of new projects and prevent new developers from wasting days learning how to integrate with Xumm and launch transactions to XRP Ledger through it. 
 
 ## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
 
@@ -139,17 +152,32 @@ Add notes about how to use the system.
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+Learning Technology Stack:
+
+- [Edgedb](https://www.edgedb.com/) 
+  > EdgeDB is an open-source database designed as a spiritual successor to SQL and the relational paradigm. It aims to solve some hard design problems that make existing databases unnecessarily onerous to use.
+  Powered by the Postgres query engine under the hood, EdgeDB thinks about schema the same way you do: as objects with properties connected by links. It's like a relational database with an object-oriented data model, or a graph database with strict schema. We call it a graph-relational database.
+
+  I really wanted to try the edgedb migration system and I really liked the results a lot.
+
+  Any current project requires that the database schema evolve quickly and more if we talk about a spaik where we do not know everything we need, we have been able to update the database schema (/server/dbschema/default.esdl) , create new migrations (make edgedb-migration-create ) and apply them on our database (make edgedb-migrate) easily. Really recommended! 👍
+
+- [Python + Flask](https://flask.palletsprojects.com/en/2.3.x/) 
+
+  I usually use python when I need to integrate with third-party systems given the number of libraries it has... what can I say about python and flask that hasn't already been said... simplicity!
+
+  However, I must admit that being used to other languages like TypeScript, Elixir, and Rust I don't feel the code is clean, or I still haven't found the point, I'm sorry :(. Obviously this code is only for exploring and learning from technology XRP as well as figuring out what we would need to be able to build a real freelancer platform using this technology, so Python and Flask is more than enough for a Spike.
+
+
+- [InfernoJs](https://www.infernojs.org/)
+  I admit it, maybe I'm from the old school but I don't like that the frontend limits my stack... many current frameworks tend little by little to depend on backends and therefore to condition how you develop. I like the freedom to choose the technologies I work with, and that's why it's hard for me to find frontend frameworks that I feel comfortable with.
+
+  In this case, to take advantage of the project I have tried the Inferno Js framework inspired by React, and the truth is, I really liked that I could easily start working despite using Flask.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
+- [@ricardombiot](https://github.com/ricardombiot/xapp_freelancer) 
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors)
-who participated in this project.
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
