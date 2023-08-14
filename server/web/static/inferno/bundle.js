@@ -589,10 +589,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api_quotations */ "./src/api/api_quotations.ts");
 /* harmony import */ var _api_api_escrow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../api/api_escrow */ "./src/api/api_escrow.ts");
 /* harmony import */ var _QuotationApprovedWaitingFinished__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QuotationApprovedWaitingFinished */ "./src/components/quotation/QuotationApprovedWaitingFinished.js");
+/* harmony import */ var _QuotationDirectTrasfer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./QuotationDirectTrasfer */ "./src/components/quotation/QuotationDirectTrasfer.js");
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -675,8 +677,26 @@ var QuotationApprovedDetail = /*#__PURE__*/function (_Component) {
     }
     return this.render_content();
   };
+  _proto._render_txs = function _render_txs() {
+    var txs = this.state.quotation.txs;
+    var txsElements = [];
+    for (var index = 0; index < txs.length; index++) {
+      var tx = txs[index];
+      var url = "https://test.bithomp.com/explorer/" + tx.ledger_txid;
+      var html = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-link-ext-alt"), tx.tx_type, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, tx.ledger_txid, 0, {
+        "href": url,
+        "target": "_blank"
+      })], 0);
+      txsElements.push(html);
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h4", null, "Transactions", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", txsElements, 0)], 4, {
+      "id": "trasfers"
+    });
+  };
   _proto.render_content = function render_content() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Destine", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.quotation.destine.name, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this.state.quotation.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Cheched Time", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_checked_at, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Expire", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "@TODO DELTA DAYS", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Status", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_state, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "State", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.state, 0)], 4), this._render_options()], 0)], 4), 2), 2)], 4);
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quotation", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Destine", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this.state.quotation.destine.name, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [this.state.quotation.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Cheched Time", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_checked_at, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Expire", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, "@TODO DELTA DAYS", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Escrow Status", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.escrow_state, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "State", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.quotation.state, 0)], 4), this._render_options(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _QuotationDirectTrasfer__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      "quotation": this.state.quotation
+    }), this._render_txs()], 0)], 0)], 4), 2), 2)], 4);
   };
   return QuotationApprovedDetail;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -1064,6 +1084,89 @@ var QuotationAsideContactForm = /*#__PURE__*/function (_FormComponent) {
 
 /***/ }),
 
+/***/ "./src/components/quotation/QuotationDirectTrasfer.js":
+/*!************************************************************!*\
+  !*** ./src/components/quotation/QuotationDirectTrasfer.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ QuotationDirectTransfer)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _utils_XRPInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils/XRPInput */ "./src/components/utils/XRPInput.js");
+/* harmony import */ var _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
+/* harmony import */ var _api_api_transfer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../api/api_transfer */ "./src/api/api_transfer.ts");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var QuotationDirectTransfer = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(QuotationDirectTransfer, _Component);
+  function QuotationDirectTransfer(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var quotation = props.quotation;
+    var is_payer = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_2__["default"].is_owner(quotation.job.payer.id);
+    var is_destine = _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_2__["default"].is_owner(quotation.destine.id);
+    _this.state = {
+      quotation: quotation,
+      total_amount: 0.0,
+      is_payer: is_payer,
+      is_destine: is_destine
+    };
+    _this.handleUpdateTotalAmount = _this.handleUpdateTotalAmount.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = QuotationDirectTransfer.prototype;
+  _proto.handleUpdateTotalAmount = function handleUpdateTotalAmount(amount) {
+    //console.log("updateAmount: "+ amount.data.value);
+    // Without propague update!
+    this.state.total_amount = amount.data.value;
+    // this.setState({total_amount: amount.data.value});
+    //this.state.quotation.setTotalAmount(amount.data.value);
+  };
+  _proto.handleSubmit = function handleSubmit(_event) {
+    console.log(this.state);
+    (0,_api_api_transfer__WEBPACK_IMPORTED_MODULE_3__.sumbit_direct_transfer)(this.state.quotation.id, this.state.total_amount, function () {
+      console.log("OK");
+    });
+    event.preventDefault();
+  };
+  _proto._render_btn = function _render_btn() {
+    var text_btn = "";
+    if (this.state.is_payer) {
+      text_btn += "Send XRP to " + this.state.quotation.destine.name + " now!";
+    } else if (this.state.is_destine) {
+      text_btn += "Send XRP to " + this.state.quotation.payer.name + " now!";
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", text_btn, 0, {
+      "type": "submit",
+      "onsubmit": this.handleSubmit,
+      "onclick": this.handleSubmit
+    });
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3  text-center", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h4", null, "Direct Transfer:", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      "afterUpdate": this.handleUpdateTotalAmount,
+      "initial": 0
+    }), this._render_btn()], 0, {
+      "id": "direct_tx"
+    });
+  };
+  return QuotationDirectTransfer;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
 /***/ "./src/components/quotation/QuotationJobForm.js":
 /*!******************************************************!*\
   !*** ./src/components/quotation/QuotationJobForm.js ***!
@@ -1142,7 +1245,7 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
     });
   };
   _proto.handleUpdateTotalAmount = function handleUpdateTotalAmount(amount) {
-    //console.log("updateAmount");
+    console.log("updateAmount");
     this.state.quotation.setTotalAmount(amount.data.value);
   };
   _proto.handleSubmit = function handleSubmit(event) {
@@ -6777,6 +6880,7 @@ async function register_new_job(job) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "build_payload_create_escrow": () => (/* binding */ build_payload_create_escrow),
+/* harmony export */   "build_payload_direct_transfer": () => (/* binding */ build_payload_direct_transfer),
 /* harmony export */   "build_payload_finish_escrow": () => (/* binding */ build_payload_finish_escrow),
 /* harmony export */   "checks_escrow": () => (/* binding */ checks_escrow),
 /* harmony export */   "checks_escrow_finished": () => (/* binding */ checks_escrow_finished),
@@ -6813,6 +6917,15 @@ async function list_quotation_by_job(job_id) {
 async function register_new_quotation(quotation) {
     let url = "/api/quotation/create";
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, quotation);
+    return data.result;
+}
+async function build_payload_direct_transfer(quotation_id, amount) {
+    let url = `/api/quotation/direct_transfer`;
+    let req_body = {
+        "quotation_id": quotation_id,
+        "amount": amount
+    };
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
     return data.result;
 }
 async function build_payload_create_escrow(job_id, quotation_id) {
@@ -6890,6 +7003,52 @@ async function make_quotation_confirm(quotation_id) {
     };
     let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
     return data.result;
+}
+
+
+/***/ }),
+
+/***/ "./src/api/api_transfer.ts":
+/*!*********************************!*\
+  !*** ./src/api/api_transfer.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "sumbit_direct_transfer": () => (/* binding */ sumbit_direct_transfer)
+/* harmony export */ });
+/* harmony import */ var _models_once_execution__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/once_execution */ "./src/models/once_execution.ts");
+/* harmony import */ var _api_quotations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api_quotations */ "./src/api/api_quotations.ts");
+
+
+let TRANSFER_TX_GUARD = new _models_once_execution__WEBPACK_IMPORTED_MODULE_0__["default"]();
+function sumbit_direct_transfer(quotation_id, amount, callback = (_) => { }) {
+    let promise_tx = (0,_api_quotations__WEBPACK_IMPORTED_MODULE_1__.build_payload_direct_transfer)(quotation_id, amount);
+    if (TRANSFER_TX_GUARD.run()) {
+        promise_tx.then((result) => {
+            console.log(result);
+            xumm_run_tx(result, (payload) => {
+                console.log(payload);
+                //send_xumm_uuid_transfer(quotation_id, payload.uuid).then(callback);
+            });
+        });
+    }
+    else {
+        console.error("Inferno conflict, handlers was overwrite... try execute more than one time the escrow action.");
+    }
+}
+function xumm_run_tx(tx, callback = (_) => { }) {
+    if ("xumm" in window) {
+        let xumm = window["xumm"];
+        xumm.payload.create({
+            "txjson": tx,
+            "options": {
+                "expire": 5
+            }
+        }).then(callback);
+    }
 }
 
 
@@ -7254,7 +7413,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("2b3b808c310ec248107c")
+/******/ 		__webpack_require__.h = () => ("54d93f698c3e01d68f3d")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

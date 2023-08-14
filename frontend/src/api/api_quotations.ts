@@ -33,6 +33,19 @@ export async function register_new_quotation(quotation : IJobQuotation){
     return data.result;
 }
 
+export async function build_payload_direct_transfer(quotation_id : string, amount : number) : Promise<any> {
+  let url = `/api/quotation/direct_transfer`;
+  
+  let req_body = {
+    "quotation_id": quotation_id,
+    "amount": amount
+  }
+  
+  let data = await fetch_auth_post(url, req_body);
+  return data.result;
+}
+
+
 export async function build_payload_create_escrow(job_id: string, quotation_id : string) : Promise<any> {
   let url = `/api/quotation/create_escrow`;
   

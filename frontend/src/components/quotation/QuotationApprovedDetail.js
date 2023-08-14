@@ -3,6 +3,7 @@ import AuthRouting  from "../../components/utils/AuthRouting";
 import { make_quotation_done, make_quotation_confirm } from "../../api/api_quotations";
 import { sumbit_finish_escrow } from "../../api/api_escrow";
 import QuotationApprovedWaitingFinished from "./QuotationApprovedWaitingFinished";
+import QuotationDirectTransfer from "./QuotationDirectTrasfer";
 
 export default class QuotationApprovedDetail extends Component {
     constructor(props) {
@@ -98,11 +99,20 @@ export default class QuotationApprovedDetail extends Component {
         for (let index = 0; index < txs.length; index++) {
             const tx = txs[index];
             let url = "https://test.bithomp.com/explorer/" + tx.ledger_txid;
-            let html = <div><a href={url}>{tx.ledger_txid}</a></div>
+            let html = <div>
+                <i class="icon-link-ext-alt"></i>
+                {tx.tx_type} - <a href={url} target="_blank">{tx.ledger_txid}</a>
+            </div>
             txsElements.push(html);
         }
     
-        return txsElements;
+        return (
+            <div id="trasfers" class="form-group mb-3">
+                <h4>Transactions</h4>
+                <div class="container">
+                    {txsElements}
+                </div>
+            </div>);
     }
 
 
@@ -154,6 +164,7 @@ export default class QuotationApprovedDetail extends Component {
                 {this._render_options()}
 
                 <div>
+                <QuotationDirectTransfer quotation={this.state.quotation}></QuotationDirectTransfer>
                 {this._render_txs()}
                 </div>
             </div>

@@ -63,7 +63,7 @@ export default class QuotationJobForm extends Component {
     }
 
     handleUpdateTotalAmount(amount){
-        //console.log("updateAmount");
+        console.log("updateAmount");
         this.state.quotation.setTotalAmount(amount.data.value);
     }
 

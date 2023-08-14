@@ -34,7 +34,7 @@ async def check_escrow_finished(destine_id, quotation_id, xumm_uuid):
         
         txid = response_xumm["response"]["txid"]
         conn = get_conn()
-        _ = await tx_insert(conn, quotation_id=quotation_id, tx_type="Escrow finished", ledger_txid=txid)
+        _ = await tx_insert(conn, quotation_id=quotation_id, tx_type="Escrow finish", ledger_txid=txid)
         
         return True
         

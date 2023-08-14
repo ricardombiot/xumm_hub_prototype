@@ -17,6 +17,7 @@ from queries.quotation_update_confirmed_async_edgeql import quotation_update_con
 from queries.quotation_update_done_async_edgeql import quotation_update_done
 from queries.quotation_save_escrow_finished_xumm_payload_uuid_async_edgeql import quotation_save_escrow_finished_xumm_payload_uuid
 from queries.quotation_select_for_escrow_finished_async_edgeql import quotation_select_for_escrow_finished
+from web.app.transfer.create_transfer import direct_transfer_by_quotation
 from web.app.escrow.checks_finished_escrow import check_escrow_finished
 from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
 from web.app.api_errors import NotAuthorizationError
@@ -45,6 +46,16 @@ def handle_not_authorization_error(error):
     response.status_code = 400
     return response
 
+
+@api_quotations_secure.post("/api/quotation/direct_transfer")
+async def admin_direct_transfer():
+    data = json.loads(request.data)
+    user_id = session_user_id(request)
+    # Should be user_id (Destine)
+    quotation_id = data['quotation_id']
+    amount = data['amount']
+    result = await direct_transfer_by_quotation(user_id, quotation_id, amount)
+    return jsonify({"result": result})
 
 @api_quotations_secure.post("/api/quotation/finish_escrow")
 async def admin_finish_escrow():
