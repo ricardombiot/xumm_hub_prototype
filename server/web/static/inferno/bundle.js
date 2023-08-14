@@ -1123,7 +1123,8 @@ var QuotationDirectTransfer = /*#__PURE__*/function (_Component) {
       total_amount: 0.0,
       is_payer: is_payer,
       is_destine: is_destine,
-      is_checking: false
+      is_checking: false,
+      is_success: false
     };
     _this.handleUpdateTotalAmount = _this.handleUpdateTotalAmount.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -1162,7 +1163,10 @@ var QuotationDirectTransfer = /*#__PURE__*/function (_Component) {
             case 2:
               result = _context.sent;
               if (result == true) {
-                console.log("CHECKED OK.");
+                _this3.setState({
+                  is_success: true
+                });
+                _this3.cron_reload();
               } else {
                 _this3.checkDirectTranfer(xumm_payload_uuid, direct_transfer_id);
               }
@@ -1173,6 +1177,12 @@ var QuotationDirectTransfer = /*#__PURE__*/function (_Component) {
         }, _callee);
       })), 1000);
     }
+  };
+  _proto.cron_reload = function cron_reload() {
+    var _this4 = this;
+    setTimeout(function () {
+      window.location = "/job/" + _this4.state.quotation.job.id;
+    }, 750);
   };
   _proto._render_btn = function _render_btn() {
     var text_btn = "";
@@ -1189,7 +1199,11 @@ var QuotationDirectTransfer = /*#__PURE__*/function (_Component) {
   };
   _proto.render = function render() {
     if (this.state.is_checking) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3  text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-flex align-items-center me-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "Checking Direct Transfer...", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border ms-auto text-secondary", null, 1, {
+      var message = "";
+      if (this.state.is_success) {
+        message = "[OK]";
+      }
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3  text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-flex align-items-center me-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Checking Direct Transfer..."), message], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border ms-auto text-secondary", null, 1, {
         "role": "status",
         "aria-hidden": "true"
       })], 4), 2, {
@@ -7472,7 +7486,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("7fffbd0c2eaf7220b3c8")
+/******/ 		__webpack_require__.h = () => ("9f10055da4dd3eace43b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

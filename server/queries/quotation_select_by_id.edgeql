@@ -9,7 +9,8 @@ select default::Quotation {
   job : {
     id,
     payer : {
-      id
+      id,
+      name
     },
     approved_quotation
   },

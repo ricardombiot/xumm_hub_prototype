@@ -42,17 +42,12 @@ class QuotationSelectByIdResultDestine(NoPydanticValidation):
 @dataclasses.dataclass
 class QuotationSelectByIdResultJob(NoPydanticValidation):
     id: uuid.UUID
-    payer: QuotationSelectByIdResultJobPayer
+    payer: QuotationSelectByIdResultDestine
     approved_quotation: typing.Optional[QuotationSelectByIdResultJobApprovedQuotation]
 
 
 @dataclasses.dataclass
 class QuotationSelectByIdResultJobApprovedQuotation(NoPydanticValidation):
-    id: uuid.UUID
-
-
-@dataclasses.dataclass
-class QuotationSelectByIdResultJobPayer(NoPydanticValidation):
     id: uuid.UUID
 
 
@@ -99,7 +94,8 @@ async def quotation_select_by_id(
           job : {
             id,
             payer : {
-              id
+              id,
+              name
             },
             approved_quotation
           },

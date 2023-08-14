@@ -285,7 +285,8 @@ async def admin_get_quotation(quotation_id):
                 "job" : {
                     "id": quotation.job.id,
                     "payer" : {
-                        "id": str(quotation.job.payer.id)
+                        "id": str(quotation.job.payer.id),
+                        "name": quotation.job.payer.name
                     }
                 },
                 "destine": {
