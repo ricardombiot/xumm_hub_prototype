@@ -17,6 +17,7 @@ from queries.quotation_update_confirmed_async_edgeql import quotation_update_con
 from queries.quotation_update_done_async_edgeql import quotation_update_done
 from queries.quotation_save_escrow_finished_xumm_payload_uuid_async_edgeql import quotation_save_escrow_finished_xumm_payload_uuid
 from queries.quotation_select_for_escrow_finished_async_edgeql import quotation_select_for_escrow_finished
+from web.app.transfer.checks_transfer import checks_direct_transfer
 from web.app.transfer.create_transfer import direct_transfer_by_quotation
 from web.app.escrow.checks_finished_escrow import check_escrow_finished
 from web.app.escrow.finished_escrow import escrow_finish_payload_by_quotation
@@ -51,10 +52,20 @@ def handle_not_authorization_error(error):
 async def admin_direct_transfer():
     data = json.loads(request.data)
     user_id = session_user_id(request)
-    # Should be user_id (Destine)
+
     quotation_id = data['quotation_id']
     amount = data['amount']
     result = await direct_transfer_by_quotation(user_id, quotation_id, amount)
+    return jsonify({"result": result})
+
+@api_quotations_secure.post("/api/quotation/direct_transfer/checks")  
+async def admin_direct_transfer_checks():
+    data = json.loads(request.data)
+    user_id = session_user_id(request)
+    
+    direct_transfer_id = data['direct_transfer_id']
+    xumm_payload_uuid = data['xumm_payload_uuid']
+    result = await checks_direct_transfer(user_id, direct_transfer_id, xumm_payload_uuid)
     return jsonify({"result": result})
 
 @api_quotations_secure.post("/api/quotation/finish_escrow")

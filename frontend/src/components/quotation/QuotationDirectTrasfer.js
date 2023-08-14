@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 import XRPInput from './../utils/XRPInput';
 import AuthRouting  from "../../components/utils/AuthRouting";
-import { sumbit_direct_transfer } from "./../../api/api_transfer";
+import { sumbit_direct_transfer,  checks_direct_transfer} from "./../../api/api_transfer";
 
 export default class QuotationDirectTransfer extends Component {
 
@@ -18,6 +18,8 @@ export default class QuotationDirectTransfer extends Component {
             total_amount: 0.0,
             is_payer: is_payer,
             is_destine: is_destine,
+            is_checking: false,
+            is_success: false
         }
 
 
@@ -36,13 +38,36 @@ export default class QuotationDirectTransfer extends Component {
     handleSubmit(_event){
 
         console.log(this.state);
+        this.setState({is_checking: true});
 
-        sumbit_direct_transfer(this.state.quotation.id, this.state.total_amount, () => {
-            console.log("OK");
+        sumbit_direct_transfer(this.state.quotation.id, this.state.total_amount, (data) => {
+            this.checkDirectTranfer(data.xumm_payload_uuid, data.direct_transfer_id);
         })
 
         event.preventDefault();
     }
+
+    checkDirectTranfer(xumm_payload_uuid, direct_transfer_id){
+        if(this.state.is_checking){
+            console.log("checkDirectTranfer...")
+            setTimeout(async () => {
+                let result = await checks_direct_transfer(xumm_payload_uuid, direct_transfer_id);
+                if(result == true){
+                    this.setState({is_success: true})
+                    this.cron_reload();
+                }else{
+                    this.checkDirectTranfer(xumm_payload_uuid, direct_transfer_id);
+                }
+            },1000)
+        }
+    }
+
+    cron_reload(){
+        setTimeout(() => {
+            window.location = "/job/" + this.state.quotation.job.id
+        },750)
+    }
+
 
     _render_btn(){
         let text_btn = "";
@@ -56,13 +81,32 @@ export default class QuotationDirectTransfer extends Component {
     }
 
     render(){
-        return (
-            <div id="direct_tx" class="form-group mb-3  text-center">
-             <h4>Direct Transfer:</h4>
-                <XRPInput afterUpdate={this.handleUpdateTotalAmount} initial={0}></XRPInput>
-            
-                {this._render_btn()}
-            </div>);
+
+        if(this.state.is_checking){
+            let message = "";
+            if(this.state.is_success){
+                message = "[OK]"
+            }
+
+            return (
+                <div id="direct_tx" class="form-group mb-3  text-center">
+                    <div class="d-flex align-items-center me-3">
+                            <strong>Checking Direct Transfer...{message}</strong>
+                            <div class="spinner-border ms-auto text-secondary" role="status" aria-hidden="true"></div>
+                    </div>
+                </div>
+            )
+        }else{
+
+            return (
+                <div id="direct_tx" class="form-group mb-3  text-center">
+                 <h4>Direct Transfer:</h4>
+                    <XRPInput afterUpdate={this.handleUpdateTotalAmount} initial={0}></XRPInput>
+                
+                    {this._render_btn()}
+                </div>);
+        }
+
     }
 
 }

@@ -62,12 +62,29 @@ module default {
     }
 
     link txs := .<quotation[is Tx];
+    link direct_transfers := .<quotation[is DirectTransfer];
   }
 
   type Tx {
     required quotation: Quotation;
     required tx_type: str;
     required ledger_txid: str;
+
+    created_at: datetime {
+      readonly := true;
+      default := datetime_of_statement();
+    }
+  }
+
+  type DirectTransfer {
+
+    quotation -> Quotation;
+    payload -> str;
+    xumm_payload_uuid -> str;
+    owner -> User;
+    is_checked -> bool {
+      default := false
+    }
 
     created_at: datetime {
       readonly := true;
