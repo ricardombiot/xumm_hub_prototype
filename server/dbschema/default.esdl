@@ -25,6 +25,8 @@ module default {
     }
   }
 
+
+
   scalar type StateQuotationEscrow extending enum<NONE,BUILED,WAITING_XUMM_SIGN,CHECKED,WAITING_XUMM_SIGN_FINISH,FINISHED>;
   scalar type StateQuotation extending enum<PUBLISHED, APPROVED, DONE, CONFIRMED, CLOSED>;
   
@@ -58,6 +60,20 @@ module default {
       readonly := true;
       default := datetime_of_statement();
     }
+
+    link txs := .<quotation[is Tx];
   }
+
+  type Tx {
+    required quotation: Quotation;
+    required tx_type: str;
+    required ledger_txid: str;
+
+    created_at: datetime {
+      readonly := true;
+      default := datetime_of_statement();
+    }
+  }
+
 
 }

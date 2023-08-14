@@ -857,7 +857,7 @@ var QuotationApprovedPanel = /*#__PURE__*/function (_Component) {
     (0,_api_api_quotations__WEBPACK_IMPORTED_MODULE_1__.get_quotation)(this.state.quotation_id).then(function (quotation) {
       var is_payer = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_4__["default"].is_owner(quotation.job.payer.id);
       var is_destine = _utils_AuthRouting__WEBPACK_IMPORTED_MODULE_4__["default"].is_owner(quotation.destine.id);
-      //console.log(quotation);
+      console.log(quotation);
       _this2.setState({
         quotation: quotation,
         is_payer: is_payer,
@@ -7254,7 +7254,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("742932591b7b7aedcfdc")
+/******/ 		__webpack_require__.h = () => ("2b3b808c310ec248107c")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

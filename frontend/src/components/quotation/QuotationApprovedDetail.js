@@ -91,6 +91,20 @@ export default class QuotationApprovedDetail extends Component {
         return this.render_content();
     }
 
+    _render_txs(){
+        let txs = this.state.quotation.txs;
+
+        let txsElements = [];
+        for (let index = 0; index < txs.length; index++) {
+            const tx = txs[index];
+            let url = "https://test.bithomp.com/explorer/" + tx.ledger_txid;
+            let html = <div><a href={url}>{tx.ledger_txid}</a></div>
+            txsElements.push(html);
+        }
+    
+        return txsElements;
+    }
+
 
     render_content(){
 
@@ -138,6 +152,10 @@ export default class QuotationApprovedDetail extends Component {
             </div>
 
                 {this._render_options()}
+
+                <div>
+                {this._render_txs()}
+                </div>
             </div>
 
             </div>

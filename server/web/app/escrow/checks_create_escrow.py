@@ -2,6 +2,7 @@
 from edgedb_conn import get_conn
 from queries.quotation_select_for_escrow_async_edgeql import quotation_select_for_escrow
 from queries.quotation_save_escrow_after_checked_async_edgeql import quotation_save_escrow_after_checked
+from queries.tx_insert_async_edgeql import tx_insert
 from web.app.escrow.read_xrpl_tx import read_transaction_on_xrpl_ledger
 from web.app.escrow.read_xumm_payload import load_xumm_payload
 from web.app.api_errors import NotAuthorizationError
@@ -29,9 +30,13 @@ async def check_escrow_create(user_id, quotation_id, xumm_uuid):
         conn = get_conn()
         result = await quotation_save_escrow_after_checked(conn, quotation_id=quotation_id, payer_id=user_id,escrow_sequence=escrow_sequence, escrow_txid=txid)
         
+ 
         if result == None:
             raise NotAuthorizationError("User havent priviligies.")
         else:
+            
+            conn = get_conn()
+            _ = await tx_insert(conn, quotation_id=quotation_id, tx_type="Escrow creation", ledger_txid=txid)
             return True
         
     else:

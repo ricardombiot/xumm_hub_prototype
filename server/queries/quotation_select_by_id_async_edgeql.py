@@ -30,6 +30,7 @@ class QuotationSelectByIdResult(NoPydanticValidation):
     escrow_state: typing.Optional[StateQuotationEscrow]
     escrow_checked_at: typing.Optional[datetime.datetime]
     state: typing.Optional[StateQuotation]
+    txs: list[QuotationSelectByIdResultTxsItem]
 
 
 @dataclasses.dataclass
@@ -53,6 +54,14 @@ class QuotationSelectByIdResultJobApprovedQuotation(NoPydanticValidation):
 @dataclasses.dataclass
 class QuotationSelectByIdResultJobPayer(NoPydanticValidation):
     id: uuid.UUID
+
+
+@dataclasses.dataclass
+class QuotationSelectByIdResultTxsItem(NoPydanticValidation):
+    id: uuid.UUID
+    tx_type: str
+    ledger_txid: str
+    created_at: typing.Optional[datetime.datetime]
 
 
 class StateQuotation(enum.Enum):
@@ -96,7 +105,12 @@ async def quotation_select_by_id(
           },
           escrow_state,
           escrow_checked_at,
-          state
+          state,
+          txs : {
+            tx_type,
+            ledger_txid,
+            created_at
+          }
         } filter .id = <std::uuid> $quotation_id\
         """,
         quotation_id=quotation_id,

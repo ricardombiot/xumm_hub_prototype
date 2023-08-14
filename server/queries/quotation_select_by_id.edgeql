@@ -15,6 +15,11 @@ select default::Quotation {
   },
   escrow_state,
   escrow_checked_at,
-  state
+  state,
+  txs : {
+    tx_type,
+    ledger_txid,
+    created_at
+  }
 } filter .id = <std::uuid> $quotation_id 
 

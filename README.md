@@ -79,7 +79,7 @@ The challenges at the business level lead us towards the technical challenges th
 
 The main challenges, which we have addressed in this huge spike, related to the implementation of this project using Ripple's technology are the following:
 
-- Xumm integration:We really liked how Xumm facilitates the login and logout of users in our application, however, we have implemented our own associated authorization system so that we do not have to ask Xumm every time if a user has the permissions or not, to access to a route or endpoint of our api.
+- XUMM integration: We really liked how Xumm facilitates the login and logout of users in our application, however, we have implemented our own associated authorization system so that we do not have to ask Xumm every time if a user has the permissions or not, to access to a route or endpoint of our api.
 
 - Escrows vs Payment Channels:It is interesting in the face of trust that before starting a job, the company commits to making a full (or partial) deposit of the budget for the project given by the freelancer. In the first place, we studied using the use of payment channels, however, we found the limitation that some processes of the payment channel flow are not transactions but methods, this made integration with Xumm difficult, since as we have established, we will delegate to this all security responsibilities that will control the private keys, sign and send the transactions.
 
@@ -98,7 +98,6 @@ The main challenges, which we have addressed in this huge spike, related to the 
 
 - Direct Transfers:
   @TODO
-
 
 
 💡 Proposal: We think that it would be interesting within the ecosystem to offer templates, ready-made skeletons to speed up the creation of new projects and prevent new developers from wasting days learning how to integrate with Xumm and launch transactions to XRP Ledger through it. 
@@ -158,9 +157,9 @@ Learning Technology Stack:
   > EdgeDB is an open-source database designed as a spiritual successor to SQL and the relational paradigm. It aims to solve some hard design problems that make existing databases unnecessarily onerous to use.
   Powered by the Postgres query engine under the hood, EdgeDB thinks about schema the same way you do: as objects with properties connected by links. It's like a relational database with an object-oriented data model, or a graph database with strict schema. We call it a graph-relational database.
 
-  I really wanted to try the edgedb migration system and I really liked the results a lot.
-
-  Any current project requires that the database schema evolve quickly and more if we talk about a spaik where we do not know everything we need, we have been able to update the database schema (/server/dbschema/default.esdl) , create new migrations (make edgedb-migration-create ) and apply them on our database (make edgedb-migrate) easily. Really recommended! 👍
+  I really wanted to try the edgedb migration system and I really liked the results a lot. Any current project requires that the database schema evolve quickly and more if we talk about a spaik where we do not know everything we need, we have been able to update the database schema (/server/dbschema/default.esdl) , create new migrations (`make edgedb-migration-create`) and apply them on our database (`make edgedb-migrate`) easily. After you can write your queries (see ./server/queries/...) using a simple edgeSQL sintax and generate python code `make edgedb-gen` that after you can call on your code. Really fast dev cycle :).
+  
+  In production we could would worked with Edgedb+Postgres therefore really recommended EdgeDB! 👍
 
 - [Python + Flask](https://flask.palletsprojects.com/en/2.3.x/) 
 
@@ -170,6 +169,7 @@ Learning Technology Stack:
 
 
 - [InfernoJs](https://www.infernojs.org/)
+
   I admit it, maybe I'm from the old school but I don't like that the frontend limits my stack... many current frameworks tend little by little to depend on backends and therefore to condition how you develop. I like the freedom to choose the technologies I work with, and that's why it's hard for me to find frontend frameworks that I feel comfortable with.
 
   In this case, to take advantage of the project I have tried the Inferno Js framework inspired by React, and the truth is, I really liked that I could easily start working despite using Flask.
