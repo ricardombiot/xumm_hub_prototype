@@ -267,6 +267,19 @@ var JobPage = /*#__PURE__*/function (_Component) {
       });
     }
   };
+  _proto._render_budget = function _render_budget() {
+    var budget = "less 1000";
+    if (this.state.job.budget_range == "1000_3000xrp") {
+      budget = "1000 - 3000";
+    } else if (this.state.job.budget_range == "3000_6000xrp") {
+      budget = "3000 - 6000";
+    } else if (this.state.job.budget_range == "more_10000xrp") {
+      budget = "+10000";
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "h2 text-right", [budget, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "text-muted", "$XRP", 16)], 0, {
+      "id": "budget"
+    });
+  };
   _proto._render_job = function _render_job() {
     if (this.state.job == "NOT_LOADED") {
       return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "spinner-border text-primary", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "sr-only", "Loading...", 16), 2, {
@@ -279,11 +292,9 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "href": "#reviews"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Booking", 16, {
         "href": "#sidebar"
-      }), 2)], 4), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_60_35", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "section", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "detail_title_1", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "address", "438 Rush Green Road, Romford", 16, {
-        "href": "https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.job.description, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row add_bottom_30", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _ui_CategoriesSelector__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      }), 2)], 4), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_60_35", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "section", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "detail_title_1", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), this.state.job.payer.name], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.job.description, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Budget", 16), this._render_budget(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row add_bottom_30", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _ui_CategoriesSelector__WEBPACK_IMPORTED_MODULE_9__["default"], {
         "initial_categories": this.state.job.categories
-      }), 2)], 4, {
+      }), 2)], 0, {
         "id": "description"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         "job_id": this.state.job.id
@@ -1353,7 +1364,7 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
       "onInput": this.handleChangeDescription,
       "rows": "25",
       "style": "min-height: 200px !important;"
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Publish now!", 16, {
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Send your quote now!", 16, {
       "type": "submit",
       "onsubmit": this.handleSubmit,
       "onclick": this.handleSubmit
@@ -7847,7 +7858,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("e79b245aa25d39c356f1")
+/******/ 		__webpack_require__.h = () => ("f040e196effab821c84c")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

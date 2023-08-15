@@ -50,6 +50,21 @@ class JobPage extends Component {
 	
 	}
 
+	_render_budget(){
+		let budget = "less 1000"
+		if(this.state.job.budget_range == "1000_3000xrp"){
+			budget = "1000 - 3000"
+		}else if(this.state.job.budget_range == "3000_6000xrp"){
+			budget = "3000 - 6000"
+		}else if(this.state.job.budget_range == "more_10000xrp"){
+			budget = "+10000"
+		}
+
+		return (<p id="budget" class="h2 text-right">
+			{budget} <small class="text-muted">$XRP</small>
+		</p>)
+	}
+
     _render_job(){
 
 
@@ -76,9 +91,12 @@ class JobPage extends Component {
 								<section id="description">
 									<div class="detail_title_1">
 										<h1>{this.state.job.title}</h1>
-										<a class="address" href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361">438 Rush Green Road, Romford</a>
+										{this.state.job.payer.name} 
 									</div>
 									<p>{this.state.job.description}</p>
+
+									<h5 class="add_bottom_15">Budget</h5>
+									{this._render_budget()}
 									<h5 class="add_bottom_15">Categories</h5>
 									<div class="row add_bottom_30">
 										<CategoriesSelector initial_categories={this.state.job.categories}></CategoriesSelector>

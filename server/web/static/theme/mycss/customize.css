@@ -63,6 +63,7 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
 
 .startup .custom_subheader {
     background-color: #004dda !important;
+    color: white !important;
 }
 
 .freelance .custom_subheader {
@@ -166,4 +167,12 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
 
 .category-item-active {
     background: rgb(212, 235, 177) !important;
+}
+
+#budget {
+    background: #dbffd3;
+    border: 1px solid;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
 }
