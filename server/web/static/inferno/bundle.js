@@ -1583,8 +1583,10 @@ var BtnLogin = /*#__PURE__*/function (_Component) {
   function BtnLogin(props) {
     var _this;
     _this = _Component.call(this, props) || this;
+    var afterUpdateAuth = props.afterUpdateAuth;
     _this.state = {
-      is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__.is_login)()
+      is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__.is_login)(),
+      afterUpdateAuth: afterUpdateAuth
     };
     _this.handle_login = _this.handle_login.bind(_assertThisInitialized(_this));
     _this.handle_logout = _this.handle_logout.bind(_assertThisInitialized(_this));
@@ -1608,21 +1610,23 @@ var BtnLogin = /*#__PURE__*/function (_Component) {
   _proto.handle_login = function handle_login() {
     this._check_login();
     xumm.authorize();
+    this.state.afterUpdateAuth(this.state.is_login);
   };
   _proto.handle_logout = function handle_logout() {
     xumm.logout();
     this.setState({
       is_login: false
     });
+    this.state.afterUpdateAuth(this.state.is_login);
   };
   _proto.render = function render() {
     if (this.state.is_login) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_add btn-dark", "Logout", 16, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-light", "Logout", 16, {
         "id": "logoutbutton",
         "onclick": this.handle_logout
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn_add", "Login", 16, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-primary", "Login", 16, {
         "id": "signinbutton",
         "onclick": this.handle_login
       });
@@ -1648,39 +1652,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _btn_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./btn_login */ "./src/components/ui/btn_login.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
+/* harmony import */ var _utils_nav_authorization__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/nav_authorization */ "./src/components/utils/nav_authorization.js");
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
 var HeaderMenu = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HeaderMenu, _Component);
   function HeaderMenu(props) {
-    return _Component.call(this, props) || this;
+    var _this;
+    _this = _Component.call(this, props) || this;
+    _this.state = {
+      is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_3__.is_login)()
+    };
+    _this.handleAfterUpdateAuth = _this.handleAfterUpdateAuth.bind(_assertThisInitialized(_this));
+    return _this;
   }
   var _proto = HeaderMenu.prototype;
+  _proto.handleAfterUpdateAuth = function handleAfterUpdateAuth(is_login) {
+    console.log("UPDATE..");
+    this.setState({
+      is_login: is_login
+    });
+  };
+  _proto.user_menu = function user_menu() {
+    if (this.state.is_login) {
+      return [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        "to": "/user/profile",
+        children: ["Profile ", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-user")]
+      }), 2)];
+    }
+    return [];
+  };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "header", "header menu_fixed", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "header", "header menu_fixed", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "list-inline", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
       "to": "/",
       children: "xAppFreelancer"
-    }), 2, {
-      "id": "logo"
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "login", "Sign In", 16, {
-      "href": "#sign-in-dialog",
-      "id": "sign-in",
-      "title": "Sign In"
-    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "wishlist_bt_top", "Your wishlist", 16, {
-      "href": "wishlist.html",
-      "title": "Your wishlist"
-    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _btn_login__WEBPACK_IMPORTED_MODULE_1__["default"]), 2)], 4, {
-      "id": "top_menu"
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "nav", "main-menu", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
       "to": "/job/search/",
-      children: "Search"
-    }), 2), 2), 2), 2, {
-      "id": "menu"
-    })], 4, {
+      children: ["Search ", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-search")]
+    }), 2), this.user_menu(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _btn_login__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      "afterUpdateAuth": this.handleAfterUpdateAuth
+    }), 2)], 0, {
+      "id": "top_menu_2"
+    }), 2), 2, {
       "id": "myheader"
     });
   };
@@ -7486,7 +7505,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("9f10055da4dd3eace43b")
+/******/ 		__webpack_require__.h = () => ("f7dfb965dd8d659c1efd")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
