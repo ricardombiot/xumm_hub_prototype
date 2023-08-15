@@ -12,6 +12,7 @@ import JobPage from './components/job/JobPage';
 import QuotationPage  from './components/quotation/QuotationPage';
 import HeaderMenu from './components/ui/header_menu';
 import JobSearchPage from './components/job/JobSearchPage';
+import UserProfileFormPage from "./components/user/UserProfileFormPage";
 //import { xumm_main } from './xumm_app';
 
 const browserHistory = createBrowserHistory();
@@ -69,9 +70,8 @@ const routes = (
             <Switch>
                 <Route exact path="/" component={MyHome}/>
                 <Route path="/job" component={JobRouter}/>
-
+                <Route path="/profile" component={UserProfileFormPage}/>
                 <Route path="/users" component={Users}/>
-                <Route path="/my-app" component={MyApp}/>
                 <Route path="*" component={NoMatch}/>
             </Switch>
         </div>

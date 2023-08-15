@@ -8,7 +8,9 @@ export default class JobFormPage extends FormComponent {
         super(props);
         
         this.state = {
-            title: "Title2"
+            title: "",
+            budget_range: "1000_3000xrp",
+            description: ""
         }
         
     }
@@ -59,15 +61,15 @@ return (
                 value={this.state.budget_range || ''}
                 onChange={this.handleInputChange}
                 id="job_bugdet_range" >
-                  <option>less 1000 XRP</option>
-                  <option selected="true">1000 - 3000 XRP</option>
-                  <option>3000 - 6000 XRP</option>
-                  <option>+ 10000 XRP</option>
+                  <option value="less_1000xrp">less 1000 XRP</option>
+                  <option selected="true"  value="1000_3000xrp">1000 - 3000 XRP</option>
+                  <option value="3000_6000xrp">3000 - 6000 XRP</option>
+                  <option value="more_10000xrp">+ 10000 XRP</option>
             </select>
         </div>
         <div class="form-group">
             <label>Categories</label>
-            ...
+            @TODO CATEGORIES
         </div>
         <hr></hr>
         <div class="form-group mb-3">

@@ -113,16 +113,17 @@ return (
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Postal Code*"></input>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <div class="custom-select-form">
-                            <select class="wide add_bottom_10" name="country" id="country">
+                    <select class="" name="country">
                                     <option value="" selected>Country*</option>
                                     <option value="Europe">Europe</option>
                                     <option value="United states">United states</option>
                                     <option value="Asia">Asia</option>
                             </select>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="custom-select-form">
+   
                         </div>
                     </div>
                 </div>

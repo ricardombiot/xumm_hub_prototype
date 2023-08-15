@@ -24,7 +24,7 @@ export default class HeaderMenu extends Component {
         if(this.state.is_login){
             return [
                 <li class="list-inline-item">
-            <Link to="/user/profile">   
+            <Link to="/profile">   
             Profile <i class="icon-user"></i>
             </Link>
             </li>]

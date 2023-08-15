@@ -111,7 +111,9 @@ var JobFormPage = /*#__PURE__*/function (_FormComponent) {
     var _this;
     _this = _FormComponent.call(this, props) || this;
     _this.state = {
-      title: "Title2"
+      title: "",
+      budget_range: "1000_3000xrp",
+      description: ""
     };
     return _this;
   }
@@ -136,14 +138,21 @@ var JobFormPage = /*#__PURE__*/function (_FormComponent) {
       "value": this.state.title || '',
       "onInput": this.handleInputChange,
       "placeholder": "Title*"
-    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Budget", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "form-control", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "less 1000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "1000 - 3000 XRP", 16, {
-      "selected": "true"
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "3000 - 6000 XRP", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "+ 10000 XRP", 16)], 4, {
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Budget", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "form-control", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "less 1000 XRP", 16, {
+      "value": "less_1000xrp"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "1000 - 3000 XRP", 16, {
+      "selected": "true",
+      "value": "1000_3000xrp"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "3000 - 6000 XRP", 16, {
+      "value": "3000_6000xrp"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "+ 10000 XRP", 16, {
+      "value": "more_10000xrp"
+    })], 4, {
       "name": "budget_range",
       "value": this.state.budget_range || '',
       "onChange": this.handleInputChange,
       "id": "job_bugdet_range"
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("...")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "hr"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("@TODO CATEGORIES")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "hr"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
       "name": "description",
       "value": this.state.description || '',
       "onInput": this.handleInputChange,
@@ -1682,7 +1691,7 @@ var HeaderMenu = /*#__PURE__*/function (_Component) {
   _proto.user_menu = function user_menu() {
     if (this.state.is_login) {
       return [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
-        "to": "/user/profile",
+        "to": "/profile",
         children: ["Profile ", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-user")]
       }), 2)];
     }
@@ -1823,6 +1832,125 @@ var SecHomeStartUp = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/user/UserProfileFormPage.js":
+/*!****************************************************!*\
+  !*** ./src/components/user/UserProfileFormPage.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ UserProfileFormPage)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/FormComponent */ "./src/components/utils/FormComponent.js");
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var UserProfileFormPage = /*#__PURE__*/function (_FormComponent) {
+  _inheritsLoose(UserProfileFormPage, _FormComponent);
+  function UserProfileFormPage(props) {
+    var _this;
+    _this = _FormComponent.call(this, props) || this;
+    _this.state = {
+      email: "",
+      name: "",
+      last_name: "",
+      full_address: "",
+      city: "",
+      postal_code: "",
+      country: "",
+      phone: "",
+      bio: ""
+    };
+    return _this;
+  }
+  var _proto = UserProfileFormPage.prototype;
+  _proto.onSubmit = function onSubmit(formData) {
+    console.log(formData);
+
+    /*
+    let job = {
+      title: formData.title,
+      description: formData.description,
+      budget_range: formData.budget_range
+    }
+     register_new_job(job).then((result) => {
+        let new_job_id = result.id
+        window.location.href = "/job/" + new_job_id;
+    })*/
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bisque_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Profile", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", "new_client", "Information", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "email",
+      "name": "email",
+      "value": this.state.email || '',
+      "onInput": this.handleInputChange,
+      "id": "email",
+      "placeholder": "Email"
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "hr"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "private box", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row g-0", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-6 pe-1", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "name",
+      "value": this.state.name || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Name*"
+    }), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-6 ps-1", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "last_name",
+      "value": this.state.last_name || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Last Name"
+    }), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-12", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "full_address",
+      "value": this.state.full_address || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Full Address"
+    }), 2), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row g-0", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-6 pe-1", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "city",
+      "value": this.state.city || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "City"
+    }), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-6 ps-1", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "postal_code",
+      "value": this.state.postal_code || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Postal Code"
+    }), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-12", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "country",
+      "value": this.state.country || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Country"
+    }), 2), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-12", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
+      "type": "text",
+      "name": "phone",
+      "value": this.state.phone || '',
+      "onInput": this.handleInputChange,
+      "placeholder": "Telephone "
+    }), 2), 2), 2)], 4)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Bio", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+      "name": "bio",
+      "value": this.state.bio || '',
+      "onInput": this.handleInputChange,
+      "rows": "25",
+      "style": "min-height: 200px !important;"
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "text-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", "Update profile", 16, {
+      "type": "submit",
+      "onsubmit": this.handleSubmit,
+      "onclick": this.handleSubmit
+    }), 2)], 4)], 4), 2), 2)], 4);
+  };
+  return UserProfileFormPage;
+}(_utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+/***/ }),
+
 /***/ "./src/components/utils/FormComponent.js":
 /*!***********************************************!*\
   !*** ./src/components/utils/FormComponent.js ***!
@@ -1955,7 +2083,7 @@ function is_login() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
 /* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
 /* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
 /* harmony import */ var _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobFormPage */ "./src/components/job/JobFormPage.js");
@@ -1963,6 +2091,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
 /* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
 /* harmony import */ var _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/job/JobSearchPage */ "./src/components/job/JobSearchPage.js");
+/* harmony import */ var _components_user_UserProfileFormPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/user/UserProfileFormPage */ "./src/components/user/UserProfileFormPage.js");
 
 // inferno module
 
@@ -1978,9 +2107,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //import { xumm_main } from './xumm_app';
 
-var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_9__.createBrowserHistory)();
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_10__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
@@ -2044,11 +2174,11 @@ var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, in
       "path": "/job",
       "component": JobRouter
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
+      "path": "/profile",
+      "component": _components_user_UserProfileFormPage__WEBPACK_IMPORTED_MODULE_9__["default"]
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": "/users",
       "component": Users
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
-      "path": "/my-app",
-      "component": _MyApp__WEBPACK_IMPORTED_MODULE_2__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": "*",
       "component": NoMatch
@@ -7505,7 +7635,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("f7dfb965dd8d659c1efd")
+/******/ 		__webpack_require__.h = () => ("f93da1b0f023e8f4595e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
