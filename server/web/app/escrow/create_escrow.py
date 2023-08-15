@@ -30,7 +30,7 @@ async def escrow_create_payload_by_quotation(user_id, quotation_id):
                 amount=quotation.total_amount, 
                 payer_address=quotation.job.payer.public_address, 
                 destine_address=quotation.destine.public_address,
-                delta_days=7
+                delta_days=quotation.delta_days
             )
             
             payload = escrow_builder.build()

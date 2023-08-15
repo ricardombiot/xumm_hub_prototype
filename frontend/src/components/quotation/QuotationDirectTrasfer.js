@@ -74,7 +74,7 @@ export default class QuotationDirectTransfer extends Component {
         if(this.state.is_payer){
             text_btn += `Send XRP to ${this.state.quotation.destine.name} now!`;
         }else if(this.state.is_destine){
-            text_btn += `Send XRP to ${this.state.quotation.payer.name} now!`;
+            text_btn += `Send XRP to ${this.state.quotation.job.payer.name} now!`;
         }
 
         return <button type="submit" class="btn_1 full-width" onsubmit={this.handleSubmit} onclick={this.handleSubmit}>{text_btn}</button>

@@ -23,6 +23,7 @@ class NoPydanticValidation:
 class QuotationSelectForEscrowResult(NoPydanticValidation):
     id: uuid.UUID
     total_amount: float
+    delta_days: typing.Optional[int]
     destine: QuotationSelectForEscrowResultDestine
     job: QuotationSelectForEscrowResultJob
     escrow_payload: typing.Optional[str]
@@ -67,6 +68,7 @@ async def quotation_select_for_escrow(
         """\
         select default::Quotation {
           total_amount,
+          delta_days,
           destine : {
             public_address
           },

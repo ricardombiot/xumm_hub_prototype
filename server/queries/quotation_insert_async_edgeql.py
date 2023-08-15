@@ -29,6 +29,7 @@ async def quotation_insert(
     quotation_description: str,
     quotation_total_amount: float,
     destine_id: uuid.UUID,
+    delta_days: int,
 ) -> QuotationInsertResult:
     return await executor.query_single(
         """\
@@ -36,11 +37,13 @@ async def quotation_insert(
             job := (SELECT Job FILTER .id = <std::uuid> $job_id),
             description := <std::str> $quotation_description,
             total_amount := <std::float64> $quotation_total_amount,
-            destine := (SELECT User FILTER .id = <std::uuid> $destine_id)
+            destine := (SELECT User FILTER .id = <std::uuid> $destine_id),
+            delta_days := <std::int32> $delta_days
         }\
         """,
         job_id=job_id,
         quotation_description=quotation_description,
         quotation_total_amount=quotation_total_amount,
         destine_id=destine_id,
+        delta_days=delta_days,
     )

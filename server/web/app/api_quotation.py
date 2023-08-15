@@ -77,6 +77,7 @@ async def register_quotation():
     quotation_description = data['description']
     quotation_total_amount = data['total_amount']
     job_id = data['job_id']
+    delta_days = data['delta_days']
     
     # @TODO owner job cannot add quote.
     
@@ -88,7 +89,8 @@ async def register_quotation():
         result = await quotation_update(conn, 
                         quotation_id=quotation.id, 
                         quotation_description=quotation_description,
-                        quotation_total_amount=quotation_total_amount)
+                        quotation_total_amount=quotation_total_amount,
+                        delta_days=delta_days)
         
         return jsonify({"result": result})
         
@@ -98,7 +100,8 @@ async def register_quotation():
                         destine_id=destine_id, 
                         quotation_description=quotation_description,
                         quotation_total_amount=quotation_total_amount,
-                        job_id=job_id)
+                        job_id=job_id,
+                        delta_days=delta_days)
         
         return jsonify({"result": result})
 

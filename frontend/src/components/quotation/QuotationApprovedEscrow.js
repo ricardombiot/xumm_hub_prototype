@@ -19,12 +19,9 @@ export default class QuotationApprovedEscrow extends Component {
 
     handleSign(event){
         this.setState({ is_checking: true });
+        this.checkEscrow(true);
         submit_create_escrow(this.state.quotation.job.id, this.state.quotation.id, (payload) => {
-            console.log("After submit_create");
-            console.log(payload);
-            console.log(this.state);
             this.setState({ is_checking: true });
-            this.checkEscrow(true);
         });
     }
 
@@ -45,7 +42,7 @@ export default class QuotationApprovedEscrow extends Component {
                 }else{
                     this.checkEscrow(true);
                 }
-            },1000)
+            },2000)
         }
     }
 

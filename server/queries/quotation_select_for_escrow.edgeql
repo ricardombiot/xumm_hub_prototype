@@ -1,5 +1,6 @@
 select default::Quotation {
   total_amount,
+  delta_days,
   destine : {
     public_address
   },

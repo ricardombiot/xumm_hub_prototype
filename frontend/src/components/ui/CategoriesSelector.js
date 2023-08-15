@@ -27,11 +27,9 @@ export default class CategoriesSelector extends Component {
 
 
         if (this.state.is_editable){
-            console.log(category);
             let new_state = this.state;
             new_state.categories[category] = !this.state.categories[category]
             this.setState(new_state);
-            console.log(new_state);
             this.state.handleUpdateCategories(this.state.categories);
         }
     }   

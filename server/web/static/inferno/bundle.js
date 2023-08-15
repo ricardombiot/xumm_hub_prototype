@@ -763,14 +763,11 @@ var QuotationApprovedEscrow = /*#__PURE__*/function (_Component) {
     this.setState({
       is_checking: true
     });
+    this.checkEscrow(true);
     (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.submit_create_escrow)(this.state.quotation.job.id, this.state.quotation.id, function (payload) {
-      console.log("After submit_create");
-      console.log(payload);
-      console.log(_this2.state);
       _this2.setState({
         is_checking: true
       });
-      _this2.checkEscrow(true);
     });
   };
   _proto.componentDidMount = function componentDidMount() {
@@ -803,7 +800,7 @@ var QuotationApprovedEscrow = /*#__PURE__*/function (_Component) {
               return _context.stop();
           }
         }, _callee);
-      })), 1000);
+      })), 2000);
     }
   };
   _proto.cron_reload = function cron_reload() {
@@ -1204,7 +1201,7 @@ var QuotationDirectTransfer = /*#__PURE__*/function (_Component) {
     if (this.state.is_payer) {
       text_btn += "Send XRP to " + this.state.quotation.destine.name + " now!";
     } else if (this.state.is_destine) {
-      text_btn += "Send XRP to " + this.state.quotation.payer.name + " now!";
+      text_btn += "Send XRP to " + this.state.quotation.job.payer.name + " now!";
     }
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn_1 full-width", text_btn, 0, {
       "type": "submit",
@@ -1254,10 +1251,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_quotation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../models/quotation */ "./src/models/quotation.ts");
 /* harmony import */ var _api_api_quotations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_quotations */ "./src/api/api_quotations.ts");
 /* harmony import */ var _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../utils/XRPInput */ "./src/components/utils/XRPInput.js");
+/* harmony import */ var _utils_DeltaDaysInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../utils/DeltaDaysInput */ "./src/components/utils/DeltaDaysInput.js");
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -1277,6 +1276,7 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
     };
     _this.handleChangeDescription = _this.handleChangeDescription.bind(_assertThisInitialized(_this));
     _this.handleUpdateTotalAmount = _this.handleUpdateTotalAmount.bind(_assertThisInitialized(_this));
+    _this.handleUpdateDeadline = _this.handleUpdateDeadline.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -1317,8 +1317,13 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
     });
   };
   _proto.handleUpdateTotalAmount = function handleUpdateTotalAmount(amount) {
-    console.log("updateAmount");
+    //Not propague update
     this.state.quotation.setTotalAmount(amount.data.value);
+  };
+  _proto.handleUpdateDeadline = function handleUpdateDeadline(delta_days) {
+    //Not propague update
+    this.state.quotation.setDeltaDays(delta_days);
+    console.log(this.state.quotation);
   };
   _proto.handleSubmit = function handleSubmit(event) {
     var quotation = this.state.quotation.raw();
@@ -1331,7 +1336,7 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
   };
   _proto._render_title_form = function _render_title_form() {
     if (this.have_quotation()) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader freelance", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Improve your quote!", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, "...options..", 16)], 4);
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader freelance", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Improve your quote!", 16), 2), 2), 2);
     } else {
       return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader freelance", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Quote now!", 16), 2), 2);
     }
@@ -1340,6 +1345,8 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg freelance", [this._render_title_form(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-tasks-1"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quotation ")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border freelance", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Total amount", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_XRPInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
       "afterUpdate": this.handleUpdateTotalAmount,
       "initial": this.state.quotation.data.total_amount
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Deadline/Escrow expiration days", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_DeltaDaysInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      "afterUpdate": this.handleUpdateDeadline
     })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
       "name": "description",
       "value": this.state.quotation.data.description,
@@ -1560,11 +1567,9 @@ var CategoriesSelector = /*#__PURE__*/function (_Component) {
   var _proto = CategoriesSelector.prototype;
   _proto.handleClickCategory = function handleClickCategory(category) {
     if (this.state.is_editable) {
-      console.log(category);
       var new_state = this.state;
       new_state.categories[category] = !this.state.categories[category];
       this.setState(new_state);
-      console.log(new_state);
       this.state.handleUpdateCategories(this.state.categories);
     }
   };
@@ -1711,11 +1716,14 @@ var HeaderMenu = /*#__PURE__*/function (_Component) {
     return _this;
   }
   var _proto = HeaderMenu.prototype;
-  _proto.handleAfterUpdateAuth = function handleAfterUpdateAuth(is_login) {
-    console.log("UPDATE..");
-    this.setState({
-      is_login: is_login
-    });
+  _proto.handleAfterUpdateAuth = function handleAfterUpdateAuth(_) {
+    var _this2 = this;
+    setTimeout(function () {
+      console.log("UPDATE..");
+      _this2.setState({
+        is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_3__.is_login)()
+      });
+    }, 10000);
   };
   _proto.user_menu = function user_menu() {
     if (this.state.is_login) {
@@ -2014,6 +2022,66 @@ var UserProfileFormPage = /*#__PURE__*/function (_FormComponent) {
   };
   return UserProfileFormPage;
 }(_utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+/***/ }),
+
+/***/ "./src/components/utils/DeltaDaysInput.js":
+/*!************************************************!*\
+  !*** ./src/components/utils/DeltaDaysInput.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DeltaDaysInput)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var DeltaDaysInput = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(DeltaDaysInput, _Component);
+  function DeltaDaysInput(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var afterUpdate = props.afterUpdate;
+    _this.state = {
+      value: "7",
+      afterUpdate: afterUpdate
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = DeltaDaysInput.prototype;
+  _proto.handleChange = function handleChange(event) {
+    var delta_days = event.target.value;
+    this.setState({
+      value: delta_days
+    });
+    this.state.afterUpdate(this.state.value);
+  };
+  _proto.render = function render() {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(256, "select", "form-control", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "3 Days", 16, {
+      "value": "3"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "7 Days", 16, {
+      "value": "7"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "14 Days", 16, {
+      "value": "14"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "option", null, "21 Days", 16, {
+      "value": "21"
+    })], 4, {
+      "name": "delta_days",
+      "value": this.state.value || '',
+      "onChange": this.handleChange,
+      "id": "delta_days"
+    });
+  };
+  return DeltaDaysInput;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
 /***/ }),
@@ -7060,14 +7128,16 @@ __webpack_require__.r(__webpack_exports__);
 
 let CREATE_ESCROW_TX_GUARD = new _models_once_execution__WEBPACK_IMPORTED_MODULE_0__["default"]();
 let FINISH_ESCROW_TX_GUARD = new _models_once_execution__WEBPACK_IMPORTED_MODULE_0__["default"]();
-function submit_create_escrow(job_id, quotation_id, delta_days = 7, callback = (_) => { }) {
+function submit_create_escrow(job_id, quotation_id, callback = (_) => { }) {
     let promise_tx = (0,_api_quotations__WEBPACK_IMPORTED_MODULE_1__.build_payload_create_escrow)(job_id, quotation_id);
     if (CREATE_ESCROW_TX_GUARD.run()) {
-        promise_tx.then((result) => {
+        promise_tx.then(async (result) => {
             console.log(result);
             xumm_run_tx(result.tx, (payload) => {
                 console.log(payload);
-                (0,_api_quotations__WEBPACK_IMPORTED_MODULE_1__.send_xumm_uuid)(quotation_id, payload.uuid).then(callback);
+                (0,_api_quotations__WEBPACK_IMPORTED_MODULE_1__.send_xumm_uuid)(quotation_id, payload.uuid)
+                    .then(callback)
+                    .catch((err) => console.error(err));
             });
         });
     }
@@ -7573,7 +7643,8 @@ class Quotation extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.Inmmutabl
         let data = {
             job_id: job_id,
             description: "",
-            total_amount: 0.0
+            total_amount: 0.0,
+            delta_days: 7
         };
         return new Quotation(data);
     }
@@ -7585,6 +7656,15 @@ class Quotation extends _inmmutable_model__WEBPACK_IMPORTED_MODULE_0__.Inmmutabl
     }
     setDescription(description) {
         this.data.description = description;
+    }
+    setDeltaDays(delta_days) {
+        let new_value = parseInt(delta_days);
+        if (new_value >= 0) {
+            this.data.delta_days = new_value;
+        }
+        else {
+            throw "DeltaDays At least one day.";
+        }
     }
 }
 
@@ -7767,7 +7847,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("2e7db665cfee16c599d9")
+/******/ 		__webpack_require__.h = () => ("e79b245aa25d39c356f1")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

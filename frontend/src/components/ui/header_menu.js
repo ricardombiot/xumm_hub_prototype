@@ -15,9 +15,11 @@ export default class HeaderMenu extends Component {
         this.handleAfterUpdateAuth = this.handleAfterUpdateAuth.bind(this);
     }
 
-    handleAfterUpdateAuth(is_login){
-        console.log("UPDATE..")
-        this.setState({is_login: is_login})
+    handleAfterUpdateAuth(_){
+        setTimeout(() => {
+            console.log("UPDATE..")
+            this.setState({is_login: is_login()})
+        },10000);
     }
 
     user_menu(){

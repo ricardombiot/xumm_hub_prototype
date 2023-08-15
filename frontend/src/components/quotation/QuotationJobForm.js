@@ -3,6 +3,7 @@ import { Component } from 'inferno';
 import { Quotation } from './../../models/quotation';
 import { register_new_quotation, get_quotation_by_job } from "./../../api/api_quotations"; 
 import XRPInput from './../utils/XRPInput';
+import DeltaDaysInput from './../utils/DeltaDaysInput';
 
 export default class QuotationJobForm extends Component {
 
@@ -20,6 +21,7 @@ export default class QuotationJobForm extends Component {
 
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleUpdateTotalAmount = this.handleUpdateTotalAmount.bind(this);
+        this.handleUpdateDeadline = this.handleUpdateDeadline.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -63,8 +65,14 @@ export default class QuotationJobForm extends Component {
     }
 
     handleUpdateTotalAmount(amount){
-        console.log("updateAmount");
+        //Not propague update
         this.state.quotation.setTotalAmount(amount.data.value);
+    }
+
+    handleUpdateDeadline(delta_days){
+        //Not propague update
+        this.state.quotation.setDeltaDays(delta_days);
+        console.log(this.state.quotation);
     }
 
     handleSubmit(event){
@@ -81,6 +89,7 @@ export default class QuotationJobForm extends Component {
 
 
 
+
     _render_title_form(){
         if(this.have_quotation()){
             return (
@@ -91,7 +100,6 @@ export default class QuotationJobForm extends Component {
                     </div>
                    
                 </div>
-                <p>...options..</p>
                 </div>)
         }else{
             return (
@@ -119,6 +127,10 @@ return (
             <label>Total amount</label>
             <XRPInput afterUpdate={this.handleUpdateTotalAmount} initial={this.state.quotation.data.total_amount}></XRPInput>
         </div>
+        <div class="form-group">
+            <label>Deadline/Escrow expiration days</label>
+            <DeltaDaysInput afterUpdate={this.handleUpdateDeadline}></DeltaDaysInput>
+        </div>
         <div class="form-group mb-3">
             <label class="form-label">Description</label>
             <textarea   class="form-control" 
@@ -129,7 +141,7 @@ return (
                         style="min-height: 200px !important;">
             </textarea>
         </div>
-        <div class="text-center"><button type="submit" class="btn_1 full-width" onsubmit={this.handleSubmit} onclick={this.handleSubmit}>Publish now!</button></div>
+        <div class="text-center"><button type="submit" class="btn_1 full-width" onsubmit={this.handleSubmit} onclick={this.handleSubmit}>Send your quote now!</button></div>
     </div>
    
 </div>

@@ -29,6 +29,7 @@ async def quotation_update(
     quotation_id: uuid.UUID,
     quotation_description: str,
     quotation_total_amount: float,
+    delta_days: int,
 ) -> typing.Optional[QuotationUpdateResult]:
     return await executor.query_single(
         """\
@@ -37,10 +38,12 @@ async def quotation_update(
         .state = <default::StateQuotation> "PUBLISHED"
         set {
             description := <std::str> $quotation_description,
-            total_amount := <std::float64> $quotation_total_amount
+            total_amount := <std::float64> $quotation_total_amount,
+            delta_days := <std::int32> $delta_days
         }\
         """,
         quotation_id=quotation_id,
         quotation_description=quotation_description,
         quotation_total_amount=quotation_total_amount,
+        delta_days=delta_days,
     )

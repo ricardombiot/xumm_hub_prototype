@@ -4,16 +4,18 @@ import { build_payload_create_escrow, build_payload_finish_escrow, send_xumm_uui
 let CREATE_ESCROW_TX_GUARD = new OnlyOneExecutionGuard();
 let FINISH_ESCROW_TX_GUARD = new OnlyOneExecutionGuard();
 
-export function submit_create_escrow(job_id : string, quotation_id : string, delta_days : number = 7, callback : (payload : any) => void = (_)=> {}) {
+export function submit_create_escrow(job_id : string, quotation_id : string, callback : (payload : any) => void = (_)=> {}) {
     let promise_tx = build_payload_create_escrow(job_id, quotation_id);
     
     if(CREATE_ESCROW_TX_GUARD.run()){
-        promise_tx.then((result : any) => {
+        promise_tx.then(async (result : any) => {
             console.log(result);
             xumm_run_tx(result.tx, (payload) => {
-                console.log(payload)
+                console.log(payload);
     
-                send_xumm_uuid(quotation_id,payload.uuid).then(callback);
+                send_xumm_uuid(quotation_id,payload.uuid)
+                    .then(callback)
+                    .catch((err) => console.error(err));
             });
         });
     }else{

@@ -43,6 +43,10 @@ module default {
     required total_amount -> float64;
     required destine -> User;
 
+    delta_days -> int32 {
+      default := 7
+    }
+
     escrow_payload -> str;
     escrow_fullfilment -> str;
 
