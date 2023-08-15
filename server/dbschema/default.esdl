@@ -4,7 +4,13 @@ module default {
     required public_address -> str;
     email -> str;
     name -> str;
-    description -> str;
+    last_name -> str;
+    full_address -> str;
+    city -> str;
+    postal_code -> str;
+    country -> str;
+    phone -> str;
+    bio -> str;
   }
 
   type Job {

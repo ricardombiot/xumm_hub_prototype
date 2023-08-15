@@ -1845,9 +1845,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/FormComponent */ "./src/components/utils/FormComponent.js");
+/* harmony import */ var _api_api_profile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api/api_profile */ "./src/api/api_profile.ts");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 var UserProfileFormPage = /*#__PURE__*/function (_FormComponent) {
@@ -7076,6 +7078,34 @@ async function register_new_job(job) {
 
 /***/ }),
 
+/***/ "./src/api/api_profile.ts":
+/*!********************************!*\
+  !*** ./src/api/api_profile.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "get_profile_priv": () => (/* binding */ get_profile_priv),
+/* harmony export */   "post_update_profile_priv": () => (/* binding */ post_update_profile_priv)
+/* harmony export */ });
+/* harmony import */ var _api_with_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api_with_auth */ "./src/api/api_with_auth.ts");
+
+async function get_profile_priv() {
+    let url = "/api/user/profile/priv";
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_get)(url);
+    return data.result;
+}
+async function post_update_profile_priv(req_body) {
+    let url = `/api/user/profile/priv`;
+    let data = await (0,_api_with_auth__WEBPACK_IMPORTED_MODULE_0__.fetch_auth_post)(url, req_body);
+    return data.result;
+}
+
+
+/***/ }),
+
 /***/ "./src/api/api_quotations.ts":
 /*!***********************************!*\
   !*** ./src/api/api_quotations.ts ***!
@@ -7635,7 +7665,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("f93da1b0f023e8f4595e")
+/******/ 		__webpack_require__.h = () => ("bda9df186219ca856266")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

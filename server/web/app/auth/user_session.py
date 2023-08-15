@@ -1,6 +1,6 @@
 
 
-
+from random import randrange
 from edgedb_conn import get_conn
 from queries.user_select_async_edgeql import user_select
 from queries.user_register_async_edgeql import user_register
@@ -12,14 +12,19 @@ async def get_or_create_user_id_by_account(account):
     user = await user_select(conn, user_address=account)
     
     if len(user) == 0:
+        initial_name = generate_initial_name()
         conn = get_conn()
-        id = await user_register(conn, user_address=account)
+        id = await user_register(conn, user_address=account, initial_name=initial_name)
         
         return str(id)
     else:
         user = user[0]
         return str(user.id)
     
+    
+def generate_initial_name():
+    ran_num = randrange(10000)
+    return f"anonymous{ran_num}"
     
 def inject_session_user_info(request, payload):
     #"payload": payload,

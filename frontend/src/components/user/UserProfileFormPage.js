@@ -1,6 +1,6 @@
 import { Component } from "inferno";
 import FormComponent from "../utils/FormComponent";
-
+import {get_profile_priv, post_update_profile_priv} from "./../../api/api_profile";
 
 export default class UserProfileFormPage extends FormComponent {
 

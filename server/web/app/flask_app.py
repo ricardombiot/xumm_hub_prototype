@@ -10,6 +10,7 @@ from web.app.api_jobs import api_jobs, api_jobs_secure
 from web.app.api_quotation import api_quotations, api_quotations_secure
 from web.app.api_quotation_escrow import api_quotations_escrow, api_quotations_escrow_secure
 from web.app.api_quotations_direct_transfer import api_quotations_direct_transfer, api_quotations_direct_transfer_secure
+from web.app.api_user import api_user, api_user_secure
 from web.app.api_auth import api_auth
 from web.app.api_errors import api_errors
 from web.app.api_webhook import api_webhook
@@ -21,6 +22,8 @@ def ping():
 ### API                 ###
 app.register_blueprint(api_jobs)
 app.register_blueprint(api_jobs_secure)
+app.register_blueprint(api_user)
+app.register_blueprint(api_user_secure)
 app.register_blueprint(api_quotations)
 app.register_blueprint(api_quotations_secure)
 app.register_blueprint(api_quotations_escrow)
