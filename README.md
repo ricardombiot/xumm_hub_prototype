@@ -79,35 +79,35 @@ The challenges at the business level lead us towards the technical challenges th
 
 The main challenges, which we have addressed in this huge spike, related to the implementation of this project using Ripple's technology are the following:
 
-- Escrows vs Payment Channels:
+- Escrows [^1]:
 
   <p align="center">
   <img src="./docs/diagrams/workflow_freelancers_platform_using_xrpl_escrows_and_xumm.png" >
   </p>
 
-At this spike project, we have tried to implement a possible workflow for our platform using trusts. As can be seen in the image above, the main statuses of the job (and its approved quotation) are:
+  At this spike project, we have tried to implement a possible workflow for our platform using trusts. As can be seen in the image above, the main statuses of the job (and its approved quotation) are:
 
-* PUBLISH: Company publish a new job, the freelancers can send quotations.
-* APPROVED: Company approved one quotation, and should sign the creation of escrow with Xumm. The "create_escrow" payload will take the parameters (total_amount, dealine in days) gived by freelancer on its quotation, and will creats a condition and its fullfillment (we will save it encripted on our DB)
-* DONE: When freelance finish the work, will notificate plataform and company.
-* CONFIRMED: After work is ready, Company will have to confirmed that job is succesfull finished before for allow our platform to make free the escrow condition fulfillment for freelance.
-* CLOSED: After, freelancer finish escrow and our system checks that all its success, we will close quotation, but they will can continue working using our direct tranfers system.
+  * **PUBLISH**: Company publish a new job, the freelancers can send quotations.
+  * **APPROVED**: Company approved one quotation, and should sign the creation of escrow with Xumm. The "create_escrow" payload will take the parameters (total_amount, dealine in days) gived by freelancer on its quotation, and will creats a condition and its fullfillment (we will save it encripted on our DB)
+  * **DONE**: When freelance finish the work, will notificate plataform and company.
+  * **CONFIRMED**: After work is ready, Company will have to confirmed that job is succesfull finished before for allow our platform to make free the escrow condition fulfillment for freelance.
+  * **CLOSED**: After, freelancer finish escrow and our system checks that all its success, we will close quotation, but they will can continue working using our direct tranfers system.
 
-```edgedb
-  # Edgedb State quotation
-  scalar type StateQuotationEscrow extending enum<NONE,BUILED,WAITING_XUMM_SIGN,CHECKED,WAITING_XUMM_SIGN_FINISH,FINISHED>;
+  ```edgedb
+    # Edgedb State quotation
+    scalar type StateQuotationEscrow extending enum<NONE,BUILED,WAITING_XUMM_SIGN,CHECKED,WAITING_XUMM_SIGN_FINISH,FINISHED>;
 
-  scalar type StateQuotation extending enum<PUBLISHED, APPROVED, DONE, CONFIRMED, CLOSED>;
-```
+    scalar type StateQuotation extending enum<PUBLISHED, APPROVED, DONE, CONFIRMED, CLOSED>;
+  ```
 
-> [!NOTE]
-> Please dont forget that all that is an huge draft, that allow us learn on deeply how would could implemented that kind of plataform, take leasons and learn how integrate workflows with XRPL & Xumm. For example, now, we consider that the escrows would should be more independent allowing that into a job, **the company and freelance would be able to create multiple escrows workflows (and not only one)**. Also would be interesting **introduce the concept of task and can have diferent workflows in parallel**, something that could be usefull for limite scopes, accelerate the delivering, checking processes and avoid conflicts.
+  > [!NOTE]
+  > Please dont forget that all that is an huge draft, that allow us learn on deeply how would could implemented that kind of plataform, take leasons and learn how integrate workflows with XRPL & Xumm. For example, now, we consider that the escrows would should be more independent allowing that into a job, **the company and freelance would be able to create multiple escrows workflows (and not only one)**. Also would be interesting **introduce the concept of task and can have diferent workflows in parallel**, something that could be usefull for limite scopes, accelerate the delivering, checking processes and avoid conflicts.
+
+  **The escrows XRPL can be key for build a trust relationship between _honest people_ and _honest companies_**. Once a company creates a escrow linked with the wallet of freelance, this last knows that there are full (or partial) deposit of the project budget. It is helps the trust, and can motivate that freelance work faster (increasing the rate % of satisficing delivery dates 🔮) because that deposit will have a expiration time. Of course, there are many dark points (expiration of escrows, quality of works, scams... in short, disputes) at business level that we would study carefully... 🙋📚
 
 
-The escrows XRPL can be key for build a trust relationship between **honest people and honest company**. Once a company creates a escrow linked with the wallet of freelance, this last knows that there are full (or partial) deposit of the project budget. It is helps the trust, and can motivate that freelance work faster (increasing the rate % of satisficing delivery dates 🔮) because that deposit will have a expiration time. Of course 🙋, there are many dark points (expiration of escrows, quality of works, scams... in short, disputes) at business level that we would study carefully... 
 
-
-  - Payment Channels
+  - Escrows [^1] vs Payment Channels [^2]:
 
     We should say that in the first place, we studied using the use of payment channels, however, we found the limitation that some processes of the payment channel flow are not transactions but methods, this made integration with Xumm difficult, since as we have established, we will delegate to this all security responsibilities that will control the private keys, sign and send the transactions.
 
@@ -212,3 +212,8 @@ Learning Technology Stack:
 - Hat tip to anyone whose code was used
 - Inspiration
 - References
+
+
+[^1]: XRPL | Escrows - https://xrpl.org/escrow.html
+
+[^2]: XRPL | Payment Channels - https://xrpl.org/payment-channels.html
