@@ -44,8 +44,9 @@ async def register_job():
     job_title = data['title']
     job_description = data['description']
     job_budget_range = data['budget_range']
+    categories_json = json.dumps(data['categories'])
     
     conn = get_conn()
-    result = await job_insert(conn, payer_id=payer_id, job_description=job_description, job_title=job_title, job_budget_range=job_budget_range)
+    result = await job_insert(conn, payer_id=payer_id, job_description=job_description, job_title=job_title, job_budget_range=job_budget_range, categories_json=categories_json)
     
     return jsonify({"result": result})

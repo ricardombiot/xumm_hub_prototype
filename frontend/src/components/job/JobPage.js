@@ -7,6 +7,8 @@ import QuotationAsideContactForm from '../quotation/QuotationAsideContactForm';
 import QuotationJobForm from '../quotation/QuotationJobForm';
 import QuotationApprovedPanel from '../quotation/QuotationApprovedPanel';
 import AuthRouting from './../../components/utils/AuthRouting';
+import { JOB_CATEGORIES } from "./../utils/Categories";
+import CategoriesSelector from "./../ui/CategoriesSelector";
 
 class JobPage extends Component {
     constructor(props) {
@@ -21,7 +23,10 @@ class JobPage extends Component {
 
     componentDidMount(){
         get_job(this.state.job_id).then((job) => {
-            //console.log(job);
+            //
+			console.log(job);
+			job.categories = JSON.parse(job.categories);
+			console.log(job);
             this.setState({job: job})
         })
     }
@@ -46,6 +51,8 @@ class JobPage extends Component {
 	}
 
     _render_job(){
+
+
         if(this.state.job == "NOT_LOADED") {
             return (<div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
@@ -60,11 +67,6 @@ class JobPage extends Component {
 							<li><a href="#reviews">Reviews</a></li>
 							<li><a href="#sidebar">Booking</a></li>
 						</ul>
-											<div class="btn-group" role="group" aria-label="Basic outlined example">
-							<button type="button" class="btn btn-dark">Left</button>
-							<button type="button" class="btn btn-dark">Middle</button>
-							<button type="button" class="btn btn-dark">Right</button>
-						</div>
 					</div>
 				</nav>
 
@@ -79,36 +81,12 @@ class JobPage extends Component {
 									<p>{this.state.job.description}</p>
 									<h5 class="add_bottom_15">Categories</h5>
 									<div class="row add_bottom_30">
-										<div class="col-md-4">
-											<ul class="bullets">
-												<li>Valentino</li>
-												<li>Gucci</li>
-												<li>Louis Vuitton</li>
-												<li>Burberry</li>
-											</ul>
-										</div>
-										<div class="col-md-4">
-											<ul class="bullets">
-												<li>Moschino</li>
-												<li>Diesel</li>
-												<li>Prada</li>
-												<li>Ralph Lauren</li>
-											</ul>
-										</div>
-										<div class="col-md-4">
-											<ul class="bullets">
-												<li>Moschino</li>
-												<li>Diesel</li>
-												<li>Prada</li>
-												<li>Ralph Lauren</li>
-											</ul>
-										</div>
+										<CategoriesSelector initial_categories={this.state.job.categories}></CategoriesSelector>
 									</div>
 					
 								</section>
 							</div>
-					
-							
+						
 							<QuotationAsideContactForm job_id={this.state.job.id}></QuotationAsideContactForm>
 						</div>
 

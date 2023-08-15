@@ -56,6 +56,13 @@ export default class JobSearchPage extends Component {
 
         return ( <div class="col-xl-4 col-lg-6 col-md-6 search-item">
         <div class="strip grid">
+            <figure>
+                <a href="#0" class="wish_bt"></a>
+                <Link to={url_detail}>
+                    <img src="/static/theme/img/location_1.jpg" class="img-fluid" alt=""></img><div class="read_more"><span>Read more</span></div>
+                </Link>
+                <small>Restaurant</small>
+            </figure>
             <div class="wrapper">
                 <h3>
                     <Link to={url_detail}>{title}</Link>

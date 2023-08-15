@@ -43,7 +43,15 @@ export default class QuotationsListForAdmin extends Component {
 
         if(session_is_owner(payer_id)){
             return (<div id="admin_quotations_list">
-                {this._render_quotes()}
+                <div class="myform custom_bg startup">
+                    <div class="sub_header_in sticky_header custom_subheader startup">
+                        <div class="container">
+                            <h3>Open quotations</h3>
+                        </div>
+                    
+                    </div>
+                    {this._render_quotes()}
+                </div>
             </div>)
         }else{
             return []

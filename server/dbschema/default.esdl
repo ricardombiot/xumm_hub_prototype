@@ -20,6 +20,7 @@ module default {
     required title -> str;
     required description -> str;
     budget_range -> str;
+    categories -> json;
 
     approved_quotation -> Quotation;
 

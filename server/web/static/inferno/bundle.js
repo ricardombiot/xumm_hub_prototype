@@ -99,9 +99,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var _utils_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/FormComponent */ "./src/components/utils/FormComponent.js");
 /* harmony import */ var _api_api_jobs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api_jobs */ "./src/api/api_jobs.ts");
+/* harmony import */ var _ui_CategoriesSelector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../ui/CategoriesSelector */ "./src/components/ui/CategoriesSelector.js");
+/* harmony import */ var _utils_Categories__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../utils/Categories */ "./src/components/utils/Categories.ts");
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -113,23 +118,28 @@ var JobFormPage = /*#__PURE__*/function (_FormComponent) {
     _this.state = {
       title: "",
       budget_range: "1000_3000xrp",
-      description: ""
+      description: "",
+      categories: (0,_utils_Categories__WEBPACK_IMPORTED_MODULE_4__.categories_default)()
     };
+    _this.handleUpdateCategories = _this.handleUpdateCategories.bind(_assertThisInitialized(_this));
     return _this;
   }
   var _proto = JobFormPage.prototype;
   _proto.onSubmit = function onSubmit(formData) {
-    //console.log(formData);
-
+    console.log(formData);
     var job = {
       title: formData.title,
       description: formData.description,
-      budget_range: formData.budget_range
+      budget_range: formData.budget_range,
+      categories: formData.categories
     };
     (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_2__.register_new_job)(job).then(function (result) {
       var new_job_id = result.id;
       window.location.href = "/job/" + new_job_id;
     });
+  };
+  _proto.handleUpdateCategories = function handleUpdateCategories(categories) {
+    this.state.categories = categories;
   };
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bisque_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Listing new job", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", "new_client", "Information", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
@@ -152,7 +162,9 @@ var JobFormPage = /*#__PURE__*/function (_FormComponent) {
       "value": this.state.budget_range || '',
       "onChange": this.handleInputChange,
       "id": "job_bugdet_range"
-    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("@TODO CATEGORIES")], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "hr"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _ui_CategoriesSelector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      "handleUpdateCategories": this.handleUpdateCategories
+    })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "hr"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
       "name": "description",
       "value": this.state.description || '',
       "onInput": this.handleInputChange,
@@ -193,6 +205,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _quotation_QuotationJobForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../quotation/QuotationJobForm */ "./src/components/quotation/QuotationJobForm.js");
 /* harmony import */ var _quotation_QuotationApprovedPanel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../quotation/QuotationApprovedPanel */ "./src/components/quotation/QuotationApprovedPanel.js");
 /* harmony import */ var _components_utils_AuthRouting__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../components/utils/AuthRouting */ "./src/components/utils/AuthRouting.ts");
+/* harmony import */ var _utils_Categories__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../utils/Categories */ "./src/components/utils/Categories.ts");
+/* harmony import */ var _ui_CategoriesSelector__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../ui/CategoriesSelector */ "./src/components/ui/CategoriesSelector.js");
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -200,6 +214,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 
 
 //import QuotationForm  from "./../quotation/QuotationForm";
+
+
 
 
 
@@ -221,7 +237,10 @@ var JobPage = /*#__PURE__*/function (_Component) {
   _proto.componentDidMount = function componentDidMount() {
     var _this2 = this;
     (0,_api_api_jobs__WEBPACK_IMPORTED_MODULE_1__.get_job)(this.state.job_id).then(function (job) {
-      //console.log(job);
+      //
+      console.log(job);
+      job.categories = JSON.parse(job.categories);
+      console.log(job);
       _this2.setState({
         job: job
       });
@@ -254,24 +273,17 @@ var JobPage = /*#__PURE__*/function (_Component) {
         "role": "status"
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "nav", "secondary_nav sticky_horizontal_2 mysubnav", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "clearfix", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "active", "Description", 16, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "nav", "secondary_nav sticky_horizontal_2 mysubnav", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "clearfix", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "active", "Description", 16, {
         "href": "#description"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Reviews", 16, {
         "href": "#reviews"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, "Booking", 16, {
         "href": "#sidebar"
-      }), 2)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "btn-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Left", 16, {
-        "type": "button"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Middle", 16, {
-        "type": "button"
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-dark", "Right", 16, {
-        "type": "button"
-      })], 4, {
-        "role": "group",
-        "aria-label": "Basic outlined example"
-      })], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_60_35", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "section", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "detail_title_1", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "address", "438 Rush Green Road, Romford", 16, {
+      }), 2)], 4), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container margin_60_35", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-8", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "section", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "detail_title_1", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, this.state.job.title, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "address", "438 Rush Green Road, Romford", 16, {
         "href": "https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.job.description, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row add_bottom_30", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Valentino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Gucci", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Louis Vuitton", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Burberry", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Moschino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Diesel", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Prada", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Ralph Lauren", 16)], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-md-4", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "bullets", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Moschino", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Diesel", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Prada", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, "Ralph Lauren", 16)], 4), 2)], 4)], 4, {
+      })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", null, this.state.job.description, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h5", "add_bottom_15", "Categories", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row add_bottom_30", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _ui_CategoriesSelector__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        "initial_categories": this.state.job.categories
+      }), 2)], 4, {
         "id": "description"
       }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _quotation_QuotationAsideContactForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         "job_id": this.state.job.id
@@ -398,15 +410,7 @@ var JobSearchPage = /*#__PURE__*/function (_Component) {
     var title = job.title;
     var short_description = job.description.slice(0, 45) + "...";
     var url_detail = "/job/" + job.id;
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-4 col-lg-6 col-md-6 search-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "strip grid", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "figure", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "wish_bt", null, 1, {
-      "href": "#0"
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
-      "to": url_detail,
-      children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "img", "img-fluid", null, 1, {
-        "src": "/static/theme/img/location_1.jpg",
-        "alt": ""
-      }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "read_more", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, "Read more", 16), 2)]
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", null, "Restaurant", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "wrapper", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-4 col-lg-6 col-md-6 search-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "strip grid", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "wrapper", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
       "to": url_detail,
       children: title
     }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "name-company", "@COMPANY NAME", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "short-description", short_description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "loc_open", "Now Open", 16), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "score", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Superb"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "10 Quotes", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "8.9", 16)], 4), 2)], 4)], 4), 2);
@@ -691,8 +695,10 @@ var QuotationApprovedDetail = /*#__PURE__*/function (_Component) {
     var txsElements = [];
     for (var index = 0; index < txs.length; index++) {
       var tx = txs[index];
+      var ledger_txid = tx.ledger_txid;
+      var ledger_txid_shorted = ledger_txid.slice(0, 7) + "......." + ledger_txid.slice(ledger_txid.length - 7, ledger_txid.length);
       var url = "https://test.bithomp.com/explorer/" + tx.ledger_txid;
-      var html = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-link-ext-alt"), tx.tx_type, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, tx.ledger_txid, 0, {
+      var html = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-link-ext-alt"), tx.tx_type, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", null, ledger_txid_shorted, 0, {
         "href": url,
         "target": "_blank"
       })], 0);
@@ -1361,70 +1367,6 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "./src/components/quotation/QuotationPage.js":
-/*!***************************************************!*\
-  !*** ./src/components/quotation/QuotationPage.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ QuotationPage)
-/* harmony export */ });
-/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
-/* harmony import */ var _api_api_escrow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/api_escrow */ "./src/api/api_escrow.ts");
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-var QuotationPage = /*#__PURE__*/function (_Component) {
-  _inheritsLoose(QuotationPage, _Component);
-  function QuotationPage(props) {
-    var _this;
-    _this = _Component.call(this, props) || this;
-    var params = props.match.params;
-
-    // @TODO LOAD QUOTATION
-    // STATE = WAITING... CHECK EVERY 2 SECONDS CHECKS...
-
-    _this.state = {
-      quotation: "NOT_LOADED",
-      job_id: params.job_id,
-      quotation_id: params.quotation_id
-    };
-    _this.handle_submit_create_escrow = _this.handle_submit_create_escrow.bind(_assertThisInitialized(_this));
-    _this.handle_submit_finish_escrow = _this.handle_submit_finish_escrow.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-  var _proto = QuotationPage.prototype;
-  _proto.componentDidMount = function componentDidMount() {
-    /* get_job(this.state.job_id).then((job) => {
-         console.log(job);
-         this.setState({job: job})
-     })*/
-  };
-  _proto.handle_submit_create_escrow = function handle_submit_create_escrow() {
-    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.submit_create_escrow)(this.state.job_id, this.state.quotation_id);
-  };
-  _proto.handle_submit_finish_escrow = function handle_submit_finish_escrow() {
-    (0,_api_api_escrow__WEBPACK_IMPORTED_MODULE_1__.sumbit_finish_escrow)(this.state.quotation_id);
-  };
-  _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Job id: "), this.state.job_id, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Quote: "), this.state.quotation_id], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Create escrow", 16, {
-      "onclick": this.handle_submit_create_escrow
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Owner job should checks escrow."), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "button", "Finish escrow", 16, {
-      "onclick": this.handle_submit_finish_escrow
-    })], 4);
-  };
-  return QuotationPage;
-}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-
-/***/ }),
-
 /***/ "./src/components/quotation/QuotationRow.js":
 /*!**************************************************!*\
   !*** ./src/components/quotation/QuotationRow.js ***!
@@ -1474,12 +1416,22 @@ var QuotationRow = /*#__PURE__*/function (_Component) {
   _proto.render = function render() {
     var data = this.props.data;
     var url_quotation = "/job/" + data.job.id + "/quote/" + data.id;
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card text-center", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-header custom-background", [data.destine.name, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("TOTAL: "), data.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" XRP")], 0)], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-body", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "card-text", data.description, 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "card-footer text-muted custom-background", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("2 days ago "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      "to": url_quotation,
-      children: " CHAT "
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", null, "Approve", 16, {
+
+    /*            <div className="card text-center">
+            <div className="card-header custom-background">
+                {data.destine.name} <div>TOTAL: {data.total_amount} XRP</div>
+            </div>
+            <div className="card-body">
+                <p className="card-text">{data.description}</p> 
+            </div>
+            <div className="card-footer text-muted custom-background">
+                2 days ago <Link to={url_quotation}> CHAT </Link>
+                <button onclick={this.handleApprove}>Approve</button>
+            </div>
+        </div>*/
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-4 col-lg-6 col-md-6 search-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "strip grid", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "wrapper", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h4", null, [data.total_amount, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "XRP", 16)], 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "name-company", data.destine.name, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "short-description", data.description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "button", "btn btn-success", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Approve "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-check-1")], 4, {
       "onclick": this.handleApprove
-    })], 4)], 4);
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "loc_open", "Open", 16), 2)], 4)], 4), 2);
   };
   return QuotationRow;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
@@ -1555,7 +1507,7 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
       job_id = _this$props2.job_id,
       payer_id = _this$props2.payer_id;
     if ((0,_api_api_with_auth__WEBPACK_IMPORTED_MODULE_1__.session_is_owner)(payer_id)) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, this._render_quotes(), 0, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bg startup", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header custom_subheader startup", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, "Open quotations", 16), 2), 2), this._render_quotes()], 0), 2, {
         "id": "admin_quotations_list"
       });
     } else {
@@ -1563,6 +1515,83 @@ var QuotationsListForAdmin = /*#__PURE__*/function (_Component) {
     }
   };
   return QuotationsListForAdmin;
+}(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+/***/ }),
+
+/***/ "./src/components/ui/CategoriesSelector.js":
+/*!*************************************************!*\
+  !*** ./src/components/ui/CategoriesSelector.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CategoriesSelector)
+/* harmony export */ });
+/* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
+/* harmony import */ var _utils_Categories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils/Categories */ "./src/components/utils/Categories.ts");
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var CategoriesSelector = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(CategoriesSelector, _Component);
+  function CategoriesSelector(props) {
+    var _this;
+    _this = _Component.call(this, props) || this;
+    var handleUpdateCategories = props.handleUpdateCategories;
+    var initial_categories = props.initial_categories;
+    if (initial_categories == undefined) {
+      initial_categories = (0,_utils_Categories__WEBPACK_IMPORTED_MODULE_1__.categories_default)();
+    }
+    _this.state = {
+      is_editable: handleUpdateCategories != undefined,
+      categories: initial_categories,
+      handleUpdateCategories: handleUpdateCategories
+    };
+    _this.handleClickCategory = _this.handleClickCategory.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  var _proto = CategoriesSelector.prototype;
+  _proto.handleClickCategory = function handleClickCategory(category) {
+    if (this.state.is_editable) {
+      console.log(category);
+      var new_state = this.state;
+      new_state.categories[category] = !this.state.categories[category];
+      this.setState(new_state);
+      console.log(new_state);
+      this.state.handleUpdateCategories(this.state.categories);
+    }
+  };
+  _proto.render = function render() {
+    var _this2 = this;
+    var categoriesElements = [];
+    var _loop = function _loop() {
+      var category = _utils_Categories__WEBPACK_IMPORTED_MODULE_1__.JOB_CATEGORIES[index];
+      var url = "/static/theme/myimg/categories/" + category + ".svg";
+      var is_active = _this2.state.categories[category];
+      var class_active = is_active ? "category-item-active" : "";
+      var classes = "category-item p-2 flex-fill " + class_active;
+      categoriesElements.push((0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", classes, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, category, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "img", "category-icon", null, 1, {
+        "src": url,
+        "alt": category
+      }), 2)], 4, {
+        "onclick": function onclick() {
+          return _this2.handleClickCategory(category);
+        }
+      }));
+    };
+    for (var index = 0; index < _utils_Categories__WEBPACK_IMPORTED_MODULE_1__.JOB_CATEGORIES.length; index++) {
+      _loop();
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container categories-container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "d-flex flex-wrap", categoriesElements, 0), 2);
+  };
+  return CategoriesSelector;
 }(inferno__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
@@ -2121,15 +2150,14 @@ function is_login() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inferno__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inferno */ "./node_modules/inferno/index.esm.js");
 /* harmony import */ var inferno_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inferno-router */ "./node_modules/inferno-router/dist/index.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/index.js");
 /* harmony import */ var _MyApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyApp */ "./src/MyApp.js");
 /* harmony import */ var _MyHome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyHome */ "./src/MyHome.js");
 /* harmony import */ var _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/job/JobFormPage */ "./src/components/job/JobFormPage.js");
 /* harmony import */ var _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/job/JobPage */ "./src/components/job/JobPage.js");
-/* harmony import */ var _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/quotation/QuotationPage */ "./src/components/quotation/QuotationPage.js");
-/* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
-/* harmony import */ var _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/job/JobSearchPage */ "./src/components/job/JobSearchPage.js");
-/* harmony import */ var _components_user_UserProfileFormPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/user/UserProfileFormPage */ "./src/components/user/UserProfileFormPage.js");
+/* harmony import */ var _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/ui/header_menu */ "./src/components/ui/header_menu.js");
+/* harmony import */ var _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/job/JobSearchPage */ "./src/components/job/JobSearchPage.js");
+/* harmony import */ var _components_user_UserProfileFormPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/user/UserProfileFormPage */ "./src/components/user/UserProfileFormPage.js");
 
 // inferno module
 
@@ -2142,13 +2170,13 @@ __webpack_require__.r(__webpack_exports__);
 //import JobForm from './components/job/JobForm';
 
 
-
+//import QuotationPage  from './components/quotation/QuotationPage';
 
 
 
 //import { xumm_main } from './xumm_app';
 
-var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_10__.createBrowserHistory)();
+var browserHistory = (0,history__WEBPACK_IMPORTED_MODULE_9__.createBrowserHistory)();
 function App(_ref) {
   var children = _ref.children;
   return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Application", 16), children], 0);
@@ -2179,13 +2207,10 @@ function JobRouter(_ref5) {
       "component": _components_job_JobFormPage__WEBPACK_IMPORTED_MODULE_4__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/search',
-      "component": _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_8__["default"]
+      "component": _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_7__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/search/:text',
-      "component": _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_8__["default"]
-    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
-      "path": match.url + '/:job_id/quote/:quotation_id',
-      "component": _components_quotation_QuotationPage__WEBPACK_IMPORTED_MODULE_6__["default"]
+      "component": _components_job_JobSearchPage__WEBPACK_IMPORTED_MODULE_7__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": match.url + '/:job_id',
       "component": _components_job_JobPage__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -2200,9 +2225,9 @@ function User(_ref6) {
 }
 var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.BrowserRouter, {
   "history": browserHistory,
-  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_7__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, null, 1, {
+  children: (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _components_ui_header_menu__WEBPACK_IMPORTED_MODULE_6__["default"]), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, null, 1, {
     "id": "space",
-    "style": "margin-top: 65px; !important"
+    "style": ""
   }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Switch, {
     children: [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "exact": true,
@@ -2213,7 +2238,7 @@ var routes = (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, in
       "component": JobRouter
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": "/profile",
-      "component": _components_user_UserProfileFormPage__WEBPACK_IMPORTED_MODULE_9__["default"]
+      "component": _components_user_UserProfileFormPage__WEBPACK_IMPORTED_MODULE_8__["default"]
     }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_1__.Route, {
       "path": "/users",
       "component": Users
@@ -7428,6 +7453,47 @@ class AuthRouting {
 
 /***/ }),
 
+/***/ "./src/components/utils/Categories.ts":
+/*!********************************************!*\
+  !*** ./src/components/utils/Categories.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "JOB_CATEGORIES": () => (/* binding */ JOB_CATEGORIES),
+/* harmony export */   "categories_default": () => (/* binding */ categories_default)
+/* harmony export */ });
+const JOB_CATEGORIES = [
+    "Coding",
+    "Design",
+    "Apps Development",
+    "Website Design",
+    "Prototype",
+    "Marketing",
+    "Research",
+    "Analysis",
+    "Branding",
+    "Startup",
+    "Contract",
+    "Speed",
+    "Short Term Goals",
+    "Schedule",
+    "Team"
+];
+function categories_default() {
+    let categories = {};
+    for (let index = 0; index < JOB_CATEGORIES.length; index++) {
+        const category = JOB_CATEGORIES[index];
+        categories[category] = false;
+    }
+    return categories;
+}
+
+
+/***/ }),
+
 /***/ "./src/models/inmmutable_model.ts":
 /*!****************************************!*\
   !*** ./src/models/inmmutable_model.ts ***!
@@ -7701,7 +7767,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("8f069d0f6924586819c4")
+/******/ 		__webpack_require__.h = () => ("2e7db665cfee16c599d9")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -29,6 +29,7 @@ async def job_insert(
     job_title: str,
     job_description: str,
     job_budget_range: str,
+    categories_json: str,
 ) -> JobInsertResult:
     return await executor.query_single(
         """\
@@ -36,11 +37,13 @@ async def job_insert(
             payer := (SELECT User FILTER .id = <std::uuid> $payer_id),
             title := <std::str> $job_title,
             description := <std::str> $job_description,
-            budget_range := <std::str> $job_budget_range
+            budget_range := <std::str> $job_budget_range,
+            categories := <std::json> $categories_json
         }\
         """,
         payer_id=payer_id,
         job_title=job_title,
         job_description=job_description,
         job_budget_range=job_budget_range,
+        categories_json=categories_json,
     )

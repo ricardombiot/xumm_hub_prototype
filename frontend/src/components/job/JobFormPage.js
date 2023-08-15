@@ -1,6 +1,8 @@
 import { Component } from "inferno";
 import FormComponent from "../utils/FormComponent";
 import { register_new_job } from "../../api/api_jobs";
+import CategoriesSelector from "./../ui/CategoriesSelector";
+import { categories_default} from "./../utils/Categories";
 
 export default class JobFormPage extends FormComponent {
 
@@ -10,24 +12,31 @@ export default class JobFormPage extends FormComponent {
         this.state = {
             title: "",
             budget_range: "1000_3000xrp",
-            description: ""
+            description: "",
+            categories: categories_default()
         }
         
+        this.handleUpdateCategories = this.handleUpdateCategories.bind(this);
     }
 
     onSubmit(formData){
-        //console.log(formData);
+        console.log(formData);
 
         let job = {
           title: formData.title,
           description: formData.description,
-          budget_range: formData.budget_range
+          budget_range: formData.budget_range,
+          categories: formData.categories
         }
 
         register_new_job(job).then((result) => {
             let new_job_id = result.id
             window.location.href = "/job/" + new_job_id;
         })
+    }
+
+    handleUpdateCategories(categories){
+        this.state.categories = categories;
     }
 
     render(){
@@ -69,7 +78,7 @@ return (
         </div>
         <div class="form-group">
             <label>Categories</label>
-            @TODO CATEGORIES
+            <CategoriesSelector handleUpdateCategories={this.handleUpdateCategories}></CategoriesSelector>
         </div>
         <hr></hr>
         <div class="form-group mb-3">

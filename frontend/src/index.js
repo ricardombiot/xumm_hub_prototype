@@ -9,7 +9,7 @@ import MyHome from './MyHome';
 //import JobForm from './components/job/JobForm';
 import JobFormPage from './components/job/JobFormPage';
 import JobPage from './components/job/JobPage';
-import QuotationPage  from './components/quotation/QuotationPage';
+//import QuotationPage  from './components/quotation/QuotationPage';
 import HeaderMenu from './components/ui/header_menu';
 import JobSearchPage from './components/job/JobSearchPage';
 import UserProfileFormPage from "./components/user/UserProfileFormPage";
@@ -51,7 +51,6 @@ function JobRouter({match}) {
                 <Route path={match.url + '/new'} component={JobFormPage}/>
                 <Route path={match.url + '/search'} component={JobSearchPage}/>
                 <Route path={match.url + '/search/:text'} component={JobSearchPage}/>
-                <Route path={match.url + '/:job_id/quote/:quotation_id'} component={QuotationPage}/>
                 <Route path={match.url + '/:job_id'} component={JobPage}/>
             </Switch>
         </div>
@@ -66,7 +65,7 @@ const routes = (
     <BrowserRouter history={browserHistory}>
         <div id="page">
             <HeaderMenu></HeaderMenu>
-            <div id="space" style="margin-top: 65px; !important"></div>
+            <div id="space" style=""></div>
             <Switch>
                 <Route exact path="/" component={MyHome}/>
                 <Route path="/job" component={JobRouter}/>

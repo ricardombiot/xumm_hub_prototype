@@ -98,10 +98,12 @@ export default class QuotationApprovedDetail extends Component {
         let txsElements = [];
         for (let index = 0; index < txs.length; index++) {
             const tx = txs[index];
+            let ledger_txid = tx.ledger_txid;
+            let ledger_txid_shorted = ledger_txid.slice(0,7) + "......." + ledger_txid.slice(ledger_txid.length-7,ledger_txid.length);  
             let url = "https://test.bithomp.com/explorer/" + tx.ledger_txid;
             let html = <div>
                 <i class="icon-link-ext-alt"></i>
-                {tx.tx_type} - <a href={url} target="_blank">{tx.ledger_txid}</a>
+                {tx.tx_type} - <a href={url} target="_blank">{ledger_txid_shorted}</a>
             </div>
             txsElements.push(html);
         }

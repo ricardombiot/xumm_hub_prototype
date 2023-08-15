@@ -30,8 +30,8 @@ export default class QuotationRow extends Component {
     render(){
         const { data } = this.props; 
         const url_quotation = "/job/" + data.job.id + "/quote/" + data.id;
-        return (
-            <div className="card text-center">
+
+        /*            <div className="card text-center">
                 <div className="card-header custom-background">
                     {data.destine.name} <div>TOTAL: {data.total_amount} XRP</div>
                 </div>
@@ -42,6 +42,22 @@ export default class QuotationRow extends Component {
                     2 days ago <Link to={url_quotation}> CHAT </Link>
                     <button onclick={this.handleApprove}>Approve</button>
                 </div>
+            </div>*/
+        return (
+            <div class="col-xl-4 col-lg-6 col-md-6 search-item">
+            <div class="strip grid">
+                <div class="wrapper">
+                    <h4>
+                    {data.total_amount}<em>XRP</em>
+                    </h4>
+                    <small class="name-company">{data.destine.name}</small>
+                    <p class="short-description">{data.description}</p>
+                </div>
+                <ul>
+                <li><button onclick={this.handleApprove} class="btn btn-success">Approve <i class="icon-check-1"></i></button></li>
+                    <li><span class="loc_open">Open</span></li>     
+                </ul>
+            </div>
             </div>
         );
     }

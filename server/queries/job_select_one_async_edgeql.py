@@ -25,6 +25,7 @@ class JobSelectOneResult(NoPydanticValidation):
     title: str
     description: str
     budget_range: typing.Optional[str]
+    categories: typing.Optional[str]
     approved_quotation: typing.Optional[JobSelectOneResultApprovedQuotation]
 
 
@@ -53,6 +54,7 @@ async def job_select_one(
           title,
           description,
           budget_range,
+          categories,
           approved_quotation : {
             id
           }

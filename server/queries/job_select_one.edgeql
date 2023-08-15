@@ -6,6 +6,7 @@ select default::Job {
   title,
   description,
   budget_range,
+  categories,
   approved_quotation : {
     id
   }

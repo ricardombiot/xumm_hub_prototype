@@ -137,3 +137,33 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
     left: 82%;
     border: 1px solid black;
 }
+
+#space {
+    margin-top: 85px !important;
+}
+
+.category-icon {
+    width: 45px;
+}
+
+.categories-container {
+    max-width: 500px !important;
+    padding: 0px !important;
+    margin: 10px;
+}
+
+.category-item {
+    word-wrap: break-word;
+    width: 125px;
+    border: 2px solid black;
+    text-align: center;
+    margin: 1px;
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+    background: white;
+}
+
+.category-item-active {
+    background: rgb(212, 235, 177) !important;
+}
