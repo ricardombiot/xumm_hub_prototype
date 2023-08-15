@@ -114,3 +114,26 @@ ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
 .search-item .wrapper {
     min-height: 165px !important;
 }
+
+
+#menu-search {
+    width: 80px;
+    border: 2px solid black;
+}
+
+#menu-job  {
+    width: 80px;
+    border: 2px solid black;
+}
+
+#menu-profile {
+    width: 80px;
+    border: 2px solid black;
+}
+
+#header_login .btn {
+    position: fixed;
+    top: 12px;
+    left: 82%;
+    border: 1px solid black;
+}

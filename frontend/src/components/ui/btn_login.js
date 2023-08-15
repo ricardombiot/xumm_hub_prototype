@@ -44,9 +44,9 @@ export default class BtnLogin extends Component {
 
     render(){
         if(this.state.is_login){
-            return (<a id="logoutbutton" class="btn btn-light" onclick={this.handle_logout}>Logout</a>)
+            return (<a id="logoutbutton" class="btn btn-light" onclick={this.handle_logout}><i class="icon-logout-1"></i></a>)
         }else{
-            return (<a id="signinbutton" class="btn btn-primary" onclick={this.handle_login}>Login</a>)
+            return (<a id="signinbutton" class="btn btn-primary" onclick={this.handle_login}>Login <i class="icon-login-1"></i></a>)
         }
        
     }

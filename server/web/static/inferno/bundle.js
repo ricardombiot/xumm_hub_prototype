@@ -1630,12 +1630,12 @@ var BtnLogin = /*#__PURE__*/function (_Component) {
   };
   _proto.render = function render() {
     if (this.state.is_login) {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-light", "Logout", 16, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-light", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-logout-1"), 2, {
         "id": "logoutbutton",
         "onclick": this.handle_logout
       });
     } else {
-      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-primary", "Login", 16, {
+      return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "btn btn-primary", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-login-1")], 4, {
         "id": "signinbutton",
         "onclick": this.handle_login
       });
@@ -1691,24 +1691,37 @@ var HeaderMenu = /*#__PURE__*/function (_Component) {
   _proto.user_menu = function user_menu() {
     if (this.state.is_login) {
       return [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        "to": "/job/new",
+        "class": "btn btn-light",
+        "id": "menu-job",
+        children: ["Job ", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-plus")]
+      }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
         "to": "/profile",
+        "class": "btn btn-light",
+        "id": "menu-profile",
         children: ["Profile ", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-user")]
       }), 2)];
     }
     return [];
   };
   _proto.render = function render() {
-    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "header", "header menu_fixed", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "list-inline", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "header", "header menu_fixed", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
       "to": "/",
       children: "xAppFreelancer"
-    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    }), 2, {
+      "id": "header_logo"
+    }), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container d-flex align-items-center justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", "list-inline", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
       "to": "/job/search/",
+      "class": "btn btn-light",
+      "id": "menu-search",
       children: ["Search ", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "i", "icon-search")]
-    }), 2), this.user_menu(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _btn_login__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      "afterUpdateAuth": this.handleAfterUpdateAuth
-    }), 2)], 0, {
+    }), 2), this.user_menu(), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", "list-inline-item")], 0, {
       "id": "top_menu_2"
-    }), 2), 2, {
+    }), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _btn_login__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      "afterUpdateAuth": this.handleAfterUpdateAuth
+    }), 2, {
+      "id": "header_login"
+    })], 4, {
       "id": "myheader"
     });
   };
@@ -7688,7 +7701,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("690ce929489c576a68d3")
+/******/ 		__webpack_require__.h = () => ("8f069d0f6924586819c4")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
