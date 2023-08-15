@@ -111,15 +111,11 @@ The main challenges, which we have addressed in this huge spike, related to the 
 
     We should say that in the first place, we studied using the use of payment channels, however, we found the limitation that some processes of the payment channel flow are not transactions but methods, this made integration with Xumm difficult, since as we have established, we will delegate to this all security responsibilities that will control the private keys, sign and send the transactions.
 
-    https://xrpl.org/payment-channels.html
-
     <p align="center">
     <img src="./docs/img/Integration Xumm - Methods vs Transactions .png" >
     </p>
 
     That is why, later, we opted to use Escrows, which is similar, but follows a much simpler flow than payment channels where there are only transactions. 
-
-    https://xrpl.org/escrow.html
 
 
 - XUMM integration: We really liked how Xumm facilitates the login and logout of users in our application, however, we have implemented our own associated authorization system so that we do not have to ask Xumm every time if a user has the permissions or not, to access to a route or endpoint of our api.
