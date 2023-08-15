@@ -1851,7 +1851,17 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-
+var DEFAULT_VALUES = {
+  email: "",
+  name: "",
+  last_name: "",
+  full_address: "",
+  city: "",
+  postal_code: "",
+  country: "",
+  phone: "",
+  bio: ""
+};
 var UserProfileFormPage = /*#__PURE__*/function (_FormComponent) {
   _inheritsLoose(UserProfileFormPage, _FormComponent);
   function UserProfileFormPage(props) {
@@ -1871,19 +1881,32 @@ var UserProfileFormPage = /*#__PURE__*/function (_FormComponent) {
     return _this;
   }
   var _proto = UserProfileFormPage.prototype;
+  _proto.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+    console.log("load profile...");
+    (0,_api_api_profile__WEBPACK_IMPORTED_MODULE_2__.get_profile_priv)().then(function (profile) {
+      console.log(profile);
+      _this2.setState(profile);
+    });
+  };
   _proto.onSubmit = function onSubmit(formData) {
+    formData = this._swarp_undef_values_by_default(formData);
     console.log(formData);
-
-    /*
-    let job = {
-      title: formData.title,
-      description: formData.description,
-      budget_range: formData.budget_range
+    (0,_api_api_profile__WEBPACK_IMPORTED_MODULE_2__.post_update_profile_priv)(formData).then(function (result) {
+      console.log(result);
+      window.location.href = "/profile";
+    });
+  };
+  _proto._swarp_undef_values_by_default = function _swarp_undef_values_by_default(formData) {
+    var mergedValues = {};
+    for (var key in DEFAULT_VALUES) {
+      if (formData[key] == undefined) {
+        mergedValues[key] = DEFAULT_VALUES[key];
+      } else {
+        mergedValues[key] = formData[key];
+      }
     }
-     register_new_job(job).then((result) => {
-        let new_job_id = result.id
-        window.location.href = "/job/" + new_job_id;
-    })*/
+    return mergedValues;
   };
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "myform custom_bisque_bg", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "sub_header_in sticky_header", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h1", null, "Profile", 16), 2), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row justify-content-center", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-7 col-lg-8 col-md-10 mt-5", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "box_account", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", "new_client", "Information", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "float-end pt-2", "* Required Fields", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container custom_gradient_border", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form_container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(64, "input", "form-control", null, 1, {
@@ -7665,7 +7688,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("bda9df186219ca856266")
+/******/ 		__webpack_require__.h = () => ("690ce929489c576a68d3")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

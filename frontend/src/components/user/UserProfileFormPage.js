@@ -1,6 +1,18 @@
-import { Component } from "inferno";
+
 import FormComponent from "../utils/FormComponent";
 import {get_profile_priv, post_update_profile_priv} from "./../../api/api_profile";
+
+const DEFAULT_VALUES = {
+    email: "",
+    name: "",
+    last_name: "",
+    full_address: "",
+    city: "",
+    postal_code: "",
+    country: "",
+    phone: "",
+    bio: ""
+}
 
 export default class UserProfileFormPage extends FormComponent {
 
@@ -21,20 +33,37 @@ export default class UserProfileFormPage extends FormComponent {
         
     }
 
+    componentDidMount(){
+        console.log("load profile...")
+        get_profile_priv().then((profile) => {
+            console.log(profile)
+            this.setState(profile)
+        })
+    }
+    
+
     onSubmit(formData){
+        formData = this._swarp_undef_values_by_default(formData);
         console.log(formData);
 
-        /*
-        let job = {
-          title: formData.title,
-          description: formData.description,
-          budget_range: formData.budget_range
+
+        post_update_profile_priv(formData).then((result) => {
+            console.log(result);
+            window.location.href = "/profile";
+        })
+    }
+
+    _swarp_undef_values_by_default(formData) {
+        let mergedValues = {};
+        for (const key in DEFAULT_VALUES) {
+            if(formData[key] == undefined){
+                mergedValues[key] = DEFAULT_VALUES[key];
+            }else{
+                mergedValues[key] = formData[key];
+            }
         }
 
-        register_new_job(job).then((result) => {
-            let new_job_id = result.id
-            window.location.href = "/job/" + new_job_id;
-        })*/
+        return mergedValues;
     }
 
     render(){

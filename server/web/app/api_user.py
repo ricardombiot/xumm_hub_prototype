@@ -50,6 +50,7 @@ async def update_priv_profile():
     name = data['name']
     last_name = data['last_name']
     city = data['city']
+    full_address = data['full_address']
     postal_code = data['postal_code']
     country = data['country']
     phone = data['phone']
@@ -63,6 +64,7 @@ async def update_priv_profile():
                                        last_name=last_name,
                                        city=city,
                                        postal_code=postal_code,
+                                       full_address=full_address,
                                        country=country,
                                        phone=phone,
                                        bio=bio
