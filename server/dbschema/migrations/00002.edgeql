@@ -1,13 +1,12 @@
-CREATE MIGRATION m1e6my4bmhiz2hp5gsejegwhbcvo5z2yifpgvoxhsu23qt7ab4rzua
-    ONTO m1aysfznnxv5wdy432uzkb2rsagaruzlfvbavnnfkj3pi23p2bfyna
+CREATE MIGRATION m1oihccnks2uakbk2zdhgtewxhnztbtvjrhra3fkg2fssjega6u5fq
+    ONTO m1srazkyehq2gtrkxzvikh6enwnadvdihthprvhtbmhqtfjkdqjmqa
 {
-  ALTER TYPE default::User {
-      DROP PROPERTY bio;
-      DROP PROPERTY city;
-      DROP PROPERTY country;
-      DROP PROPERTY full_address;
-      DROP PROPERTY last_name;
-      DROP PROPERTY phone;
-      DROP PROPERTY postal_code;
+  CREATE TYPE default::Quotation {
+      CREATE REQUIRED LINK job: default::Job;
+      CREATE REQUIRED PROPERTY description: std::str;
+      CREATE REQUIRED PROPERTY total_amout: std::float64;
+  };
+  ALTER TYPE default::Job {
+      CREATE LINK quotations := (.<job[IS default::Quotation]);
   };
 };
