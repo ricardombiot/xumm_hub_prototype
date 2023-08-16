@@ -37,14 +37,17 @@
     "glob": "^8.0.3",
     "inferno-devtools": "^7",
     "url": "^0.11.0",
-    "webpack": "5.74.0",
+    "webpack": "^5.88.2",
     "webpack-dev-server": "4.10.0"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.22.5",
     "history": "^5.3.0",
     "inferno": "^8",
     "inferno-create-element": "^8",
     "inferno-router": "^8",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
     "webpack-cli": "^4.10.0"
   }
 }

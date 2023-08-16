@@ -1,18 +1,15 @@
-
-
 start: frontend-build
 	cd ./server && flask --app run run 
 	
-#cd ./server && python run.py
 start-ngrox:
 	ngrok http --domain=lizard-massive-pheasant.ngrok-free.app 5000
 
 frontend-build:
 	cd frontend && npm run build
 
-
 edgedb-ui:
 	edgedb ui -I xapp_freelancers
+
 edgedb-start:
 	edgedb instance start -I xapp_freelancers
 
@@ -27,3 +24,7 @@ edgedb-migrate:
 
 git-push:
 	git push -u origin main
+
+
+setup:
+	sh setup.sh
