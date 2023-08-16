@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-from flask import Blueprint, render_template
-from flask.json import jsonify
-
-from edgedb_conn import get_conn
-from queries.select_jobs_async_edgeql import select_jobs
-
-api_jobs = Blueprint('api_jobs', __name__)
-
-@api_jobs.route('/api/jobs')
-async def jobs(rest=None):
-
-    conn = get_conn()
-    result = await select_jobs(conn)
-    
-    return jsonify({"result": result})
-=======
 from flask import Blueprint, render_template, request
 from flask import json
 from flask.json import jsonify
@@ -67,4 +50,3 @@ async def register_job():
     result = await job_insert(conn, payer_id=payer_id, job_description=job_description, job_title=job_title, job_budget_range=job_budget_range, categories_json=categories_json)
     
     return jsonify({"result": result})
->>>>>>> 4d4c7b2d81d689e634abaf020c1ee44a03372461
