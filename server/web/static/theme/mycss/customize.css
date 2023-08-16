@@ -1,0 +1,178 @@
+
+
+#startup_container {
+    background-color: cornsilk;
+}
+
+#startup_container .startup_bg {
+    background-image: url(/static/theme/myimg/business_startup.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 827px;
+    background-position-y: 41px;
+    background-position-x: -217px;
+}
+
+#startup_container .startup_button {
+    width: 317px;
+    height: 47px;
+}
+
+#myheader {
+    background-color: #ffffffe3;
+    color: black !important;
+    height: 60px !important;
+    padding: 10px 30px !important;
+}
+
+#myheader a {
+    color: black !important;
+}
+
+
+ul#top_menu li a.signinbutton , ul#top_menu li a.logoutbutton {
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.myform input , .myform textarea, .myform select {
+    color: black !important; 
+    font-weight: 600 !important; 
+}
+
+.myform button:not(.btn) {
+    /* Estilos para otros botones dentro de .myform */
+}
+
+.custom_bisque_bg {
+    background-color: #f8c282;
+}
+
+
+.mysubnav {
+    margin-top: 65px;
+}
+
+.myform .custom_bg .startup {
+    background-color: #f8c282;
+}
+
+.freelance .myform .custom_bg {
+    background-color: #e7e9fd;
+}
+
+.startup .custom_subheader {
+    background-color: #004dda !important;
+    color: white !important;
+}
+
+.freelance .custom_subheader {
+    background-color: #da0011db !important;
+    height: 50px;
+    padding: 7px;
+    text-align: center;
+}
+
+
+.startup .custom_gradient_border  {
+    border: 3px solid #014dda !important;
+    border-image: linear-gradient(to bottom, #014dda, transparent) !important;
+    border-image-slice: 1 !important;
+
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.freelance .custom_gradient_border  {
+    border: 2px solid #da0101 !important;
+    border-image: linear-gradient(to bottom, #da0101, transparent) !important;
+    border-image-slice: 1 !important;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.freelance h1 {
+    color:black;
+}
+
+
+
+.form-group label {
+    font-size: 19px !important;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    font-size: 18px !important;
+}
+
+.xrp-input-dolars {
+    font-size: 17px;
+}
+
+.search-item .name-company, .search-item .short-description {
+    color: black !important;
+    font-size: 17px;
+}
+
+.search-item .wrapper {
+    min-height: 165px !important;
+}
+
+
+#menu-search {
+    width: 80px;
+    border: 2px solid black;
+}
+
+#menu-job  {
+    width: 80px;
+    border: 2px solid black;
+}
+
+#menu-profile {
+    width: 80px;
+    border: 2px solid black;
+}
+
+#header_login .btn {
+    position: fixed;
+    top: 12px;
+    left: 82%;
+    border: 1px solid black;
+}
+
+#space {
+    margin-top: 85px !important;
+}
+
+.category-icon {
+    width: 45px;
+}
+
+.categories-container {
+    max-width: 500px !important;
+    padding: 0px !important;
+    margin: 10px;
+}
+
+.category-item {
+    word-wrap: break-word;
+    width: 125px;
+    border: 2px solid black;
+    text-align: center;
+    margin: 1px;
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+    background: white;
+}
+
+.category-item-active {
+    background: rgb(212, 235, 177) !important;
+}
+
+#budget {
+    background: #dbffd3;
+    border: 1px solid;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+}

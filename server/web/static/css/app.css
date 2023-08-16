@@ -1,0 +1,35 @@
+
+
+.custom-background {
+    background-color: lightblue !important;
+    color: black !important;
+}
+
+.xrp-input input {
+    text-align: center;
+    font-size: 21px;
+    font-weight: 700;
+    width: 221px;
+    border: 1px gray;
+    border-style: dashed;
+    margin: 10px;
+    padding: 5px;
+}
+
+.xrp-input-tag {
+    position: relative;
+    left: -10px;
+    top: 0px;
+    font-family: monospace;
+    background: white;
+    height: 100px !important;
+    border: 1px #141414;
+    border-style: groove;
+    border-left: 0px;
+    padding: 8px;
+    font-size: 20px;
+    font-family: monospace;
+    background: black;
+    color: white;
+    font-style: normal;
+}

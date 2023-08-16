@@ -5,7 +5,15 @@ import {render} from 'inferno';
 import {BrowserRouter, Switch, Link, Route} from 'inferno-router';
 import {createBrowserHistory} from 'history';
 import MyApp from './MyApp';
-import VersionComponent from './VersionComponent.js';
+import MyHome from './MyHome';
+//import JobForm from './components/job/JobForm';
+import JobFormPage from './components/job/JobFormPage';
+import JobPage from './components/job/JobPage';
+//import QuotationPage  from './components/quotation/QuotationPage';
+import HeaderMenu from './components/ui/header_menu';
+import JobSearchPage from './components/job/JobSearchPage';
+import UserProfileFormPage from "./components/user/UserProfileFormPage";
+//import { xumm_main } from './xumm_app';
 
 const browserHistory = createBrowserHistory();
 
@@ -13,11 +21,6 @@ function App({children}) {
     return (
         <div>
             <h1>Application</h1>
-            <Link to="/users">User list</Link>
-            <br/>
-            <Link to="/users/user/tester">Tester's page</Link>
-            <br/>
-            <Link to="/my-app">My App</Link>
             {children}
         </div>
     );
@@ -41,29 +44,45 @@ function Users({match}) {
     );
 }
 
+function JobRouter({match}) {
+    return (
+        <div id="job_router">
+            <Switch>
+                <Route path={match.url + '/new'} component={JobFormPage}/>
+                <Route path={match.url + '/search'} component={JobSearchPage}/>
+                <Route path={match.url + '/search/:text'} component={JobSearchPage}/>
+                <Route path={match.url + '/:job_id'} component={JobPage}/>
+            </Switch>
+        </div>
+    );
+}
+
 function User({match}) {
     return <h1>{JSON.stringify(match.params)}</h1>;
 }
 
 const routes = (
     <BrowserRouter history={browserHistory}>
-        <div>
-            <h1>Application</h1>
-            <VersionComponent/>
-            <Link to="/users">User list</Link>
-            <br/>
-            <Link to="/users/user/tester">Tester's page</Link>
-            <br/>
-            <Link to="/my-app">My App</Link>
-
+        <div id="page">
+            <HeaderMenu></HeaderMenu>
+            <div id="space" style=""></div>
             <Switch>
-                <Route exact path="/" component={Home}/>
+                <Route exact path="/" component={MyHome}/>
+                <Route path="/job" component={JobRouter}/>
+                <Route path="/profile" component={UserProfileFormPage}/>
                 <Route path="/users" component={Users}/>
-                <Route path="/my-app" component={MyApp}/>
                 <Route path="*" component={NoMatch}/>
             </Switch>
         </div>
     </BrowserRouter>
 );
 
-render(routes, document.getElementById('app'));
+
+function main(){
+    console.log("ready inferno... APP");
+    render(routes, document.body);
+}
+
+window.main_inferno = function(){
+    main();
+}
