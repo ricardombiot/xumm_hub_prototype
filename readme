@@ -1,7 +1,0 @@
-
-
-Edgedb
-
-ALTER ROLE edgedb {
-    SET password := "1234";
-};

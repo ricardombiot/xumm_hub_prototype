@@ -2,7 +2,7 @@
   <a href="" rel="noopener">
  <img src="https://i.imgur.com/AZ2iWek.png" alt="Project logo"></a>
 </p>
-<h3 align="center">xApp Freelancer</h3>
+<h3 align="center">Xumm Hub Prototype</h3>
 <h4 align="center">XRPL Summer 2032 Hackathon | Ripple</h4>
 <div align="center">
 
@@ -16,8 +16,10 @@
 
 ---
 
-<p align="center"> xApp Freelancer is a learning side project of XRP Ledger technology. The idea was to test if we were capable (in less than 2 weeks) of being able to build a working prototype of a platform for freelancers and companies using Ripple's technology.
-    <br> 
+<p align="center"> 
+  With this project we seek to learn from the XRP Ledger technology, while we build a working prototype of a platform for freelancers and companies using Ripple technology. In other words, we explore the possibility of building "The Xumm Hub" as the business center of Xumm.
+
+   <b> XummHub: Would be an open xApp freelancers-plataform where businesses and freelancers that currently use XRP (the early adopters) can start connecting each other.</b>
 </p>
 
 ## 📝 Table of Contents
@@ -50,7 +52,6 @@ That is why our project seeks, in a few weeks, to try to learn how technologies 
 - …
 
 In summary: 
-
 > Your work, your rules, your earnings: No commissions on your success path!
 
 
@@ -60,19 +61,19 @@ The challenges at the business level lead us towards the technical challenges th
 
 ### Busines Chanllenges
 
-- Guarantee Payments and Compliance:
+- **Guarantee Payments and Compliance:**
   Ensuring that both freelancers and clients are protected in terms of payments is essential. Implementing an escrow system (such as the use of escrows in the XRP Ledger) can resolve this concern, but it must be carefully managed so that both parties are satisfied. Clear rules must be defined on when and how payments are released to avoid misunderstandings.
 
-- Dispute resolution:
+- **Dispute resolution:**
   Disputes are inevitable on any freelance platform. Having a transparent and efficient process to resolve disputes is critical to maintaining trust in the platform. Implementing an impartial mediation or arbitration system can help resolve issues fairly and prevent disputes from escalating to harmful levels. In the future, thanks to smart contracts, we could address this point to minimize the risks associated with hiring a freelancer as well as working for a company that is not very responsible with payments.
 
-- Trust and Security: Trust and security are  crucial to attract both freelancers and clients. Transparently showing how payments and personal information are handled, as well as using strong cybersecurity measures, can build trust among users. Education about security practices and constant communication about privacy policies are also important to building lasting relationships.
+- **Trust and Security:** Trust and security are  crucial to attract both freelancers and clients. Transparently showing how payments and personal information are handled, as well as using strong cybersecurity measures, can build trust among users. Education about security practices and constant communication about privacy policies are also important to building lasting relationships.
 
   At this point, we do not have to invent the wheel, we can integrate with Xumm so that this is the platform that manages the signatures of the escrows and transfers, allowing us to delegate all those extensive security responsibilities associated with Xumm. This also allows us to give users confidence that our system will not work at any time with the keys of our users' wallets.
 
-- Intense Competition: The freelance platforms market are highly competitive, which means that any new platform must stand out to attract freelancers and clients. This implies that a large part of the costs would be allocated to marketing.
+- **Intense Competition:** The freelance platforms market are highly competitive, which means that any new platform must stand out to attract freelancers and clients. This implies that a large part of the costs would be allocated to marketing.
 
-  However, there are an opportunity to reduce these costs, if this application was integrated into the Xumm application marketplace and therefore was at the heart of the XRP ecosystem, marketing costs would be very low since our platform is free of charge. It would be accessible to all current and future users of the XRP ecosystem. We are talking about a global service for all XRP Ledger users.
+  However, **there are an unique opportunity to reduce these costs**, if this freelancer-platarform was integrated into the Xumm application marketplace and **therefore was at the heart of the XRP ecosystem (i.e XUMM)**, marketing costs would be very low since our platform is free of charge. It would be accessible to all current and future users of the XRP ecosystem. We are talking about a global service for all XRP Ledger users.
  
 
 ### Tech Chanllenges
