@@ -151,8 +151,8 @@ export default class QuotationApprovedDetail extends Component {
             <p>{this.state.quotation.escrow_checked_at}</p>
             </div>
             <div class="form-group">
-            <label>Expire</label>
-            <div>@TODO DELTA DAYS</div>
+            <label>Deadline/Escrow expiration days</label>
+            <div>{this.state.quotation.delta_days}</div>
             </div>
             <div class="form-group mb-3">
             <label class="form-label">Escrow Status</label>

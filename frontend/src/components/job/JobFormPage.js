@@ -71,7 +71,7 @@ return (
                 onChange={this.handleInputChange}
                 id="job_bugdet_range" >
                   <option value="less_1000xrp">less 1000 XRP</option>
-                  <option selected="true"  value="1000_3000xrp">1000 - 3000 XRP</option>
+                  <option value="1000_3000xrp">1000 - 3000 XRP</option>
                   <option value="3000_6000xrp">3000 - 6000 XRP</option>
                   <option value="more_10000xrp">+ 10000 XRP</option>
             </select>

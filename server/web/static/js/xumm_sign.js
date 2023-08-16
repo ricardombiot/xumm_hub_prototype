@@ -1,4 +1,4 @@
-var xumm = new Xumm('a0676337-4f6e-4e2f-b685-77848a2832f1')
+var xumm = new Xumm('7ef2c1ba-779d-46b2-adbf-147ce66711fb')
    
 function should_wait_login(){
   return "XummPkceJwt" in localStorage;

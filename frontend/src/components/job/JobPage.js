@@ -91,8 +91,9 @@ class JobPage extends Component {
 								<section id="description">
 									<div class="detail_title_1">
 										<h1>{this.state.job.title}</h1>
-										{this.state.job.payer.name} 
+										<p class="p3">{this.state.job.payer.name}</p>
 									</div>
+
 									<p>{this.state.job.description}</p>
 
 									<h5 class="add_bottom_15">Budget</h5>

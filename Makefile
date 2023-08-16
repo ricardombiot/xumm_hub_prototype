@@ -1,5 +1,5 @@
 start: frontend-build
-	cd ./server && flask --app run run 
+	cd ./server && flask --app run run
 	
 start-ngrox:
 	ngrok http --domain=lizard-massive-pheasant.ngrok-free.app 5000
