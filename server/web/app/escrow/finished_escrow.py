@@ -2,7 +2,7 @@
 from edgedb_conn import get_conn
 from queries.quotation_select_for_escrow_destine_async_edgeql import quotation_select_for_escrow_destine
 import json
-
+from web.app.escrow.fullfillment import restore_fulfillment
 from web.app.api_errors import NotAuthorizationError
 
 async def escrow_finish_payload_by_quotation(user_id, quotation_id):
@@ -23,6 +23,6 @@ async def escrow_finish_payload_by_quotation(user_id, quotation_id):
             "TransactionType": "EscrowFinish",
             "Owner": quotation.job.payer.public_address,
             "Condition": payload["Condition"],
-            "Fulfillment": quotation.escrow_fullfilment,
+            "Fulfillment": restore_fulfillment(quotation.escrow_fullfilment),
             "OfferSequence": quotation.escrow_sequence
         }

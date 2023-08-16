@@ -7,6 +7,7 @@ from queries.tx_insert_async_edgeql import tx_insert
 from web.app.escrow.read_xrpl_tx import read_transaction_on_xrpl_ledger
 from web.app.escrow.read_xumm_payload import load_xumm_payload
 from web.app.api_errors import NotAuthorizationError
+
 import json
 
 async def check_escrow_finished(destine_id, quotation_id, xumm_uuid):

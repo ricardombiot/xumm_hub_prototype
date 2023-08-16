@@ -1,14 +1,13 @@
 
 
 import json
-from os import urandom
-from cryptoconditions import PreimageSha256
 import time
+
 
 from queries.quotation_select_for_escrow_async_edgeql import quotation_select_for_escrow
 from edgedb_conn import get_conn
 from queries.quotation_save_escrow_async_edgeql import quotation_save_escrow
-
+from web.app.escrow.fullfillment import calc_condition
  
 async def escrow_create_payload_by_quotation(user_id, quotation_id):
     
@@ -97,13 +96,5 @@ def calc_cancel_after(delta_days):
     return ripple_epoch_now() + segs
 
 
-def calc_condition():
 
-    secret = urandom(32)
-
-    fulfillment = PreimageSha256(preimage=secret)
-
-    condition = fulfillment.condition_binary.hex().upper()
-    fulfillment = fulfillment.serialize_binary().hex().upper()
-    return condition, fulfillment
     
