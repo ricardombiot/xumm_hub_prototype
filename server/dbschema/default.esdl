@@ -2,6 +2,11 @@ module default {
 
   type User {
     required public_address -> str;
+<<<<<<< HEAD
+    required email -> str;
+    required name -> str;
+    description -> str;
+=======
     email -> str;
     name -> str;
     last_name -> str;
@@ -11,10 +16,19 @@ module default {
     country -> str;
     phone -> str;
     bio -> str;
+>>>>>>> 4d4c7b2d81d689e634abaf020c1ee44a03372461
   }
 
   type Job {
     required payer -> User;
+<<<<<<< HEAD
+    destine -> User;
+
+    required title -> str;
+    required description -> str;
+  }
+
+=======
     #destine -> User;
 
     required title -> str;
@@ -104,4 +118,5 @@ module default {
   }
 
 
+>>>>>>> 4d4c7b2d81d689e634abaf020c1ee44a03372461
 }
