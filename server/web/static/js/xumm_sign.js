@@ -1,4 +1,4 @@
-var xumm = new Xumm('7ef2c1ba-779d-46b2-adbf-147ce66711fb')
+var xumm = new Xumm(window.API_XUMM_KEY);
    
 function should_wait_login(){
   return "XummPkceJwt" in localStorage;
