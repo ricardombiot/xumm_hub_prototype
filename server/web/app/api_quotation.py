@@ -147,7 +147,7 @@ async def admin_get_quotation(quotation_id):
                 "id": quotation.id,
                 "description": quotation.description,
                 "total_amount": quotation.total_amount,
-                
+                "delta_days": quotation.delta_days,
                 "job" : {
                     "id": quotation.job.id,
                     "payer" : {
