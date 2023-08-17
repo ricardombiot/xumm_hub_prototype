@@ -28,6 +28,8 @@ edgedb-migrate-remote:
 git-push:
 	git push -u origin main
 
+start-demo:
+	sh start-demo.sh
 
 setup:
 	sh setup_frontend.sh

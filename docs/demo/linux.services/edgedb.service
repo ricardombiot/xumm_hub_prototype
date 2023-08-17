@@ -1,0 +1,11 @@
+[Unit]
+Description=EdgeDb
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu/demo/xumm_hub_prototype/docs/demo/edgedb_server
+ExecStart=docker compose up
+Restart=oneshot
+
+[Install]
+WantedBy=multi-user.target

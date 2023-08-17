@@ -1,0 +1,11 @@
+[Unit]
+Description=Servicio web 
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu/demo/xumm_hub_prototype
+ExecStart=/usr/bin/make start-demo
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
