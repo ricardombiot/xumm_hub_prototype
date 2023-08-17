@@ -1,0 +1,1 @@
+sudo journalctl -u web_prototype.service > log.txt
