@@ -14,17 +14,18 @@ edgedb-start:
 	edgedb instance start -I xapp_freelancers
 
 edgedb-gen:
-	cd server/queries && edgedb-py --dsn edgedb://edgedb:1234@localhost:10703 --tls-security insecure
+	cd server/queries && edgedb-py --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
 
 edgedb-migration-create:
-	cd server && edgedb migration create --dsn edgedb://edgedb:1234@localhost:10703 --tls-security insecure
+	cd server && edgedb migration create --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
 
 edgedb-migrate:
-	cd server && edgedb migrate --dsn edgedb://edgedb:1234@localhost:10703 --tls-security insecure
+	cd server && edgedb migrate --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
 
 git-push:
 	git push -u origin main
 
 
 setup:
-	sh setup.sh
+	sh setup_frontend.sh
+	sh setup_py.sh

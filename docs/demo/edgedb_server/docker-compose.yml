@@ -1,0 +1,13 @@
+version: '3'
+services:
+  edgedb:
+    image: edgedb/edgedb:3.2
+    environment:
+      - EDGEDB_SERVER_ADMIN_UI=enabled
+      - EDGEDB_SERVER_TLS_CERT_MODE=generate_self_signed
+      - EDGEDB_SERVER_PASSWORD=1234
+      - EDGEDB_SERVER_BACKEND_DSN=postgres://mypguser:1234@172.26.13.198:5432/db_edgedb
+    ports:
+      - 5656:5656
+    volumes:
+      - /home/ubuntu/edgedb_data:/var/lib/edgedb/data

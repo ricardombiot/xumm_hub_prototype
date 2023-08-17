@@ -1,0 +1,6 @@
+
+sudo -u postgres psql
+
+postgres=# create database db_edgedb;
+postgres=# create user mypguser with encrypted password '1234';
+postgres=# grant all privileges on database db_edgedb to mypguser;
