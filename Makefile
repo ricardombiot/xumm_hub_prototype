@@ -22,6 +22,9 @@ edgedb-migration-create:
 edgedb-migrate:
 	cd server && edgedb migrate --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
 
+edgedb-migrate-remote:
+	cd server && edgedb migrate -I xapp_freelance_remote
+
 git-push:
 	git push -u origin main
 

@@ -1,3 +1,5 @@
 venv
 **/**/.env
 server/web/.env
+
+**/**/**/docker-compose.yml

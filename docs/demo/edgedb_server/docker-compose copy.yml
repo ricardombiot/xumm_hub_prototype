@@ -3,10 +3,11 @@ services:
   edgedb:
     image: edgedb/edgedb:3.2
     environment:
+      - EDGEDB_DOCKER_BOOTSTRAP_TIMEOUT_SEC=1000000
       - EDGEDB_SERVER_ADMIN_UI=enabled
       - EDGEDB_SERVER_TLS_CERT_MODE=generate_self_signed
-      - EDGEDB_SERVER_PASSWORD=1234
-      - EDGEDB_SERVER_BACKEND_DSN=postgres://mypguser:1234@172.26.13.198:5432/db_edgedb
+      - EDGEDB_SERVER_PASSWORD=<YOUR_PASSWORD>
+      - EDGEDB_SERVER_BACKEND_DSN=postgres://<YOUR_PG_USER>:<YOUR_PASSWORD>@<YOUR_ENDPOINT>:5432/dbmaster
     ports:
       - 5656:5656
     volumes:

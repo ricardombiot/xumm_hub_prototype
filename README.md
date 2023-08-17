@@ -141,42 +141,10 @@ The main challenges, which we have addressed in this huge spike, related to the 
 Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
 in the future.
 
-## 🏁 Getting Started <a name = "getting_started"></a>
-
-These instructions will get you a copy of the project up and running on your local machine for development
-and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-## 🎈 Usage <a name="usage"></a>
-
-Add notes about how to use the system.
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
-Learning Technology Stack:
+Apart from learning about XRPL technology I have left my comfort zone and have used a new Stack (Edgedb + Python & Flask + InfernoJs) with propouse of learn and test new things:
 
 - [Edgedb](https://www.edgedb.com/) 
   > EdgeDB is an open-source database designed as a spiritual successor to SQL and the relational paradigm. It aims to solve some hard design problems that make existing databases unnecessarily onerous to use.
@@ -198,6 +166,10 @@ Learning Technology Stack:
   I admit it, maybe I'm from the old school but I don't like that the frontend limits my stack... many current frameworks tend little by little to depend on backends and therefore to condition how you develop. I like the freedom to choose the technologies I work with, and that's why it's hard for me to find frontend frameworks that I feel comfortable with.
 
   In this case, to take advantage of the project I have tried the Inferno Js framework inspired by React, and the truth is, I really liked that I could easily start working despite using Flask.
+
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+See our [XummHub Prototype - Installation & Setup Guide](/docs/XummHub%20Prototype%20-%20Installation%20Guide.md)
 
 ## ✍️ Authors <a name = "authors"></a>
 
