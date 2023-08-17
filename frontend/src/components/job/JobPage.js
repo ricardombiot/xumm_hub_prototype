@@ -79,8 +79,6 @@ class JobPage extends Component {
 					<div class="container">
 						<ul class="clearfix">
 							<li><a href="#description" class="active">Description</a></li>
-							<li><a href="#reviews">Reviews</a></li>
-							<li><a href="#sidebar">Booking</a></li>
 						</ul>
 					</div>
 				</nav>

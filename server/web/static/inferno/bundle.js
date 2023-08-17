@@ -416,6 +416,17 @@ var JobSearchPage = /*#__PURE__*/function (_Component) {
     }
     return jobElements;
   };
+  _proto._render_budget = function _render_budget(job) {
+    var budget = "less 1000";
+    if (job.budget_range == "1000_3000xrp") {
+      budget = "1000 - 3000";
+    } else if (job.budget_range == "3000_6000xrp") {
+      budget = "3000 - 6000";
+    } else if (job.budget_range == "more_10000xrp") {
+      budget = "+10000";
+    }
+    return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, [budget, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" "), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "text-muted", "$XRP", 16)], 0);
+  };
   _proto._render_item = function _render_item(job) {
     var title = job.title;
     var short_description = job.description.slice(0, 45) + "...";
@@ -423,7 +434,7 @@ var JobSearchPage = /*#__PURE__*/function (_Component) {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-xl-4 col-lg-6 col-md-6 search-item", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "strip grid", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "wrapper", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h3", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, inferno_router__WEBPACK_IMPORTED_MODULE_2__.Link, {
       "to": url_detail,
       children: title
-    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "name-company", "@COMPANY NAME", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "short-description", short_description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "loc_open", "Now Open", 16), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "score", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Superb"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "10 Quotes", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "8.9", 16)], 4), 2)], 4)], 4), 2);
+    }), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "small", "name-company", job.payer.name, 0), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "p", "short-description", short_description, 0)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "ul", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", "loc_open budget_on_list", this._render_budget(job), 0), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "li", null, (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "score", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "span", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Superb"), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "em", null, "10 Quotes", 16)], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "8.9", 16)], 4), 2)], 4)], 4), 2);
   };
   _proto.render = function render() {
     return (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "container", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "row", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-3 col-md-4 col-10", (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "h4", null, [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "strong", null, "145", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" result for All listing")], 4), 2), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "col-lg-9 col-md-8 col-2", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "a", "search_mob btn_search_mobile", null, 1, {
@@ -7857,7 +7868,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("70f9354d6ec8fc48d9b2")
+/******/ 		__webpack_require__.h = () => ("1b204663de9fc81bb09b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

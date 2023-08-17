@@ -48,6 +48,21 @@ export default class JobSearchPage extends Component {
 
     }
 
+    _render_budget(job){
+		let budget = "less 1000"
+		if(job.budget_range == "1000_3000xrp"){
+			budget = "1000 - 3000"
+		}else if(job.budget_range == "3000_6000xrp"){
+			budget = "3000 - 6000"
+		}else if(job.budget_range == "more_10000xrp"){
+			budget = "+10000"
+		}
+
+		return (<em>
+			{budget} <small class="text-muted">$XRP</small>
+		</em>)
+	}
+
     _render_item(job){
         let title = job.title
         let short_description = job.description.slice(0,45) + "...";
@@ -60,12 +75,15 @@ export default class JobSearchPage extends Component {
                 <h3>
                     <Link to={url_detail}>{title}</Link>
                 </h3>
-                <small class="name-company">@COMPANY NAME</small>
+                <small class="name-company">{job.payer.name}</small>
                 <p class="short-description">{short_description}</p>
             </div>
             <ul>
-                <li><span class="loc_open">Now Open</span></li>
+                <li><span class="loc_open budget_on_list">
+                {this._render_budget(job)}
+                </span></li>
                 <li><div class="score"><span>Superb<em>10 Quotes</em></span><strong>8.9</strong></div></li>
+                
             </ul>
         </div>
     </div>)
