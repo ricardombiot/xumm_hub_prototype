@@ -119,10 +119,23 @@ The main challenges, which we have addressed in this huge spike, related to the 
     That is why, later, we opted to use Escrows, which is similar, but follows a much simpler flow than payment channels where there are only transactions. 
 
 
-- XUMM integration: We really liked how Xumm facilitates the login and logout of users in our application, however, we have implemented our own associated authorization system so that we do not have to ask Xumm every time if a user has the permissions or not, to access to a route or endpoint of our api.
+- XUMM integration
 
-- Direct Transfers:
-  @TODO
+  - Authorization system:
+    <p align="center">
+    <img src="./docs/diagrams/custom_autorhization_system.png" >
+    </p>
+    We really liked how Xumm makes it easy for users to log in and out of our app. Despite this, we have implemented our own authorization system using JWT. With the purpose of not having to delegate authorization to Xumm in all our requests. Ultimately, we are the ones who must determine when a user is allowed or not to access a route or endpoint of our application.
+
+  - Transactions (Client-Side + Xumm):
+
+    <p align="center">
+    <img src="./docs/diagrams/INFRASTRUCTURE_FLOW_for_CREATE_ESCROW_using_XUMM.png" >
+    </p>
+    
+
+
+- Direct Transfers: In addition to escrows, we have implemented a direct transfer system that facilitates direct payment to the freelancer (or the return by the freelancer to the company of some amount).
 
 
 💡 Proposal: We think that it would be interesting within the ecosystem to offer templates, ready-made skeletons to speed up the creation of new projects and prevent new developers from wasting days learning how to integrate with Xumm and launch transactions to XRP Ledger through it. 
@@ -146,7 +159,7 @@ in the future.
 
 Apart from learning about XRPL technology I have left my comfort zone and have used a new Stack (Edgedb + Python & Flask + InfernoJs) with propouse of learn and test new things:
 
-- [Edgedb](https://www.edgedb.com/) 
+- **Edgedb** [^3]
   > EdgeDB is an open-source database designed as a spiritual successor to SQL and the relational paradigm. It aims to solve some hard design problems that make existing databases unnecessarily onerous to use.
   Powered by the Postgres query engine under the hood, EdgeDB thinks about schema the same way you do: as objects with properties connected by links. It's like a relational database with an object-oriented data model, or a graph database with strict schema. We call it a graph-relational database.
 
@@ -154,14 +167,16 @@ Apart from learning about XRPL technology I have left my comfort zone and have u
   
   In production we could would worked with Edgedb+Postgres therefore really recommended EdgeDB! 👍
 
-- [Python + Flask](https://flask.palletsprojects.com/en/2.3.x/) 
+- **Python + Flask [^4] ** 
 
   I usually use python when I need to integrate with third-party systems given the number of libraries it has... what can I say about python and flask that hasn't already been said... simplicity!
 
   However, I must admit that being used to other languages like TypeScript, Elixir, and Rust I don't feel the code is clean, or I still haven't found the point, I'm sorry :(. Obviously this code is only for exploring and learning from technology XRP as well as figuring out what we would need to be able to build a real freelancer platform using this technology, so Python and Flask is more than enough for a Spike.
 
+  I have to admit that if I were to start over I would probably try to make a graphQL API, even flask is simple the frontend of an application needs to be able to evolve as independently as possible.
 
-- [InfernoJs](https://www.infernojs.org/)
+
+- ** InfernoJs [^5] **
 
   I admit it, maybe I'm from the old school but I don't like that the frontend limits my stack... many current frameworks tend little by little to depend on backends and therefore to condition how you develop. I like the freedom to choose the technologies I work with, and that's why it's hard for me to find frontend frameworks that I feel comfortable with.
 
@@ -186,3 +201,9 @@ See our [XummHub Prototype - Installation & Setup Guide](/docs/XummHub%20Prototy
 [^1]: XRPL | Escrows - https://xrpl.org/escrow.html
 
 [^2]: XRPL | Payment Channels - https://xrpl.org/payment-channels.html
+
+[^3]: Edgedb - https://www.edgedb.com/
+
+[^4]: Flask - https://flask.palletsprojects.com/en/2.3.x/
+
+[^5]: InfernoJs - https://www.infernojs.org/
