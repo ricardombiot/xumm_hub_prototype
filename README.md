@@ -3,15 +3,9 @@
  <img src="https://i.imgur.com/AZ2iWek.png" alt="Project logo"></a>
 </p>
 <h3 align="center">Xumm Hub Prototype</h3>
-<h4 align="center">XRPL Summer 2032 Hackathon | Ripple</h4>
 <div align="center">
 
-[![Hackathon](https://img.shields.io/badge/hackathon-name-orange.svg)](https://dorahacks.io/hackathon/xrpl-hackathon/)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
-
+[![Hackathon](https://img.shields.io/badge/hackathon-XRPL_Summer_2032_|_Ripple_-orange.svg)](https://dorahacks.io/hackathon/xrpl-hackathon/)
 </div>
 
 ---
@@ -30,11 +24,14 @@
 - [Dependencies / Limitations](#limitations)
 - [Future Scope](#future_scope)
 - [Setting up a local environment](#getting_started)
-- [Usage](#usage)
-
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
+
 - [Acknowledgments](#acknowledgments)
+
+- [License](#license)
+
+- [References](#references)
 
 ## 💡 Business opportunity <a name = "idea"></a>
 
@@ -80,7 +77,7 @@ The challenges at the business level lead us towards the technical challenges th
 
 The main challenges, which we have addressed in this huge spike, related to the implementation of this project using Ripple's technology are the following:
 
-- Escrows [^1]:
+-  **Escrows ** [^1]:
 
   <p align="center">
   <img src="./docs/diagrams/workflow_freelancers_platform_using_xrpl_escrows_and_xumm.png" >
@@ -108,7 +105,7 @@ The main challenges, which we have addressed in this huge spike, related to the 
 
 
 
-  - Escrows [^1] vs Payment Channels [^2]:
+  -  **Escrows ** [^1]  **vs Payment Channels ** [^2]:
 
     We should say that in the first place, we studied using the use of payment channels, however, we found the limitation that some processes of the payment channel flow are not transactions but methods, this made integration with Xumm difficult, since as we have established, we will delegate to this all security responsibilities that will control the private keys, sign and send the transactions.
 
@@ -119,15 +116,15 @@ The main challenges, which we have addressed in this huge spike, related to the 
     That is why, later, we opted to use Escrows, which is similar, but follows a much simpler flow than payment channels where there are only transactions. 
 
 
-- XUMM integration
+-  ** XUMM integration **
 
-  - Authorization system:
+  -  **Authorization system: **
     <p align="center">
     <img src="./docs/diagrams/custom_autorhization_system.png" >
     </p>
     We really liked how Xumm makes it easy for users to log in and out of our app. Despite this, we have implemented our own authorization system using JWT. With the purpose of not having to delegate authorization to Xumm in all our requests. Ultimately, we are the ones who must determine when a user is allowed or not to access a route or endpoint of our application.
 
-  - Transactions (Client-Side + Xumm):
+  -  **Transactions (Client-Side + Xumm): **
 
     <p align="center">
     <img src="./docs/diagrams/INFRASTRUCTURE_FLOW_for_CREATE_ESCROW_using_XUMM.png" >
@@ -135,25 +132,10 @@ The main challenges, which we have addressed in this huge spike, related to the 
     
 
 
-- Direct Transfers: In addition to escrows, we have implemented a direct transfer system that facilitates direct payment to the freelancer (or the return by the freelancer to the company of some amount).
+-  **Direct Transfers: ** In addition to escrows, we have implemented a direct transfer system that facilitates direct payment to the freelancer (or the return by the freelancer to the company of some amount).
 
 
 💡 Proposal: We think that it would be interesting within the ecosystem to offer templates, ready-made skeletons to speed up the creation of new projects and prevent new developers from wasting days learning how to integrate with Xumm and launch transactions to XRP Ledger through it. 
-
-## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
-
-- What are the dependencies of your project?
-- Describe each limitation in detailed but concise terms
-- Explain why each limitation exists
-- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
-- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
-  appropriate, describe how these limitations could point to the need for further research.
-
-## 🚀 Future Scope <a name = "future_scope"></a>
-
-Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
-in the future.
-
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
@@ -167,7 +149,7 @@ Apart from learning about XRPL technology I have left my comfort zone and have u
   
   In production we could would worked with Edgedb+Postgres therefore really recommended EdgeDB! 👍
 
-- **Python + Flask [^4] ** 
+- **Python + Flask ** [^4] 
 
   I usually use python when I need to integrate with third-party systems given the number of libraries it has... what can I say about python and flask that hasn't already been said... simplicity!
 
@@ -176,7 +158,7 @@ Apart from learning about XRPL technology I have left my comfort zone and have u
   I have to admit that if I were to start over I would probably try to make a graphQL API, even flask is simple the frontend of an application needs to be able to evolve as independently as possible.
 
 
-- ** InfernoJs [^5] **
+- ** InfernoJs ** [^5]
 
   I admit it, maybe I'm from the old school but I don't like that the frontend limits my stack... many current frameworks tend little by little to depend on backends and therefore to condition how you develop. I like the freedom to choose the technologies I work with, and that's why it's hard for me to find frontend frameworks that I feel comfortable with.
 
@@ -186,17 +168,40 @@ Apart from learning about XRPL technology I have left my comfort zone and have u
 
 See our [XummHub Prototype - Installation & Setup Guide](/docs/XummHub%20Prototype%20-%20Installation%20Guide.md)
 
-## ✍️ Authors <a name = "authors"></a>
 
-- [@ricardombiot](https://github.com/ricardombiot/xapp_freelancer) 
+
+## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
+
+- What are the dependencies of your project?
+- Describe each limitation in detailed but concise terms
+- Explain why each limitation exists
+- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
+- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
+  appropriate, describe how these limitations could point to the need for further research.
+
+
+## 🚀 Future Scope <a name = "future_scope"></a>
+
+Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
+in the future.
+
+## 👀 License <a name = "license"></a>
+
+The code of this prototype is open for the evaluation of the project within the Hackathon. However, since I'm honestly bad at frontend design, I had to subscribe to elements.envato.com and download a professional template ( [Sparker 2.5](/server/web/static/theme/about_theme) ) as well as other graphic resources (icons, videos, shapes...etc), that makes this code (together with those graphic resources) cannot be released using one of the classic licenses (MIT, ..etc) since despite having the rights to make a derivative and even commercial work, as I understand it, I cannot sublicense it within this project.
+
+In summary, that despite the fact that this repository only stores a prototype of an idea, a great peak that allows us to draw lessons as well as learn more about XRPL, XUMM...etc and therefore we do not recommend its use in production. If you want to use it commercially, at the very least, you'll need a subscription to elements.envato.com. But our recommendation is, educate yourself on XRPL and XUMM, take lessons from this prototype, forget about everything that doesn't feel useful, and build it better again. Think that it is precisely because we do not feel it is a production code (bad smells...) that we make it open to the community.
 
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
-- Hat tip to anyone whose code was used
+- Discord XRP community.
 - Inspiration
-- References
 
+## ✍️ Authors <a name = "authors"></a>
+
+- [@ricardombiot](https://github.com/ricardombiot/xapp_freelancer) 
+
+## 📘 References <a name = "references"></a>
 
 [^1]: XRPL | Escrows - https://xrpl.org/escrow.html
 
