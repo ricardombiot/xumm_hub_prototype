@@ -4,10 +4,10 @@ export default class DeltaDaysInput extends Component {
     constructor(props) {
         super(props);
 
-        let {afterUpdate } = props;
+        let {afterUpdate , initial } = props;
 
         this.state = {
-            value: "7",
+            value: initial,
             afterUpdate: afterUpdate
         }
 

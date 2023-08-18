@@ -1,8 +1,10 @@
 select default::Job {
   id,
   payer : {
-    id
+    id,
+    name
   },
   title,
-  description
+  description,
+  budget_range
 }

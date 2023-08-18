@@ -83,6 +83,16 @@ return (
     <div class="form_container custom_gradient_border">
     <div class="form_container">
         <div class="form-group">
+        <div class="form-group">
+            <input  type="text" 
+                    class="form-control" 
+                    name="public_address"
+                    value={this.state.public_address}
+                    disabled={true}></input>
+        </div>
+        
+        </div>
+        <div class="form-group">
             <input  type="email" 
                     class="form-control" 
                     name="email"

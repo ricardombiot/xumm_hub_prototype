@@ -129,7 +129,7 @@ return (
         </div>
         <div class="form-group">
             <label>Deadline/Escrow expiration days</label>
-            <DeltaDaysInput afterUpdate={this.handleUpdateDeadline}></DeltaDaysInput>
+            <DeltaDaysInput afterUpdate={this.handleUpdateDeadline} initial={this.state.quotation.delta_days}></DeltaDaysInput>
         </div>
         <div class="form-group mb-3">
             <label class="form-label">Description</label>

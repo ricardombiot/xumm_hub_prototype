@@ -14,13 +14,13 @@ edgedb-start:
 	edgedb instance start -I xapp_freelancers
 
 edgedb-gen:
-	cd server/queries && edgedb-py --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
+	cd server/queries && edgedb-py --dsn edgedb://edgedb:1234@localhost:10701 --tls-security insecure
 
 edgedb-migration-create:
-	cd server && edgedb migration create --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
+	cd server && edgedb migration create --dsn edgedb://edgedb:1234@localhost:10701 --tls-security insecure
 
 edgedb-migrate:
-	cd server && edgedb migrate --dsn edgedb://edgedb:1234@localhost:10700 --tls-security insecure
+	cd server && edgedb migrate --dsn edgedb://edgedb:1234@localhost:10701 --tls-security insecure
 
 edgedb-migrate-remote:
 	cd server && edgedb migrate -I xapp_freelance_remote

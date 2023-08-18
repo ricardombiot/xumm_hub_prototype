@@ -123,7 +123,7 @@ export default class QuotationApprovedEscrow extends Component {
         </div>
         <div class="form-group">
             <label>Days</label>
-            <div>@TODO DELTA DAYS</div>
+            <div>{this.state.quotation.delta_days}</div>
         </div>
         <div class="form-group mb-3">
             <label class="form-label">Description</label>
