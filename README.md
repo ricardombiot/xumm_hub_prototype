@@ -6,6 +6,8 @@
 <div align="center">
 
 [![Hackathon](https://img.shields.io/badge/hackathon-XRPL_Summer_2032_|_Ripple_-orange.svg)](https://dorahacks.io/hackathon/xrpl-hackathon/)
+
+
 </div>
 
 ---
@@ -15,6 +17,10 @@
 
    <b> XummHub: Would be an open xApp freelancers-plataform where businesses and freelancers that currently use XRP (the early adopters) can start connecting each other.</b>
 </p>
+
+👉 👀 Slices:
+[pdf](./docs/XummHub%20-%20Prototype%20v18Ago23.pdf)
+[pptx](./docs/XummHub%20-%20Prototype%20v18Ago23.pptx)
 
 ## 📝 Table of Contents
 
@@ -181,9 +187,11 @@ See our [XummHub Prototype - Installation & Setup Guide](/docs/XummHub%20Prototy
 
 
 
-## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
+## ⛓️ Limitations <a name = "limitations"></a>
 
-- What are the dependencies of your project?
+- Time Challenge 
+
+What are the dependencies of your project?
 - Describe each limitation in detailed but concise terms
 - Explain why each limitation exists
 - Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
