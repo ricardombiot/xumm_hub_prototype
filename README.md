@@ -51,6 +51,16 @@ That is why our project seeks, in a few weeks, to try to learn how technologies 
 In summary: 
 > Your work, your rules, your earnings: No commissions on your success path!
 
+### Business Data:
+
+  <p align="center">
+  <img src="./docs/img/potencial_freelancer_plataform.png" >
+  </p>
+
+  The current market potential of freelance-platform exceeds 100 million visits per month. Obviously the current platforms are already positioned and invest a lot in marketing, however, within the XRP ecosystem we can wait for the sector to adapt or build our own with our own idiosycrasies. The reduction of costs related to money management, currency exchange, there will be an interesting door that together with the use of Xumm as the main distribution channel and reach our target audience (XRP early adopters) could allow us to connect companies and freelancers that are willing to work using XRP. We talked about the opportunity to leave marketing in the hands of Xumm adoption.
+
+  [Draft - Business Model Canvas](/docs/Business%20Model%20Canvas%20-%20The%20XummHub%20-%20Draft%20v1%20Prototype.pdf)
+
 
 ## 🧐 Challenges and Opportunities <a name = "challenges_and_opportunities"></a>
 
