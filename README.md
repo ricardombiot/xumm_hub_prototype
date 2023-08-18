@@ -213,8 +213,8 @@ In summary, that despite the fact that this repository only stores a prototype o
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
-- Discord XRP community.
-- Inspiration
+- Discord - XRP Ledger Developers. (https://discord.com/invite/xrpl)
+- Thanks to everyone, especially Wietse, for his help and professionalism.
 
 ## ✍️ Authors <a name = "authors"></a>
 
