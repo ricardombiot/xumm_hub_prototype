@@ -6,6 +6,8 @@
 <div align="center">
 
 [![Hackathon](https://img.shields.io/badge/hackathon-XRPL_Summer_2032_|_Ripple_-orange.svg)](https://dorahacks.io/hackathon/xrpl-hackathon/)
+
+
 </div>
 
 ---
@@ -16,18 +18,18 @@
    <b> XummHub: Would be an open xApp freelancers-plataform where businesses and freelancers that currently use XRP (the early adopters) can start connecting each other.</b>
 </p>
 
+👉 👀 Slices:
+[pdf](./docs/XummHub%20-%20Prototype%20v18Ago23.pdf)
+[pptx](./docs/XummHub%20-%20Prototype%20v18Ago23.pptx)
+
 ## 📝 Table of Contents
 
 - [Business opportunity](#idea)
 - [Challenges and Opportunities](#challenges_and_opportunities)
+- [Future Scope](#future_scope)
 - [Our Stack](#tech_stack)
 - [Setting up a local environment](#getting_started)
-
-
 - [Dependencies / Limitations](#limitations)
-- [Future Scope](#future_scope)
-
-
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 - [Authors](#authors)
@@ -148,6 +150,13 @@ The main challenges, which we have addressed in this huge spike, related to the 
 
 💡 Proposal: We think that it would be interesting within the ecosystem to offer templates, ready-made skeletons to speed up the creation of new projects and prevent new developers from wasting days learning how to integrate with Xumm and launch transactions to XRP Ledger through it. 
 
+## 🚀 Potential features using XRPL? <a name = "future_scope"></a>
+
+- **Achievement system (Gamification)**: We could mine tokens to save & share the different achievements within the platform.
+- **Sharing accounts**: We could help users to have shared accounts via Multisign or Hooks
+- **Intelligent oracle system**: We could implement intelligent contracts, which act as referees and seek to avoid disputes between the two parties (company/freelance).
+- ...
+
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
 Apart from learning about XRPL technology I have left my comfort zone and have used a new Stack (Edgedb + Python & Flask + InfernoJs) with propouse of learn and test new things:
@@ -181,20 +190,16 @@ See our [XummHub Prototype - Installation & Setup Guide](/docs/XummHub%20Prototy
 
 
 
-## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
+## ⛓️ Limitations <a name = "limitations"></a>
 
-- What are the dependencies of your project?
-- Describe each limitation in detailed but concise terms
-- Explain why each limitation exists
-- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
-- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
-  appropriate, describe how these limitations could point to the need for further research.
+- Time limited: 2 weeks 
+- Frontend design (had to buy a professional template)
+- Budget: 
 
+  elements.envato.com (39,00 €)
+  Professional templates, and icons, videos and other resources graphics
+  AWS lightsail - (DB: 15 € /Server 20€)
 
-## 🚀 Future Scope <a name = "future_scope"></a>
-
-Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
-in the future.
 
 ## 👀 License <a name = "license"></a>
 
@@ -205,8 +210,8 @@ In summary, that despite the fact that this repository only stores a prototype o
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
-- Discord XRP community.
-- Inspiration
+- Discord - XRP Ledger Developers. (https://discord.com/invite/xrpl)
+- Thanks to everyone, especially Wietse, for his help and professionalism.
 
 ## ✍️ Authors <a name = "authors"></a>
 
