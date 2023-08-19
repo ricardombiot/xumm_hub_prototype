@@ -37,6 +37,7 @@ class JobSelectOneResultApprovedQuotation(NoPydanticValidation):
 @dataclasses.dataclass
 class JobSelectOneResultPayer(NoPydanticValidation):
     id: uuid.UUID
+    name: typing.Optional[str]
 
 
 async def job_select_one(
@@ -49,7 +50,8 @@ async def job_select_one(
         select default::Job {
           id,
           payer : {
-            id
+            id,
+            name
           },
           title,
           description,

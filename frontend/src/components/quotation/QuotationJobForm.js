@@ -40,9 +40,13 @@ export default class QuotationJobForm extends Component {
 
                 new_quotation.setDescription(quotation.description);
                 new_quotation.setTotalAmount(quotation.total_amount);
+                new_quotation.setDeltaDays(quotation.delta_days.toString());
                 this.setState({
                     quotation_id: quotation.id,
-                    quotation: new_quotation , 
+                    quotation: new_quotation
+                });
+
+                this.setState({
                     is_loading: false
                 });
             }else{
@@ -87,9 +91,6 @@ export default class QuotationJobForm extends Component {
         event.preventDefault();
     }
 
-
-
-
     _render_title_form(){
         if(this.have_quotation()){
             return (
@@ -129,7 +130,7 @@ return (
         </div>
         <div class="form-group">
             <label>Deadline/Escrow expiration days</label>
-            <DeltaDaysInput afterUpdate={this.handleUpdateDeadline} initial={this.state.quotation.delta_days}></DeltaDaysInput>
+            <DeltaDaysInput afterUpdate={this.handleUpdateDeadline} initial={this.state.quotation.data.delta_days}></DeltaDaysInput>
         </div>
         <div class="form-group mb-3">
             <label class="form-label">Description</label>

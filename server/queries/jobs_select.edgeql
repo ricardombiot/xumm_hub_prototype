@@ -7,4 +7,4 @@ select default::Job {
   title,
   description,
   budget_range
-}
+} limit 50

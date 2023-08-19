@@ -2,6 +2,7 @@ select default::Quotation {
   id,
   description,
   total_amount,
+  delta_days,
   destine: {
     name
   },

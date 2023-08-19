@@ -23,6 +23,7 @@ class QuotationSelectDestineForJobResult(NoPydanticValidation):
     id: uuid.UUID
     description: str
     total_amount: float
+    delta_days: typing.Optional[int]
     destine: QuotationSelectDestineForJobResultDestine
 
 
@@ -44,6 +45,7 @@ async def quotation_select_destine_for_job(
           id,
           description,
           total_amount,
+          delta_days,
           destine: {
             name
           },

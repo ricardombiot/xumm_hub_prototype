@@ -1310,9 +1310,12 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
         var new_quotation = _this2.state.quotation.clone();
         new_quotation.setDescription(quotation.description);
         new_quotation.setTotalAmount(quotation.total_amount);
+        new_quotation.setDeltaDays(quotation.delta_days.toString());
         _this2.setState({
           quotation_id: quotation.id,
-          quotation: new_quotation,
+          quotation: new_quotation
+        });
+        _this2.setState({
           is_loading: false
         });
       } else {
@@ -1364,7 +1367,7 @@ var QuotationJobForm = /*#__PURE__*/function (_Component) {
       "initial": this.state.quotation.data.total_amount
     })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", null, "Deadline/Escrow expiration days", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createComponentVNode)(2, _utils_DeltaDaysInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
       "afterUpdate": this.handleUpdateDeadline,
-      "initial": this.state.quotation.delta_days
+      "initial": this.state.quotation.data.delta_days
     })], 4), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "div", "form-group mb-3", [(0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(1, "label", "form-label", "Description", 16), (0,inferno__WEBPACK_IMPORTED_MODULE_0__.createVNode)(128, "textarea", "form-control", null, 1, {
       "name": "description",
       "value": this.state.quotation.data.description,
@@ -2069,16 +2072,23 @@ var DeltaDaysInput = /*#__PURE__*/function (_Component) {
   function DeltaDaysInput(props) {
     var _this;
     _this = _Component.call(this, props) || this;
-    var afterUpdate = props.afterUpdate,
-      initial = props.initial;
+    var _this$props = _this.props,
+      afterUpdate = _this$props.afterUpdate,
+      initial = _this$props.initial;
+    console.log("DeltaDaysInit:" + initial);
     _this.state = {
-      value: initial,
+      value: "" + initial,
       afterUpdate: afterUpdate
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     return _this;
   }
   var _proto = DeltaDaysInput.prototype;
+  _proto.onComponentWillMount = function onComponentWillMount() {
+    console.log(this.props);
+    var initial = this.props.initial;
+    console.log("DeltaDaysInit:" + initial);
+  };
   _proto.handleChange = function handleChange(event) {
     var delta_days = event.target.value;
     this.setState({
@@ -7869,7 +7879,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a466124f898c705c0b1e")
+/******/ 		__webpack_require__.h = () => ("54f17b5cba404b352ddd")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

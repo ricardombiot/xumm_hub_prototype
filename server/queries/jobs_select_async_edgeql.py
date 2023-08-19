@@ -47,6 +47,6 @@ async def jobs_select(
           title,
           description,
           budget_range
-        }\
+        } limit 50\
         """,
     )
