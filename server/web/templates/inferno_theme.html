@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<title>xApp Freelancer</title>
+	<title>XummHub Prototype</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="/static/theme/img/favicon.ico" type="image/x-icon">
@@ -28,25 +28,15 @@
 
 	<link rel="stylesheet" href="/static/css/app.css">
 	<script src="https://xumm.app/assets/cdn/xumm.min.js"></script>
-	<!-- 
-		<link rel="stylesheet" href="https://use.typekit.net/vtt7ckl.css">
-	<script>
-		var theme = ((new URLSearchParams(document.location.href))
-					 .get('xAppStyle') || 'light').toLowerCase()
-		var link = document.createElement('link')
-		link.href = 'https://xumm.app/assets/themes/xapp/xumm-'
-		  + theme + '/bootstrap.min.css'
-		link.type = 'text/css'
-		link.rel = 'stylesheet'
-		document.getElementsByTagName('head')[0].appendChild(link)
-	</script> -->
 
 	<script src="/static/inferno/bundle.js"></script>
 	<script>
 		window.API_XUMM_KEY = "{{API_XUMM_KEY}}"
 	</script>
 	<script src="/static/js/xumm_sign.js" defer></script>
-
+	<!-- Cloudflare Web Analytics -->
+	<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "16f295ee874b458d80608bbc79df6f20"}'></script>
+	<!-- End Cloudflare Web Analytics -->
 
 </head>
 <body>
