@@ -7,10 +7,11 @@ export default class BtnLogin extends Component {
     constructor(props) {
         super(props)
 
-        const { afterUpdateAuth } = props;
+        const { afterUpdateAuth, handleClickLogin } = props;
         this.state = {
             is_login: is_login(),
-            afterUpdateAuth: afterUpdateAuth
+            afterUpdateAuth: afterUpdateAuth,
+            handleClickLogin: handleClickLogin
         }
 
         this.handle_login = this.handle_login.bind(this);
@@ -21,7 +22,8 @@ export default class BtnLogin extends Component {
         if(!this.state.is_login){
             setTimeout(() => {
                 if(is_login()){
-                    this.setState({is_login: true})
+                    this.state.afterUpdateAuth(true);
+                    this.setState({is_login: true});
                 }else{
                     this._check_login();
                 }
@@ -32,13 +34,12 @@ export default class BtnLogin extends Component {
     handle_login() {
         this._check_login();
         xumm.authorize();
-        this.state.afterUpdateAuth(this.state.is_login);
     }
 
     handle_logout() {
         xumm.logout();
         this.setState({is_login: false});
-        this.state.afterUpdateAuth(this.state.is_login);
+        this.state.afterUpdateAuth(false);
     }
 
 

@@ -12,6 +12,10 @@ xumm.on("ready", () => {
   }
 })
 
+xumm.on("signin", () => {
+  
+})
+
 xumm.on("logout", () => {
   console.log("LOGOUT!!")
   window.public_address = undefined;
@@ -22,6 +26,7 @@ xumm.on("logout", () => {
 // We rely on promises in the `success` event: fired again if a user
 // logs out and logs back in again (resets all promises)
 xumm.on("success", async () => {
+
   xumm.user.account.then(account => {
     window.public_address = account
 
@@ -33,8 +38,7 @@ xumm.on("success", async () => {
     });
   })
 
-  console.log("Success!!");
-
+  
   xumm.on("success", async () => {
     const { payload_uuidv4 } = await xumm.environment.jwt
     const payloadResult = await xumm.payload?.get(payload_uuidv4)
@@ -43,6 +47,7 @@ xumm.on("success", async () => {
     console.log("----")
   })
 })
+
 
 function xumm_run_tx(tx, callback){
   xumm.payload.create(tx).then(payload => {

@@ -1644,10 +1644,12 @@ var BtnLogin = /*#__PURE__*/function (_Component) {
   function BtnLogin(props) {
     var _this;
     _this = _Component.call(this, props) || this;
-    var afterUpdateAuth = props.afterUpdateAuth;
+    var afterUpdateAuth = props.afterUpdateAuth,
+      handleClickLogin = props.handleClickLogin;
     _this.state = {
       is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__.is_login)(),
-      afterUpdateAuth: afterUpdateAuth
+      afterUpdateAuth: afterUpdateAuth,
+      handleClickLogin: handleClickLogin
     };
     _this.handle_login = _this.handle_login.bind(_assertThisInitialized(_this));
     _this.handle_logout = _this.handle_logout.bind(_assertThisInitialized(_this));
@@ -1659,6 +1661,7 @@ var BtnLogin = /*#__PURE__*/function (_Component) {
     if (!this.state.is_login) {
       setTimeout(function () {
         if ((0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_1__.is_login)()) {
+          _this2.state.afterUpdateAuth(true);
           _this2.setState({
             is_login: true
           });
@@ -1671,14 +1674,13 @@ var BtnLogin = /*#__PURE__*/function (_Component) {
   _proto.handle_login = function handle_login() {
     this._check_login();
     xumm.authorize();
-    this.state.afterUpdateAuth(this.state.is_login);
   };
   _proto.handle_logout = function handle_logout() {
     xumm.logout();
     this.setState({
       is_login: false
     });
-    this.state.afterUpdateAuth(this.state.is_login);
+    this.state.afterUpdateAuth(false);
   };
   _proto.render = function render() {
     if (this.state.is_login) {
@@ -1734,14 +1736,10 @@ var HeaderMenu = /*#__PURE__*/function (_Component) {
     return _this;
   }
   var _proto = HeaderMenu.prototype;
-  _proto.handleAfterUpdateAuth = function handleAfterUpdateAuth(_) {
-    var _this2 = this;
-    setTimeout(function () {
-      console.log("UPDATE..");
-      _this2.setState({
-        is_login: (0,_utils_nav_authorization__WEBPACK_IMPORTED_MODULE_3__.is_login)()
-      });
-    }, 10000);
+  _proto.handleAfterUpdateAuth = function handleAfterUpdateAuth(is_login) {
+    this.setState({
+      is_login: is_login
+    });
   };
   _proto.user_menu = function user_menu() {
     if (this.state.is_login) {
@@ -7871,7 +7869,7 @@ function _extends() {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("905784e5c3ca1c46462b")
+/******/ 		__webpack_require__.h = () => ("a466124f898c705c0b1e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
