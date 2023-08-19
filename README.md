@@ -128,7 +128,7 @@ The main challenges, which we have addressed in this huge spike, related to the 
       That is why, later, we opted to use Escrows, which is similar, but follows a much simpler flow than payment channels where there are only transactions. 
 
 
--  **XUMM integration**
+-  **XUMM integration** [^3]
 
   -  **Authorization system:**
       <p align="center">
@@ -161,7 +161,7 @@ The main challenges, which we have addressed in this huge spike, related to the 
 
 Apart from learning about XRPL technology I have left my comfort zone and have used a new Stack (Edgedb + Python & Flask + InfernoJs) with propouse of learn and test new things:
 
-- **Edgedb** [^3]
+- **Edgedb** [^4]
   > EdgeDB is an open-source database designed as a spiritual successor to SQL and the relational paradigm. It aims to solve some hard design problems that make existing databases unnecessarily onerous to use.
   Powered by the Postgres query engine under the hood, EdgeDB thinks about schema the same way you do: as objects with properties connected by links. It's like a relational database with an object-oriented data model, or a graph database with strict schema. We call it a graph-relational database.
 
@@ -169,7 +169,7 @@ Apart from learning about XRPL technology I have left my comfort zone and have u
   
   In production we could would worked with Edgedb+Postgres therefore really recommended EdgeDB! 👍
 
-- **Python + Flask** [^4] 
+- **Python + Flask** [^5] 
 
   I usually use python when I need to integrate with third-party systems given the number of libraries it has... what can I say about python and flask that hasn't already been said... simplicity!
 
@@ -178,7 +178,7 @@ Apart from learning about XRPL technology I have left my comfort zone and have u
   I have to admit that if I were to start over I would probably try to make a graphQL API, even flask is simple the frontend of an application needs to be able to evolve as independently as possible.
 
 
-- **InfernoJs** [^5]
+- **InfernoJs** [^6]
 
   I admit it, maybe I'm from the old school but I don't like that the frontend limits my stack... many current frameworks tend little by little to depend on backends and therefore to condition how you develop. I like the freedom to choose the technologies I work with, and that's why it's hard for me to find frontend frameworks that I feel comfortable with.
 
@@ -223,8 +223,10 @@ In summary, that despite the fact that this repository only stores a prototype o
 
 [^2]: XRPL | Payment Channels - https://xrpl.org/payment-channels.html
 
-[^3]: Edgedb - https://www.edgedb.com/
+[^3]: Xumm Developer Docs - https://docs.xumm.dev/
 
-[^4]: Flask - https://flask.palletsprojects.com/en/2.3.x/
+[^4]: Edgedb - https://www.edgedb.com/
 
-[^5]: InfernoJs - https://www.infernojs.org/
+[^5]: Flask - https://flask.palletsprojects.com/en/2.3.x/
+
+[^6]: InfernoJs - https://www.infernojs.org/
