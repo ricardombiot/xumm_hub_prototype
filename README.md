@@ -152,9 +152,9 @@ The main challenges, which we have addressed in this huge spike, related to the 
 
 ## 🚀 Potential features using XRPL? <a name = "future_scope"></a>
 
-- Achievement system (Gamification): We could mine tokens to save & share the different achievements within the platform.
-- Sharing accounts: We could help users to have shared accounts via Multisign or Hooks
-- Intelligent oracle system: We could implement intelligent contracts, which act as referees and seek to avoid disputes between the two parties (company/freelance).
+- **Achievement system (Gamification)**: We could mine tokens to save & share the different achievements within the platform.
+- **Sharing accounts**: We could help users to have shared accounts via Multisign or Hooks
+- **Intelligent oracle system**: We could implement intelligent contracts, which act as referees and seek to avoid disputes between the two parties (company/freelance).
 - ...
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
@@ -193,7 +193,7 @@ See our [XummHub Prototype - Installation & Setup Guide](/docs/XummHub%20Prototy
 ## ⛓️ Limitations <a name = "limitations"></a>
 
 - Time limited: 2 weeks 
-- Frontend design (had to buy a profesional template)
+- Frontend design (had to buy a professional template)
 - Budget: 
 
   elements.envato.com (39,00 €)
